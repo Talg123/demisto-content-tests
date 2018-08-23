@@ -1,0 +1,10 @@
+commonfields:
+  id: 144aaa80-1c5a-4471-8dc9-90fe6452db1b
+  version: 0
+name: Master
+script: ""
+type: python
+tags: []
+enabled: true
+scripttarget: 0
+runonce: false

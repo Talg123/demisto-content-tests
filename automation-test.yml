@@ -18,7 +18,9 @@ name: test
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: demisto.log("hello")
+script: |-
+  demisto.log("hello")
+  demisto.log("world")
 scripttarget: 0
 subtype: python3
 tags: []

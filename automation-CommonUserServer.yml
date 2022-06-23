@@ -12,6 +12,7 @@ contentitemexportablefields:
     fromServerVersion: ""
     itemVersion: ""
     packID: ""
+    packName: ""
     propagationLabels:
     - all
     toServerVersion: ""

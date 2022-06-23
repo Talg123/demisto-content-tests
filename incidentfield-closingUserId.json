@@ -27,8 +27,10 @@
 	"name": "closingUserId",
 	"neverSetAsRequired": false,
 	"openEnded": false,
+	"orgType": "shortText",
 	"ownerOnly": false,
 	"packID": "",
+	"packName": "",
 	"placeholder": "",
 	"propagationLabels": [
 		"all"

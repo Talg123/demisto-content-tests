@@ -1,5 +1,5 @@
 commonfields:
-  id: 1d29e8c0-907e-4ac2-849d-a38b596982e7
+  id: 9586cf2c-fe3e-46b8-8c46-076257f6cf65
   version: -1
 contentitemexportablefields:
   contentitemfields:
@@ -12,15 +12,13 @@ contentitemexportablefields:
     - all
     toServerVersion: ""
 dockerimage: demisto/python3:3.10.4.30607
-enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: a
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: ass
+script: ""
 scripttarget: 0
-subtype: python3
 tags: []
 type: python

@@ -22,6 +22,8 @@ runonce: false
 script: |-
   demisto.log("hello")
   demisto.log("world")
+
+  """"""asdasdas""""dsada
 scripttarget: 0
 subtype: python3
 tags: []

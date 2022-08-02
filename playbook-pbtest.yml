@@ -1,0 +1,86 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    propagationLabels:
+    - all
+    toServerVersion: ""
+id: fae9a8d1-b9c7-48c7-8434-35c2cda333e1
+inputs: []
+name: pbtest
+outputs: []
+quiet: true
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 5dad0a1a-9da3-456e-8259-4fe3c4593045
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 5dad0a1a-9da3-456e-8259-4fe3c4593045
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: ad4f8fb3-0800-4a58-8964-3bc5a65d19e7
+      iscommand: false
+      name: dasdsa
+      type: regular
+      version: -1
+    taskid: ad4f8fb3-0800-4a58-8964-3bc5a65d19e7
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 440,
+          "y": 290
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 335,
+        "width": 390,
+        "x": 440,
+        "y": 50
+      }
+    }
+  }

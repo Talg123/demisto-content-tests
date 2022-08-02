@@ -1,0 +1,26 @@
+{
+	"allRead": true,
+	"allReadWrite": true,
+	"cacheVersn": 0,
+	"data": "",
+	"definitionId": "",
+	"description": "",
+	"fromServerVersion": "",
+	"id": "testllist",
+	"itemVersion": "",
+	"locked": false,
+	"name": "testllist",
+	"nameLocked": false,
+	"packID": "",
+	"previousAllRead": true,
+	"previousAllReadWrite": true,
+	"propagationLabels": [
+		"all"
+	],
+	"system": false,
+	"tags": null,
+	"toServerVersion": "",
+	"truncated": false,
+	"type": "html",
+	"version": -1
+}

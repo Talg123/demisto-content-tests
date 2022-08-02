@@ -1,0 +1,26 @@
+commonfields:
+  id: 7a3bff8e-e3de-4e23-8d58-7d373c7a81a1
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    propagationLabels:
+    - all
+    toServerVersion: ""
+dockerimage: demisto/python3:undefined
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: saar5
+pswd: ""
+runas: DBotWeakRole
+runonce: false
+script: ""
+scripttarget: 0
+subtype: python3
+tags: []
+type: python

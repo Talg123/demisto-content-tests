@@ -1,0 +1,74 @@
+commonfields:
+  id: 036b1c76-df35-4b82-87ce-d3f3f7d7c6df
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    propagationLabels:
+    - all
+    toServerVersion: ""
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: saar
+pswd: ""
+runas: DBotWeakRole
+runonce: false
+script: |
+  // Javascript template - reading arguments, calling a command, handling errors and returning results
+  var res = [];
+  // Constant and mandatory arguments
+  var dArgs = {myargname: "myvalue",
+           myotherarg: args.mandatoryscriptarg};
+  // Optional arguments
+  if (Object.keys(args).indexOf("myoptionalscriptarg")>-1) {
+    dArgs.myinternalarg = args.myoptionalscriptarg;
+  }
+  // Optional arguments with defaults - sometimes the arg is mandatory for our executeCommand
+  dArgs.myargwithdefault =  (Object.keys(args).indexOf("myotherscriptarg")>-1) ? args.myotherscriptarg : "10";
+
+  // Calling a command - returns a list of one or more entries
+  var resCmdName = executeCommand('dummy-command', dArgs);
+  try {
+    for (var i=0; i < resCmdName.length; i++) {
+      var entry = resCmdName[i];
+      if (entry.Type === entryTypes.error) {
+          // Check if it's that error we know about and have a solution for - notify, retry, display a specific error message, etc.
+          if (entry.Contents.indexOf("failed with status 404 NOT FOUND")>-1) {
+            res.push({ContentsFormat: formats.text, Type: entryTypes.error,
+                      Contents: "Received HTTP Error 404 from Session API. Please ensure that you do not already have an active session with that sensor."});
+          } else {
+            // If it's not an error we recognize - send all entries returned from the command back to the war room as-is.
+            res = resCmdName;
+            break;
+            // // If it's not an error we recognize - send that error to the war room but keep handling the other returned entries
+            // res.push(entry)
+          }
+      } else {
+          var resObj = entry.Contents.result_obj;
+          if (typeof (resObj) !== 'undefined' && resObj !== null) {
+            var myData = resObj.results;
+          }
+          if (typeof(mydata) !== 'undefined' && myData !== null) {
+            // Log myData to war room - for debugging. May remove this later in production script
+            log(myData);
+            res.push({ContentsFormat: formats.table, Type: entryTypes.note, Contents: myData});
+          } else {
+            res.push({ContentsFormat: formats.text, Type: entryTypes.error,
+                Contents: "Could not extract result list from response: " + JSON.stringify(entry.Contents)});
+          }
+      }
+    }
+  } catch(ex) {
+      res.push({ContentsFormat: formats.text, Type: entryTypes.error,
+          Contents: "Error occurred while parsing output from command. Exception message:\n" +
+           ex.message + "\n\nInvalid output:\n" + myData });
+  }
+  return res;
+scripttarget: 0
+tags: []
+type: javascript

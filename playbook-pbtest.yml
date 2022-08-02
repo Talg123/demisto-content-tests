@@ -1,0 +1,86 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    propagationLabels:
+    - all
+    toServerVersion: ""
+id: 0cc38b57-c59c-40ca-82a5-110ba0007787
+inputs: []
+name: pbtest
+outputs: []
+quiet: true
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1650ec2f-7cca-4a7f-88c1-373aea4a518b
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 1650ec2f-7cca-4a7f-88c1-373aea4a518b
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 384749b0-306d-45a6-82f8-46ea4954f09e
+      iscommand: false
+      name: Untitled dasdas
+      type: regular
+      version: -1
+    taskid: 384749b0-306d-45a6-82f8-46ea4954f09e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 440,
+          "y": 290
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 335,
+        "width": 390,
+        "x": 440,
+        "y": 50
+      }
+    }
+  }

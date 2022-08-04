@@ -43,7 +43,7 @@
 	"template": "",
 	"threshold": 72,
 	"toServerVersion": "",
-	"type": "json",
+	"type": "html",
 	"unmapped": false,
 	"unsearchable": false,
 	"useAsKpi": false,

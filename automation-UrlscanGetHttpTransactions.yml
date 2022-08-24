@@ -13,10 +13,7 @@ args:
 - defaultValue: "20"
   description: Limits the results in the war room(Maximum limit allowed is 100)
   name: limit
-comment: "This script retrieves the HTTP transactions performed for a given URL using
-  the UrlScan integration. \nUse this script inside a playbook and check the 'Run
-  without a worker' checkbox in the Advanced section of the task that executes this
-  script. This will cause the system to use less resources when polling."
+comment: Deprecated. No available replacement.
 commonfields:
   id: UrlscanGetHttpTransactions
   version: -1
@@ -24,7 +21,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.1.19
+    itemVersion: 1.1.25
     packID: UrlScan
     packName: URLScan.io
     packPropagationLabels:
@@ -36,6 +33,7 @@ dependson:
   - urlscan.io|||urlscan-get-http-transaction-list
   - urlscan.io|||urlscan-submit-url-command
   - urlscan.io|||urlscan-poll-uri
+deprecated: true
 enabled: true
 engineinfo: {}
 mainengineinfo: {}

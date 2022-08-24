@@ -9,12 +9,13 @@
 	"certification": "certified",
 	"contentItemTypes": [
 		"integration",
-		"automation"
+		"automation",
+		"widget"
 	],
 	"contentItems": {
 		"automation": [
 			{
-				"description": "This script retrieves the HTTP transactions performed for a given URL using the UrlScan integration. \nUse this script inside a playbook and check the 'Run without a worker' checkbox in the Advanced section of the task that executes this script. This will cause the system to use less resources when polling.",
+				"description": "Deprecated. No available replacement.",
 				"name": "UrlscanGetHttpTransactions",
 				"tags": [
 					"polling",
@@ -74,26 +75,30 @@
 		"playbook": null,
 		"report": null,
 		"reputation": null,
-		"widget": null,
+		"widget": [
+			{
+				"name": "API Call Results for UrlScan"
+			}
+		],
 		"wizard": null,
 		"xsiamdashboard": null,
 		"xsiamreport": null
 	},
 	"created": "2020-07-23T16:36:24Z",
-	"currentVersion": "1.1.19",
+	"currentVersion": "1.1.25",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.18.13",
+			"minVersion": "1.31.14",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "urlscan.io Web Threat Intelligence",
-	"downloads": 9278,
+	"downloads": 12819,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -110,7 +115,7 @@
 			"name": "urlscan.io"
 		}
 	],
-	"itemVersion": "1.1.19",
+	"itemVersion": "1.1.25",
 	"keywords": [
 		"phishing",
 		"web",
@@ -139,22 +144,22 @@
 		"url": "https://urlscan.io"
 	},
 	"tags": [
-		"Threat Intelligence",
-		"Scam",
+		"Relationship",
 		"Spam",
-		"Security",
 		"Partner Spotlight",
-		"Use Case",
-		"Relationship"
+		"Scam",
+		"Security",
+		"Threat Intelligence",
+		"Use Case"
 	],
 	"toServerVersion": "",
-	"updated": "2022-08-09T16:20:39Z",
+	"updated": "2022-08-09T16:20:16Z",
 	"useCases": [
 		"Phishing",
 		"Hunting",
 		"Threat Intelligence Management"
 	],
 	"version": -1,
-	"versionInfo": "2507216",
-	"videos": null
+	"versionInfo": "3427401",
+	"videos": []
 }

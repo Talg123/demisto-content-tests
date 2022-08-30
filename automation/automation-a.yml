@@ -19,9 +19,7 @@ name: a
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: |-
-  dasdasd
-  גשדגשגשש
+script: dasdasd
 scripttarget: 0
 subtype: python3
 tags: []

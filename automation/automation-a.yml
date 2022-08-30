@@ -21,7 +21,7 @@ runas: DBotWeakRole
 runonce: false
 script: |-
   dasdasd
-  dasd
+  גשדגשגשש
 scripttarget: 0
 subtype: python3
 tags: []

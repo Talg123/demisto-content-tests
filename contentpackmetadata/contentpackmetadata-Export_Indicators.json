@@ -1,0 +1,111 @@
+{
+	"author": "Cortex XSOAR",
+	"authorImage": "content/packs/Base/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Data Enrichment \u0026 Threat Intelligence"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration"
+	],
+	"contentItems": {
+		"automation": null,
+		"classifier": null,
+		"correlationrule": null,
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": null,
+		"incidenttype": null,
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Updates values stored in the Export Indicators Service (only avaialable On-Demand).",
+						"name": "eis-update"
+					}
+				],
+				"description": "Deprecated. Use the Generic Export Indicators Service integration instead. Use the Export Indicators Service integration to provide an endpoint with a list of indicators as a service for the system indicators.",
+				"name": "Export Indicators Service (Deprecated)"
+			}
+		],
+		"layoutscontainer": null,
+		"list": null,
+		"modelingrule": null,
+		"parsingrule": null,
+		"playbook": null,
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null,
+		"xsiamdashboard": null,
+		"xsiamreport": null
+	},
+	"created": "2020-11-09T18:47:50Z",
+	"currentVersion": "1.0.15",
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.18.8",
+			"name": "Base"
+		}
+	},
+	"deprecated": false,
+	"description": "Deprecated. Use Generic Export Indicators Service. Use the Use the Export Indicators Service integration to provide an endpoint with a list of indicators as a service for the system indicators.",
+	"downloads": 6622,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"fromServerVersion": "5.5.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldByCortexXSOAR",
+		"generalFieldFree",
+		"generalFieldSupportIncluded"
+	],
+	"id": "ExportIndicators",
+	"installMessage": "",
+	"integrations": [
+		{
+			"imagePath": "content/packs/ExportIndicators/ExportIndicators_image.png",
+			"name": "Export Indicators Service (Deprecated)"
+		}
+	],
+	"itemVersion": "1.0.15",
+	"keywords": [
+		"Export Indicators"
+	],
+	"legacy": true,
+	"name": "Export Indicators",
+	"packID": "ExportIndicators",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"searchRank": -40,
+	"serverMaxVersion": "",
+	"serverMinVersion": "5.5.0",
+	"support": "xsoar",
+	"supportDetails": {
+		"email": "",
+		"url": "https://www.paloaltonetworks.com/cortex"
+	},
+	"tags": [],
+	"toServerVersion": "",
+	"updated": "2022-06-22T10:58:40Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "2430267",
+	"videos": null
+}

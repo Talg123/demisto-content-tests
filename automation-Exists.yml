@@ -37,7 +37,7 @@ script: |
       }
       return 'yes';
   }
-  return 'no';
+  return 'nooo';
 scripttarget: 0
 system: true
 tags:

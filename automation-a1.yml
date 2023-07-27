@@ -15,12 +15,12 @@ dockerimage: demisto/python3:3.10.4.30607
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
-name: asdasdasjkhkljhlkj
+name: a1
 pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |-
-  demisto.log("ss aaaa ")
+  demisto.log("ss ")
   demisto.log("1ewwwwe")
 scripttarget: 0
 subtype: python3

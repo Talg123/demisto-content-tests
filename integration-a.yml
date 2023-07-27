@@ -162,7 +162,7 @@ script:
   dockerimage: demisto/chromium:1.0.0.26579
   runonce: false
   script: |
-    test
+    test  saa
   subtype: python3
   type: python
 system: true

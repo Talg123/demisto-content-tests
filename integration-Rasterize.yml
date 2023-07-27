@@ -158,7 +158,7 @@ script:
       description: The name the file will be saved as.
       name: file_name
     description: Converts a PDF file to an image file.
-    name: rasterize-pdf
+    name: rasterizess
   dockerimage: demisto/chromium:1.0.0.26579
   runonce: false
   script: |

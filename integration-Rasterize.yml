@@ -162,6 +162,7 @@ script:
   dockerimage: demisto/chromium:1.0.0.26579
   runonce: false
   script: |
+    asasa
     testsss
 
     def opt_name(opt):

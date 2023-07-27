@@ -20,7 +20,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |-
-  demisto.log("ss")
+  demisto.log("ss  ")
   demisto.log("1ewwwwe")
 scripttarget: 0
 subtype: python3

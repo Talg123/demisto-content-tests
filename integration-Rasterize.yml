@@ -163,6 +163,7 @@ script:
   runonce: false
   script: |
     asasa
+    aa
     testsss
 
     def opt_name(opt):

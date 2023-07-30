@@ -15,7 +15,7 @@ dockerimage: demisto/python3:3.10.4.30607
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
-name: asdasdasjkhkljhlkj
+name: a12
 pswd: ""
 runas: DBotWeakRole
 runonce: false

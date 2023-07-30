@@ -164,7 +164,7 @@ script:
   script: |
     asasa
     aa
-    testsss
+    testssssasdsa
   subtype: python3
   type: python
 system: true

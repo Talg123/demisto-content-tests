@@ -36,7 +36,7 @@ contentitemexportablefields:
     - all
     propagationLabels: []
     toServerVersion: ""
-description: Converts URLs, PDF fsssilaaaes, xzzzzxzxand emails to an image file or PDF file.
+description: Converts URLs, PDF fsssilaaaexzxs, xzzzzxzxand emails to an image file or PDF file.
 detaileddescription: |-
   ## Rasterize
   Create an image or PDF file from a URL or HTML body.

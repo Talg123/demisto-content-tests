@@ -35,7 +35,7 @@ comment: |-
 
   This automation runs using the default Limited User role, unless you explicitly change the permissions.
   For more information, see the section about permissions here:
-  https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
+  https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations
 commonfields:
   id: SetAndHandleEmpty
   version: -1
@@ -43,7 +43,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -51,7 +51,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.1.25933
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -61,6 +61,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('SetAndHandleEmpty', 'start', __line__())
+  ### pack version: 1.12.13
 
 
   from typing import Text
@@ -68,6 +69,8 @@ script: |
 
   def get_value(value, stringify=False):
       if stringify:
+          if value is None:
+              return ''
           return str(value)
       elif not value or not isinstance(value, (Text, bytes, bytearray)):
           return value

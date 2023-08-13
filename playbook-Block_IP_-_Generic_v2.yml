@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,15 +10,11 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: |-
-  This playbook blocks malicious IPs using all integrations that are enabled.
-
-  Supported integrations for this playbook:
-  * Check Point Firewall
-  * Palo Alto Networks Minemeld
-  * Palo Alto Networks PAN-OS
-  * Zscaler
-  * FortiGate
+deprecated: true
+description: "Deprecated. Use the `Block IP - Generic v3` playbook instead. \nThis
+  playbook blocks malicious IPs using all integrations that are enabled.\n\nSupported
+  integrations for this playbook:\n* Check Point Firewall\n* Palo Alto Networks Minemeld\n*
+  Palo Alto Networks PAN-OS\n* Zscaler\n* FortiGate"
 id: Block IP - Generic v2
 inputs:
 - description: The name of the IP block list Miner in  Minemeld.

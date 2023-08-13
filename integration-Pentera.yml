@@ -1,0 +1,558 @@
+category: Data Enrichment & Threat Intelligence
+commonfields:
+  id: Pentera
+  version: -1
+configuration:
+- defaultvalue: https://pentera.com
+  display: Server URL (e.g. https://192.168.64.128)
+  name: url
+  required: true
+  type: 0
+- defaultvalue: "5555"
+  display: Pentera API port
+  name: port
+  required: true
+  type: 0
+- display: Client Id
+  name: clientId
+  required: true
+  type: 0
+- display: TGT  (The token from Pentera UI in Administration -> API Clients)
+  name: tgt
+  required: true
+  type: 4
+- display: Trust any certificate (not secure)
+  name: insecure
+  required: false
+  type: 8
+- display: Use system proxy settings
+  name: proxy
+  required: false
+  type: 8
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    itemVersion: 1.3.5
+    packID: Pcysys
+    packName: Pentera
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Automate remediation actions based on Pentera, the Automated Security
+  Validation Platform, proactively exposing high-risk vulnerabilities
+detaileddescription: |-
+  ### Partner Contributed Integration
+  #### Integration Author: Pentera
+  Support and maintenance for this integration are provided by the author. Please use the following contact details:
+  - **Email**: [support@pentera.io](mailto:support@pentera.io)
+  - **URL**: [https://pentera.io](https://pentera.io)
+  ***
+  ## Pentera Integration
+  ### Create A Client
+  A client is Pentera's embodiment of the end-user's API client. It is the logical entity which holds authentication tokens, the tokens expiration dates, and the connection between the client and the user entities in the system.
+
+  In order to use the API, a user must first create a client in the UI.
+
+  ##### Steps to create a client:
+  1. Login to the Pentera UI.
+  2. Go to Administration → API Clients.
+  3. Create a new client:
+      1. Enter a name for the client (something meaningful to the user).
+      2. Optional: Enter a description for the client.
+      3. Create the client. You'll see the client appears in the client's table on the same page.
+  4. Issue a TGT token for the new client by pressing the Issue TGT button in the client's row in the table.
+  5. Copy the new TGT. You can click on the TGT field and a popup will appear with a "copy" button which will copy the entire TGT when clicked.
+  6. You're now ready to authenticate with the API, passing in both the Client ID and the TGT.
+
+  ---
+  [View Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/pentera)
+display: Pentera (Partner Contribution)
+image: data:image/png;base64,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
+name: Pentera
+script:
+  commands:
+  - arguments:
+    - description: The name of the template that you want to run
+      name: template_name
+      required: true
+    description: Run a specific template by its name. Please add the template name
+      in the parameters
+    name: pentera-run-template-by-name
+    outputs:
+    - contextPath: Pentera.TaskRun.TemplateName
+      description: Returns the name of the template
+      type: String
+    - contextPath: Pentera.TaskRun.ID
+      description: The task run id
+      type: String
+    - contextPath: Pentera.TaskRun.StartTime
+      description: The date when the task run started
+      type: Date
+    - contextPath: Pentera.TaskRun.EndTime
+      description: The date when the task run ended
+      type: Date
+    - contextPath: Pentera.TaskRun.Status
+      description: 'The status of the task run; e.g.: Running, Done, etc.'
+      type: String
+  - arguments:
+    - description: The ID of the task run
+      name: task_run_id
+      required: true
+    description: Get the status of a task run by its task run id
+    name: pentera-get-task-run-status
+    outputs:
+    - contextPath: Pentera.TaskRun.ID
+      description: The task run id
+      type: String
+    - contextPath: Pentera.TaskRun.TemplateName
+      description: Returns the name of the template
+      type: String
+    - contextPath: Pentera.TaskRun.StartTime
+      description: The date when the task run started
+      type: Date
+    - contextPath: Pentera.TaskRun.EndTime
+      description: The date when the task run ended
+      type: Date
+    - contextPath: Pentera.TaskRun.Status
+      description: 'The status of the task run; e.g.: Running, Done, etc.'
+      type: String
+  - arguments:
+    - description: The ID of the task run
+      name: task_run_id
+      required: true
+    description: Get the full action report of a task run
+    name: pentera-get-task-run-full-action-report
+    outputs:
+    - contextPath: Pentera.TaskRun.ID
+      description: The task run id
+      type: String
+    - contextPath: Pentera.TaskRun.TemplateName
+      description: Returns the name of the template
+      type: String
+    - contextPath: Pentera.TaskRun.StartTime
+      description: The date when the task run started
+      type: Date
+    - contextPath: Pentera.TaskRun.EndTime
+      description: The date when the task run ended
+      type: Date
+    - contextPath: Pentera.TaskRun.Status
+      description: 'The status of the task run; e.g.: Running, Done, etc.'
+      type: String
+    - contextPath: Pentera.TaskRun.FullActionReport.Severity
+      description: The sevirity of the action, from N/A to 10.0
+      type: Number
+    - contextPath: Pentera.TaskRun.FullActionReport.Time
+      description: The full date the action took place
+      type: Date
+    - contextPath: Pentera.TaskRun.FullActionReport.Duration
+      description: The duration of the action in milliseconds
+      type: Number
+    - contextPath: Pentera.TaskRun.FullActionReport.OperationType
+      description: 'The type of the action that ran; e.g.: "Scanning hosts", "Malware
+        injected to host", etc.'
+      type: String
+    - contextPath: Pentera.TaskRun.FullActionReport.Techniques
+      description: The MITRE technique(s) used with the relevant MITRE ID
+      type: String
+    - contextPath: Pentera.TaskRun.FullActionReport.Parameters
+      description: 'The relevant parameters of the action; e.g.: List of hosts IP
+        addresses'
+      type: String
+    - contextPath: Pentera.TaskRun.FullActionReport.Status
+      description: 'The status of the action. Can be: success, failed, canceled, no_results'
+      type: String
+  dockerimage: demisto/pyjwt3:1.0.0.23674
+  runonce: false
+  script: |
+    register_module_line('Pentera', 'start', __line__())
+    ### pack version: 1.3.5
+
+
+
+
+    import jwt
+    import requests
+    import csv
+    import io
+    import json
+
+    from typing import List
+    from enum import Enum
+
+    # Disable insecure warnings
+    requests.packages.urllib3.disable_warnings()
+
+    HEADERS = {'Accept': 'application/json'}
+    DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+
+    HEALTH_URL_SUFFIX = '/health/dbChecks'
+    AUTH_URL_SUFFIX = '/auth/token'
+    LIST_TEMPLATES_URL_SUFFIX = '/api/v1/templates'
+    CANCEL_TASK_URL_SUFFIX = '/api/v1/taskRun/{taskRunId}/cancel'
+    GET_TASK_RUN_STATUS_URL_SUFFIX = '/api/v1/taskRun/{taskRunId}'
+    RUN_BULK_URL_SUFFIX = '/api/v1/template/runBulk'
+    EXPORT_CSV_URL_SUFFIX = '/api/v1/taskRun/{taskRunId}/fullActionReportCSV'
+
+
+    class Request(Enum):
+        POST = 'POST'
+        GET = 'GET'
+
+
+    class AuthorizationError(Exception):
+        pass
+
+
+    class Client(BaseClient):
+        def __init__(self, base_url: str, tgt: str, client_id: str, verify: bool, proxy: bool, headers):
+            super().__init__(base_url=f'{base_url}', headers=headers, verify=verify, proxy=proxy)
+            self.session = requests.Session()
+            self.session.headers = headers
+            self.client_id = client_id
+            self.tgt = tgt
+            self.access_token = str()
+            self.expiry = 0
+            self.load_session_parameters()
+
+        def load_session_parameters(self):
+            context: dict = get_integration_context()
+            if context and context['base_url'] == self._base_url:
+                self.tgt = context['tgt']
+                self.access_token = context['accessToken']
+                self.expiry = context['expiry']
+
+        def generic_request(self, method: str, url_suffix: str = None, full_url: str = None, headers: dict = None,
+                            params: dict = None, data: dict = None, response_type: str = 'json'):
+            full_url = full_url if full_url else f'{self._base_url}{url_suffix}'
+            headers = headers if headers else self._headers
+            try:
+                res = self.session.request(
+                    method,
+                    full_url,
+                    headers=headers,
+                    verify=self._verify,
+                    data=data,
+                    params=params
+                )
+                demisto.debug(f'Got response: {res}')
+                if not res.ok:
+                    status_code = res.status_code
+                    if status_code == requests.status_codes.codes.UNAUTHORIZED:  # pylint: disable=no-member
+                        info = "Check that your system clock is set to the correct date and time before you try again."
+                        raise AuthorizationError(f'Status code: {status_code}, reason: {res.text}. {info}')
+                    raise ValueError(f'Error in API call to Pentera. Status code: {status_code}, reason: {res.text}')
+
+                try:
+                    if response_type == 'json':
+                        demisto.debug('result is JSON')
+                        return res.json()
+                    demisto.debug('result is TEXT')
+                    return res.text
+                except Exception:
+                    raise ValueError(
+                        f'Failed to parse http response to JSON format. Original response body: \n{res.text}')
+
+            except requests.exceptions.ConnectTimeout as exception:
+                err_msg = 'Connection Timeout Error - potential reasons might be that the Server URL parameter' \
+                          ' is incorrect or that the Server is not accessible from your host.'
+                raise DemistoException(err_msg, exception)
+
+            except requests.exceptions.SSLError as exception:
+                err_msg = 'SSL Certificate Verification Failed - try selecting \'Trust any certificate\' checkbox in' \
+                          ' the integration configuration.'
+                raise DemistoException(err_msg, exception)
+
+            except requests.exceptions.ProxyError as exception:
+                err_msg = 'Proxy Error - if the \'Use system proxy\' checkbox in the integration configuration is' \
+                          ' selected, try clearing the checkbox.'
+                raise DemistoException(err_msg, exception)
+
+            except requests.exceptions.ConnectionError as exception:
+                err_msg = getattr(exception, 'message', str(exception))
+                raise DemistoException(err_msg, exception)
+
+            except Exception as request_error:
+                message = getattr(request_error, 'message', str(request_error))
+                raise DemistoException(
+                    f"Could not send request to Pentera, reason: {message}",
+                    exception=request_error
+                )
+
+        def authenticate(self):
+            data = {
+                'client_id': self.client_id,
+                'tgt': self.tgt
+            }
+            res = self.generic_request(method=Request.POST.value, url_suffix=AUTH_URL_SUFFIX, data=data)
+            self.tgt = res.get('tgt')
+            self.access_token = res.get('token')
+            jwt_decode_dict = jwt.get_unverified_header(self.access_token)
+            self.expiry = jwt_decode_dict.get('exp', 0) if jwt_decode_dict else 0
+            self.save_session_parameters()
+
+        def save_session_parameters(self):
+            context = {
+                'base_url': self._base_url,
+                'tgt': self.tgt,
+                'accessToken': self.access_token,
+                'expiry': self.expiry
+            }
+            set_integration_context(context)
+
+        def is_access_token_valid(self):
+            if not self.access_token or not self.expiry or self.expiry < int(datetime.utcnow().timestamp()):
+                return False
+            return True
+
+        def create_basic_authentication_header(self):
+            authentication_headers = HEADERS.copy()
+            token = self.access_token + ':'
+            encoded_bytes = base64.b64encode(token.encode("utf-8"))
+            encoded_str = str(encoded_bytes, "utf-8")
+            authentication_headers['Authorization'] = 'Basic ' + encoded_str
+            return authentication_headers
+
+        def run_health_checks(self):
+            res = self.generic_request(method=Request.GET.value, url_suffix=HEALTH_URL_SUFFIX)
+            return res
+
+        def run_template_by_name(self, template_name):
+            headers = self.create_basic_authentication_header()
+            data = {
+                'templateNames': [template_name]
+            }
+            res = self.generic_request(method=Request.POST.value, url_suffix=RUN_BULK_URL_SUFFIX, headers=headers,
+                                       data=data)
+            return res
+
+        def get_task_run_status_by_task_run_id(self, task_run_id: str):
+            headers = self.create_basic_authentication_header()
+            url_suffix = GET_TASK_RUN_STATUS_URL_SUFFIX.format(taskRunId=task_run_id)
+            res = self.generic_request(method=Request.GET.value, url_suffix=url_suffix, headers=headers, data={})
+            task_status = res.get('taskRuns')[0]
+            return task_status
+
+        def get_task_run_full_action_report_by_task_run_id(self, task_run_id: str):
+            headers = self.create_basic_authentication_header()
+            url_suffix = EXPORT_CSV_URL_SUFFIX.format(taskRunId=task_run_id)
+            res = self.generic_request(method=Request.GET.value, url_suffix=url_suffix, headers=headers,
+                                       response_type='csv')
+            return res
+
+
+    def pentera_test_module_command(client: Client):
+        try:
+            response = client.run_health_checks()
+        except Exception as test_error:
+            message = getattr(test_error, 'message', str(test_error))
+            raise DemistoException(message)
+        exceptions: list = response.get('exceptions')
+        if exceptions:
+            raise DemistoException(", ".join(exceptions))
+        return 'ok'
+
+
+    def pentera_run_template_command(client: Client, args):
+        template_name = args.get('template_name')
+        try:
+            response = client.run_template_by_name(template_name)
+            task_run_json = response.get('taskRuns')[0]
+            parsed_response = parse_task_run_status(task_run_json)
+            readable_output = tableToMarkdown(template_name, parse_task_run_status(task_run_json),
+                                              removeNull=True)
+            return (
+                readable_output,
+                {'Pentera.TaskRun(val.ID == obj.ID)': parsed_response},
+                response  # raw response - the original response
+            )
+
+        except Exception as run_template_error:
+            message = getattr(run_template_error, 'message', str(run_template_error))
+            raise DemistoException(
+                f"Could not run template with template_name: '{template_name}', reason: {message}",
+                exception=run_template_error
+            )
+
+
+    def pentera_get_task_run_status_command(client: Client, args):
+        task_run_id = args.get('task_run_id')
+        try:
+            task_run_status = client.get_task_run_status_by_task_run_id(task_run_id)
+            parsed_response = parse_task_run_status(task_run_status)
+            title = parsed_response['TemplateName'] + ': ' + parsed_response['Status']
+            readable_output = tableToMarkdown(title, parsed_response, removeNull=True)
+            return (
+                readable_output,
+                {'Pentera.TaskRun(val.ID == obj.ID)': parsed_response},
+                task_run_status  # raw response - the original response
+            )
+        except Exception as status_error:
+            message = getattr(status_error, 'message', str(status_error))
+            raise DemistoException(
+                f"Could not get task run status for task_run_id: '{task_run_id}', reason: {message}",
+                exception=status_error
+            )
+
+
+    def pentera_get_task_run_full_action_report_command(client: Client, args):
+        def _convert_csv_file_to_dict(csv_file):
+            def _map_parameters_string_to_object(str_parameters: str = None):
+                if str_parameters:
+                    return json.loads(str_parameters)
+                return None
+
+            csv_reader = csv.DictReader(io.StringIO(csv_file))
+            data = []
+            for row in csv_reader:
+                row_copy = row.copy()
+                converted_params = _map_parameters_string_to_object(row_copy.get('Parameters'))
+                if converted_params:
+                    row_copy['Parameters'] = converted_params
+                data.append(row_copy)
+            return data
+
+        def _convert_full_action_report_time(full_action_report_list: List[dict]):
+            def _parse_date(full_date, separator):
+                if isinstance(full_date, str) and isinstance(separator, str):
+                    date = full_date.split(separator)
+                    if len(date) > 2:
+                        first_arg = date[0]
+                        second_arg = date[1]
+                        third_arg = date[2]
+                        return first_arg, second_arg, third_arg
+
+            res_list: List[dict] = []
+            for ordered_dict in full_action_report_list:
+                full_date_to_convert = ordered_dict['Time']
+                full_date_list = full_date_to_convert.split(' ')
+                year, month, day = _parse_date(full_date_list[0], '-')
+                hours, minutes, seconds = _parse_date(full_date_list[1], ':')
+                converted_date = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':' + seconds + 'Z'
+                new_ordered_dict = ordered_dict.copy()
+                new_ordered_dict['Time'] = converted_date
+                res_list.append(new_ordered_dict)
+            return res_list
+
+        entries = []
+        task_run_id = args.get('task_run_id')
+        try:
+            response_csv = client.get_task_run_full_action_report_by_task_run_id(task_run_id)
+            readable_output = f"# Pentera Report for TaskRun ID {task_run_id}"
+            entry = fileResult(f'penterascan-{task_run_id}.csv', response_csv, entryTypes['entryInfoFile'])
+            entry["HumanReadable"] = readable_output
+            entry["ContentsFormat"] = formats["markdown"]
+            entries.append(entry)
+            csv_dict = _convert_csv_file_to_dict(response_csv)
+            date_converted_csv_dict = _convert_full_action_report_time(csv_dict)
+            human_readable = tableToMarkdown(readable_output, date_converted_csv_dict)
+            entries.append({
+                "Type": entryTypes["note"],
+                "ContentsFormat": formats["json"],
+                "ReadableContentsFormat": formats["markdown"],
+                "Contents": date_converted_csv_dict,
+                "EntryContext": {
+                    'Pentera.TaskRun(val.ID == obj.ID)': {
+                        'FullActionReport': date_converted_csv_dict,
+                        'ID': task_run_id
+                    }
+                },
+                "HumanReadable": human_readable
+            })
+            return entries
+        except Exception as report_error:
+            message = getattr(report_error, 'message', str(report_error))
+            raise DemistoException(
+                f"Could not get full action report for task_run_id: '{task_run_id}', reason: {message}",
+                exception=report_error
+            )
+
+
+    def parse_task_run_status(json_response):
+        def _convert_time_in_millis_to_date_format(time_in_millis):
+            time_in_date_format = None
+            try:
+                time_in_date_format = datetime.fromtimestamp(float(time_in_millis) / 1000).strftime(DATE_FORMAT)
+                return time_in_date_format
+            except TypeError:
+                return time_in_date_format
+
+        if isinstance(json_response, dict):
+            end_time_date_format = _convert_time_in_millis_to_date_format(json_response.get('endTime'))
+            start_time_date_format = _convert_time_in_millis_to_date_format(json_response.get('startTime'))
+            parsed_json_response = {
+                'ID': json_response.get('taskRunId'),
+                'TemplateName': json_response.get('taskRunName'),
+                'StartTime': start_time_date_format,
+                'EndTime': end_time_date_format,
+                'Status': json_response.get('status'),
+            }
+            return parsed_json_response
+
+
+    def pentera_authentication(client: Client):
+        if not client.is_access_token_valid():
+            try:
+                client.authenticate()
+            except Exception as auth_error:
+                message = getattr(auth_error, 'message', str(auth_error))
+                raise DemistoException(
+                    f"Could not authenticate to Pentera, reason: {message}",
+                    exception=auth_error
+                )
+
+
+    def increase_csv_field_size_limit():
+        """
+        This method will try to increase the csv field size limit as files might contain huge fields.
+        :return: None
+        """
+        try:
+            csv.field_size_limit(sys.maxsize)
+        except OverflowError:
+            pass
+
+
+    def main():
+        params: dict = demisto.params()
+        application_port = params['port']
+        base_url = params['url'].rstrip('/') + ':' + application_port
+        client_id = params['clientId']
+        tgt = params['tgt']
+        verify_certificate = not params.get('insecure', False)
+        proxy = params.get('proxy', False)
+        client = Client(
+            base_url=base_url,
+            tgt=tgt,
+            verify=verify_certificate,
+            client_id=client_id,
+            proxy=proxy,
+            headers=HEADERS
+        )
+        command = demisto.command()
+        demisto.debug(f'Got command: {command}')
+        try:
+            if demisto.command() == 'test-module':
+                demisto.results(pentera_test_module_command(client))
+            else:
+                pentera_authentication(client)
+                if demisto.command() == 'pentera-run-template-by-name':
+                    return_outputs(*pentera_run_template_command(client, demisto.args()))
+                elif demisto.command() == 'pentera-get-task-run-status':
+                    return_outputs(*pentera_get_task_run_status_command(client, demisto.args()))
+                elif demisto.command() == 'pentera-get-task-run-full-action-report':
+                    demisto.results(pentera_get_task_run_full_action_report_command(client, demisto.args()))
+        except Exception as e:
+            return_error(f'Failed to execute command: {command}, {getattr(e, "message", str(e))}', error=e)
+
+
+    if __name__ in ('__main__', '__builtin__', 'builtins'):
+        increase_csv_field_size_limit()
+        main()
+
+    register_module_line('Pentera', 'end', __line__())
+  subtype: python3
+  type: python
+system: true

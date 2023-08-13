@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 1.1.12
+    itemVersion: 1.1.21
     packID: TIM_Processing
     packName: TIM - Indicator Auto-Processing
     packPropagationLabels:
@@ -467,7 +467,7 @@ tasks:
                     operator: isEqualString
                     right:
                       value:
-                        simple: "0"
+                        simple: "2"
                 root: playbookQuery
           operator: isNotEmpty
       label: "yes"

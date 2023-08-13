@@ -2,11 +2,12 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 2.1.13
+    itemVersion: 2.2.12
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 description: Calculates the incident severity level according to the highest DBotScore.

@@ -24,7 +24,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -35,7 +35,7 @@ contentitemexportablefields:
 dependson:
   must:
   - '|||demisto-api-get'
-dockerimage: demisto/python3:3.10.4.27798
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -45,6 +45,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('IncidentFields', 'start', __line__())
+  ### pack version: 1.12.13
 
 
 

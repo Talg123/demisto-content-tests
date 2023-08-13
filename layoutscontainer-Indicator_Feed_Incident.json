@@ -34,7 +34,7 @@
 	"id": "Indicator Feed",
 	"indicatorsDetails": null,
 	"indicatorsQuickView": null,
-	"itemVersion": "3.2.41",
+	"itemVersion": "3.3.83",
 	"locked": false,
 	"mobile": null,
 	"name": "Indicator Feed Incident",
@@ -47,6 +47,6 @@
 	"quickView": null,
 	"quickViewV2": null,
 	"system": true,
-	"toServerVersion": "",
+	"toServerVersion": "99.99.99",
 	"version": -1
 }

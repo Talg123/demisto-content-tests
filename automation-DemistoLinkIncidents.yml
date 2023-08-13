@@ -13,7 +13,7 @@ args:
   predefined:
   - "yes"
   - "no"
-comment: Link two or more incidents
+comment: Deprecated. No available replacement.
 commonfields:
   id: DemistoLinkIncidents
   version: -1
@@ -21,9 +21,9 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.3.0
+    itemVersion: 1.3.34
     packID: DemistoRESTAPI
-    packName: Demisto REST API
+    packName: Cortex REST API
     packPropagationLabels:
     - all
     prevname: ""
@@ -32,6 +32,7 @@ contentitemexportablefields:
 dependson:
   must:
   - demisto-api-post
+deprecated: true
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -40,6 +41,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
+  // pack version: 1.3.34
   var body = {
       id: args.masterID,
       otherIncidentsIDs: args.otherIDs.split(','),

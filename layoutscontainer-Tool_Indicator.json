@@ -1123,7 +1123,7 @@
 	"itemVersion": "3.2.41",
 	"locked": false,
 	"mobile": null,
-	"name": "Tool",
+	"name": "Tool Indicator",
 	"packID": "CommonTypes",
 	"packName": "Common Types",
 	"packPropagationLabels": [

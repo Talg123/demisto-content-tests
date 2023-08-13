@@ -8,16 +8,17 @@ configuration:
   hiddenusername: true
   name: creds_apikey
   required: false
+  section: Connect
   type: 9
-- additionalinfo: Determines the visibility level of the scan. This will override
-    the 'public submissions' setting.
+- additionalinfo: Determines the visibility level of the scan.
   display: Scan Visibility
   name: scan_visibility
   options:
   - public
   - private
   - unlisted
-  required: false
+  required: true
+  section: Collect
   type: 15
 - additionalinfo: Reliability of the source providing the intelligence data.
   defaultvalue: C - Fairly reliable
@@ -32,47 +33,63 @@ configuration:
   - E - Unreliable
   - F - Reliability cannot be judged
   required: true
+  section: Collect
   type: 15
-- display: Trust any certificate (not secure)
-  name: insecure
-  required: false
-  type: 8
-- display: Use system proxy settings
-  name: proxy
-  required: false
-  type: 8
-- defaultvalue: "1"
+- advanced: true
+  defaultvalue: "1"
   display: URL Threshold. Minimum number of positive results from urlscan.io to consider
     the URL malicious.
   name: url_threshold
   required: false
+  section: Collect
   type: 0
-- defaultvalue: "true"
-  display: Enable public submissions by default.
-  name: is_public
+- additionalinfo: User Agent to perform requests
+  advanced: true
+  display: User Agent
+  name: useragent
   required: false
-  type: 8
+  section: Connect
+  type: 0
 - additionalinfo: Create relationships between indicators as part of Enrichment.
+  advanced: true
   defaultvalue: "true"
   display: Create relationships
   name: create_relationships
   required: false
+  section: Collect
   type: 8
-- additionalinfo: User Agent to perform requests
-  display: User Agent
-  name: useragent
+- advanced: true
+  display: Trust any certificate (not secure)
+  name: insecure
   required: false
-  type: 0
-- display: API Key (only required for scanning URLs)
+  section: Connect
+  type: 8
+- advanced: true
+  display: Use system proxy settings
+  name: proxy
+  required: false
+  section: Connect
+  type: 8
+- advanced: true
+  defaultvalue: "false"
+  display: Enable public submissions by default.
+  hidden: true
+  name: is_public
+  required: false
+  section: Connect
+  type: 8
+- advanced: true
+  display: API Key (only required for scanning URLs)
   hidden: true
   name: apikey
   required: false
+  section: Connect
   type: 4
 contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.1.25
+    itemVersion: 1.2.9
     packID: UrlScan
     packName: URLScan.io
     packPropagationLabels:
@@ -86,9 +103,12 @@ detaileddescription: "### Partner Contributed Integration\n#### Integration Auth
   urlscan GmbH\nSupport and maintenance for this integration are provided by the author.
   Please use the following contact details:\n- **Email**: [support@urlscan.io](mailto:support@urlscan.io)\n-
   **URL**: [https://urlscan.io](https://urlscan.io)\n***\nThis integration checks
-  domain information from the urlscan.io Database.  \nThis is a free service with
-  an API key required. contact urlscan.io to obtain one.\n\n---\n[View Integration
-  Documentation](https://xsoar.pan.dev/docs/reference/integrations/urlscanio)"
+  domain information from the urlscan.io Database.\nIn order to submit URLs to scan,
+  an API key is required.\nWe recommend submitting the URLs as private or unlisted,
+  \nas publicly listed submitted URLs will be available to the public.\nContact urlscan.io
+  to obtain an API key.\n\nNotice: Submitting indicators using the ***urlscan-search***
+  command of this integration might make the indicator data publicly available.  See
+  the vendor’s documentation for more details.\n\n---\n[View Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/urlscanio)"
 display: urlscan.io (Partner Contribution)
 image: data:image/png;base64,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
 name: urlscan.io
@@ -177,6 +197,13 @@ script:
       - "false"
     - description: User agent to perform request
       name: useragent
+    - auto: PREDEFINED
+      defaultValue: "false"
+      description: Whether to use the URL as the file name.
+      name: use_url_as_name
+      predefined:
+      - "false"
+      - "true"
     deprecated: true
     description: Deprecated. Use the url command instead.
     name: urlscan-submit
@@ -292,6 +319,13 @@ script:
       - "false"
     - description: User agent to perform request
       name: useragent
+    - auto: PREDEFINED
+      defaultValue: "false"
+      description: Whether to use the URL as the file name.
+      name: use_url_as_name
+      predefined:
+      - "false"
+      - "true"
     description: Submits a URL to scan.
     name: url
     outputs:
@@ -409,6 +443,9 @@ script:
     - contextPath: URL.Tags
       description: Tags that are associated with the URL.
       type: String
+    - contextPath: URL.ResultPage
+      description: Page in the URLScan UI displaying the scan result.
+      type: String
     polling: true
   - arguments:
     - description: The UUID of the URL for which to search the transaction list.
@@ -457,10 +494,11 @@ script:
     deprecated: true
     description: Returns the results page for the specified UUID.
     name: urlscan-get-result-page
-  dockerimage: demisto/python3:3.10.5.31928
+  dockerimage: demisto/python3:3.10.12.63474
   runonce: false
   script: |
     register_module_line('urlscan.io', 'start', __line__())
+    ### pack version: 1.2.9
 
 
 
@@ -468,10 +506,11 @@ script:
     import collections
     import json as JSON
     import time
+    from urllib.parse import urlparse
 
+    import urllib3
     import requests
     from requests.utils import quote  # type: ignore
-    from urllib.parse import urlparse
 
     """ POLLING FUNCTIONS"""
     try:
@@ -480,11 +519,13 @@ script:
         from queue import Queue  # type: ignore
 
     # disable insecure warnings
-    requests.packages.urllib3.disable_warnings()
+    urllib3.disable_warnings()
 
     '''GLOBAL VARS'''
-    BLACKLISTED_URL_ERROR_MESSAGE = 'The submitted domain is on our blacklist. ' \
-                                    'For your own safety we did not perform this scan...'
+    BLACKLISTED_URL_ERROR_MESSAGES = [
+        'The submitted domain is on our blacklist. For your own safety we did not perform this scan...',
+        'The submitted domain is on our blacklist, we will not scan it.'
+    ]
     BRAND = 'urlscan.io'
 
     """ RELATIONSHIP TYPE"""
@@ -507,7 +548,8 @@ script:
     class Client:
         def __init__(self, api_key='', user_agent='', scan_visibility=None, threshold=None, use_ssl=False,
                      reliability=DBotScoreReliability.C):
-            self.base_url = 'https://urlscan.io/api/v1/'
+            self.base_url = 'https://urlscan.io/'
+            self.base_api_url = 'https://urlscan.io/api/v1/'
             self.api_key = api_key
             self.user_agent = user_agent
             self.threshold = threshold
@@ -563,11 +605,11 @@ script:
         if method == 'POST':
             headers.update({'Content-Type': 'application/json'})
         demisto.debug(
-            'requesting https request with method: {}, url: {}, data: {}'.format(method, client.base_url + url_suffix,
+            'requesting https request with method: {}, url: {}, data: {}'.format(method, client.base_api_url + url_suffix,
                                                                                  json))
         r = requests.request(
             method,
-            client.base_url + url_suffix,
+            client.base_api_url + url_suffix,
             data=json,
             headers=headers,
             verify=client.use_ssl
@@ -596,7 +638,7 @@ script:
             response_json = r.json()
             error_description = response_json.get('description')
             should_continue_on_blacklisted_urls = argToBoolean(demisto.args().get('continue_on_blacklisted_urls', False))
-            if should_continue_on_blacklisted_urls and error_description == BLACKLISTED_URL_ERROR_MESSAGE:
+            if should_continue_on_blacklisted_urls and error_description in BLACKLISTED_URL_ERROR_MESSAGES:
                 response_json['url_is_blacklisted'] = True
                 requested_url = JSON.loads(json)['url']
                 blacklisted_message = 'The URL {} is blacklisted, no results will be returned for it.'.format(requested_url)
@@ -606,7 +648,7 @@ script:
             response_json['is_error'] = True
             response_json['error_string'] = 'Error in API call to URLScan.io [%d] - %s: %s' % (r.status_code, r.reason,
                                                                                                error_description)
-            return response_json, ErrorTypes.GENERAL_ERROR
+            return response_json, ErrorTypes.GENERAL_ERROR, None
         return r.json(), None, None
 
 
@@ -632,13 +674,13 @@ script:
 
     def get_result_page(client):
         uuid = demisto.args().get('uuid')
-        uri = client.base_url + 'result/{}'.format(uuid)
+        uri = client.base_api_url + 'result/{}'.format(uuid)
         return uri
 
 
     def polling(client, uuid):
         TIMEOUT = int(demisto.args().get('timeout', 60))
-        uri = client.base_url + 'result/{}'.format(uuid)
+        uri = client.base_api_url + 'result/{}'.format(uuid)
 
         headers = {'API-Key': client.api_key}
         if client.user_agent:
@@ -710,6 +752,9 @@ script:
             if demisto.args().get('public') == 'public':
                 submission_dict['visibility'] = 'public'
         elif demisto.params().get('is_public') is True:
+            # this parameter is now hidden and it is default value is false.
+            # Hence, we do not expect to be entering this code block,
+            # and it is merely here for Backward Compatibility reasons.
             submission_dict['visibility'] = 'public'
 
         submission_dict['url'] = url
@@ -765,7 +810,7 @@ script:
         return relationships_list
 
 
-    def format_results(client, uuid):
+    def format_results(client, uuid, use_url_as_name):
         # Scan Lists sometimes returns empty
         num_of_attempts = 0
         relationships = []
@@ -798,6 +843,8 @@ script:
         url_cont = makehash()
 
         feed_related_indicators = []
+
+        cont['ResultPage'] = client.base_url + 'result/{}'.format(uuid)
 
         LIMIT = int(demisto.args().get('limit', 20))
         if 'certificates' in scan_lists:
@@ -848,6 +895,12 @@ script:
                 for ip in scan_lists.get('ips'):
                     feed_related_indicators.append({'value': ip, 'type': 'IP'})
             IP_HEADERS = ['Count', 'IP', 'ASN']
+        if 'links' in scan_data:
+            links = []
+            for o in scan_data['links']:
+                if 'href' in o:
+                    links.append(o['href'])
+            cont['links'] = links
         # add redirected URLs
         if 'requests' in scan_data:
             redirected_urls = []
@@ -951,7 +1004,11 @@ script:
             human_readable['Screenshot'] = scan_tasks['screenshotURL']
             screen_path = scan_tasks['screenshotURL']
             response_img = requests.request("GET", screen_path, verify=client.use_ssl)
-            stored_img = fileResult('screenshot.png', response_img.content)
+            if use_url_as_name:
+                screenshot_name = cont['EffectiveURL'].replace('http://', '').replace('https://', '').replace('/', '_')
+            else:
+                screenshot_name = 'screenshot'
+            stored_img = fileResult('{}.png'.format(screenshot_name), response_img.content)
 
         dbot_score = Common.DBotScore(indicator=dbot_score.get('Indicator'), indicator_type=dbot_score.get('Type'),
                                       integration_name=BRAND, score=dbot_score.get('Score'),
@@ -1002,10 +1059,10 @@ script:
         return response, metrics, _
 
 
-    def get_urlscan_submit_results_polling(client, uuid):
+    def get_urlscan_submit_results_polling(client, uuid, use_url_as_name):
         ready = polling(client, uuid)
         if ready is True:
-            format_results(client, uuid)
+            format_results(client, uuid, use_url_as_name)
 
 
     def urlscan_submit_command(client):
@@ -1032,7 +1089,8 @@ script:
                 items_to_schedule.append(url)
                 continue
             uuid = response.get('uuid')
-            get_urlscan_submit_results_polling(client, uuid)
+            use_url_as_name = True if demisto.args()['use_url_as_name'] == 'true' else False
+            get_urlscan_submit_results_polling(client, uuid, use_url_as_name)
             execution_metrics.success += 1
         schedule_and_report(command_results=command_results, items_to_schedule=items_to_schedule,
                             execution_metrics=execution_metrics, rate_limit_reset_after=rate_limit_reset_after)
@@ -1232,7 +1290,9 @@ script:
         params = demisto.params()
 
         api_key = params.get('apikey') or (params.get('creds_apikey') or {}).get('password', '')
-        scan_visibility = params.get('scan_visibility')
+        # to safeguard the visibility of the scan,
+        # if the customer did not choose a visibility, we will set it to private by default.
+        scan_visibility = params.get('scan_visibility', 'private')
         threshold = int(params.get('url_threshold', '1'))
         use_ssl = not params.get('insecure', False)
         reliability = params.get('integrationReliability')
@@ -1244,11 +1304,10 @@ script:
             Exception("Please provide a valid value for the Source Reliability parameter.")
 
         demisto_version = get_demisto_version_as_str()
-        pack_version = get_pack_version()
-
+        instance_name = demisto.callingContext.get('context', {}).get('IntegrationInstance')
         client = Client(
             api_key=api_key,
-            user_agent='xsoar-{}/urlscan-{}'.format(demisto_version, pack_version),
+            user_agent='xsoar-{}/urlscan-{}'.format(demisto_version, instance_name),
             scan_visibility=scan_visibility,
             threshold=threshold,
             use_ssl=use_ssl,

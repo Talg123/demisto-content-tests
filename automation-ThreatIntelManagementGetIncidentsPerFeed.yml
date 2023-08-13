@@ -3,7 +3,7 @@ comment: |-
 
   This automation runs using the default Limited User role, unless you explicitly change the permissions.
   For more information, see the section about permissions here:
-  https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
+  https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations
 commonfields:
   id: ThreatIntelManagementGetIncidentsPerFeed
   version: -1
@@ -11,7 +11,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.1.1
+    itemVersion: 1.1.5
     packID: ThreatIntelligenceManagement
     packName: Threat Intelligence Management
     packPropagationLabels:
@@ -19,7 +19,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.9.8.24399
+dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
 name: ThreatIntelManagementGetIncidentsPerFeed
@@ -28,6 +28,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ThreatIntelManagementGetIncidentsPerFeed', 'start', __line__())
+  ### pack version: 1.1.5
 
 
 

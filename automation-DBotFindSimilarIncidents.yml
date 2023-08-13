@@ -99,7 +99,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.31.16
+    itemVersion: 1.32.26
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -117,6 +117,7 @@ runas: DBotWeakRole
 runonce: true
 script: |
   register_module_line('DBotFindSimilarIncidents', 'start', __line__())
+  ### pack version: 1.32.26
 
 
 

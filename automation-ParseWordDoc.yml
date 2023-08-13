@@ -1,6 +1,6 @@
 args:
 - default: true
-  description: Docx file to parse
+  description: Docx file sssto parse
   name: entryID
   required: true
 comment: Takes an input docx file (entryID) as an input and saves an output text file

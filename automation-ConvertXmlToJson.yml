@@ -20,7 +20,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -36,6 +36,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
+  // pack version: 1.12.13
   var xmlJson = x2j(args.xml);
   try {
     xmlJson = JSON.parse(xmlJson);

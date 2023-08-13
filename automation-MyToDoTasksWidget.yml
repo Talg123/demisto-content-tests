@@ -7,7 +7,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.1.0
-    itemVersion: 1.2.8
+    itemVersion: 1.2.28
     packID: CommonWidgets
     packName: Common Widgets
     packPropagationLabels:
@@ -15,7 +15,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.5.31928
+dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
 name: MyToDoTasksWidget
@@ -24,17 +24,20 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('MyToDoTasksWidget', 'start', __line__())
+  ### pack version: 1.2.28
   from dateparser import parse
 
 
 
+  MAX_ENTRIES = 30
 
 
   def get_open_to_do_tasks_of_current_user() -> List[Dict]:
       body = {
           "dataType": "todos",
-          "query": "assignee:\"{me}\"",
-          "widgetType": "table"
+          "query": "assignee:\"{me}\" and status:\"open\"",
+          "widgetType": "table",
+          "size": MAX_ENTRIES,
       }
       todo_tasks_query_res = demisto.internalHttpRequest(
           'POST',
@@ -73,10 +76,13 @@ script: |
       return table
 
 
-  def main():
+  def main():  # pragma: no cover
       try:
           results = get_open_to_do_tasks_of_current_user()
-          table_name = f'My ToDo Tasks ({len(results)})'
+          if len(results) >= MAX_ENTRIES:
+              table_name = f'My ToDo Tasks (First {MAX_ENTRIES} Tasks)'
+          else:
+              table_name = f'My ToDo Tasks ({len(results)})'
           readable_output = tableToMarkdown(table_name, results, headers=list(results[0].keys()) if results else None)
           cmd_results = {
               'Type': entryTypes['note'],

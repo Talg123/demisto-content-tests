@@ -17,15 +17,16 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.7.18
-    packID: CommonScripts
-    packName: Common Scripts
+    itemVersion: 1.2.27
+    packID: FiltersAndTransformers
+    packName: Filters And Transformers
     packPropagationLabels:
     - all
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.1.25933
+dockerimage: demisto/python3:3.10.12.63474
+enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: GetRange
@@ -34,9 +35,10 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('GetRange', 'start', __line__())
+  ### pack version: 1.2.27
+
+
   import traceback
-
-
 
 
   def get_range_command(indexes: List[str], val: List[Any]) -> List[Any]:

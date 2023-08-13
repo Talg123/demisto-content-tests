@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,13 +10,9 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: |-
-  Use this playbook to retrieve the original email in the thread, including headers and attahcments, when the reporting user forwarded the original email not as an attachment.
-
-  You must have the necessary permissions in your email service to execute global search.
-
-  - EWS: eDiscovery
-  - Gmail: Google Apps Domain-Wide Delegation of Authority
+deprecated: true
+description: Deprecated. Use the "Get Original Email - Generic v2" playbook under
+  the "Phishing" pack instead.
 id: get_original_email_-_generic
 inputs: []
 name: Get Original Email - Generic

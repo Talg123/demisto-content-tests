@@ -27,7 +27,7 @@ comment: |-
 
   This automation runs using the default Limited User role, unless you explicitly change the permissions.
   For more information, see the section about permissions here:
-  https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
+  https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations
 commonfields:
   id: DeleteContext
   version: -1
@@ -35,7 +35,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -51,6 +51,7 @@ pswd: ""
 runas: DBotRole
 runonce: false
 script: |
+  // pack version: 1.12.13
   function errorEntry(text) {
       return  {
           ContentsFormat: formats.text,
@@ -96,9 +97,9 @@ script: |
       var value;
       for (var i = 0; i < keysToKeep.length; i++) {
           value = dq(invContext, keysToKeep[i]);
-          if (value) {
-              // in case the original path has a reference to a list indexing of the form "root.[0].path" remove it.
-              new_context_path = keysToKeep[i].replace(/\.\[\d+\]\./g, '.');
+          if (value !== null && value !== undefined) {
+              // in case the original path has a reference to a list indexing of the form "root.[0].path" or "root.[1]" remove it.
+              new_context_path = keysToKeep[i].replace(/\.\[\d+\]/g, '');
 
               if (Array.isArray(value) && hasDuplicates(value)) {
                   setContext(new_context_path, value);

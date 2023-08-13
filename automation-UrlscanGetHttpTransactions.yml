@@ -26,6 +26,7 @@ contentitemexportablefields:
     packName: URLScan.io
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 dependson:

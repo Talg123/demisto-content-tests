@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -12,7 +12,8 @@ contentitemexportablefields:
     toServerVersion: ""
 description: 'This playbook searches for a specific hash in the supported sandboxes.
   If the hash is known, the playbook provides a detailed analysis of the sandbox report.
-  Currently supported sandboxes are Falcon X and Wildfire. '
+  Currently, supported sandboxes are Falcon Intelligence Sandbox, Wildfire and Joe
+  Sandbox. '
 id: Search For Hash In Sandbox - Generic
 inputs:
 - description: The SHA256 hash to search for.
@@ -35,7 +36,10 @@ outputs:
   description: The results of the Wildfire report.
   type: string
 - contextPath: csfalconx.resource.sandbox
-  description: The results of the Falcon X report.
+  description: The results of the Falcon Intelligence Sandbox report.
+  type: string
+- contextPath: DetectedHashes
+  description: A list of hashes that were detected by the sandboxes.
   type: string
 starttaskid: "0"
 system: true
@@ -65,8 +69,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 470,
-          "y": -200
+          "x": 2780,
+          "y": -170
         }
       }
   "1":
@@ -77,11 +81,13 @@ tasks:
     isoversize: false
     nexttasks:
       "no":
-      - "9"
+      - "35"
       "yes":
       - "6"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: CrowdStrike Falcon X
@@ -102,8 +108,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 230,
-          "y": 150
+          "x": 1430,
+          "y": 130
         }
       }
   "3":
@@ -114,11 +120,14 @@ tasks:
     isoversize: false
     nexttasks:
       "no":
-      - "9"
+      - "35"
       "yes":
       - "5"
+      - "23"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: WildFire-v2
@@ -127,20 +136,20 @@ tasks:
     task:
       brand: ""
       description: Returns 'yes' if the WildFire-v2 integration is available.
-      id: dbdc45b0-9334-406c-8a0f-4d96d4b1c51b
+      id: 33f97f6a-5963-423c-8db6-fcaefc5a8a31
       iscommand: false
       name: Is WildFire enabled?
       script: IsIntegrationAvailable
       type: condition
       version: -1
-    taskid: dbdc45b0-9334-406c-8a0f-4d96d4b1c51b
+    taskid: 33f97f6a-5963-423c-8db6-fcaefc5a8a31
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
-          "x": 710,
-          "y": 150
+          "x": 2130,
+          "y": 130
         }
       }
   "5":
@@ -151,7 +160,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "23"
+      - "25"
     note: false
     quietmode: 0
     scriptarguments:
@@ -160,7 +169,10 @@ tasks:
       format:
         simple: xml
       sha256:
-        simple: ${inputs.FileSha256}
+        complex:
+          root: inputs.FileSha256
+          transformers:
+          - operator: uniq
       verbose:
         simple: "true"
     separatecontext: false
@@ -168,20 +180,20 @@ tasks:
     task:
       brand: ""
       description: Searches for a specific hash in the WildFire sandbox.
-      id: 17c289b8-e1d0-40ab-8880-5c64708b5225
+      id: e2d75750-8dec-4e9f-8ef3-94cbf5bedb8f
       iscommand: true
       name: Search for hash in Wildfire
       script: '|||wildfire-report'
       type: regular
       version: -1
-    taskid: 17c289b8-e1d0-40ab-8880-5c64708b5225
+    taskid: e2d75750-8dec-4e9f-8ef3-94cbf5bedb8f
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 950,
-          "y": 330
+          "x": 1930,
+          "y": 350
         }
       }
   "6":
@@ -197,26 +209,29 @@ tasks:
     quietmode: 0
     scriptarguments:
       hashes:
-        simple: ${inputs.FileSha256}
+        complex:
+          root: inputs.FileSha256
+          transformers:
+          - operator: uniq
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
       description: Finds sandbox reports by providing an FQL filter and paging details.
-      id: f1fa61ce-3ee3-4918-86af-e6d66a3c6b24
+      id: 23a14477-9a87-48a9-8ab4-0a03a72b8209
       iscommand: true
-      name: Search for hash in FalconX
+      name: Search for hash in Falcon Intelligence Sandbox
       script: '|||cs-fx-find-reports'
       type: regular
       version: -1
-    taskid: f1fa61ce-3ee3-4918-86af-e6d66a3c6b24
+    taskid: 23a14477-9a87-48a9-8ab4-0a03a72b8209
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": -40,
-          "y": 320
+          "x": 1430,
+          "y": 350
         }
       }
   "7":
@@ -235,10 +250,11 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "9"
+      - "35"
       "yes":
       - "1"
       - "3"
+      - "26"
     note: false
     quietmode: 0
     separatecontext: false
@@ -256,7 +272,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 470,
+          "x": 2780,
           "y": -40
         }
       }
@@ -283,8 +299,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 470,
-          "y": 1340
+          "x": 2780,
+          "y": 1850
         }
       }
   "13":
@@ -292,14 +308,14 @@ tasks:
     evidencedata:
       customfields: {}
       description:
-        simple: FalconX sandbox report
+        simple: Falcon Intelligence Sandbox report
     id: "13"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
     nexttasks:
       '#none#':
-      - "22"
+      - "16"
     note: false
     quietmode: 0
     scriptarguments:
@@ -328,8 +344,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -40,
-          "y": 490
+          "x": 1430,
+          "y": 510
         }
       }
   "16":
@@ -359,7 +375,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "9"
+      - "40"
       "yes":
       - "18"
     note: false
@@ -379,8 +395,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -40,
-          "y": 1000
+          "x": 1430,
+          "y": 685
         }
       }
   "18":
@@ -396,188 +412,35 @@ tasks:
       wait: 1
     nexttasks:
       '#none#':
-      - "9"
+      - "40"
     note: false
     quietmode: 0
     scriptarguments:
       TechniqueID:
-        simple: ${csfalconx.resource.sandbox.mitre_attacks.attack_id}
+        complex:
+          accessor: attack_id
+          root: csfalconx.resource.sandbox.mitre_attacks
     separatecontext: true
     skipunavailable: true
     task:
       brand: ""
       description: |-
-        This playbook accepts as an input MITRE technique IDs.
-        It provides the MITRE technique name and all the technique data using the MITRE integration.
-        After extracting the MITRE data, the techniques are associated with the incident.
-      id: 60bac145-90e5-4429-8609-c659c8c2a182
+        This playbook accepts as input MITRE techniques IDs.
+        It returns the MITRE technique name and full technique data using the MITRE integration.
+      id: 1f8f4125-0530-470e-81a3-2458a5159ba0
       iscommand: false
       name: Mitre Attack - Extract Technique Information From ID
       playbookId: Mitre Attack - Extract Technique Information From ID
       type: playbook
       version: -1
-    taskid: 60bac145-90e5-4429-8609-c659c8c2a182
+    taskid: 1f8f4125-0530-470e-81a3-2458a5159ba0
     timertriggers: []
     type: playbook
     view: |-
       {
         "position": {
-          "x": -250,
-          "y": 1170
-        }
-      }
-  "19":
-    conditions:
-    - condition:
-      - - left:
-            iscontext: true
-            value:
-              simple: WildFire.Report.Status
-          operator: isNotEqualString
-          right:
-            value:
-              simple: Success
-      label: "no"
-    continueonerrortype: ""
-    id: "19"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "9"
-      "no":
-      - "20"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: aad4cc28-d608-4319-8985-f4a20a3c9f87
-      iscommand: false
-      name: Were all hashes found?
-      type: condition
-      version: -1
-    taskid: aad4cc28-d608-4319-8985-f4a20a3c9f87
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 950,
-          "y": 1000
-        }
-      }
-  "20":
-    continueonerrortype: ""
-    id: "20"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "9"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      append:
-        simple: "true"
-      key:
-        simple: NonFoundHashes
-      value:
-        complex:
-          accessor: SHA256
-          filters:
-          - - left:
-                iscontext: true
-                value:
-                  simple: WildFire.Report.Status
-              operator: isNotEqualString
-              right:
-                value:
-                  simple: Success
-          root: WildFire.Report
-          transformers:
-          - operator: uniq
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: |-
-        Set a value in context under the key you entered. If no value is entered, the script doesn't do anything.
-
-        This automation runs using the default Limited User role, unless you explicitly change the permissions.
-        For more information, see the section about permissions here:
-        https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
-      id: 87f2fab9-de14-4277-8357-8decd2d1b522
-      iscommand: false
-      name: Set non found hashes
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 87f2fab9-de14-4277-8357-8decd2d1b522
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 1220,
-          "y": 1170
-        }
-      }
-  "22":
-    continueonerrortype: ""
-    id: "22"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "16"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      append:
-        simple: "true"
-      key:
-        simple: NonFoundHashes
-      value:
-        complex:
-          accessor: sha256
-          filters:
-          - - left:
-                iscontext: true
-                value:
-                  simple: csfalconx.resource.FindReport.reportIds
-              operator: isEmpty
-          root: csfalconx.resource.FindReport
-          transformers:
-          - operator: uniq
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: |-
-        Set a value in context under the key you entered. If no value is entered, the script doesn't do anything.
-
-        This automation runs using the default Limited User role, unless you explicitly change the permissions.
-        For more information, see the section about permissions here:
-        https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
-      id: 5ac5a3af-906e-4065-81be-63d12e6ca8f3
-      iscommand: false
-      name: Set non found hashes
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 5ac5a3af-906e-4065-81be-63d12e6ca8f3
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": -40,
-          "y": 735
+          "x": 1670,
+          "y": 870
         }
       }
   "23":
@@ -592,30 +455,35 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
+      execution-timeout:
+        simple: "900"
       format:
         simple: pdf
       sha256:
-        simple: ${inputs.FileSha256}
+        complex:
+          root: inputs.FileSha256
+          transformers:
+          - operator: uniq
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
       description: Gets a PDF report of search results for hashes in the WildFire
         sandbox.
-      id: f1e1594d-5b8b-4414-8efb-2682ee0bb1a2
+      id: 398e10df-835c-4362-8812-bfc35b7b2cc8
       iscommand: true
       name: Get Wildfire PDF report
       script: '|||wildfire-report'
       type: regular
       version: -1
-    taskid: f1e1594d-5b8b-4414-8efb-2682ee0bb1a2
+    taskid: 398e10df-835c-4362-8812-bfc35b7b2cc8
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 950,
-          "y": 490
+          "x": 2330,
+          "y": 350
         }
       }
   "24":
@@ -630,7 +498,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "19"
+      - "39"
     note: false
     quietmode: 0
     scriptarguments:
@@ -667,8 +535,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1190,
-          "y": 830
+          "x": 2370,
+          "y": 700
         }
       }
   "25":
@@ -691,7 +559,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "19"
+      - "39"
       "yes":
       - "24"
     note: false
@@ -711,26 +579,723 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 950,
-          "y": 650
+          "x": 2140,
+          "y": 530
+        }
+      }
+  "26":
+    continueonerrortype: ""
+    id: "26"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      "no":
+      - "35"
+      "yes":
+      - "27"
+    note: false
+    quietmode: 0
+    results:
+    - brandInstances
+    scriptarguments:
+      brandname:
+        simple: JoeSecurityV2
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Returns 'yes' if the JoeSecurity Sandbox integration is available.
+      id: 157ba2a0-d8e3-4d38-8360-d1dac15d5ec6
+      iscommand: false
+      name: Is JoeSecurity Sandbox enabled?
+      script: IsIntegrationAvailable
+      type: condition
+      version: -1
+    taskid: 157ba2a0-d8e3-4d38-8360-d1dac15d5ec6
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 130
+        }
+      }
+  "27":
+    continueonerrortype: ""
+    id: "27"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "30"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      query:
+        complex:
+          root: inputs.FileSha256
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Search through all analyses.
+      id: 3dda4898-5efa-4139-88c6-9c39a271ee7e
+      iscommand: true
+      name: Search for hash in Joe Sandbox
+      script: '|||joe-search'
+      type: regular
+      version: -1
+    taskid: 3dda4898-5efa-4139-88c6-9c39a271ee7e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 350
+        }
+      }
+  "28":
+    continueonerrortype: ""
+    evidencedata:
+      customfields: {}
+      description:
+        simple: Joe Sandbox report - Json Format
+    id: "28"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "33"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      type:
+        simple: json
+      webid:
+        complex:
+          accessor: webid
+          root: Joe.Analysis
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Download a resource belonging to a report. This can be the full
+        report, dropped binaries, etc. See integration README for the full supported
+        report types.
+      id: d9c0d67b-34c9-4adf-85f9-6108aaf34809
+      iscommand: true
+      name: Get a full report from Joe Sandbox - JSON
+      script: '|||joe-download-report'
+      type: regular
+      version: -1
+    taskid: d9c0d67b-34c9-4adf-85f9-6108aaf34809
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 980,
+          "y": 685
+        }
+      }
+  "30":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Joe.Analysis
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "30"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "43"
+      "yes":
+      - "28"
+      - "31"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Any results from the Joe search?
+      id: ded9ca0b-1c63-4d2d-8a66-2c8665e30fe2
+      iscommand: false
+      name: Any results from the Joe search?
+      type: condition
+      version: -1
+    taskid: ded9ca0b-1c63-4d2d-8a66-2c8665e30fe2
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 510
+        }
+      }
+  "31":
+    continueonerrortype: ""
+    evidencedata:
+      customfields: {}
+      description:
+        simple: Joe Sandbox report - PDF Format
+    id: "31"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "32"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      type:
+        simple: pdf
+      webid:
+        complex:
+          accessor: webid
+          root: Joe.Analysis
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Download a resource belonging to a report. This can be the full
+        report, dropped binaries, etc. See integration README for the full supported
+        report types.
+      id: c21fdd06-e54d-4576-8765-7800c60bf729
+      iscommand: true
+      name: Get a full report from Joe Sandbox - PDF
+      script: '|||joe-download-report'
+      type: regular
+      version: -1
+    taskid: c21fdd06-e54d-4576-8765-7800c60bf729
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 530,
+          "y": 685
+        }
+      }
+  "32":
+    continueonerrortype: ""
+    evidencedata:
+      customfields: {}
+      description:
+        simple: Wildfire report
+    id: "32"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "43"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      EntryID:
+        complex:
+          accessor: EntryID
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: InfoFile.Extension
+              operator: isEqualString
+              right:
+                value:
+                  simple: pdf
+          root: InfoFile
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Converts a PDF file to an image file.
+      id: a429b558-2253-4679-8686-168073e28073
+      iscommand: true
+      name: Rasterize PDF
+      script: '|||rasterize-pdf'
+      type: regular
+      version: -1
+    taskid: a429b558-2253-4679-8686-168073e28073
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 530,
+          "y": 870
+        }
+      }
+  "33":
+    continueonerrortype: ""
+    id: "33"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "36"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      entryID:
+        complex:
+          accessor: EntryID
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: InfoFile.Extension
+              operator: isEqualString
+              right:
+                value:
+                  simple: json
+          root: InfoFile
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: commands.local.cmd.extract.indicators
+      id: 8896119d-cd9b-423d-8c92-f8c27079232e
+      iscommand: true
+      name: Extract Indicators from the report
+      script: Builtin|||extractIndicators
+      type: regular
+      version: -1
+    taskid: 8896119d-cd9b-423d-8c92-f8c27079232e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 980,
+          "y": 870
+        }
+      }
+  "34":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "34"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "43"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      attack_pattern:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: ExtractedIndicators.Attack_Pattern
+              operator: isNotEmpty
+          root: ExtractedIndicators.Attack_Pattern
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Looks up the reputation of the indicator.
+      id: c3db939d-366a-4355-8e39-75aa4154b464
+      iscommand: true
+      name: Enrich Mitre Attack Techniques information.
+      script: '|||attack-pattern'
+      type: regular
+      version: -1
+    taskid: c3db939d-366a-4355-8e39-75aa4154b464
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 980,
+          "y": 1210
+        }
+      }
+  "35":
+    continueonerrortype: ""
+    id: "35"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1dda1f08-ff0a-4138-872e-86870368aad6
+      iscommand: false
+      name: Integration is not available
+      type: title
+      version: -1
+    taskid: 1dda1f08-ff0a-4138-872e-86870368aad6
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 2780,
+          "y": 310
+        }
+      }
+  "36":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: ExtractedIndicators.Attack_Pattern
+                    operator: isNotEmpty
+                root: ExtractedIndicators.Attack_Pattern
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "36"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "43"
+      "yes":
+      - "34"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Are there MITRE findings?
+      id: 0db7cd2f-8ed8-4e79-81bc-a58a8218ac62
+      iscommand: false
+      name: Are there MITRE findings?
+      type: condition
+      version: -1
+    taskid: 0db7cd2f-8ed8-4e79-81bc-a58a8218ac62
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 980,
+          "y": 1040
+        }
+      }
+  "37":
+    continueonerrortype: ""
+    id: "37"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "44"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 8c5159e3-6276-4da1-8de1-0616f8fe62a1
+      iscommand: false
+      name: Set Unfound Hashes to Context
+      type: title
+      version: -1
+    taskid: 8c5159e3-6276-4da1-8de1-0616f8fe62a1
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 2140,
+          "y": 1550
+        }
+      }
+  "39":
+    continueonerrortype: ""
+    id: "39"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "37"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: DetectedHashes
+      value:
+        complex:
+          accessor: SHA256
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: WildFire.Report.Status
+              operator: isEqualString
+              right:
+                value:
+                  simple: Success
+          root: WildFire.Report
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Set a value in context under the key you entered. If no value is entered, the script doesn't do anything.
+
+        This automation runs using the default Limited User role, unless you explicitly change the permissions.
+        For more information, see the section about permissions here:
+        https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
+      id: 33a49df6-9764-4640-8477-ad4aaf91741d
+      iscommand: false
+      name: Set Detected Hashes - WildFire
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 33a49df6-9764-4640-8477-ad4aaf91741d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2140,
+          "y": 870
+        }
+      }
+  "40":
+    continueonerrortype: ""
+    id: "40"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "37"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: DetectedHashes
+      value:
+        complex:
+          accessor: sha256
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: csfalconx.resource.FindReport.reportIds
+              operator: isNotEmpty
+          root: csfalconx.resource.FindReport
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Set a value in context under the key you entered. If no value is entered, the script doesn't do anything.
+
+        This automation runs using the default Limited User role, unless you explicitly change the permissions.
+        For more information, see the section about permissions here:
+        https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
+      id: b139aa96-52d4-47f6-8730-16dfb5d5f02a
+      iscommand: false
+      name: Set Detected Hashes - Falcon Intelligence Sandbox
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: b139aa96-52d4-47f6-8730-16dfb5d5f02a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1430,
+          "y": 1040
+        }
+      }
+  "43":
+    continueonerrortype: ""
+    id: "43"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "37"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: DetectedHashes
+      value:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: Joe.Analysis.sha256
+              operator: isNotEmpty
+          root: Joe.Analysis.sha256
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Set a value in context under the key you entered. If no value is entered, the script doesn't do anything.
+
+        This automation runs using the default Limited User role, unless you explicitly change the permissions.
+        For more information, see the section about permissions here:
+        https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
+      id: c0730703-6695-42d7-8e08-40409c3863b2
+      iscommand: false
+      name: Set Detected Hashes - JoeSecurity Sandbox
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: c0730703-6695-42d7-8e08-40409c3863b2
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 1380
+        }
+      }
+  "44":
+    continueonerrortype: ""
+    id: "44"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: NonFoundHashes
+      value:
+        complex:
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: inputs.FileSha256
+              operator: notIn
+              right:
+                iscontext: true
+                value:
+                  simple: DetectedHashes
+          root: inputs.FileSha256
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Set a value in context under the key you entered. If no value is entered, the script doesn't do anything.
+
+        This automation runs using the default Limited User role, unless you explicitly change the permissions.
+        For more information, see the section about permissions here:
+        https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
+      id: ad2952cc-821c-4ef7-8774-54c42c8be887
+      iscommand: false
+      name: Set Non-Found Hashes
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: ad2952cc-821c-4ef7-8774-54c42c8be887
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2140,
+          "y": 1680
         }
       }
 version: -1
 view: |-
   {
     "linkLabelsPosition": {
-      "16_9_#default#": 0.19,
-      "19_9_#default#": 0.26,
-      "1_9_no": 0.11,
-      "3_9_no": 0.13,
-      "7_9_#default#": 0.1
+      "1_35_no": 0.13,
+      "1_6_yes": 0.65,
+      "26_27_yes": 0.6,
+      "26_35_no": 0.12,
+      "30_43_#default#": 0.47,
+      "36_34_yes": 0.63,
+      "36_43_#default#": 0.5,
+      "3_35_no": 0.34,
+      "3_5_yes": 0.68
     },
     "paper": {
       "dimensions": {
-        "height": 1605,
-        "width": 1850,
-        "x": -250,
-        "y": -200
+        "height": 2085,
+        "width": 2630,
+        "x": 530,
+        "y": -170
       }
     }
   }

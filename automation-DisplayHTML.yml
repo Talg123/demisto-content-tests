@@ -17,8 +17,8 @@ commonfields:
 contentitemexportablefields:
   contentitemfields:
     definitionid: ""
-    fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    fromServerVersion: 6.5.0
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -26,7 +26,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python:2.7.18.27799
+dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
 name: DisplayHTML
@@ -34,22 +34,35 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
-  html = demisto.args().get("html")
-  note = demisto.args().get("markAsNote")
-  header = demisto.args().get("header")
+  register_module_line('DisplayHTML', 'start', __line__())
+  ### pack version: 1.12.13
 
-  note = True if note and note.lower() == "true" else False
-  if header:
-      html = "<h1>{0}</h1></br>{1}".format(header,html)
 
-  demisto.results( {
-      'ContentsFormat': formats['html'],
-      'Type': entryTypes['note'],
-      'Contents': html,
-      'Note': note
-  } )
+
+
+  def main():
+      html = demisto.args().get("html")
+      note = demisto.args().get("markAsNote")
+      header = demisto.args().get("header")
+
+      note = True if note and note.lower() == "true" else False
+      if header:
+          html = "<h1>{0}</h1></br>{1}".format(header, html)
+
+      demisto.results({
+          'ContentsFormat': formats['html'],
+          'Type': entryTypes['note'],
+          'Contents': html,
+          'Note': note
+      })
+
+
+  if __name__ == "__builtin__" or __name__ == "builtins":
+      main()
+
+  register_module_line('DisplayHTML', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags: []
 type: python

@@ -1,6 +1,6 @@
 args:
 - default: true
-  description: Entry ID with the sssEmail as a file in msg or sseml format
+  description: Entry ID with the swssEmail as a file in msg or sseml format
   name: entryid
   required: true
 - auto: PREDEFINED

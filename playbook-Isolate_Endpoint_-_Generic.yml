@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,10 +10,8 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: |-
-  This playbook isolates a given endpoint using the following integrations:
-  - Carbon Black Enterprise Response
-  - Palo Alto Networks Traps
+deprecated: true
+description: Deprecated. Use the "Isolate Endpoint - Generic V2" playbook instead.
 id: Isolate Endpoint - Generic
 inputs:
 - description: Hostname of the endpoint for isolation.

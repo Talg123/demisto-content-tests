@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -177,6 +177,11 @@ tasks:
       - "8"
     note: false
     quietmode: 0
+    scriptarguments:
+      Path:
+        simple: ${inputs.Path}
+      Sensor_ID:
+        simple: ${inputs.Agent_ID}
     separatecontext: true
     skipunavailable: true
     task:

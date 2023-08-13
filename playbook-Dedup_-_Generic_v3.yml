@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,15 +10,16 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: "This playbook identifies duplicate incidents using one of the supported
-  methods.\nSelect one of the following methods to identify duplicate incidents in
-  Cortex XSOAR.\n- ml: Machine learning model, which is trained mostly on phishing
-  incidents.\n-rules: Rules help identify duplicate incidents when the logic is well
-  defined, for example, the same label or custom fields.\n-text: Statistics algorithm
-  that compares text, which is generally useful for phishing incidents.\nFor each
-  method, the playbook will search for the oldest similar incident. when there is
-  a match for a similar incident the playbook will close the current incident and
-  will link it to the older incident. "
+deprecated: true
+description: "Deprecated. Use the `Dedup - Generic v4` playbook instead. This playbook
+  identifies duplicate incidents using one of the supported methods.\nSelect one of
+  the following methods to identify duplicate incidents in Cortex XSOAR.\n- ml: Machine
+  learning model, which is trained mostly on phishing incidents.\n-rules: Rules help
+  identify duplicate incidents when the logic is well defined, for example, the same
+  label or custom fields.\n-text: Statistics algorithm that compares text, which is
+  generally useful for phishing incidents.\nFor each method, the playbook will search
+  for the oldest similar incident. when there is a match for a similar incident the
+  playbook will close the current incident and will link it to the older incident. "
 id: Dedup - Generic v3
 inputs:
 - description: "Select a method for identifying duplicate incidents. Can be \"ml\",

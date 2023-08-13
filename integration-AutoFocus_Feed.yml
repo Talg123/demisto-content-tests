@@ -15,10 +15,17 @@ configuration:
   - Samples Feed
   required: true
   type: 16
+- display: ""
+  displaypassword: API Key
+  hiddenusername: true
+  name: credentials
+  required: false
+  type: 9
 - additionalinfo: TIM customers that upgraded to version 6.2 or above, can have this
     value pre-configured in their main account so no additional input is needed. To
     use this feature, upgrade your license so it includes the license key.
   display: API Key
+  hidden: true
   name: api_key
   required: false
   type: 4
@@ -37,8 +44,8 @@ configuration:
   - global
   required: false
   type: 15
-- additionalinfo: JSON styled AutoFocus query, an example can be found in the description
-    (?) section. Only necessary in case a Samples Feed is fetched.
+- additionalinfo: Relevant only for sample feeds. JSON styled AutoFocus query, an
+    example can be found in the description (?) section. mandatory for Samples Feed.
   display: Samples Feed Query
   name: sample_query
   required: false
@@ -123,9 +130,9 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 2.0.22
+    itemVersion: 2.1.13
     packID: AutoFocus
-    packName: AutoFocus
+    packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
     - all
     prevname: ""
@@ -136,7 +143,9 @@ detaileddescription: "## AutoFocus Feed\nGets Custom and Sample feeds from AutoF
   The `Daily Threat Feed` option is deprecated. No available replacement.\n\nFor more
   information see the [AutoFocus documentation](https://docs.paloaltonetworks.com/autofocus/autofocus-admin/autofocus-feeds.html).\n\n####
   Custom Feed info:\nTo connect a custom AutoFocus feed you need to provide the Custom
-  Feed URL.\n\nThe Custom Feed URL should be in this form:\nhttps://autofocus.paloaltonetworks.com/IOCFeed/{Output_Feed_ID}/{Output_Feed_Name}\n\n####
+  Feed URL.\n\nThe Custom Feed URL should be in this form:\nhttps://autofocus.paloaltonetworks.com/IOCFeed/{Output_Feed_ID}/{Output_Feed_Name}\n\nFor
+  more information about generating URL and adding filter options for custom feeds,
+  please read [here](https://docs.paloaltonetworks.com/autofocus/autofocus-admin/autofocus-feeds/create-custom-feeds)\n\n####
   Samples Feed info:\nTo connect to a sample AutoFocus feed you need to provide the
   following parameters:\n* Scope Type - Either **public**, **private** or **global**.\n*
   Query - A JSON styled AutoFocus query. For example: \n```json\n{\n  \"operator\":\"all\",\n
@@ -157,11 +166,12 @@ script:
       name: offset
     description: Gets the indicators from AutoFocus.
     name: autofocus-get-indicators
-  dockerimage: demisto/python3:3.10.5.31928
+  dockerimage: demisto/python3:3.10.12.65389
   feed: true
   runonce: false
   script: |
     register_module_line('AutoFocus Feed', 'start', __line__())
+    ### pack version: 2.1.13
 
 
 
@@ -169,11 +179,12 @@ script:
     # IMPORTS
     import re
     import requests
+    import urllib3
     from typing import List, Optional
     from datetime import datetime
 
     # Disable insecure warnings
-    requests.packages.urllib3.disable_warnings()
+    urllib3.disable_warnings()
 
     # CONSTANTS
     SOURCE_NAME = "AutoFocusFeed"
@@ -502,10 +513,10 @@ script:
             Returns:
                 str: The type of the indicator.
             """
-            if re.match(urlRegex, indicator):
-                return FeedIndicatorType.URL
-            elif ip_type := FeedIndicatorType.ip_to_indicator_type(indicator):
+            if ip_type := FeedIndicatorType.ip_to_indicator_type(indicator):
                 return ip_type
+            elif re.match(urlRegex, indicator):
+                return FeedIndicatorType.URL
             elif re.match(sha256Regex, indicator):
                 return FeedIndicatorType.File
             else:
@@ -678,7 +689,7 @@ script:
             'autofocus-get-indicators': get_indicators_command
         }
         try:
-            auto_focus_key_retriever = AutoFocusKeyRetriever(params.get('api_key'))
+            auto_focus_key_retriever = AutoFocusKeyRetriever(params.get('credentials', {}).get('password') or params.get('api_key'))
             client = Client(api_key=auto_focus_key_retriever.key,
                             insecure=params.get('insecure'),
                             proxy=params.get('proxy'),

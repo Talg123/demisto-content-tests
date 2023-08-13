@@ -17,11 +17,12 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.6.43
+    itemVersion: 1.7.18
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 enabled: true

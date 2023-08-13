@@ -4,7 +4,7 @@
 	"beta": false,
 	"cacheVersn": 0,
 	"categories": [
-		"Data Enrichment \u0026 Threat Intelligence"
+		"Authentication \u0026 Identity Management"
 	],
 	"certification": "certified",
 	"contentItemTypes": [
@@ -15,24 +15,6 @@
 	],
 	"contentItems": {
 		"automation": [
-			{
-				"description": "Generates password,\nSet an AD user account with this password.\nEnable the account.\nSend mail to the user with tha account information.\nThis script is running `send-mail` command, make sure there is a matching Integration configurated.",
-				"name": "IAMInitADUser",
-				"tags": [
-					"IAM",
-					"active directory",
-					"Utility"
-				]
-			},
-			{
-				"description": "Enhancement automation for user type indicator, to enrich the user name from Active Directory data",
-				"name": "UserEnrichAD",
-				"tags": [
-					"enhancement",
-					"active directory",
-					"user"
-				]
-			},
 			{
 				"description": "Deprecated. Use the ad-get-user command in the Active Directory v2 integration instead.account['Groups'] = demisto.get( Use Active Directory to retrieve detailed information about a user account. The user can be specified by name, email or as an Active Directory Distinguished Name (DN).\nIf no filter is provided, the result will show all users.",
 				"name": "ADGetUser",
@@ -47,6 +29,24 @@
 				"name": "SendEmailToManager",
 				"tags": [
 					"communication"
+				]
+			},
+			{
+				"description": "Deprecated. Use ADGetUser instead.",
+				"name": "UserEnrichAD",
+				"tags": [
+					"enhancement",
+					"active directory",
+					"user"
+				]
+			},
+			{
+				"description": "Generates password,\nSet an AD user account with this password.\nEnable the account.\nSend mail to the user with the account information.\nThis script is running `send-mail` command, make sure there is a matching Integration configurated.",
+				"name": "IAMInitADUser",
+				"tags": [
+					"IAM",
+					"active directory",
+					"Utility"
 				]
 			}
 		],
@@ -70,7 +70,7 @@
 		"indicatorfield": null,
 		"integration": [
 			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"category": "Authentication \u0026 Identity Management",
 				"commands": [
 					{
 						"description": "Expires the password of an Active Directory user.",
@@ -127,6 +127,10 @@
 					{
 						"description": "Modifies the computer organizational unit within a domain.",
 						"name": "ad-modify-computer-ou"
+					},
+					{
+						"description": "Modifies the user organizational unit within a domain.",
+						"name": "ad-modify-user-ou"
 					},
 					{
 						"description": "Retrieves detailed information about a user account. The user can be specified by name, email address, or as an Active Directory Distinguished Name (DN). If no filter is specified, all users are returned.",
@@ -199,84 +203,63 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.4.15",
+	"currentVersion": "1.6.20",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.31.14",
+			"minVersion": "1.32.23",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.7.16",
+			"minVersion": "1.12.10",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
-			"mandatory": true,
-			"minVersion": "3.2.41",
+			"mandatory": false,
+			"minVersion": "3.3.81",
 			"name": "Common Types"
-		},
-		"CrisisManagement": {
-			"author": "Cortex XSOAR",
-			"certification": "certified",
-			"mandatory": false,
-			"minVersion": "1.2.2",
-			"name": "Crisis Management"
-		},
-		"EWSMailSender": {
-			"author": "Cortex XSOAR",
-			"certification": "certified",
-			"mandatory": false,
-			"minVersion": "1.1.10",
-			"name": "EWS Mail Sender"
 		},
 		"Gmail": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.1.19",
+			"minVersion": "1.3.12",
 			"name": "Gmail"
 		},
 		"GmailSingleUser": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.2.11",
+			"minVersion": "1.3.11",
 			"name": "Gmail Single User"
 		},
 		"MailSenderNew": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.0.6",
+			"minVersion": "1.0.19",
 			"name": "Mail Sender (New)"
-		},
-		"MicrosoftGraphListener": {
-			"author": "Cortex XSOAR",
-			"certification": "certified",
-			"mandatory": false,
-			"minVersion": "1.1.0",
-			"name": "Microsoft Graph Mail Single User"
 		},
 		"MicrosoftGraphMail": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.2.0",
+			"minVersion": "1.5.8",
 			"name": "Microsoft Graph Mail"
 		}
 	},
 	"deprecated": false,
 	"description": "Active Directory Query integration enables you to access and manage Active Directory objects (users, contacts, and computers).",
 	"disabledMonthly": false,
-	"downloads": 23924,
+	"downloads": 43362,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -291,9 +274,29 @@
 		{
 			"imagePath": "content/packs/Active_Directory_Query/ActiveDirectoryQueryv2_image.png",
 			"name": "Active Directory Query v2"
+		},
+		{
+			"imagePath": "content/packs/MicrosoftGraphMail/MicrosoftGraphMailSingleUser_image.png",
+			"name": "Microsoft Graph Mail Single User"
+		},
+		{
+			"imagePath": "content/packs/MicrosoftGraphMail/MicrosoftGraphMail_image.png",
+			"name": "O365 Outlook Mail (Using Graph API)"
+		},
+		{
+			"imagePath": "content/packs/MailSenderNew/MailSender%28New%29_image.png",
+			"name": "Mail Sender (New)"
+		},
+		{
+			"imagePath": "content/packs/Gmail/Gmail_image.png",
+			"name": "Gmail"
+		},
+		{
+			"imagePath": "content/packs/GmailSingleUser/GmailSingleUser_image.png",
+			"name": "Gmail Single User"
 		}
 	],
-	"itemVersion": "1.4.15",
+	"itemVersion": "1.6.20",
 	"keywords": [
 		"Active Directory"
 	],
@@ -321,9 +324,9 @@
 	},
 	"tags": [],
 	"toServerVersion": "",
-	"updated": "2023-08-03T12:26:07+03:00",
+	"updated": "2023-08-03T09:26:07Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "3427401",
+	"versionInfo": "5946331",
 	"videos": []
 }

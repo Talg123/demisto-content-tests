@@ -80,7 +80,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.31.16
+    itemVersion: 1.32.26
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -98,12 +98,13 @@ runas: DBotWeakRole
 runonce: true
 script: |
   register_module_line('DBotMLFetchData', 'start', __line__())
+  ### pack version: 1.32.26
+
+
   import uuid
   from itertools import combinations
 
   import dateutil
-
-
 
 
   import json

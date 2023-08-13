@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,7 +10,9 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: Detonate URL through active integrations that support URL detonation.
+deprecated: true
+description: Deprecated. Use Detonate URL - Generic v1.5 playbook instead. Detonate
+  URL through active integrations that support URL detonation.
 id: detonate_url_-_generic
 inputs:
 - description: The URL object of the URL to be detonated.
@@ -392,6 +394,21 @@ outputs:
 - contextPath: HybridAnalysis.URL.Scanner
   description: The place holder for the scanner data.
   type: unknown
+- contextPath: SecneurXAnalysis.Report.SHA256
+  description: SHA256 value of the analyzed sample
+  type: string
+- contextPath: SecneurXAnalysis.Report.Verdict
+  description: Summary result of the analyzed sample
+  type: string
+- contextPath: SecneurXAnalysis.Report.Tags
+  description: More details of the analyzed sample
+  type: string
+- contextPath: SecneurXAnalysis.Report.IOC
+  description: List of IOC's observed in the analyzed sample
+  type: string
+- contextPath: SecneurXAnalysis.Report.Status
+  description: Analysis queued sample state
+  type: String
 starttaskid: "0"
 system: true
 tasks:
@@ -406,7 +423,6 @@ tasks:
       - "11"
       - "13"
       - "12"
-      - "14"
       - "15"
       - "16"
       - "17"
@@ -419,6 +435,9 @@ tasks:
       - "25"
       - "26"
       - "27"
+      - "28"
+      - "29"
+      - "31"
     note: false
     quietmode: 0
     separatecontext: false
@@ -436,7 +455,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2630,
+          "x": 3705,
           "y": 50
         }
       }
@@ -464,8 +483,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2630,
-          "y": 370
+          "x": 4135,
+          "y": 720
         }
       }
   "11":
@@ -509,7 +528,7 @@ tasks:
       {
         "position": {
           "x": 50,
-          "y": 195
+          "y": 545
         }
       }
   "12":
@@ -552,7 +571,7 @@ tasks:
       {
         "position": {
           "x": 480,
-          "y": 195
+          "y": 545
         }
       }
   "13":
@@ -596,51 +615,7 @@ tasks:
       {
         "position": {
           "x": 910,
-          "y": 195
-        }
-      }
-  "14":
-    continueonerrortype: ""
-    id: "14"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 0
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "3"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      URL:
-        complex:
-          accessor: Data
-          root: inputs.URL
-    separatecontext: true
-    skipunavailable: true
-    task:
-      brand: ""
-      description: Detonates one or more files using the Wildfire integration. This
-        playbook returns relevant reports to the War Room and file reputations to
-        the context data.
-      id: a6e1e56f-f5da-4648-8b0c-a7e8d6122535
-      iscommand: false
-      name: Detonate URL - CrowdStrike
-      playbookName: Detonate URL - CrowdStrike
-      type: playbook
-      version: -1
-    taskid: a6e1e56f-f5da-4648-8b0c-a7e8d6122535
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 1340,
-          "y": 195
+          "y": 545
         }
       }
   "15":
@@ -681,8 +656,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1770,
-          "y": 195
+          "x": 1340,
+          "y": 545
         }
       }
   "16":
@@ -727,8 +702,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2200,
-          "y": 195
+          "x": 1770,
+          "y": 545
         }
       }
   "17":
@@ -769,8 +744,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2630,
-          "y": 195
+          "x": 2200,
+          "y": 545
         }
       }
   "18":
@@ -814,8 +789,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -390,
-          "y": 195
+          "x": 2630,
+          "y": 545
         }
       }
   "19":
@@ -824,47 +799,39 @@ tasks:
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 100
-      wait: 1
     nexttasks:
       '#none#':
       - "3"
     note: false
     quietmode: 0
     scriptarguments:
-      EnvironmentID:
+      environmentID:
         simple: "100"
-      Interval:
-        simple: "5"
-      Timeout:
-        simple: "30"
-      URL:
+      polling:
+        simple: "true"
+      url:
         complex:
           accessor: Data
           root: inputs.URL
-    separatecontext: true
+    separatecontext: false
     skipunavailable: true
     task:
-      brand: ""
-      description: '''Detonates one or more URLs using the CrowdStrike Falcon sandbox
-        integration.'''
-      id: 07706e7e-800f-408e-8dfa-184841b701f4
-      iscommand: false
-      name: Detonate URL - CrowdStrike Falcon X
-      playbookName: Detonate URL - CrowdStrike Falcon X
-      type: playbook
+      brand: CrowdStrike Falcon Sandbox V2
+      description: Submits a URL for analysis.
+      id: 0ff5715e-873b-4d67-87da-2080cd4e5f34
+      iscommand: true
+      name: Detonate URL - CrowdStrike Falcon Intelligence Sandbox
+      script: '|||cs-falcon-sandbox-submit-url'
+      type: regular
       version: -1
-    taskid: 07706e7e-800f-408e-8dfa-184841b701f4
+    taskid: 0ff5715e-873b-4d67-87da-2080cd4e5f34
     timertriggers: []
-    type: playbook
+    type: regular
     view: |-
       {
         "position": {
-          "x": 3070,
-          "y": 195
+          "x": 3060,
+          "y": 545
         }
       }
   "20":
@@ -913,7 +880,7 @@ tasks:
       {
         "position": {
           "x": 3490,
-          "y": 195
+          "y": 545
         }
       }
   "21":
@@ -954,8 +921,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 3890,
-          "y": 190
+          "x": 3920,
+          "y": 545
         }
       }
   "23":
@@ -999,8 +966,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 4300,
-          "y": 190
+          "x": 4350,
+          "y": 545
         }
       }
   "24":
@@ -1044,8 +1011,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 4710,
-          "y": 190
+          "x": 4780,
+          "y": 545
         }
       }
   "25":
@@ -1075,8 +1042,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5120,
-          "y": 195
+          "x": 5210,
+          "y": 545
         }
       }
   "26":
@@ -1106,8 +1073,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5520,
-          "y": 195
+          "x": 5640,
+          "y": 545
         }
       }
   "27":
@@ -1137,8 +1104,188 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5920,
-          "y": 195
+          "x": 6070,
+          "y": 545
+        }
+      }
+  "28":
+    continueonerrortype: ""
+    id: "28"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "3"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      Priority:
+        simple: High
+      Reboot:
+        simple: "False"
+      ReportFormat:
+        simple: json
+      URL:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: URL.Data
+              operator: isExists
+          root: URL
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Detonates a file using the SecneurX Analysis Integration. Returns
+        relevant reports to the War Room and file reputations to the context data.
+      id: ca1a3f90-8330-4eac-885c-eec86c8b8885
+      iscommand: false
+      name: Detonate URL - SecneurX Analysis
+      playbookName: Detonate URL - SecneurX Analysis
+      type: playbook
+      version: -1
+    taskid: ca1a3f90-8330-4eac-885c-eec86c8b8885
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 6500,
+          "y": 545
+        }
+      }
+  "29":
+    continueonerrortype: ""
+    id: "29"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 0
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "3"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      Interval:
+        simple: "1"
+      Timeout:
+        simple: "60"
+      URL:
+        complex:
+          accessor: Data
+          root: inputs.URL
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Detonate one or more files using the CrowdStrike Falcon Intelligence
+        Sandbox integration.
+      id: b12fdeb4-9952-416d-8e01-39eef0662454
+      iscommand: false
+      name: Detonate URL - CrowdStrike Falcon Intelligence Sandbox
+      playbookName: Detonate URL - CrowdStrike Falcon Intelligence Sandbox
+      type: playbook
+      version: -1
+    taskid: b12fdeb4-9952-416d-8e01-39eef0662454
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 6930,
+          "y": 545
+        }
+      }
+  "31":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.URL
+          operator: isExists
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "31"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "3"
+      "yes":
+      - "32"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if there is a URL to detonate.
+      id: 1abb6283-2a97-4409-8344-027a49c5ef5e
+      iscommand: false
+      name: Check if URL exists
+      type: condition
+      version: -1
+    taskid: 1abb6283-2a97-4409-8344-027a49c5ef5e
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 7390,
+          "y": 360
+        }
+      }
+  "32":
+    continueonerrortype: ""
+    id: "32"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      url:
+        simple: ${inputs.URL.Data}
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: OPSWAT Filescan
+      description: Detonates a URL using the OPSWAT-Filescan Integration. Returns
+        relevant reports to the War Room and URL reputations to the context data.
+      id: 2fee63e9-6482-4101-8272-d42cf3a950aa
+      iscommand: true
+      name: Detonate URL - OPSWAT
+      script: OPSWAT Filescan|||opswat-filescan-scan-url
+      type: regular
+      version: -1
+    taskid: 2fee63e9-6482-4101-8272-d42cf3a950aa
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 7502.5,
+          "y": 545
         }
       }
 version: -1
@@ -1147,9 +1294,9 @@ view: |-
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 385,
-        "width": 6690,
-        "x": -390,
+        "height": 735,
+        "width": 7832.5,
+        "x": 50,
         "y": 50
       }
     }

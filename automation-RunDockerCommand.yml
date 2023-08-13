@@ -18,7 +18,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -26,7 +26,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python:2.7.18.24398
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -43,37 +43,52 @@ outputs:
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: |-
+script: |
+  register_module_line('RunDockerCommand', 'start', __line__())
+  ### pack version: 1.12.13
+
+
   import subprocess
-  ret = []
-  sysargs = None;
 
-  cmdarg = demisto.args()['cmd']
-  if demisto.args().has_key('sysargs'):
-      sysargs = demisto.args()['sysargs']
 
-  if sysargs == None:
-      output = None
-      try:
-          output = subprocess.check_output(cmdarg, shell=True)
-      except subprocess.CalledProcessError as e:
-          output = e.output
-      ret.append(output)
-  else:
-      ret.append(subprocess.check_output([cmdarg, sysargs]))
+  def main():
+      ret = []
+      sysargs = None
 
-  ec = {'Command': cmdarg, 'Results': ret[0]}
+      cmdarg = demisto.args()['cmd']
+      if 'sysargs' in demisto.args():
+          sysargs = demisto.args()['sysargs']
 
-  demisto.results({
-    'Type': entryTypes['note'],
-    'ContentsFormat': formats['json'],
-    'Contents': ret,
-    'HumanReadable': ret[0],
-    'EntryContext': {'CommandResults': ec}
-  })
-  sys.exit(0)
+      if sysargs is None:
+          output = None
+          try:
+              cmd_list = cmdarg.split()
+              output = subprocess.check_output(cmd_list, shell=False)
+          except subprocess.CalledProcessError as e:
+              output = e.output
+          ret.append(output)
+      else:
+          ret.append(subprocess.check_output([cmdarg, sysargs]))
+
+      ret = [r.decode('utf-8') for r in ret]     # type:ignore[union-attr]
+      ec = {'Command': cmdarg, 'Results': ret[0]}
+
+      demisto.results({
+          'Type': entryTypes['note'],
+          'ContentsFormat': formats['json'],
+          'Contents': ret,
+          'HumanReadable': ret[0],
+          'EntryContext': {'CommandResults': ec}
+      })
+
+
+  if __name__ in ('__main__', '__builtin__', 'builtins'):
+      main()
+      sys.exit(0)
+
+  register_module_line('RunDockerCommand', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags:
 - Utilities

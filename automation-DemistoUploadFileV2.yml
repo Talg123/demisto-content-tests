@@ -21,8 +21,7 @@ args:
   predefined:
   - war room entry
   - incident attachment
-comment: Copies a file from this incident to the specified incident. The file is recorded
-  as an entry in the specified incident’s War Room.
+comment: Deprecated. Use UploadFile instead.
 commonfields:
   id: DemistoUploadFileV2
   version: -1
@@ -30,9 +29,9 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.3.0
+    itemVersion: 1.3.34
     packID: DemistoRESTAPI
-    packName: Demisto REST API
+    packName: Cortex REST API
     packPropagationLabels:
     - all
     prevname: ""
@@ -41,7 +40,8 @@ contentitemexportablefields:
 dependson:
   must:
   - demisto-api-multipart
-dockerimage: demisto/python3:3.10.1.26972
+deprecated: true
+dockerimage: demisto/python3:3.10.6.33415
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -51,6 +51,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('DemistoUploadFileV2', 'start', __line__())
+  ### pack version: 1.3.34
   from typing import Tuple
 
 

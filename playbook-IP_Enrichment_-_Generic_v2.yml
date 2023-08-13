@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -50,6 +50,15 @@ inputs:
   value:
     complex:
       root: inputs.ResolveIP
+- description: |-
+    Define if you would like to use the !IP command.
+    Note: This input should be used whenever there is no auto-extract enabled in the investigation flow.
+    Possible values: True / False.
+  key: UseReputationCommand
+  playbookInputQuery: null
+  required: true
+  value:
+    simple: "False"
 name: IP Enrichment - Generic v2
 outputs:
 - contextPath: IP
@@ -164,6 +173,9 @@ tasks:
       ResolveIP:
         complex:
           root: inputs.ResolveIP
+      UseReputationCommand:
+        complex:
+          root: inputs.UseReputationCommand
     separatecontext: true
     skipunavailable: false
     task:

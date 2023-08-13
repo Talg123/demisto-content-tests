@@ -14,15 +14,15 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 1.7.18
-    packID: CommonScripts
-    packName: Common Scripts
+    itemVersion: 1.2.27
+    packID: FiltersAndTransformers
+    packName: Filters And Transformers
     packPropagationLabels:
     - all
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.4.28442
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -32,10 +32,10 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CIDRBiggerThanPrefix', 'start', __line__())
+  ### pack version: 1.2.27
+
+
   import ipaddress
-
-
-
 
 
   def cidr_network_addresses_lower_from_const(ip_cidr: str, max_prefix: int) -> bool:

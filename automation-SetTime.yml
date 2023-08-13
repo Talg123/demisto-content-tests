@@ -11,7 +11,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -19,23 +19,46 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python:2.7.18.24398
+dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
 name: SetTime
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: |-
-  import datetime
-  now = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S+00:00')
-  fieldName = demisto.args()['fieldName']
-  # Example format: '2018-02-02T22:58:21+02:00'
-  demisto.log('[*] ' + fieldName + ' <- ' + now)
-  demisto.setContext(fieldName, now)
-  demisto.results( demisto.executeCommand("setIncident", {fieldName: now }) )
+script: |
+  register_module_line('SetTime', 'start', __line__())
+  ### pack version: 1.12.13
+
+
+  from datetime import datetime
+
+
+  def set_time():
+
+      now = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S+00:00')
+
+      fieldName = demisto.args()['fieldName']
+
+      # Example format: '2018-02-02T22:58:21+02:00'
+
+      demisto.debug('[*] ' + fieldName + ' <- ' + now)
+
+      demisto.setContext(fieldName, now)
+
+      demisto.results(demisto.executeCommand("setIncident", {fieldName: now}))
+
+
+  def main():
+      set_time()
+
+
+  if __name__ in ('__main__', '__builtin__', 'builtins'):  # pragma: no cover
+      main()
+
+  register_module_line('SetTime', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags: []
 type: python

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 3.1.6
+    itemVersion: 3.5.26
     packID: Phishing
     packName: Phishing
     packPropagationLabels:
@@ -10,10 +10,8 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: |-
-  Use this playbook to investigate and remediate a potential phishing incident. The playbook simultaneously engages with the user that triggered the incident, while investigating the incident itself.
-
-  The final remediation tasks are always decided by a human analyst.
+deprecated: true
+description: Deprecated. Use Phishing - Generic v3 instead.
 id: Phishing Investigation - Generic v2
 inputs:
 - description: The default role to assign the incident to.
@@ -678,7 +676,7 @@ tasks:
         complex:
           root: inputs.O365ExchangeLocationExclusion
       O365KQL:
-        simple: from:${incident.emailfrom} AND subject:${incident.emailsubject}
+        simple: from:${incident.emailfrom} AND subject:"${incident.emailsubject}"
       SearchAndDeleteIntegration:
         complex:
           root: inputs.SearchAndDeleteIntegration
@@ -2105,7 +2103,7 @@ tasks:
       id: 7f39b05d-3937-4df7-8993-d3469af016d5
       iscommand: false
       name: Detect & Manage Phishing Campaigns
-      playbookName: Detect & Manage Phishing Campaigns
+      playbookId: Detect & Manage Phishing Campaigns
       type: playbook
       version: -1
     taskid: 7f39b05d-3937-4df7-8993-d3469af016d5

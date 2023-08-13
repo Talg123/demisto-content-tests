@@ -18,7 +18,7 @@ comment: |-
 
   This automation runs using the default Limited User role, unless you explicitly change the permissions.
   For more information, see the section about permissions here:
-  https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
+  https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations
 commonfields:
   id: RunPollingCommand
   version: -1
@@ -26,7 +26,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -34,7 +34,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python:2.7.18.27799
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -44,6 +44,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('RunPollingCommand', 'start', __line__())
+  ### pack version: 1.12.13
 
 
 
@@ -73,16 +74,14 @@ script: |
 
   def main(args):     # pragma: no cover
       try:
-          encoded_id = args.get('ids').encode('utf-8') if type(args.get('ids')) != int else args.get('ids')
+          encoded_id = args.get('ids')
 
-          additional_polling_command_arg_names = args.get('additionalPollingCommandArgNames').encode('utf-8') if type(
-              args.get('additionalPollingCommandArgNames')) != int else args.get('additionalPollingCommandArgNames')
+          additional_polling_command_arg_names = args.get('additionalPollingCommandArgNames')
 
-          additional_polling_command_arg_values = args.get('additionalPollingCommandArgValues').encode('utf-8') if type(
-              args.get('additionalPollingCommandArgValues')) != int else args.get('additionalPollingCommandArgValues')
+          additional_polling_command_arg_values = args.get('additionalPollingCommandArgValues')
 
           using = args.get('using', '')
-          using_instance = using.encode('utf-8') if type(using) != int and using else using
+          using_instance = using
 
           args = prepare_arg_dict(args.get('pollingCommandArgName'),
                                   encoded_id,
@@ -96,12 +95,12 @@ script: |
           return_error('An error occurred: {}'.format(exp), error=exp)
 
 
-  if __name__ in ('__main__', '__builtin__', 'builtins'):
+  if __name__ in ['__main__', 'builtin', 'builtins']:
       main(demisto.args())
 
   register_module_line('RunPollingCommand', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags: []
 type: python

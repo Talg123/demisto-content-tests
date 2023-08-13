@@ -16,9 +16,9 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
-    packID: CommonScripts
-    packName: Common Scripts
+    itemVersion: 1.2.27
+    packID: FiltersAndTransformers
+    packName: Filters And Transformers
     packPropagationLabels:
     - all
     prevname: ""
@@ -32,6 +32,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |+
+  // pack version: 1.2.27
   // convert a specific key
   function stripToCliName(str) {
     return str.substr(0, 255).replace(/[\W\s\\&$#@%?!_*;׳()^]/g, '').toLowerCase();

@@ -30,11 +30,12 @@ args:
 - description: Use only the default encoding when parsing the message with the detected
     encoding fails, e.g 'utf-8'. Relevant to msg files only.
   name: default_encoding
-comment: Parse an email from an eml or msg file and populate all relevant context
-  data to investigate the email. Also extracts inner attachments and returns them
-  to the war room. The incident labels themselves are preserved and not modified -
-  only the "Label/x" context items that originated from the labels, and the best practice
-  is to rely on these for the remainder of the playbook.
+comment: Deprecated. Use ParseEmailFilesV2 instead." Parse an email from an eml or
+  msg file and populate all relevant context data to investigate the email. Also extracts
+  inner attachments and returns them to the war room. The incident labels themselves
+  are preserved and not modified - only the "Label/x" context items that originated
+  from the labels, and the best practice is to rely on these for the remainder of
+  the playbook.
 commonfields:
   id: ParseEmailFiles
   version: -1
@@ -42,7 +43,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -50,6 +51,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
+deprecated: true
 dockerimage: demisto/python:2.7.18.27799
 enabled: true
 engineinfo: {}
@@ -138,6 +140,9 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ParseEmailFiles', 'start', __line__())
+  ### pack version: 1.12.13
+
+
   #!/usr/bin/env python2
   # coding=utf-8
   # PEP0263  https://www.python.org/dev/peps/pep-0263/
@@ -165,8 +170,6 @@ script: |
 
   import chardet  # type: ignore
   from olefile import OleFileIO, isOleFile
-
-
 
 
   reload(sys)

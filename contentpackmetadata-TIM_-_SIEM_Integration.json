@@ -28,12 +28,12 @@
 				"name": "TIM - Add IP Indicators To SIEM"
 			},
 			{
-				"description": "This playbook recives indicators from its parent playbook\nand provides the indicators as inputs for the sub-playbooks that push the indicators\nto the SIEM.",
-				"name": "TIM - Add Bad Hash Indicators To SIEM"
-			},
-			{
 				"description": "This playbook runs sub playbooks that send indicators to your SIEM. To select the indicators you want to add, go to playbook inputs, choose “from indicators” and set your query. For example tags:approved_black, approved_white etc. The purpose of the playbook is to send to SIEM only indicators that have been processed and tagged accordingly after an automatic or manual review process. The default playbook query is\"\n(type:ip or type:file or type:Domain or type:URL) -tags:pending_review and (tags:approved_black or tags:approved_white or tags:approved_watchlist)\"\nIn case more indicator types need to be sent to the SIEM, the query must be edited accordingly.",
 				"name": "TIM - Add All Indicator Types To SIEM"
+			},
+			{
+				"description": "This playbook recives indicators from its parent playbook\nand provides the indicators as inputs for the sub-playbooks that push the indicators\nto the SIEM.",
+				"name": "TIM - Add Bad Hash Indicators To SIEM"
 			},
 			{
 				"description": "This playbook receives indicators from its parent playbook and provides the indicators as inputs for the sub-playbooks that push the indicators to the SIEM.",
@@ -49,35 +49,35 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.1.0",
+	"currentVersion": "1.1.1",
 	"definitionId": "",
 	"dependencies": {
 		"ArcSightESM": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.1.7",
+			"minVersion": "1.1.11",
 			"name": "ArcSight ESM"
 		},
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.31.14",
+			"minVersion": "1.32.23",
 			"name": "Base"
 		},
 		"QRadar": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "2.2.9",
+			"minVersion": "2.4.27",
 			"name": "IBM QRadar"
 		}
 	},
 	"deprecated": false,
 	"description": "Update your SIEM with minimal fuss! This Content Pack automates the delivery of indicators to your SIEM for correlation, with minimal configuration.",
 	"disabledMonthly": false,
-	"downloads": 2140,
+	"downloads": 2338,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.5.0",
 	"general": [
@@ -106,7 +106,7 @@
 			"name": "ArcSight ESM v2"
 		}
 	],
-	"itemVersion": "1.1.0",
+	"itemVersion": "1.1.1",
 	"keywords": [],
 	"legacy": true,
 	"name": "TIM - SIEM Integration",
@@ -136,11 +136,11 @@
 		"Use Case"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-06T12:23:25+03:00",
+	"updated": "2023-08-06T09:23:24Z",
 	"useCases": [
 		"Threat Intelligence Management"
 	],
 	"version": -1,
-	"versionInfo": "3427401",
+	"versionInfo": "5969979",
 	"videos": []
 }

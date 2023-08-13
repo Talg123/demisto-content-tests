@@ -24,7 +24,6 @@
 			}
 		],
 		"classifier": null,
-		"correlationrule": null,
 		"dashboard": null,
 		"genericfield": null,
 		"generictype": null,
@@ -65,13 +64,12 @@
 					}
 				],
 				"description": "Use urlscan.io integration to perform scans on suspected URLs and see their reputation.",
+				"id": "urlscan.io",
 				"name": "urlscan.io (Partner Contribution)"
 			}
 		],
 		"layoutscontainer": null,
 		"list": null,
-		"modelingrule": null,
-		"parsingrule": null,
 		"playbook": null,
 		"report": null,
 		"reputation": null,
@@ -80,11 +78,8 @@
 				"name": "API Call Results for UrlScan"
 			}
 		],
-		"wizard": null,
-		"xsiamdashboard": null,
-		"xsiamreport": null
+		"wizard": null
 	},
-	"created": "2020-07-23T16:36:24Z",
 	"currentVersion": "1.1.25",
 	"definitionId": "",
 	"dependencies": {
@@ -98,6 +93,7 @@
 	},
 	"deprecated": false,
 	"description": "urlscan.io Web Threat Intelligence",
+	"disabledMonthly": false,
 	"downloads": 12819,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
@@ -153,7 +149,7 @@
 		"Use Case"
 	],
 	"toServerVersion": "",
-	"updated": "2022-08-09T16:20:16Z",
+	"updated": "2023-08-07T12:20:13+03:00",
 	"useCases": [
 		"Phishing",
 		"Hunting",

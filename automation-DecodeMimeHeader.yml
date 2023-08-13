@@ -9,7 +9,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -17,7 +17,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python:2.7.18.27799
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -29,40 +29,51 @@ outputs:
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: |-
+script: |
+  register_module_line('DecodeMimeHeader', 'start', __line__())
+  ### pack version: 1.12.13
+
+
   from email.header import decode_header
+
 
   def decode(s):
       dh = decode_header(s.strip())
       default_charset = 'ASCII'
-      res = ''.join([ unicode(t[0], t[1] or default_charset) for t in dh ])
+      res = ''.join([str(t[0], t[1] or default_charset) for t in dh])
       return res
 
-  s = demisto.args()['value']
 
-  if s.startswith('"'):
-      s = s[1:]
+  def main():     # pragma: no cover
+      s = demisto.args()['value']
 
-  if s.endswith('"'):
-      s = s[:-1]
+      if s.startswith('"'):
+          s = s[1:]
 
-  lines = []
-  for line in  s.split("\n"):
-      try:
-          lines.append(decode(line))
-      except Exception:
-          lines.append(line)
+      if s.endswith('"'):
+          s = s[:-1]
+
+      lines = []
+      for line in s.split("\n"):
+          try:
+              lines.append(decode(line))
+          except Exception:
+              lines.append(line)
+
+      res = "\n".join(lines)
+      demisto.results({'ContentsFormat': formats['text'],
+                       'Type': entryTypes['note'],
+                       'Contents': res,
+                       'EntryContext': {'DecodedMimeHeader': res}
+                       })
 
 
-  res = "\n".join(lines)
-  result = res.encode('utf-8')
-  demisto.results({'ContentsFormat': formats['text'],
-                         'Type': entryTypes['note'],
-                         'Contents': result,
-                         'EntryContext': {'DecodedMimeHeader': result}
-  })
+  if __name__ in ['__main__', '__builtin__', 'builtins']:
+      main()
+
+  register_module_line('DecodeMimeHeader', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags: []
 type: python

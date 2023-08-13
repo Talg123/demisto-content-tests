@@ -151,7 +151,7 @@ tasks:
       id: 21ff4831-4836-424f-8aa7-e7b596743b91
       iscommand: false
       name: Block Domain - FireEye Email Security
-      playbookName: Block Domain - FireEye Email Security
+      playbookId: Block Domain - FireEye Email Security
       type: playbook
       version: -1
     taskid: 21ff4831-4836-424f-8aa7-e7b596743b91
@@ -399,7 +399,7 @@ tasks:
       id: 6249599a-63f5-4a27-8101-92c4fc503b0a
       iscommand: false
       name: Block Domain - External Dynamic List
-      playbookName: Block Domain - External Dynamic List
+      playbookId: Block Domain - External Dynamic List
       type: playbook
       version: -1
     taskid: 6249599a-63f5-4a27-8101-92c4fc503b0a

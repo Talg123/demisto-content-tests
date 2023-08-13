@@ -1228,7 +1228,7 @@ tasks:
       id: 1b28b735-33ac-4ddd-8649-6f05613db05d
       iscommand: false
       name: Detonate File - FireEye AX
-      playbookName: Detonate File - FireEye AX
+      playbookId: Detonate File - FireEye AX
       type: playbook
       version: -1
     taskid: 1b28b735-33ac-4ddd-8649-6f05613db05d

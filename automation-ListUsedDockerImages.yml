@@ -24,7 +24,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.1.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -32,7 +32,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.9.8.24399
+dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
 name: ListUsedDockerImages
@@ -48,13 +48,14 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ListUsedDockerImages', 'start', __line__())
+  ### pack version: 1.12.13
+
+
   """ListUsedDockerImages Script for Cortex XSOAR (aka Demisto)
 
   This is a script that list all the dockers images that are in ues in the integrations and automations
 
   """
-
-
 
   import json
   from typing import Dict
@@ -81,14 +82,12 @@ script: |
   DEFAULT_DOCKER_IMAGE = 'Default Docker Image'
 
   SCRIPT_TYPE = 'type'
-  SCRIPT_ID = 'id'
+  SCRIPT_NAME = 'name'
   SCRIPTS = 'scripts'
 
   ENABLED = 'enabled'
   DEPRECATED = 'deprecated'
   IS_INTEGRATION_SCRIPT = 'isIntegrationScript'
-
-  MAX_PER_DOCKER = 5
 
   ''' HELPER FUNCTION '''
 
@@ -202,12 +201,12 @@ script: |
                   docker_image = 'Default Image Name'
               else:
                   docker_image = script[DOCKER_IMAGE]
-              dockers[script[SCRIPT_ID]] = docker_image
+              dockers[script[SCRIPT_NAME]] = docker_image
 
       return dockers
 
 
-  def merge_result(docker_list: dict, result_dict: dict = {}, max_entries_per_docker: int = 5) -> dict:
+  def merge_result(docker_list: dict, result_dict: dict = {}) -> dict:
       """Returns a python dict of the merge result
 
       Args:
@@ -231,8 +230,7 @@ script: |
           if integration_script in ['CommonServerUserPowerShell', 'CommonServerUserPython']:
               continue
           if docker_image in result:
-              if len(result[docker_image]) < max_entries_per_docker:
-                  result[docker_image].append(integration_script)
+              result[docker_image].append(integration_script)
           else:
               result[docker_image] = [integration_script]
 
@@ -275,8 +273,8 @@ script: |
           active_docker_list_automation = extract_dockers_from_automation_search_result(
               active_automation['body'], ignore_deprecated_automations)
 
-      result_dict = merge_result(active_docker_list_integration, result_dict, MAX_PER_DOCKER)
-      result_dict = merge_result(active_docker_list_automation, result_dict, MAX_PER_DOCKER)
+      result_dict = merge_result(active_docker_list_integration, result_dict)
+      result_dict = merge_result(active_docker_list_automation, result_dict)
 
       ''' format the result for Markdown view'''
       result_output = []

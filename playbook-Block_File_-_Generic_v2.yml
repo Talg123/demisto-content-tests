@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -32,8 +32,9 @@ inputs:
     complex:
       accessor: SHA256
       root: File
-- description: Traps event ID that contains the malicious file to block.
-  key: EventId
+- description: In this input you can insert either MD5 or SHA256 that you wish to
+    block.
+  key: Hash
   playbookInputQuery: null
   required: false
   value: {}
@@ -56,7 +57,6 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "8"
       - "9"
       - "10"
       - "11"
@@ -97,6 +97,27 @@ tasks:
       - "3"
     note: false
     quietmode: 0
+    scriptarguments:
+      MD5:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: inputs.Hash
+              operator: stringHasLength
+              right:
+                value:
+                  simple: "32"
+          root: inputs.Hash
+          transformers:
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: inputs.MD5
+            operator: append
+          - operator: uniq
     separatecontext: true
     skipunavailable: true
     task:
@@ -140,7 +161,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 910,
+          "x": 695,
           "y": 515
         }
       }
@@ -160,6 +181,27 @@ tasks:
       - "3"
     note: false
     quietmode: 0
+    scriptarguments:
+      MD5:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: inputs.Hash
+              operator: stringHasLength
+              right:
+                value:
+                  simple: "32"
+          root: inputs.Hash
+          transformers:
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: inputs.MD5
+            operator: append
+          - operator: uniq
     separatecontext: true
     skipunavailable: true
     task:
@@ -198,6 +240,27 @@ tasks:
       - "3"
     note: false
     quietmode: 0
+    scriptarguments:
+      SHA256:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: inputs.Hash
+              operator: stringHasLength
+              right:
+                value:
+                  simple: "64"
+          root: inputs.Hash
+          transformers:
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: inputs.SHA256
+            operator: append
+          - operator: uniq
     separatecontext: true
     skipunavailable: true
     task:
@@ -218,115 +281,6 @@ tasks:
         "position": {
           "x": 910,
           "y": 340
-        }
-      }
-  "6":
-    continueonerrortype: ""
-    id: "6"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 0
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "3"
-    note: false
-    quietmode: 0
-    separatecontext: true
-    skipunavailable: true
-    task:
-      brand: ""
-      id: 4e936a4c-b781-40a1-831a-be0c62a727d6
-      iscommand: false
-      name: Traps Blacklist File
-      playbookName: Traps Blacklist File
-      type: playbook
-      version: -1
-    taskid: 4e936a4c-b781-40a1-831a-be0c62a727d6
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 1340,
-          "y": 340
-        }
-      }
-  "7":
-    continueonerrortype: ""
-    id: "7"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 0
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "3"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      EventId:
-        complex:
-          root: inputs.EventId
-    separatecontext: true
-    skipunavailable: true
-    task:
-      brand: ""
-      description: This playbook accepts a file hash and quarantines this file using
-        Traps.
-      id: de27dee3-4496-4589-8514-94db4642810f
-      iscommand: false
-      name: Traps Quarantine Event
-      playbookName: Traps Quarantine Event
-      type: playbook
-      version: -1
-    taskid: de27dee3-4496-4589-8514-94db4642810f
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 1770,
-          "y": 340
-        }
-      }
-  "8":
-    continueonerrortype: ""
-    id: "8"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "6"
-      - "7"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: e46175f0-26fc-4f24-87f7-d531354ca0dd
-      iscommand: false
-      name: Palo Alto Networks - Traps
-      type: title
-      version: -1
-    taskid: e46175f0-26fc-4f24-87f7-d531354ca0dd
-    timertriggers: []
-    type: title
-    view: |-
-      {
-        "position": {
-          "x": 1555,
-          "y": 195
         }
       }
   "9":
@@ -445,7 +399,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2240,
+          "x": 1340,
           "y": 195
         }
       }
@@ -468,7 +422,24 @@ tasks:
     scriptarguments:
       HashList:
         complex:
-          root: inputs.SHA256
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: inputs.Hash
+              operator: stringHasLength
+              right:
+                value:
+                  simple: "64"
+          root: inputs.Hash
+          transformers:
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: inputs.SHA256
+            operator: append
+          - operator: uniq
     separatecontext: true
     skipunavailable: true
     task:
@@ -487,7 +458,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2240,
+          "x": 1340,
           "y": 340
         }
       }
@@ -498,7 +469,7 @@ view: |-
     "paper": {
       "dimensions": {
         "height": 530,
-        "width": 2570,
+        "width": 1670,
         "x": 50,
         "y": 50
       }

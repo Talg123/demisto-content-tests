@@ -29,7 +29,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.1.0
-    itemVersion: 1.0.2
+    itemVersion: 1.2.27
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -37,7 +37,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.9.9.25564
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -47,6 +47,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('MapRangeValues', 'start', __line__())
+  ### pack version: 1.2.27
 
 
   from typing import Union, List, Text

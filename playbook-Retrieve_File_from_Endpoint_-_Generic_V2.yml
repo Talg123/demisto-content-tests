@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,10 +10,10 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: |-
-  'This playbook retrieves a file sample from an endpoint using the following playbooks:'
-  - Get File Sample From Path - Generic v2.
-  - Get File Sample By Hash - Generic v3.
+deprecated: true
+description: "Deprecated. Use `Retrieve File from Endpoint - Generic V3` instead.
+  \n'This playbook retrieves a file sample from an endpoint using the following playbooks:'\n-
+  Get File Sample From Path - Generic v2.\n- Get File Sample By Hash - Generic v3."
 id: Retrieve File from Endpoint - Generic V2
 inputs:
 - description: The MD5 hash value for the file to retrieve.

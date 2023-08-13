@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,7 +10,9 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
+deprecated: true
 description: |+
+  Deprecated. Use the `Block Indicators - Generic V3` playbook instead.
   This playbook blocks malicious Indicators using all integrations that are enabled, using the following sub-playbooks:
 
   - Block URL - Generic

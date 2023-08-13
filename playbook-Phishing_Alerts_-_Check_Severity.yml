@@ -1,0 +1,686 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.0.0
+    itemVersion: 1.0.2
+    packID: PhishingAlerts
+    packName: PhishingAlerts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: |-
+  This playbook calculates and assigns the incident severity based on the highest returned severity level from the following calculations:
+  - Email security alert action
+  - DBotScores of indicators
+  - Critical assets
+  - Email authenticity
+  - Current incident severity
+  - Microsoft Headers
+id: Phishing Alerts - Check Severity
+inputs:
+- description: The default role to assign the incident to.
+  key: Role
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: The higher tier role to assign the incident to.
+  key: escalationRole
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: Set to True to assign only to analysts on the current shift.
+  key: OnCall
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: 'Indicates the email authenticity resulting from the EmailAuthenticityCheck
+    script. Possible values are: Pass, Fail, Suspicious, and Undetermined.'
+  key: AuthenticityCheck
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: The value is set by the "Process Microsoft's Anti-Spam Headers" Playbook,
+    which calculates the severity after processing the PCL, BCL and PCL values inside
+    Microsoft's headers.
+  key: MicrosoftHeadersSeverityCheck
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: The SOC email address to set if the playbook handles an email security
+    alert.
+  key: SOCEmailAddress
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: The email recipient.
+  key: EmailTo
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: A comma-separated list of optional values the email security device
+    returns for blocked\denied\etc. emails.
+  key: blockedAlertActionValue
+  playbookInputQuery: null
+  required: false
+  value: {}
+name: Phishing Alerts - Check Severity
+outputs: []
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 45b6b245-84e4-44a0-8a05-7b3f54e61fc7
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 45b6b245-84e4-44a0-8a05-7b3f54e61fc7
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 220,
+          "y": 60
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "10"
+    note: false
+    quietmode: 0
+    reputationcalc: 1
+    scriptarguments:
+      onCall:
+        complex:
+          root: inputs.OnCall
+      roles:
+        complex:
+          root: inputs.escalationRole
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Assign the incident to an analyst based on the analyst's organizational
+        role.
+      id: ffa1f9d3-e869-4a6b-8e5e-b5d66fe60bb3
+      iscommand: false
+      name: Assign to analyst
+      script: AssignAnalystToIncident
+      type: regular
+      version: -1
+    taskid: ffa1f9d3-e869-4a6b-8e5e-b5d66fe60bb3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -20,
+          "y": 1420
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      scriptArguments:
+        Account:
+          complex:
+            root: Account
+            transformers:
+            - operator: uniq
+        CriticalEndpoints:
+          simple: admin
+        CriticalGroups:
+          simple: admins,administrators
+        CriticalUsers:
+          simple: admin,administrator
+        DBotScore:
+          complex:
+            root: DBotScore
+        EmailAuthenticityCheck:
+          complex:
+            accessor: AuthenticityCheck
+            root: Email
+            transformers:
+            - operator: uniq
+        Endpoint:
+          complex:
+            root: Endpoint
+            transformers:
+            - operator: uniq
+        MicrosoftHeadersSeverityCheck:
+          complex:
+            accessor: MicrosoftHeadersSeverityCheck
+            root: Email
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "6"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      Account:
+        complex:
+          root: Account
+          transformers:
+          - operator: uniq
+      CriticalEndpoints:
+        simple: admin
+      CriticalGroups:
+        simple: admins,administrators
+      CriticalUsers:
+        simple: admin,administrator
+      DBotScore:
+        complex:
+          root: DBotScore
+      EmailAuthenticityCheck:
+        complex:
+          root: inputs.AuthenticityCheck
+      Endpoint:
+        complex:
+          root: Endpoint
+          transformers:
+          - operator: uniq
+      MicrosoftHeadersSeverityCheck:
+        complex:
+          root: inputs.MicrosoftHeadersSeverityCheck
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        This playbook calculates and assigns the incident severity based on the highest returned severity level from the following calculations:
+        - DBotScores of indicators
+        - Critical assets
+        - Email authenticity
+        - Current incident severity
+        - Microsoft Headers
+      id: 223a84ed-01d8-4b66-8618-bc01e69ed803
+      iscommand: false
+      name: Calculate Severity - Generic v2
+      playbookId: Calculate Severity - Generic v2
+      type: playbook
+      version: -1
+    taskid: 223a84ed-01d8-4b66-8618-bc01e69ed803
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": -20,
+          "y": 420
+        }
+      }
+  "3":
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "6"
+    note: false
+    quietmode: 0
+    reputationcalc: 1
+    scriptarguments:
+      severity:
+        simple: high
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Sets the incident severity to "High".
+      id: 623fb688-3b61-4f36-8ad5-03e3c85edce9
+      iscommand: true
+      name: Set incident severity to "High"
+      script: Builtin|||setIncident
+      type: regular
+      version: -1
+    taskid: 623fb688-3b61-4f36-8ad5-03e3c85edce9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 460,
+          "y": 420
+        }
+      }
+  "4":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: DetectedUsers
+                root: Splunk
+                transformers:
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: Splunk.DetectedExternalIPs
+                  operator: append
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: Splunk.DetectedExternalHosts
+                  operator: append
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: QRadar.DetectedUsers
+                  operator: append
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: QRadar.DetectedExternalIPs
+                  operator: append
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: QRadar.DetectedExternalHosts
+                  operator: append
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: PANWHunting.DetectedUsers
+                  operator: append
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: PANWHunting.DetectedExternalIPs
+                  operator: append
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: PANWHunting.DetectedExternalHosts
+                  operator: append
+          operator: isNotEmpty
+        - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: alertaction
+                root: incident
+          operator: notIn
+          right:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.blockedAlertActionValue
+      label: High
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "2"
+      High:
+      - "3"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines the severity level based on the highest result of all
+        severity calculations.
+      id: 3de5797d-a90e-4633-8d28-b39500c99ee3
+      iscommand: false
+      name: Determine incident severity
+      type: condition
+      version: -1
+    taskid: 3de5797d-a90e-4633-8d28-b39500c99ee3
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 220,
+          "y": 210
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "10"
+    note: false
+    quietmode: 0
+    reputationcalc: 1
+    scriptarguments:
+      onCall:
+        complex:
+          root: inputs.OnCall
+      roles:
+        complex:
+          root: inputs.Role
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Assign the incident to an analyst based on the analyst's organizational
+        role.
+      id: cc5976de-b560-4a54-8e07-0d781a9b8b0a
+      iscommand: false
+      name: Assign to analyst
+      script: AssignAnalystToIncident
+      type: regular
+      version: -1
+    taskid: cc5976de-b560-4a54-8e07-0d781a9b8b0a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 460,
+          "y": 1420
+        }
+      }
+  "6":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: CriticalUsers
+                root: CriticalAssets
+          operator: isNotEmpty
+      label: Sensitive Mailbox
+    continueonerrortype: ""
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "11"
+      Sensitive Mailbox:
+      - "8"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check whether the email recipient is part of the organization's
+        critical assets.
+      id: 94fac0a3-110e-4a84-88f4-86e5430dcf74
+      iscommand: false
+      name: Check if recipient is in sensitive mailboxes list
+      type: condition
+      version: -1
+    taskid: 94fac0a3-110e-4a84-88f4-86e5430dcf74
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 220,
+          "y": 620
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      severity:
+        simple: Critical
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets the incident severity to "Critical"
+      id: 85dc6008-922c-4f8b-89f9-9794bfd6a728
+      iscommand: false
+      name: Set incident severity to "Critical"
+      script: IncreaseIncidentSeverity
+      type: regular
+      version: -1
+    taskid: 85dc6008-922c-4f8b-89f9-9794bfd6a728
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 220,
+          "y": 810
+        }
+      }
+  "9":
+    continueonerrortype: ""
+    id: "9"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "11"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      body:
+        simple: |
+          XSOAR has identified a suspicious email that was sent to one or more of the organization's sensitive mailboxes.
+          The incident severity has been raised to Critical.
+
+          The following recipients where detected:
+          Email Subject: ${incident.emailsubject}
+          Email TO: ${incident.emailto}
+          Email CC: ${incident.emailcc}
+          Email BCC: ${incident.emailbcc}
+          Message ID: ${incident.emailmessageid}
+          XSOAR
+      subject:
+        simple: Sensitive mailbox phishing attempt - incident ${incident.name}
+      to:
+        complex:
+          root: inputs.SOCEmailAddress
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sends an email regarding the findings of the sensitive mailboxes
+        check.
+      id: cc6de510-eceb-41c0-8a8b-ea5b669ca19a
+      iscommand: true
+      name: Sensitive mailbox phishing attempt notification
+      script: '|||send-mail'
+      type: regular
+      version: -1
+    taskid: cc6de510-eceb-41c0-8a8b-ea5b669ca19a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 220,
+          "y": 960
+        }
+      }
+  "10":
+    continueonerrortype: ""
+    id: "10"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: af69c30a-003b-4a5a-813d-9d68f53a9e62
+      iscommand: false
+      name: Done
+      type: title
+      version: -1
+    taskid: af69c30a-003b-4a5a-813d-9d68f53a9e62
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 220,
+          "y": 1590
+        }
+      }
+  "11":
+    continueonerrortype: ""
+    id: "11"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "12"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 252e150b-d455-4239-8509-eb20c4c24472
+      iscommand: false
+      name: Assign Analyst
+      type: title
+      version: -1
+    taskid: 252e150b-d455-4239-8509-eb20c4c24472
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 220,
+          "y": 1120
+        }
+      }
+  "12":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                accessor: severity
+                root: incident
+          operator: isEqualString
+          right:
+            value:
+              simple: High
+        - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                accessor: severity
+                root: incident
+          operator: isEqualString
+          right:
+            value:
+              simple: Critical
+      label: Escalate
+    continueonerrortype: ""
+    id: "12"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "5"
+      Escalate:
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check the incident severity in order to assign the relevant analyst.
+      id: 1344e8dd-b592-406a-844e-bdaafaf606ae
+      iscommand: false
+      name: Check incident severity
+      type: condition
+      version: -1
+    taskid: 1344e8dd-b592-406a-844e-bdaafaf606ae
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 220,
+          "y": 1240
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "12_1_Escalate": 0.42,
+      "12_5_#default#": 0.37,
+      "4_3_High": 0.66,
+      "6_8_Sensitive Mailbox": 0.48
+    },
+    "paper": {
+      "dimensions": {
+        "height": 1595,
+        "width": 860,
+        "x": -20,
+        "y": 60
+      }
+    }
+  }

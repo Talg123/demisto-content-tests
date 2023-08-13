@@ -70,7 +70,7 @@ comment: |-
 
   This automation runs using the default Limited User role, unless you explicitly change the permissions.
   For more information, see the section about permissions here:
-  https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
+  https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations
 commonfields:
   id: GetDuplicatesMlv2
   version: -1
@@ -78,7 +78,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -112,9 +112,10 @@ runas: DBotWeakRole
 runonce: true
 script: |
   register_module_line('GetDuplicatesMlv2', 'start', __line__())
+  ### pack version: 1.12.13
+
+
   from sklearn import impute
-
-
 
   import collections
   import re

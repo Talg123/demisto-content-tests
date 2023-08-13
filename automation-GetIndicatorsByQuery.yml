@@ -29,7 +29,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.31.16
+    itemVersion: 1.32.26
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -37,7 +37,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.4.27798
+dockerimage: demisto/python3:3.10.12.66339
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -47,6 +47,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('GetIndicatorsByQuery', 'start', __line__())
+  ### pack version: 1.32.26
 
 
   import hashlib

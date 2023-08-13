@@ -19,9 +19,9 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
-    packID: CommonScripts
-    packName: Common Scripts
+    itemVersion: 1.2.27
+    packID: FiltersAndTransformers
+    packName: Filters And Transformers
     packPropagationLabels:
     - all
     prevname: ""
@@ -37,6 +37,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('IPv4Whitelist', 'start', __line__())
+  ### pack version: 1.2.27
 
 
 

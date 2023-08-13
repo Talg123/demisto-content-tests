@@ -1,0 +1,355 @@
+category: Utilities
+commonfields:
+  id: Twitter
+  version: -1
+configuration:
+- display: API Key
+  name: apikey
+  required: true
+  type: 4
+- display: API Key Secret
+  name: apikey_secret
+  required: true
+  type: 4
+- display: Access Token
+  name: access_token
+  required: true
+  type: 4
+- display: Access Token Secret
+  name: access_token_secret
+  required: true
+  type: 4
+- display: Bearer Token
+  name: bearer_token
+  required: true
+  type: 4
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.0.0
+    itemVersion: 2.0.7
+    packID: Twitter
+    packName: Twitter
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+deprecated: true
+description: Deprecated. Use Twitter v2 instead.
+detaileddescription: |-
+  - You must create a developer account through Twitter to use this integratin (it's easy!)
+  - visit: https://developer.twitter.com/en/apply-for-access
+  - Once done, copy your consumer key & secret, access token & secret, and bearer token to the corresponding parameters in XSOAR
+  - You're ready to go!
+
+
+  ---
+  [View Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/twitter)
+display: Twitter (Deprecated)
+image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAoAAANTBAMAAADVrOKuAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAKlBMVEVHcEwdm/Adm/Adm/Adm/Adm/Adm/Adm/Adm/Adm/Adm/Adm/Adm/Adm/DQXCnQAAAADXRSTlMAKRBap/CAQMDQ4JBw1xcqXgAAHfhJREFUGBntwI2LZOW9J/DvOdVWlfMCh3UmZnQaDsw42bk3wlFGjUpDOaIxkoL0KBOBHOhoZjR7b0OrruMmNox5u70JBWPHvQncLRg1JAvegokhico2zCzmhmQZsK063VXV8/1fLuPbvHW9nvOc87z8PhBCCCGEEEIIIUROvvLiyedWVviZ7srKyWdOhRDuOHVyJeZ2nvrZM0sQ9vNefizmME89eheEzfxXH+MYeo++AGGpyoctjus3f4Ww0IH3OJHeH0IIuxx4nxPrPxxC2KPyfU6l92cIS/hHYk6rcxeEDfY3mca/BhCm895nSv3fQ5htf4vpvRNAmMv/GzPRuwBhqlKdWXkYwky3x8zOkwGEgb7GTPXuRi5ehciMd4IZS36PHBxsQ2SlUmf2vg7lyvHHEBkpNajC21Cs1GINIhulFtX4bQiVvAYZQWTiUExVjodQx6+TDCGycCimOsdDqOKfINmByMKhmCodD6HIPSTZhsjAoZhqHQ+hxAO87FsQ6ZViqnY8hAKv8BM1iNRKLar3BLL3ZX4qgEir0mAefoes7eGnehBpeXXm4zVkaw8/cwkiJf8E8/IusrSHn/sYIqUHmJvkPLKzh1+oQaTzZeaot4Ss7OEVSxCplJmrrRDZ2MMr+hCpVFrM1xPIxB5epQ2Rhr/GvD2EDLzEqx2DSOMB5i45j9Re4TXOQaRwkAXoBkjpa7xWADG9SswiPIFU/Ad4rQ7E9Pw1FuMoUvBO8DqbmNquEK67jQVJIkzNq/N6pzG1O87AcWUWZgvTKjV4gwhTq3fgNr/B4ryO6Xy1xRv0MTWPPA+n/XcWKIkwjT3cRhtTq5JtuKzMQnVCTO5+bucsprZMJgHc5TdYrNcxKe+P3FaEqTVJvgV37WXBkgiTKTW4rT6mViLJHpxVYuE2MJHbY26vjant4GU1uKrO4h3F+Pz7OchZTG2Ol12Cow5TA70A4yrVOVCEqbX4iQhO8lrUwbcxpttbHKiPqZX4qXk46R7qIcI4vL9xiDamtoOfSgI4aBc10cEYDjQ4zBlMbY6fWYWD6tTFUYziH+FwS5hai5/pwj0HqY1eiOEO1DlcF1Mr8Qs1uMZvUh+vYxj/CEdZx9R28AsbcM0+aiQJMNiBOkeqYWpzvCKCW7yYOpnHIN7fOFoSYmoNXrEJt+ylXiJs74ctjmEDU6vwKkkAl3gx9dLGdg48wrGcxdRmeLVjcMkcdRPhBpXvc0wRpjbLq/VCuKNE7bRxHe9IzDF1Mb01XmMV7pijfiJczT/S4tjmMTU/5jU6cEaJGmrjCv/BJiewgKmVeJ0aXDFHHUX4jPdgk5PoY3o7eJ0NOKJELbXxCe/DFieziekt83oR3DBHPUUADjwXc1LnML06r9eGEyrUVBuvPs7JJSGm5vNGS3DBXuqqyWm0Mb1dvNE8HODFtEsN09vBGyUB7LeXdklCTG+W25iH9fwm7dJGCnVuoxfCdodpmXNIIeZ2VmG7Ou3SDzG9ErfVC2G3GVpmEynMcHursNtFWmYBKdzJ7fVgtRIt00MacxygBpvtpWXmkUaDA3RgMT+mZSKk4HGgGux1My2zhTR2caAO7FWnZc4gjRkOVoOtdtEySYA07uRgHdhqlpZpI5U5DlGDnfyYlllAKnUO0YGdqrRMB+lwqBqstEjLrCKVEofqwEYVWiYJkMpODleDhe6gZTaRzg4O14GFGrRMhHRmOUIN1inTMh2kdJEjdGCdWVqmhpTqHKUGy/gt2qUXIqWYo3RgmZ20zFtIqcLRarDLHO2SBEipzNE6sIof0y7zSKvKMazCJjO0TIS0dnMMvRAWmaNd2khtmeNYhT38mHaJkNpFjqMXwho7aZc20qtzLK/DGsu0yzmkF3MsSQBbtGiVDsZSwhAexzQPS5RplxrGcegdDFHimJIl2GGWVulgHHv4FobYyXG1YYcGrVLDGL5GBhiiyrFFsEGJVtnAaN4JcgPD7ObYNmCDf6BVIoxUqpM8g2FmOb4aLLBIm7Qx0pdaJBlgmDmOrxPCeB6tEmGUI7zsEoZa5ARWYbwZ2uQJjOB9wE+cxlANTqAXwnTLtEgSYLgDDX4iCTBUi5OYh+katMibGO5IzE+1MRwnkgQwW4kW6YUYxvuAn6thqAon04bZdtAiRzHM/iY/1w8xVIkTOg+jzdEeHQzh388r1jFcmRPqwGR+THtEGOxAnVdZwHAznNSPYLAy7fFtDOQf4dW6GKHKSfVCmOsOWqMXYJD9DV7jGEbYzYnNw1yLtMZRDOD9jddZwgh3cmJJBFP5MW2xgQF+2OJ1NjDKMid3CaYq0xbJErZ14BHe4DRGmeMUajDUHbTF69iO933eKAkxyiKn0AthpkVaYgvb8I7E3MYmRlrkNN6EmWLaIYlwA//BFre1gJEanEYSwUQlWuI1XM9/sMntdTFag1O5BBPtoB02cB3/wSYHOYbRYk6nBgPN0Qr9ANfwHmxysACjcUq9EOZp0Arv4mqVD1sc4hLGwGnNwzgVWuF3uMot73G4GkarcGoRTDNDG2yF+Jz3YIMj9EKMVuHUtmCaWVqgv4TPvPoeR5vHGCqc3o9gmEVa4F184pbnWhzHEsawi9PrBzBLTPP9CoD/4nNNjucSxlFmCm0YpUTzHcdX7n2M46thHGWmUYNJqjTfY01OohdiHGWm0QtgkFk65xjGMsNUvg2DrNE5AcZSZToLMEdM17QxnirT6YQwRYnOOYfxVJnSmzDFDF3TwZiqTOs8DDFL16xiTFWm1Qlhhot0TBJiTFWm9ibM0KRj5jGuKtM7DxN4dE2Ece1gep0QBthJx7Qxtt3MwJswwA465hzGtptZOA/9zdItHYxvN7PQDaG9NbrlDMa3m5n4NrTXolN6IcZ3E7NxDprz6JZjmECV2egF0NtOOiUJMIEqM/Id6O1mOmUek6gyK0ehtVk6JcIkqsxKEkFnF+mSNiZSZWa2QmisTpdEmEiV2XkTGqNLtjCZKjO0AG2V6JIaJjPDDPUC6GonHdLBhMrM0gZ0tYMOqWFCZWbqNWhqlu7oYFJlZio5Dz3N0R2rmFSZ2eoG0FKdzuiFmFSFGfsOtNSiM1YxsQqz9ho05NEZvRATqzBryQL0U6IzVjE5n5nrBdDODF3RCzEFZm8D2tlBV6xiGjGz9zvo5k46ohdiGg0q8C40M0dHrGIqDSqQRNDLIt3QCzGVNarQCaCVBt2wiuksUonvQCsxndALMZ05qvEraMSjG1YxpWUq8i70UaITOiGmNEtFkgjaKNMJNUxrN1XpBtBFlS7oYGo3U5mNEJrYQRfUMLUq1XkbmriTDriE6ZWp0GvQwzIdEGF6u6jSu9DCRdqvjRQqVCmJoINFWi9ZQgo+leotQQMNWm8eqcRUqhOgeC3arhcglQbVOh6icLTeKtJZo2JPoGgebdcJkc4cVfsVClah7WpIaZnKvYZilWm5S0hrN9U7ikKVabkIad1M9ZKnUaQq7TaP1GaYg36EAlVptV6A1HYxD/0IxbmJVltFeh5z0V1CYXbTZh1kgfnoBijKLG12HlloMB+dAAVZpsWeQCYWmZNOgGIs0179AJmYY146IQpxkfb6EbJxJ3NzPEQRFmmtLWTkZubneIgCLNJWSYSM7GSOjofIX522ehNZKTFPx0PkrkFLdUNkxWeujofIW4OWOofsNJmr4yFy1qCdnkCGFpmvToB8xbRSL0CGlpmzToBc0U5HkaWbmLdOgDzRSpeQqRnmrruEHNFG/QCZKjF/3Qj5oY2OIlseC9CPkBta6BKy1mQBkqeRE5/26QXI2iKLkDyEfFRon6PI3CyL8XXkokLrtJG9HSzIL5GHCq2zieztZFF+G0K9Cq2ziex5LEwngHIVWmcTCrRYmG4E1Sq0ziYUWGNx+t+FYhVapw0FZlmkr0OtCq2zAQV2sFD/HkKlCq2zAQXKLNaTARTyaJ0NKOCxYL27oRCtswEVmixY8nWoQ+tsQIU5Fu7fQ6hC62xAhTtYvE4ERWidDagwQw30fw81aJ0tqFChFn4ZQgVapwslWtRCJ4ICTdqmCyUuUg/JQ8heg7bpQok7qYt3AmStQdt0ocQMtdG7gIw1aJsulPCokV+GyNQibdOFGg1qpHM3srRI23Shxhy18nCI7CzSNl2osYN66dyNzMzRNl2oUaZu/neAjCzTNl2o4cfUTe8CsjFL23ShyBr1884SsrCbtulCkVlqKHk4RHq7aZsuFJmhlroXkNrNtE0XinjU1DsRUqrSNl2oUqeuvhkglZ20TReqzFJb/T+ESKFM23Shygw11n0W0yvRNl2o4lFrT17AtCq0TRfK1Km3Jy9gOj5t04Uys9Tdby5gKrRNF8rMUH9PXsAUGrRMF8p4NEH3WUysTst0oc4ajdD7Q4DJLNIyW1DnDhoiefQFTGKZltmAOmWa442/YnyztMwG1PFbNEjvm0sY025aZgMKzdEsbzwbYhxVWmYDClVpmv7P7sJoO2mZDShUoYF6jz6PEXbRMhtQqU4jdR+9C8NUaJkNqHQHTdX/2V8DDETLbEClXTTZr08+j+01aZcNKNWk2ZKf/PPzuNEa7bIJpWZpgZU/3beEa8zRLptQaict0V/507PP43OztMsmlPJbtEl35U//fOp54CbaZRNqzdFG/4t22YRaMxT624RafkyhvY+h2ByF9j6CYjMU2vsIivkxhe4+gmrLFLr7CKrtpNDdGajmNyk0dxrKzVJo7jSU20WhudNQr06htxrU+wcKvS1APY9CbwvIwUUKrS0gBzMUWouQA79JobMl5GEvhc6WkIcShc4C5GKRQmPIxwyFxpAPv0mhL+TkDgptdZETL6bQVRd5maPQVRd5KVHoagO5WaPQ1AZyM0OhqUvIT51CT5vIz2EKPW0iP36TQkvryNFhCi19hBz5TQodfYQ8HabQ0WnkyW9SaOg0MlV9F0Pto9BQDZmqJk9jGL9JoZ8FZKrKfoRhDlPoZwGZqpL9CEP4TQrtLCFTVZL9CEMcptDOEjJVJcl+hMH8JoVuQmSqysv6T2OwgxS6Qbaq/ETyXQxWp9BLH9mq8jMPYaAyhV66yNYMP/djDDRHoZUOslXmF34bYoBKTKGTDWSrzCs6SxjgNgqdtJGtMq/S/y625zcpNLKJbJV5jR+H2NZBCo2sI1tlXuvJCNu6SKGPj5CtCq+TPIztlGIKbZxFtiq8wZMRtrGPQhunka0Kt/FwgBv4dQpd1JAtj9vp/Rk32EWhiwVkjNt78gKudxuFJiJkjIM8eQHX8usUelhCxmIO1H0mxNV2xRRaQNYaHKL/6PO4yj4KHSTIWoPDPfV/X8AX1ig00EXW6hyp++h9AT5RaVEUr4OsLXIsT/3i5H3PAwcpireBrF3kJFZiisK1kbVlCtNsImuzFKb5CFnbTWGas8jaTRSmOY2sVSlMcw5Zm6EwzXlkrUxhmiVkrURhmhBZq1AYJkH2KAzTRfZaFGbZQvYaFGa5hOwtUphlE9mbozDLx8jeLIVZvoXs7aYwy2lkr0phlnPI3k4Ks0TIXonCLEvInkdhFqgQU5ikBxUaFCbpQIVFCpNsQIVlCpNsQoXdFCb5GCrcTGGSs1BhJ4VJalChRGGSBajgU5gkghJNCoMEUGKRwhwJ1FimMEcHatxEYY4NqDFDYY5NqFGiMMfHUMOjMMdZKNKkMEYNiixSGOM8FJmlMMYSFNlBYQyospPCFF2o4lGYYgvKtCgM0YYyaxSGWIcysxSGOAtldlAYogZldlIY4jyU8SgMEUCdJoUZoNAchRG6UOhOCiNsQKEZCiNsQqEKhRE+gkotChOchkoXKUxwDirdSWGCCCrNUJgghEoVCgP0oFaTQn9bUGuOQn9tqHUThf4+hlplCv2dgVo+hf7OQbE6hfaWoNgshfag2gyF7rpQzaPQ3QaUa1Bobh3KLVNo7ltQrkqhuRqUq1BoLoJ6DQq9BVBvmUJrfeRghkJrW8iBR6G1NvJQp9DZx8jDXgqdnUYeyhQ6O488+DGFxgLkYo5CX33k42YKfXWQjwqFvtrISZ1CWx8hJ3sptFVDTsoU2jqPvLQodBUgL8sUmuohNzMUmtpCbvyYQk/ryM8chZ7OIj9VCj3VkB8vptBShBxdpNBRgjxVKXTUQZ68mEJDbeRqjkJDHyNXMxQaqiFXfotCPxHytUyhnxD5KlNop4O8NSl0cwl520uhm3XkrUShmzPI3RqFZs4jd1UKzQTInR9TaKWHAsxSaOUSClCi0Mo6ilCn0EkNRbiZQicRiuC3KDQSohB7KfTRQTEqFPpooyBzFNr4GAXZSaGNGopSp9BFhKJUKTSRoDB+k0IPHRTnMIUe1lEcP6bQwlkUaC+FFhZQIC+m0EGAIu2l0EAPhfJiiuK1Uay9FMX7GMXyYorC1VCwvRSFi1AwL6YoWB+F20tRsC0UzmtRFGsdxTtMUazTKJ7fpChUBA0cpChSEkIHdYoCdaCFXRQFWoce5iiKcwZ68GKKwpyHJvZRFCaEJvw6RUE60EaZoiCb0Mc9FMU4C314TYpCnIdGDlIUIQmhk4sUBehAK16LIn/r0MtBivydgWb+QpG7CJrxmhQ5S6CdMkXOtqCfH1Dkax368dcoclWDhiotijwtQUf/SJGjPvS0jyI/bWjqBEVujkFTXp0iL+egq0qLIicBtFWOKXLRgcb2UORiEzp7hSIPZ6C1ByhyEEFvD1Ao14fm/BMUqm1Ad/4JCsWOQXv+CQq1atCff4JCqQAmeIBCoQ7M8DUKdTZhiJcolDkNU3wpplBkCcYoNSiU6MMg3h8pVGjDKEcoFDgLs+xvUWQugmG8DygyloQwzu0tikxtwEDe+xRZOgYj7W9QZGcBZvKPtCgykoQwlXckpsjEFgzmHWlRZGAdRvPubVCkVoPZXm5QpBbAZC83KNLrwFzeg02KLKxDO7vuwjhueY8iIzVoZ4bdR5/HcLd8r0mRmQDaKZFk/xfPvIDt3Xrvey2KDHWgH5+f6a/86ZlTS7iicuref1qJKTK2Dg3Vea3/s3LZzykUqUFDcxS5CqChmyjy1IGOZijytA4dVSjyVIOWWhT5SUJoaZEiPxvQ0yxFfo5BT1WK/CxATyWK3CQhNBVT5OUSdLVGkZez0NUsRV4i6KpKkZM+tFWiyMkm9NWiyMdp6OsiRT6WoK87KHLRgcZ2UuRiHRrzKHJRg87qFDlIQuhsliIHG9BalSIHb0FrFYocRNBbg0K5HjS3TKHcJjRXpVCuBs1VKJQLoLsGhWIb0N4yhWLHoL0qhWIRtOdRqNWDAeoUSm3CALMUStVggDKFSkkAA/gxhUIbMMJFCoXOwgg7KBSKYIQKhTpdGKJOocw6DLGXQpkFGKJMoUo/hClaFIq0YYxlCkVqMMYMhRpJAGP4MYUSGzDIHIUSZ2GQGQollmAQL6ZQoAOjXKRQ4BiMMkOhQASj+DFF5rowzBxF5tZhmBmKzC3AMH6LImM9GGeWImPrME6ZImPnYJ4GRab6IcxzB0WmNmGgCkWmajDRIkWGkhAmmqHIUBtG8lsU2anBTHspMpOEMFOJIjNtmGqRIis1mGqGIiNJCFP5TYpstGGuOyiyUYO5vJgiC0kIg81RZGETJitRZOEcjLZGkV4/hNFmKNLbhOHqFKktwHCHKdLqwXR+kyKldRjvMEVK52E8v0mRShcWOEyRyjFYwI8p0ohgg9soUtiCFfwmxfRWYYfDFNMLYAe/STGtS7DFYYppnYYt/CbFdJIQ1pihmM4mLFKnmMoCLFKmmEYXVpmjmMI8rFKJKSYXwS63UUxsC5bxmxSTOgPbHKSYUBLAOhcpJtOGfUoxxUQWYKF9FJPowkZ+nWICx2ClXRQTWIKdbqMY2yVYyq9TjKsGW+2KKcbTC2GtfRTjmYfF1ijGEsFilRbFGLZgtYMUYzgNu91DMVI/hN38NYpR5mG7SotihAjWO0Qx3AYc8GWKoWpwwT0UQ/RCuMBfoxhsHm7wGhQDLcERpRbFAG04oxxTbK8Gdxyi2FYXLtlDsZ1VOGUPxY2SAG7ZQ3GDTbhmD8X1IjhnD8W1tuCgL8UUV6vBRV9tUVzRC+GkUoPiC2/BUV6d4jNJAFf5f6f41Doc9lJMcVkElx1oUpCX4Dbvv1GwBtfd3qLrOhDeB3TcKgTwpSZd1gshAHhHYrrrGMSnKu/TVUkA8bkD79NN8xBXOfAcXRRBXMP7sEnXtCFu8OJ7MZ0SQWzDf/W5Jp2xBTHIV+597qd0Qg1iqFtfPHlyZeWntFkHYhxrtFkNYgz/lTbrhRCjeTFttgoxhou0WS+EGO0grbYKMZrXos16IcRoF2m1tyBGO0irJQHESJWYVpuHGG2RVksCiJH20W7zECOVYlotCSBG8eu02zzESD+g3ZIAYpSdtNw8xChek3ZLAohRFmm5eYhR9tFySQAxQpm2m4cYwWvSckkAMcIibfc6xAj7aLteCDFcmdZbhRiu0qLteiHEUP4arbcKMdw9tF4nhBjqy7RfDWKockzrdSCGqrRovxrEMF6d9mtDDHWCDogghvkBHfAExDBfpgOSAGKIQ3TBPMQQpZgO6AUQg1WadMEqxGBegy7ohBAD+XU6oQYxkH+CTrgEMdhf6IYIYqAH6IZvQwz0A7qhH0AM8godsQoxyCt0RCeEGOAVuuIcxACv0BVtiAFeoSuSJYjtvUJnvA6xva/RGd0QYlsP0B01iO34D9AdbYjt+CfojmQJYhtenQ55HWIblTod0gkhblRq0iULEDf6UkyXPAFxo5folF4AcT3/frrlKMT1vEfolg2I65UadEsSQVzn9piOeR3iWv79dE0nhLhG5RG6JokgrvGlFp3zJsTV/Pvpnk4IcZVSnQ46D3GVIzEd9CbEFaVH6KJOCPGFIzGddB7ic6VH6KY3IT7jH4nppk4I8an9dToqiSA+4b1PZ70OcZl/JKaztiAue7lJdyVLEMD+R+iyoxC45XE67TsQtzxOt/UCuG7/43TdAtzmv/xTOu9NOM37sEmxFcJht7xHQfaX4KzK/29QXHYUjvLufZziU0/ASd6936D4XCeEe279p59TXJFEMNp/waRuvfexFsU1jsJs+/o/OXlfgPF4L55ciSmu9zuY7gRJ9lcefebUCxjsK6f+43srLYrtbIUwndfgF3orKydPnvzrqStePXny5MpKk2Kw/hLMV4op0ngaNvhHihRehx3+B8XUvgNbnKCYUieALbw6xVT6EexRaVFM413YpBxTTO412GUPxcSegG1+QDGhTgjrnKCYSG8J9vHrFBNIzsNGlQbF+N6FnUotinG9BlsdiinG8zbstYdiLMdDWOwVijF0AljtAYqRukuw3F8oRuhHsJ1/gmKoZAH28+oUwzwNF3h1isEeghsqDYpB/gWuqDQotvcruKPUotjO23BJqUVxo7fhllKL4nrH4ZpSTHGt4yGccyimuNrxEA46FFNccTyEkw7FFJ87HsJRB1oUnzoewlmlFsVlx0M4rNSiII+HcFqpSXE8hOMqDbru7RDOq9TptrchAK9Ol/0Y4jLvBN31LxCf8v9OVz0E8YX76aTkuxBXeYkO6t8NcY3bY7qmG0Fc56stuqUTQNyg1KBLfhtCbMP7I93xY4jt+ffTFQ9BDPQSndD/fxBDfLVF+3WWIIaq1Gm73wYQI3h/p90ehhjDS7RY/wLEWL7apK06SxBj8v5IO/0yhBjfEVqo/3uIiexv0jadCGJC3ge0y49DiMkdiWmP3gWIqZTqtMU7AcSU/CO0QvJ7iBT2N2m+JyOIVLy/0XDJwxCp7W/SZE9GEBnwPqSx+n+GyMiBOs30TgCRGf9ITPP0LkBkqvIBDZM8HEJkbX+DJnknglDAPxLTFN0LEIp436cR+g+HEOoceITaS74ZQKi1v0G9/esShHo/bFJf/3Y3RC78B5vU02/uhsiN/2CT+nnjLohc+Q82qZd/uxsid/69DerjZy9AFOPlR6iF/jcDiOLc8j4L99QzIUSxKh+2WKRf3AWhAf/lx1mQ7h8CCF185Xst5i752V0Qenn1MebqjWdDCP14936DOXnjmQBCV96936BybzwTQOjNe/mxmMr0f/HXAMIIL37vp1Tg1yefhzBJ5eX3mszQrx+9L4QwUOXl7/2c6fV/cvJUCGEw/9R/vPdzTqu3cvK+JQg73Prqycf+Jyfx1MqfnjkVQFjHO/XiyZMrKz/nYL2VlUdPPntqCcIBt576xIsnP3ffqVOnliCEEEIIIYQQQgghhBAiH/8J6fmhS7nul4kAAAAASUVORK5CYII=
+name: Twitter
+script:
+  commands:
+  - arguments:
+    - description: The string to search for accounts with similar names
+      name: name
+      required: true
+    - defaultValue: "15"
+      description: 'Number of accounts to return. Note: The max is 20.'
+      name: count
+    - defaultValue: "1"
+      description: Page to look for search results on
+      name: page
+    deprecated: true
+    description: Search for public users on Twitter
+    name: twitter-get-users
+    outputs:
+    - contextPath: TwitterSOARx
+      description: Results of the twitter-get-users command
+      type: string
+  - arguments:
+    - description: The twitter usernames to search
+      name: usernames
+      required: true
+    deprecated: true
+    description: 'Lookup users by name to display information about them. Search multiple
+      users simultaneously by separating them by commas. Ex: "name="user1,user2,user3"'
+    name: twitter-get-user-info
+    outputs:
+    - contextPath: TwitterSOARx
+      description: Results of the twitter-get-user-info command
+      type: string
+  - arguments:
+    - description: The word or string of words to search for in tweets.
+      name: q
+      required: true
+    - description: Recent, Popular, Mixed
+      name: result_type
+    - description: 'GPS Coordinates: Latitude,Longitude,RadiusMi/KM. Ex: geocode="23.453987,-35.726374,100mi"'
+      name: geocode
+    - description: 'The language code of tweets to search for. List of supported languages:  https://developer.twitter.com/en/docs/twitter-for-websites/supported-languages'
+      name: lang
+    - description: The number of tweets to return. The max is 100.
+      name: count
+    - defaultValue: "True"
+      description: Display entities (True/False), Defaults to True
+      name: include_entities
+    - description: 'Search tweets from a given user. Ex: "from_user=PaloAltoNtwks"
+        returns only tweets from Palo Alto Networks.'
+      name: from_user
+    - description: 'Search tweets to a given user. Ex: "to_user=PaloAltoNtwks" returns
+        only tweets in reply to Palo Alto Networks.'
+      name: to_user
+    deprecated: true
+    description: Search for tweets on Twitter.
+    name: twitter-get-tweets
+    outputs:
+    - contextPath: TwitterSOARx
+      description: Results of the twitter-get-tweets command
+      type: string
+  dockerimage: demisto/tweepy:1.0.0.23810
+  runonce: false
+  script: |
+    register_module_line('Twitter', 'start', __line__())
+    ### pack version: 2.0.7
+
+
+    ''' IMPORTS '''
+
+    import tweepy
+    import urllib
+    import requests
+
+
+    class Client:
+        def auth(self):
+            auth = tweepy.OAuthHandler(demisto.params().get('apikey'), demisto.params().get('apikey_secret'))
+            auth.set_access_token(demisto.params().get('access_token'), demisto.params().get('access_token_secret'))
+            api = tweepy.API(auth)
+            return api
+
+    # Build a search URL using the usernames argument and a preset list of all of the user fields of interest
+    # Link to Twitter reference under Apache 2.0:
+    # https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/master/User-Lookup/get_users_with_bearer_token.py
+    # Changes made: changed function name to "create_users_info_url", added extra user fields and made user_fields a constant,
+    # usernames is no longer a static variable, removed the print statement from connect_to_endpoint
+        def create_users_info_url(self, usernames):
+            USER_FIELDS = "user.fields=description,pinned_tweet_id,protected,created_at,id,location,name,url,public_metrics,profile_image_url,username,verified,withheld"  # noqa: E501
+            TWITTER_APIV2_URL = "https://api.twitter.com/2/users/by?{}&{}"
+            url = TWITTER_APIV2_URL.format(usernames, USER_FIELDS)
+            return url
+
+        def create_headers(self, bearer_token):
+            headers = {"Authorization": "Bearer {}".format(bearer_token)}
+            return headers
+
+        def connect_to_endpoint(self, url, headers):
+            response = requests.request("GET", url, headers=headers)
+            if response.status_code != 200:
+                raise Exception(
+                    "Request returned an error: {} {}".format(
+                        response.status_code, response.text
+                    )
+                )
+            return response.json()
+
+        def get_tweets(self, q):
+            TWITTER_APIV1_TWEETS_URL = "https://api.twitter.com/1.1/search/tweets.json?q="
+            search_url = TWITTER_APIV1_TWEETS_URL + q
+    # Query arguments are set to have no default value. If the user does not input a value, the integration will check for if
+    # a value for the argument exists and append it to the HTTP request if so.
+            if demisto.args().get('from_user'):
+                search_url += urllib.parse.quote(f" from:{demisto.args().get('from_user')}")  # type: ignore[attr-defined]
+            if demisto.args().get('to_user'):
+                search_url += urllib.parse.quote(f" to:{demisto.args().get('to_user')}")  # type: ignore[attr-defined]
+            if demisto.args().get('geocode'):
+                search_url += "&geocode=" + demisto.args().get('geocode')
+                geocode_check = demisto.args().get('geocode').split(',')
+                try:
+                    float(geocode_check[0])
+                    float(geocode_check[1])
+                    float(geocode_check[2][:-2])
+                except ValueError:
+                    return_error('Incorrect geocode syntax. Geocode syntax is Lat,Long,RadiusUnits\
+                    - Where Units = mi or km. \nExample Syntax: 60,324321,-27.98789,400mi')
+                if geocode_check[2][-2:] != 'mi' and geocode_check[2][-2:] != 'km':
+                    return_error('Incorrect geocode syntax. Geocode syntax is Lat,Long,RadiusUnits\
+                    - Where Units = mi or km. \nExample Syntax: 60,324321,-27.98789,400mi')
+            if demisto.args().get('lang'):
+                search_url += "&lang=" + demisto.args().get('lang')
+                SUPPORTED_LANGS = ['en', 'ar', 'bn', 'cs', 'da', 'de', 'el', 'es', 'fa', 'fi', 'fil', 'fr',
+                                   'he', 'hi', 'hu', 'id', 'it', 'ja', 'ko', 'msa', 'nl', 'no', 'pl', 'pt',
+                                   'ro', 'ru', 'sv', 'th', 'tr', 'uk', 'ur', 'vi', 'zh-cn', 'zh-tw']
+                if demisto.args().get('lang') not in SUPPORTED_LANGS:
+                    return_error('Language code is not supported. For a list of supported language codes, visit\
+                     https://developer.twitter.com/en/docs/twitter-for-websites/supported-languages')
+            if demisto.args().get('result_type'):
+                search_url += "&result_type=" + (demisto.args().get('result_type')).lower()
+                SUPPORTED_RESULT_TYPES = ['popular', 'recent', 'mixed']
+                if demisto.args().get('result_type') not in SUPPORTED_RESULT_TYPES:
+                    return_error("Entered result_type is not supported. Please use 'recent', 'popular', or 'mixed'.")
+            if demisto.args().get('count'):
+                try:
+                    int(demisto.args().get('count'))
+                except ValueError:
+                    return_error("Count must be an integer less than or equal to 100.")
+                if int(demisto.args().get('count')) < 100:
+                    search_url += "&count=" + demisto.args().get('count')
+                else:
+                    search_url += "&count=100"
+            search_url += "&tweet_mode=extended"
+            headers = Client.create_headers(self, demisto.params().get('bearer_token'))
+            json_response = Client.connect_to_endpoint(self, search_url, headers)
+            table = []
+
+            def get_entity(value, entity, subentity):
+                entity_list = []
+                if value.get('entities').get(entity) != []:
+                    for item in value.get('entities').get(entity):
+                        entity_list.append(item[subentity])
+                return entity_list
+
+            for value in json_response.get('statuses'):
+                obj = {
+                    'Tweet Text': value.get('full_text'),
+                    'Post ID': value.get('id_str'),
+                    'User Full Name': value.get('user').get('name'),
+                    'Username': value.get('user').get('screen_name'),
+                    'Date of Creation': value.get('created_at'),
+                    'User Verified Status': value.get('user').get('verified'),
+                    'Post Retweet Count': value.get('retweet_count'),
+                    'Post Favorite Count': value.get('favorite_count')
+                }
+                if demisto.args().get('include_entities') == "True":
+                    obj['Hashtags'] = get_entity(value, 'hashtags', 'text')
+                    obj['User Mentions'] = get_entity(value, 'user_mentions', 'screen_name')
+                    obj['Expanded URL'] = get_entity(value, 'urls', 'expanded_url')
+                    obj['Media'] = get_entity(value, 'media', 'media_url_https') if 'media' in value.get('entities').keys() else None
+                table.append(obj)
+            if demisto.args().get('include_entities') == "True":
+                headers = ['Tweet Text', 'Post ID', 'User Full Name', 'Username', 'Date of Creation', 'User Verified Status',
+                           'Post Retweet Count', 'Post Favorite Count', 'Hashtags', 'User Mentions', 'Expanded URL', 'Media']
+            else:
+                headers = ['Tweet Text', 'Post ID', 'User Full Name', 'Username',
+                           'Date of Creation', 'User Verified Status', 'Post Retweet Count', 'Post Favorite Count']
+            name = "Twitter-get-tweets Search Results"
+            results_to_markdown(table, headers, name)
+
+    # Documentation for the tweepy search_users api call: https://docs.tweepy.org/en/stable/api.html#API.search_users
+
+        def get_users(self, name):
+            table = []
+            try:
+                int(demisto.args().get('count'))
+            except ValueError:
+                return_error("Count must be an integer less than or equal to 20.")
+            try:
+                int(demisto.args().get('page'))
+            except ValueError:
+                return_error("Page must be an integer.")
+            for user in ((Client.auth(self).search_users(q=name, page=int(demisto.args().get('page')),
+                                                         count=int(demisto.args().get('count')), include_entities=True))):
+                if 'url' in user.entities.keys():
+                    user_url = user.entities.get('url').get('urls')[0].get('expanded_url')
+                else:
+                    user_url = None
+                obj = {
+                    'Username': user.screen_name,
+                    'User ID': user.id,
+                    'Follower Count': user.followers_count,
+                    'Verified Status': user.verified,
+                    'User URL': user_url
+                }
+                table.append(obj)
+            headers = ['Username', 'User ID', 'Follower Count', 'Verified Status', 'User URL']
+            name = "Twitter-get-users Search Results"
+            results_to_markdown(table, headers, name)
+
+    # Documentation on the user class used: https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/user
+
+        def get_user_info(self, usernames):
+            url = Client.create_users_info_url(self, usernames)
+            headers = Client.create_headers(self, demisto.params().get('bearer_token'))
+            json_response = Client.connect_to_endpoint(self, url, headers)
+            table = []
+            for value in json_response.get('data'):
+                obj = {
+                    'Name': value.get('name'),
+                    'Username': value.get('username'),
+                    'ID': value.get('id'),
+                    'Description': value.get('description'),
+                    'Verified': value.get('verified'),
+                    'Date of Creation': value.get('created_at'),
+                    'Follower Count': value.get('public_metrics').get('followers_count'),
+                    'Following Count': value.get('public_metrics').get('following_count'),
+                    'Listed Count': value.get('public_metrics').get('listed_count'),
+                    'Tweet Count': value.get('public_metrics').get('tweet_count'),
+                    'Location': value.get('location'),
+                    'Protected': value.get('protected'),
+                    'URL': value.get('url'),
+                    'Profile Image URL': value.get('profile_image_url')
+                }
+                table.append(obj)
+                headers = ['Name', 'Username', 'ID', 'Description', 'Verified', 'Date of Creation',
+                           'Follower Count', 'Following Count', 'Listed Count', 'Tweet Count',
+                           'Location', 'Protected', 'URL', 'Profile Image URL']
+                name = "Twitter-get-user-info Search Results"
+            results_to_markdown(table, headers, name)
+
+
+    def results_to_markdown(table, headers, name):
+        markdown = tableToMarkdown(name, table, headers=headers)
+        results = CommandResults(
+            readable_output=markdown,
+            outputs_prefix='Twitter',
+            outputs_key_field="SearchResults",
+            outputs=table
+        )
+        return_results(results)
+
+
+    def test_module(client):
+        """
+        Returning 'ok' indicates that the integration works like it suppose to. Connection to the service is successful.
+
+        Args:
+            client: HelloWorld client
+
+        Returns:
+            'ok' if test passed, anything else will fail the test
+        """
+
+        result = client.say_hello('DBot')
+        if 'Hello DBot' == result:
+            return 'ok'
+        else:
+            return 'Test failed because ......'
+
+
+    def main():
+        client = Client()
+        if demisto.command() == 'test-module':
+            result = test_module(client)
+            return_results(result)
+        if demisto.command() == 'twitter-get-users':
+            name = demisto.args().get('name')
+            client.get_users(name)
+        if demisto.command() == 'twitter-get-user-info':
+            usernames = "usernames=" + demisto.args().get('usernames')
+            client.get_user_info(usernames)
+        if demisto.command() == 'twitter-get-tweets':
+            if demisto.args().get('q')[0] == '#':
+                q = urllib.parse.quote(' ') + demisto.args().get('q')[1:]  # type: ignore[attr-defined]
+            else:
+                q = demisto.args().get('q')
+            client.get_tweets(q)
+
+
+    if __name__ in ('__main__', '__builtin__', 'builtins'):
+        main()
+
+    register_module_line('Twitter', 'end', __line__())
+  subtype: python3
+  type: python
+system: true

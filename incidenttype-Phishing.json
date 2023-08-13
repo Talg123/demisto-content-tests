@@ -1,5 +1,5 @@
 {
-	"autorun": false,
+	"autorun": true,
 	"cacheVersn": 0,
 	"closureScript": "",
 	"color": "#3AD1D6",
@@ -425,6 +425,31 @@
 				"extractIndicatorTypesIDs": [],
 				"isExtractingAllIndicatorTypes": false
 			},
+			"reportedemailcc": {
+				"extractAsIsIndicatorTypeId": "",
+				"extractIndicatorTypesIDs": [],
+				"isExtractingAllIndicatorTypes": true
+			},
+			"reportedemailfrom": {
+				"extractAsIsIndicatorTypeId": "",
+				"extractIndicatorTypesIDs": [],
+				"isExtractingAllIndicatorTypes": true
+			},
+			"reportedemailmessageid": {
+				"extractAsIsIndicatorTypeId": "",
+				"extractIndicatorTypesIDs": [],
+				"isExtractingAllIndicatorTypes": false
+			},
+			"reportedemailsubject": {
+				"extractAsIsIndicatorTypeId": "",
+				"extractIndicatorTypesIDs": [],
+				"isExtractingAllIndicatorTypes": true
+			},
+			"reportedemailto": {
+				"extractAsIsIndicatorTypeId": "",
+				"extractIndicatorTypesIDs": [],
+				"isExtractingAllIndicatorTypes": true
+			},
 			"reporteremailaddress": {
 				"extractAsIsIndicatorTypeId": "",
 				"extractIndicatorTypesIDs": [],
@@ -517,7 +542,7 @@
 	"hours": 0,
 	"hoursR": 0,
 	"id": "Phishing",
-	"itemVersion": "3.1.6",
+	"itemVersion": "3.5.26",
 	"layout": "Phishing Incident v3",
 	"locked": false,
 	"name": "Phishing",

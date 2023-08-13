@@ -2,9 +2,9 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.1.6
+    itemVersion: 2.1.32
     packID: Palo_Alto_Networks_WildFire
-    packName: Palo Alto Networks WildFire
+    packName: WildFire by Palo Alto Networks
     packPropagationLabels:
     - all
     prevname: ""

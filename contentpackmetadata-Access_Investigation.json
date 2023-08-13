@@ -49,49 +49,49 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.2.2",
+	"currentVersion": "1.2.4",
 	"definitionId": "",
 	"dependencies": {
 		"Active_Directory_Query": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.4.15",
+			"minVersion": "1.6.20",
 			"name": "Active Directory Query"
 		},
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.31.14",
+			"minVersion": "1.32.23",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "2.2.10",
+			"minVersion": "2.3.85",
 			"name": "Common Playbooks"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.7.16",
+			"minVersion": "1.12.10",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "3.2.41",
+			"minVersion": "3.3.81",
 			"name": "Common Types"
 		}
 	},
 	"deprecated": false,
 	"description": "This Content Pack automates response to unauthorised access incidents and contains customer access incident views and layouts to aid investigation.",
 	"disabledMonthly": false,
-	"downloads": 1193,
+	"downloads": 3548,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -108,7 +108,7 @@
 			"name": "Active Directory Query v2"
 		}
 	],
-	"itemVersion": "1.2.2",
+	"itemVersion": "1.2.4",
 	"keywords": [],
 	"legacy": true,
 	"name": "Access Investigation",
@@ -136,11 +136,9 @@
 		"Use Case"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-06T12:21:28+03:00",
-	"useCases": [
-		"Access"
-	],
+	"updated": "2023-08-06T09:21:27Z",
+	"useCases": [],
 	"version": -1,
-	"versionInfo": "3427401",
+	"versionInfo": "5969979",
 	"videos": []
 }

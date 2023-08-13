@@ -78,28 +78,21 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.1.9",
+	"currentVersion": "1.1.32",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.31.16",
+			"minVersion": "1.32.26",
 			"name": "Base"
-		},
-		"CommonTypes": {
-			"author": "Cortex XSOAR",
-			"certification": "certified",
-			"mandatory": true,
-			"minVersion": "3.2.41",
-			"name": "Common Types"
 		}
 	},
 	"deprecated": false,
 	"description": "Ingest indicator feeds from TAXII 1 and TAXII 2 servers.",
 	"disabledMonthly": false,
-	"downloads": 9619,
+	"downloads": 21823,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.5.0",
 	"general": [
@@ -120,7 +113,7 @@
 			"name": "TAXII Feed"
 		}
 	],
-	"itemVersion": "1.1.9",
+	"itemVersion": "1.1.32",
 	"keywords": [],
 	"legacy": true,
 	"name": "TAXII Feed",
@@ -144,12 +137,13 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
+		"Generic Feed",
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-09T12:25:51+03:00",
+	"updated": "2023-08-09T09:25:50Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "3427401",
+	"versionInfo": "5998185",
 	"videos": []
 }

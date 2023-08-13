@@ -19,7 +19,7 @@
 	"contentItems": {
 		"automation": [
 			{
-				"description": "Hello World Script",
+				"description": "Hello World Script.",
 				"name": "HelloWorldScript",
 				"tags": [
 					"helloworld"
@@ -71,6 +71,18 @@
 		"indicatorfield": null,
 		"integration": [
 			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Gets indicators from the feed.",
+						"name": "helloworld-get-indicators"
+					}
+				],
+				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
+				"id": "HelloWorld Feed",
+				"name": "HelloWorld Feed (Community Contribution)"
+			},
+			{
 				"category": "Utilities",
 				"commands": [
 					{
@@ -113,18 +125,6 @@
 				"description": "This is the Hello World integration for getting started.",
 				"id": "HelloWorld",
 				"name": "HelloWorld (Community Contribution)"
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
-						"description": "Gets indicators from the feed.",
-						"name": "helloworld-get-indicators"
-					}
-				],
-				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
-				"id": "HelloWorld Feed",
-				"name": "HelloWorld Feed (Community Contribution)"
 			}
 		],
 		"layoutscontainer": [
@@ -149,42 +149,35 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.2.12",
+	"currentVersion": "1.2.22",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.31.16",
+			"minVersion": "1.32.23",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "2.2.12",
+			"minVersion": "2.3.85",
 			"name": "Common Playbooks"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.7.18",
+			"minVersion": "1.12.10",
 			"name": "Common Scripts"
-		},
-		"CommonTypes": {
-			"author": "Cortex XSOAR",
-			"certification": "certified",
-			"mandatory": true,
-			"minVersion": "3.2.41",
-			"name": "Common Types"
 		}
 	},
 	"deprecated": false,
 	"description": "This is the Hello World integration for getting started.",
 	"disabledMonthly": false,
-	"downloads": 8590,
+	"downloads": 16108,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -203,7 +196,7 @@
 			"name": "HelloWorld Feed"
 		}
 	],
-	"itemVersion": "1.2.12",
+	"itemVersion": "1.2.22",
 	"keywords": [],
 	"legacy": true,
 	"name": "HelloWorld",
@@ -218,6 +211,7 @@
 	"rawKeywords": null,
 	"rawTags": null,
 	"rawUseCases": null,
+	"readme": "This content pack provides the Feed Hello World integration for getting started with your feed integration and the Hello World integration that imports events as incidents.\n\nThe purpose of this pack is to learn how to build a Cortex XSOAR content pack.\n\n## What does this pack do?\n\n- Returns domain information and reputation.\n- Retrieves alert extra data by ID.\n- Retrieves scan status in context or as a file (default) for a scan.\n- Starts a scan on an asset.\n- Retrieves scan status for one or more scan IDs.\n- Searches HelloWorld alerts.\n- Updates the status for an alert.\n- Returns IP information and reputation.\n\nAs part of this pack, you get an out-of-the-box automation, classifiers, incident fields and a Hello World layout. In addition there are two playbooks:\n- A playbook that will handle the alerts coming from the Hello World service.\n- A playbook that simulates a vulnerability scan using the \"HelloWorld\" sample integration. It's used to demonstrate how to use the GenericPolling mechanism to run jobs that take several seconds or minutes to complete.",
 	"searchRank": 0,
 	"serverMaxVersion": "",
 	"serverMinVersion": "5.0.0",
@@ -227,13 +221,13 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
-		"TIM",
-		"Getting Started"
+		"Getting Started",
+		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-06T12:19:27+03:00",
+	"updated": "2023-08-06T09:19:26Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "3427401",
+	"versionInfo": "5969979",
 	"videos": []
 }

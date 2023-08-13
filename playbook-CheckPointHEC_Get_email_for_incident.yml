@@ -1,0 +1,103 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.9.0
+    itemVersion: 1.0.2
+    packID: CheckPointHEC
+    packName: Check Point Harmony Email and Collaboration (HEC)
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Get email entity for a specific incident
+id: CheckPointHEC Get email for incident
+inputs:
+- description: Get email entity id from incident
+  key: entity
+  playbookInputQuery: null
+  required: true
+  value:
+    simple: ${incident.checkpointhecentity}
+name: CheckPointHEC Get email for incident
+outputs:
+- contextPath: CheckPointHEC.Entity.subject
+  description: Email subject
+  type: string
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 2ddf1617-3bef-4dc3-8dc6-56b26003bce0
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 2ddf1617-3bef-4dc3-8dc6-56b26003bce0
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      entity:
+        simple: ${incident.checkpointhecentity}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: CheckPointHEC
+      description: Retrieve specific entity
+      id: 82707007-89c8-4622-873b-ed5325db9ce2
+      iscommand: true
+      name: checkpointhec-get-entity
+      script: CheckPointHEC|||checkpointhec-get-entity
+      type: regular
+      version: -1
+    taskid: 82707007-89c8-4622-873b-ed5325db9ce2
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 460,
+          "y": 220
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 265,
+        "width": 390,
+        "x": 450,
+        "y": 50
+      }
+    }
+  }

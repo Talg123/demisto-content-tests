@@ -24,6 +24,18 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
+						"description": "Check IP reputation (when information is available, returns a JSON with details). Uses all configured Threat Intelligence feeds.",
+						"name": "ip"
+					}
+				],
+				"description": "Use the IPinfo.io API to get data about an IP address.",
+				"id": "ipinfo_v2",
+				"name": "IPinfo v2"
+			},
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
 						"description": "Check IP reputation (when information is available, returns a JSON with details).  Uses all configured Threat Intelligence feeds",
 						"name": "ip"
 					},
@@ -35,18 +47,6 @@
 				"description": "Deprecated. Use IPinfo v2 instead. Use the ipinfo.io API to get data about an IP address",
 				"id": "ipinfo",
 				"name": "ipinfo (Deprecated)"
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
-						"description": "Check IP reputation (when information is available, returns a JSON with details). Uses all configured Threat Intelligence feeds.",
-						"name": "ip"
-					}
-				],
-				"description": "Use the IPinfo.io API to get data about an IP address.",
-				"id": "ipinfo_v2",
-				"name": "IPinfo v2"
 			}
 		],
 		"layoutscontainer": null,
@@ -57,21 +57,21 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "2.1.3",
+	"currentVersion": "2.1.16",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.31.16",
+			"minVersion": "1.32.26",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Use the ipinfo.io API to get data about an IP address",
 	"disabledMonthly": false,
-	"downloads": 6559,
+	"downloads": 16332,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -92,7 +92,7 @@
 			"name": "ipinfo (Deprecated)"
 		}
 	],
-	"itemVersion": "2.1.3",
+	"itemVersion": "2.1.16",
 	"keywords": [],
 	"legacy": true,
 	"name": "Ipinfo",
@@ -115,13 +115,11 @@
 		"email": "",
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
-	"tags": [
-		"Relationship"
-	],
+	"tags": [],
 	"toServerVersion": "",
-	"updated": "2023-08-08T12:21:41+03:00",
+	"updated": "2023-08-08T09:21:40Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "3427401",
+	"versionInfo": "5987442",
 	"videos": []
 }

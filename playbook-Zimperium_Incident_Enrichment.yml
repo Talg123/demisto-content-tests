@@ -1,0 +1,133 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    itemVersion: 1.1.11
+    packID: Zimperium
+    packName: Zimperium
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Enriches Zimperium incidents.
+id: Zimperium Incident Enrichment
+inputs: []
+name: Zimperium Incident Enrichment
+outputs: []
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 46b2e5b0-6f4b-4756-8dbf-291520152be4
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 46b2e5b0-6f4b-4756-8dbf-291520152be4
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 50
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      zdid:
+        complex:
+          accessor: labels.zdid
+          root: incident
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieve details for a single device.
+      id: df4f2e79-a148-4be4-8e20-a6f1f7508b74
+      iscommand: true
+      name: Get device details by zimperium ID
+      script: '|||zimperium-device-get-by-id'
+      type: regular
+      version: -1
+    taskid: df4f2e79-a148-4be4-8e20-a6f1f7508b74
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 195
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      email:
+        complex:
+          accessor: Labels.userEmail
+          root: incident
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Search users.
+      id: cef0f8eb-e0ec-4e4c-89df-b068136369b5
+      iscommand: true
+      name: Get user details by email
+      script: '|||zimperium-users-search'
+      type: regular
+      version: -1
+    taskid: cef0f8eb-e0ec-4e4c-89df-b068136369b5
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 370
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 415,
+        "width": 380,
+        "x": 50,
+        "y": 50
+      }
+    }
+  }

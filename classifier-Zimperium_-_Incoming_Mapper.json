@@ -1,0 +1,94 @@
+{
+	"brands": null,
+	"cacheVersn": 0,
+	"defaultIncidentType": "",
+	"definitionId": "",
+	"description": "Maps incoming Zimperium incident fields.",
+	"feed": false,
+	"fromServerVersion": "6.0.0",
+	"id": "Zimperium-mapper",
+	"incidentSamples": null,
+	"indicatorSamples": null,
+	"instanceIds": null,
+	"itemVersion": "1.1.11",
+	"keyTypeMap": null,
+	"locked": false,
+	"logicalVersion": 0,
+	"mapping": {
+		"Zimperium Event": {
+			"dontMapEventToLabels": false,
+			"internalMapping": {
+				"App": {
+					"complex": {
+						"filters": [],
+						"root": "appName",
+						"transformers": []
+					}
+				},
+				"Device Hash": {
+					"complex": {
+						"filters": [],
+						"root": "deviceHash",
+						"transformers": []
+					}
+				},
+				"First Name": {
+					"complex": {
+						"filters": [],
+						"root": "firstName",
+						"transformers": []
+					}
+				},
+				"Last Name": {
+					"complex": {
+						"filters": [],
+						"root": "lastName",
+						"transformers": []
+					}
+				},
+				"Mobile Device Model": {
+					"complex": {
+						"filters": [],
+						"root": "deviceModel",
+						"transformers": []
+					}
+				},
+				"OS": {
+					"complex": {
+						"filters": [],
+						"root": "osType",
+						"transformers": []
+					}
+				},
+				"OS Version": {
+					"complex": {
+						"filters": [],
+						"root": "osVersion",
+						"transformers": []
+					}
+				},
+				"Phone Number": {
+					"complex": {
+						"filters": [],
+						"root": "userPhoneNumber",
+						"transformers": []
+					}
+				}
+			}
+		}
+	},
+	"name": "Zimperium - Incoming Mapper",
+	"nameRaw": "Zimperium - Incoming Mapper",
+	"packID": "Zimperium",
+	"packName": "Zimperium",
+	"packPropagationLabels": [
+		"all"
+	],
+	"sourceClassifierId": "",
+	"system": true,
+	"toServerVersion": "",
+	"transformer": {},
+	"type": "mapping-incoming",
+	"unclassifiedCases": null,
+	"version": -1
+}

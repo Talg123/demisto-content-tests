@@ -1,0 +1,615 @@
+category: Data Enrichment & Threat Intelligence
+commonfields:
+  id: Twitter v2
+  version: -1
+configuration:
+- defaultvalue: https://api.twitter.com
+  display: Server URL
+  name: url
+  required: true
+  type: 0
+- additionalinfo: The Bearer Token to use for connection
+  display: ""
+  displaypassword: Bearer Token
+  hiddenusername: true
+  name: credentials
+  required: true
+  type: 9
+- display: Trust any certificate (not secure)
+  name: insecure
+  required: false
+  type: 8
+- display: Use system proxy settings
+  name: proxy
+  required: false
+  type: 8
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    itemVersion: 2.0.7
+    packID: Twitter
+    packName: Twitter
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Twitter integration provides access to searching recent Tweets (in last
+  7 days) and user information using the Twitter v2 API.
+detaileddescription: "## Twitter v2 Integration Help\n\n#### How to configure\nIn
+  order to configure Twitterv2 you will need a Bearer Token. To get your Bearer Token
+  you need to: \n\n   1. [Sign up for a developer account](https://developer.twitter.com/en/portal/petition/essential/basic-info).\n
+  \  2. Create a Twitter App.\n\n Once you have those, you'll also need to obtain
+  the Bearer Token found in the developer portal. \n\n1. Login to your Twitter account
+  on developer.twitter.com.\n2. Navigate to the Twitter App dashboard and open the
+  Twitter App for which you would like to generate access tokens.\n3. Navigate to
+  the *keys and tokens* page. You'll find the Bearer Token on this page.\n\n\n\n---\n[View
+  Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/twitter-v2)"
+display: Twitter v2
+image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAyCAYAAACXpx/YAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAb5SURBVHgB7ZxrbBRVFMfPubO7tJE+rNYC3aVFHkEifgBCEMSIJkYMBqJRSSQg6ZNHQOWLECQNBpUoinwhZVtKRGPUBIkJQQixBgQiL4GIPITQdnehFLrtdksf7Mw9nmkhghFS2t1yBvpLpjN7O7N7Z/5z7jn33DsD0EcffTgXhD46GLaO+sU84TEmGlOUomFAmExAMUT1N2qsrLmYsg9KUIPDeOAFHltK7kvYWIyIC/njiNvth0DnAdVmFUz9uKoE2277hSWVLm/2U+8GQxlrJNwQogTOraB0bL2SdX5+5mnoBQatb5pkuPQm3hzW1WOIqIYM19uhvJTKm8sHb4yOIkvP5D3mEenyYGHG+yAAUQL7NoSXc5UKTEXPXszPqIYE4tvQOBOQKvj3kuDu0RqsJS6CA4RqnAaczhdyCnQYOoXAMMcH8jIvgABECez1R07yFRrJm2d0e/PE0EJvPSSAbH9kggLaxpsZ0H3o+vrWa6hccwN5/TeBEBQIwVfeOO66uDYjVFL/AwNLw4MhzjxafnmQQvgWeiauDcJ/xEXClTfEHfX9nx5vWaSnv9FjxAhMMbpVTILHXUr94q1oHg1xJFm7F3AzmgvxhCAGpD9objPXeEvDo1nYFdGI9/A1Mtxwj5EjMFLm/xQPRdPakbOh8TWIA97PA8m8mg/xBuEPvpSTH0pWp1Gp4yz4Cm1ZhXUF/S/BPUaMwAj6Nnc7DdQIm71lDWvHlh7qkUWotJRXeJUO8Wc8n8CLfBYDuHUAhdaCUPEj+0EAgixYRe7w72T2b4vr1NBjXn/4Zejub2js9rFdJEoIi2vyM0pBCGIEBqW60K3AJxDUtsH+yGbf+vCTcLcQDYQEgUQRToS8Eyx4eB0IQk4T3RTdx83c1a7syynEWeBSB22hB5eFJ0FXQepOn7crXLW0MTWQn7oRhCFG4OB7vlZup/13cUiSLTSR2sNJi8OcJFma7a/33ukABIxBIkBoa70WOwECcYEgkFQZoVl8l9kl1g3G8L06hu/WVT5/wyn2gzuVNnZRe/uRwO5HL8EPaNk7WgiXFUH84YyzatWJ+OYeI26wwedvXMWrZRAn+ARjHIVXIUGIG3ceTMBBEG8Qa/u1pOaeXYTtIAyBo0mEvrKm3RwQPQNOgehcoCB9OAstzorFNNHc/ZnFbW00Je3E9mvNOa+2meZWHsKbCE6AKChRXBs5UTQqH//dGm3MvtxmWhu427SLi8+AA0DDJbaeYiyYx1ADaN9viKnsN2ZwwQxwCKTNoyAUMRbMEe4ecChaqV6ZoNAdxAhsD/BzNmgfOAxOPWttqWMgFDmpyg7wS05TOWpiG48t/3qxKPUKCEWUwJmU9iMp2g5OgmAnCEaUwIeLMGa1tS7gq1YLzoAsg34GwYicNpvjbxjCvu0ocUQNguE6/h4sTJ8AghHmgzupLnj4PJI5khMfR+DfyW3iUAZ+A8IRKbCN5fFcvPD6Q+O4X7yE2xlxiQQiikZN6ysQjliB2W6HD/iuabTbsrZopDfZl3zCpZdBCgo+ayjKiIBwRA0X3oKls1GpSh7AJaVBVKKX69LU0qLXggMQa8HBUPpvfCUPgsBAkCu0OrzokSZwAHKb6BI0laEWA8hKfLD1nnxMp30KDkGuwEx1Xup+HoRY1tEhEQAHViYqmG3318EhiBbYJliYsRpJrQQB3SVE+CiQl34IHIRjng/unBBgrGad4z/lpisQ7ggUpr0EDkO8Bd8gWJDxdbLbPV4TfUhAAei06F6yav1XzGopBgfiyCf8cysoybKax7NLHK5ATWHB34IEwTFAtcud/FzV3OQqcCCOseCbab3W0FZXl7SXm80Ii5uwx1E4qKoy0D3VqeLaOMaCh60jaEmK8PgrYUzTaI/qCLymQ4LggY5TaLVNCxRlnQMHIzeTxYwqIWjKbu54agzadT8umszLbBZ3FiQONlyoJE/qG8H8tIS8YaA3uecC55TXs35uZF/X0Z6wgQLnnjseV6Ba7eFd7Kmz09v7NU1TiLlcbkDiIEK1NKk1Ze3ZQnmT2LuDBAt+mpc5vNiPl9guoz8v2bwMaR4Q9XKBu9ORYCL9iR2NH9dW+5xQcZbY+VXdQYQPzloffczj1svZfor4owd6D26NqQZQfRHMS10ndfJ6T5D1lp2KyHAV0/YrFuZen82RqPrZuc9qznKvAiO6JZjvC8N9isgo2ld+dZAm8wV2zPP44zjsdCU9rattnY28bGd1t2RR2k9Oyil3F/HdJPvtd2Q2Pq8JprFVj+TQK4dDsEy8c/zAYhKH31jHW0E+y73c5d8RCKXsdeL7JnuC4zJZ9rslL0DDQHaXXs5iZREYaaBjHlQGgdJXURv15LYumNReW1szoP5BE7SPPvq4n/gHseecHiqawO8AAAAASUVORK5CYII=
+name: Twitter v2
+script:
+  commands:
+  - arguments:
+    - description: A comma-seperated list of keywords to submit to the recent search
+        endpoint.
+      isArray: true
+      name: query
+      required: true
+    - description: The oldest UTC timestamp (from most recent seven days) from which
+        the Tweets will be provided. Date format will be in ISO 8601 format (YYYY-MM-DDTHH:mm:ssZ)
+        or relational expressions like “7 days ago”.
+      name: start_time
+    - description: The most recent UTC timestamp to which the Tweets will be provided.
+        Date format will be in ISO 8601 format (YYYY-MM-DDTHH:mm:ssZ) or relational
+        expressions like “7 days ago”.
+      name: end_time
+    - defaultValue: "50"
+      description: Maximum number of results to return. Value can be between 10 and
+        100.
+      name: limit
+    - description: When you request a list of objects with a MaxResults setting, if
+        the number of objects that are still available for retrieval exceeds the maximum
+        you requested, Twitter returns a NextToken value in the response. To retrieve
+        the next batch of objects, use the token returned from the prior request in
+        your next request.
+      name: next_token
+    description: This command will search for Tweets from the last 7 days and return
+      all information available.
+    name: twitter-tweet-search
+    outputs:
+    - contextPath: Twitter.Tweet.conversation_id
+      description: The Tweet ID of the original Tweet of the conversation (which includes
+        direct replies, replies of replies).
+      type: String
+    - contextPath: Twitter.Tweet.id
+      description: Unique identifier of this Tweet.
+      type: String
+    - contextPath: Twitter.Tweet.created_at
+      description: Creation time of the Tweet.
+      type: Date
+    - contextPath: Twitter.Tweet.text
+      description: The content of the Tweet.
+      type: String
+    - contextPath: Twitter.Tweet.edit_history_tweet_ids
+      description: Unique identifiers indicating all versions of an edited Tweet.
+      type: String
+    - contextPath: Twitter.Tweet.public_metrics.impression_count
+      description: Number of times the Tweet has been seen.
+      type: Number
+    - contextPath: Twitter.Tweet.public_metrics.retweet_count
+      description: Number of times this Tweet has been Retweeted.
+      type: Number
+    - contextPath: Twitter.Tweet.public_metrics.reply_count
+      description: Number of replies to this Tweet.
+      type: Number
+    - contextPath: Twitter.Tweet.public_metrics.like_count
+      description: Number of Likes to this Tweet.
+      type: Number
+    - contextPath: Twitter.Tweet.public_metrics.quote_count
+      description: Number of times this Tweet has been Retweeted with a comment.
+      type: Number
+    - contextPath: Twitter.Tweet.author.name
+      description: The unique identifier of this user.
+      type: String
+    - contextPath: Twitter.Tweet.author.verified
+      description: Indicates if this user is a verified Twitter user.
+      type: Boolean
+    - contextPath: Twitter.Tweet.author.description
+      description: The text of this user's profile description (also known as bio),
+        if the user provided one.
+      type: String
+    - contextPath: Twitter.Tweet.author.id
+      description: The unique identifier of this user.
+      type: String
+    - contextPath: Twitter.Tweet.author.created_at
+      description: The UTC datetime when the user account was created on Twitter.
+      type: Date
+    - contextPath: Twitter.Tweet.author.username
+      description: The Twitter screen name, handle, or alias that this user identifies
+        themselves with.
+      type: String
+    - contextPath: Twitter.Tweet.media.type
+      description: Type of content (animated_gif, photo, video).
+      type: String
+    - contextPath: Twitter.Tweet.media.url
+      description: A direct URL to the media file on Twitter.
+      type: String
+    - contextPath: Twitter.Tweet.media.media_key
+      description: Unique identifier of the expanded media content
+      type: String
+    - contextPath: Twitter.Tweet.media.alt_text
+      description: A description of an image to enable and support accessibility.
+        Can be up to 1000 characters long.
+      type: String
+    - contextPath: Twitter.TweetNextToken
+      description: A value that encodes the next 'page' of results that can be requested,
+        via the next_token request parameter.
+      type: String
+  - arguments:
+    - description: A comma-separated list of Twitter usernames (handles). Up to 100
+        are allowed in a single request.
+      isArray: true
+      name: user_name
+      required: true
+    - auto: PREDEFINED
+      defaultValue: "false"
+      description: Indicates whether to return a user's pinned Tweets.
+      name: return_pinned_tweets
+      predefined:
+      - "true"
+      - "false"
+    description: 'Lookup users by name to display information about them. Search multiple
+      users simultaneously by separating them by commas. Ex: ''name=''user1,user2,user3'''
+    name: twitter-user-get
+    outputs:
+    - contextPath: Twitter.User.name
+      description: The friendly name of this user, as shown on their profile.
+      type: String
+    - contextPath: Twitter.User.username
+      description: The Twitter handle (screen name) of this user.
+      type: String
+    - contextPath: Twitter.User.created_at
+      description: Creation time of this account.
+      type: Date
+    - contextPath: Twitter.User.description
+      description: The text of this user's profile description (also known as bio),
+        if the user provided one.
+      type: String
+    - contextPath: Twitter.User.id
+      description: Unique identifier of this user.
+      type: String
+    - contextPath: Twitter.User.location
+      description: The location specified in the user's profile.
+      type: String
+    - contextPath: Twitter.User.pinned_tweet_id
+      description: Unique identifier of this user's pinned Tweet.
+      type: String
+    - contextPath: Twitter.User.profile_image_url
+      description: The URL to the profile image for this user, as shown on the user's
+        profile.
+      type: String
+    - contextPath: Twitter.User.protected
+      description: Indicates if this user has chosen to protect their Tweets (in other
+        words, if this user's Tweets are private).
+      type: Boolean
+    - contextPath: Twitter.User.public_metrics.followers_count
+      description: Number of users who follow this user.
+      type: Number
+    - contextPath: Twitter.User.public_metrics.following_count
+      description: Number of users this user is following.
+      type: Number
+    - contextPath: Twitter.User.public_metrics.tweet_count
+      description: Number of Tweets (including Retweets) posted by this user.
+      type: Number
+    - contextPath: Twitter.User.public_metrics.listed_count
+      description: Number of lists that include this user.
+      type: Number
+    - contextPath: Twitter.User.url
+      description: The URL specified in the user's profile, if present.
+      type: String
+    - contextPath: Twitter.User.verified
+      description: Indicates if this user is a verified Twitter user.
+      type: Boolean
+    - contextPath: Twitter.User.withheld
+      description: Contains withholding details for withheld content.
+      type: String
+    - contextPath: Twitter.User.entities.url
+      description: Contains details about the user's profile website.
+      type: String
+    - contextPath: Twitter.User.entities.expanded_url
+      description: The fully resolved URL.
+      type: String
+    - contextPath: Twitter.User.entities.display_url
+      description: The URL as displayed in the user's profile.
+      type: String
+    - contextPath: Twitter.User.pinned_tweets.id
+      description: Unique identifier of this user's pinned Tweet.
+      type: String
+    - contextPath: Twitter.User.pinned_tweets.text
+      description: The content of the Tweet.
+      type: String
+    - contextPath: Twitter.User.pinned_tweets.conversation_id
+      description: The Tweet ID of the original Tweet of the conversation (which includes
+        direct replies, replies of replies).
+      type: String
+    - contextPath: Twitter.User.pinned_tweets.created_at
+      description: Creation time of the Tweet.
+      type: Date
+    - contextPath: Twitter.User.pinned_tweets.edit_history_tweet_ids
+      description: Unique identifiers indicating all versions of an edited Tweet.
+      type: String
+    - contextPath: Twitter.User.pinned_tweets.retweet_count
+      description: Number of times this Tweet has been Retweeted.
+      type: Number
+    - contextPath: Twitter.User.pinned_tweets.reply_count
+      description: Number of Replies to this Tweet.
+      type: Number
+    - contextPath: Twitter.User.Pinned_tweets.like_count
+      description: Number of Likes to this Tweet.
+      type: Number
+    - contextPath: Twitter.User.pinned_tweets.quote_count
+      description: Number of times this Tweet has been Retweeted with a comment.
+      type: Number
+  dockerimage: demisto/python3:3.10.12.68714
+  runonce: false
+  script: |
+    register_module_line('Twitter v2', 'start', __line__())
+    ### pack version: 2.0.7
+
+
+
+    import urllib3
+    from typing import Dict, Any
+
+    # Disable insecure warnings
+    urllib3.disable_warnings()
+
+
+    ''' CONSTANTS '''
+
+    DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'  # ISO8601 format with UTC, default in XSOAR
+
+    ''' CLIENT CLASS '''
+
+
+    class Client(BaseClient):
+
+        def tweet_search(self, query: str, start_time: Optional[str],
+                         end_time: Optional[str], limit: Optional[int],
+                         next_token: Optional[str]) -> dict:
+            """ Gets tweets according to the query.
+                Args:
+                    query: str - The query from the user.
+                    start_time: str - Start date from which the Tweets will be provided.
+                    end_time: str - The most recent date to which the Tweets will be provided.
+                    limit: int - Maximum number of results to return.
+                    next_token: str - A value that encodes the next 'page' of results that can be requested.
+
+                Returns:
+                    List[dict]: raw response.
+            """
+            query_params = {'query': ''.join(f'"{item}"' for item in query),
+                            'tweet.fields': 'id,text,attachments,author_id,conversation_id,created_at,public_metrics',
+                            'expansions': 'attachments.media_keys,author_id',
+                            'media.fields': 'media_key,type,url,public_metrics,alt_text',
+                            'user.fields': 'id,name,username,created_at,description,verified',
+                            'max_results': f'{limit}',
+                            'start_time': start_time,
+                            'end_time': end_time,
+                            'next_token': next_token}
+            response = self._http_request(method="GET", url_suffix='/tweets/search/recent',
+                                          headers=self._headers, params=query_params,
+                                          ok_codes=[200])
+            return response
+
+        def twitter_user_get(self, users_names: list[str], return_pinned_tweets: str) -> dict:
+            """ Gets users according to the provided user names.
+                Args:
+                    user_name: list[str] - List of users names.
+                    return_pinned_tweets: str - Indicates whether to return user's pinned Tweets.
+                    limit: int - Maximum number of results to return.
+
+                Returns:
+                    dict: raw response.
+            """
+            response = {}
+            query_params = {'usernames': ','.join(f'{item}' for item in users_names),
+                            'user.fields': 'created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url'
+                            ',protected,public_metrics,url,username,verified,withheld'}
+            if return_pinned_tweets == 'true':
+                query_params['expansions'] = 'pinned_tweet_id'
+                query_params['tweet.fields'] = 'id,text,attachments,conversation_id,created_at,public_metrics'
+            response = self._http_request(method="GET", url_suffix='/users/by',
+                                          headers=self._headers, params=query_params,
+                                          ok_codes=[200])
+            return response
+
+
+    ''' HELPER FUNCTIONS '''
+
+
+    def create_context_data_search_tweets(response: dict) -> tuple[List[dict], str]:
+        """ Gets raw response form Twitter API and extracts the relevent data.
+            The data matched by
+            attachments.media_keys == includes.media.media_key
+            and author_id == includes.users.id.
+                Args:
+                    response: dict - raw response form Twitter API.
+                Returns:
+                    A tuple[dict, str] with:
+                    dict: context data.
+                    str: next token.
+        """
+        include = response.get('includes', {})
+        data = response.get('data', [])
+        users = include.get('users', [])
+        media = include.get('media', [])
+        next_token = response.get('meta', {}).get('next_token')
+        list_dict_response = []
+        for data_item in data:
+            author_id = data_item.get('author_id')
+            for user in users:
+                id = user.get('id')
+                if author_id == id:
+                    dict_to_append = {
+                        'id': data_item.get('id'),
+                        'text': data_item.get('text'),
+                        'conversation_id': data_item.get('conversation_id'),
+                        'created_at': data_item.get('created_at'),
+                        'edit_history_tweet_ids': data_item.get('edit_history_tweet_ids'),
+                        'author': {'id': user.get('id'),
+                                   'description': user.get('description'),
+                                   'name': user.get('name'),
+                                   'verified': user.get('verified'),
+                                   'username': user.get('username'),
+                                   'created_at': user.get('created_at')},
+                        'public_metrics': data_item.get('public_metrics', {}),
+                        'media': []
+                    }
+                    attachments = data_item.get('attachments', {})
+                    if attachments:
+                        media_to_append = []
+                        media_keys = attachments.get('media_keys', [])
+                        for media_key in media_keys:
+                            for media_item in media:
+                                media_key_attachments = media_item.get('media_key')
+                                if media_key == media_key_attachments:
+                                    media_to_append.append({'url': media_item.get('url'),
+                                                            'media_key': media_item.get('media_key'),
+                                                            'alt_text': media_item.get('alt_text'),
+                                                            'type': media_item.get('type')})
+                        dict_to_append['media'] = media_to_append
+                    list_dict_response.append(remove_empty_elements(dict_to_append))
+        return list_dict_response, next_token
+
+
+    def create_context_data_get_user(response: dict, pinned_tweets: str) -> list[dict]:
+        """ Gets raw response form Twitter API and extracts the relevent data.
+            The data matched by pinned_tweet_id == includes.tweets.id
+                Args:
+                    response: dict - raw response form Twitter API.
+                Returns:
+                    dict: context data.
+        """
+        include = response.get('includes', {})
+        data = response.get('data', {})
+        tweets = include.get('tweets')
+        list_dict_response = []
+        for data_item in data:
+            pinned_tweet_id = data_item.get('pinned_tweet_id')
+            dict_to_append = {'name': data_item.get('name'),
+                              'username': data_item.get('username'),
+                              'created_at': data_item.get('created_at'),
+                              'description': data_item.get('description'),
+                              'id': data_item.get('id'),
+                              'location': data_item.get('location'),
+                              'pinned_tweet_id': data_item.get('pinned_tweet_id'),
+                              'profile_image_url': data_item.get('profile_image_url'),
+                              'protected': data_item.get('protected'),
+                              'url': data_item.get('url'),
+                              'verified': data_item.get('verified'),
+                              'withheld': data_item.get('withheld'),
+                              'public_metrics': data_item.get('public_metrics', {}),
+                              'entities': [{'url': item.get('url'),
+                                            'expanded_url': item.get('expanded_url'),
+                                            'display_url': item.get('display_url')}
+                                           for item in data_item.get('entities', {}).get('url', {}).get('urls', {})]}
+            if tweets and pinned_tweet_id and pinned_tweets:
+                for tweet in tweets:
+                    tweet_id = tweet.get('id')
+                    if pinned_tweet_id == tweet_id:
+                        dict_to_append['pinned_Tweets'] = {'id': tweet.get('id'),
+                                                           'text': tweet.get('text'),
+                                                           'conversation_id': tweet.get('conversation_id'),
+                                                           'edit_history_tweet_ids': tweet.get('edit_history_tweet_ids')}
+            list_dict_response.append(remove_empty_elements(dict_to_append))
+        return list_dict_response
+
+
+    ''' COMMAND FUNCTIONS '''
+
+
+    def test_module(client: Client) -> str:
+        """Tests API connectivity and authentication'
+
+        Returning 'ok' indicates that the integration works like it is supposed to.
+        Connection to the service is successful.
+        Raises exceptions if something goes wrong.
+
+        :type client: ``Client``
+        :param Client: client to use
+
+        :return: 'ok' if test passed, anything else will fail the test.
+        :rtype: ``str``
+        """
+
+        client.tweet_search('Twitter', None, None, 10, None)
+        message = 'ok'
+        return message
+
+
+    def date_to_iso_format(date: Optional[str]) -> Optional[str]:
+        """ Retrieves date string or relational expression to iso format date.
+            Args:
+                date: str - date or relational expression.
+            Returns:
+                A str in ISO format or None.
+        """
+        if date:
+            datetime = dateparser.parse(date)
+            if datetime:
+                date = datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
+            else:
+                raise DemistoException('Twitter: Date format is invalid')
+        return date
+
+
+    def create_human_readable_search(dict_list: list[dict]) -> list[dict]:
+        """Gets list of dictionaries and creates a human readable from it.
+        Args:
+            dict_list: list[dict] -  A list of dictionaries.
+        Returns:
+            human readable: list[dict].
+        """
+        list_dict_response: list = []
+        for dict_value in dict_list:
+            list_dict_response.append(
+                {
+                    "Tweet ID": dict_value.get("id", {}),
+                    "Text": dict_value.get("text", ""),
+                    "Created At": dict_value.get("created_at", {}),
+                    "Author Name": dict_value.get("author", {}).get("name"),
+                    "Author Username": dict_value.get("author", {}).get("username"),
+                    "Likes Count": dict_value.get("public_metrics", {}).get("like_count"),
+                    "Attachments URL": [
+                        item.get("url", "") for item in dict_value.get("media", [])
+                    ]
+                    if dict_value.get("media", []) else [],
+                }
+            )
+        return list_dict_response
+
+
+    def twitter_tweet_search_command(client: Client, args: Dict[str, Any]) -> List[CommandResults]:
+        """ Gets args and client and returns CommandResults of Tweets according to the reqested search.
+            Args:
+                client: client -  A Twitter client.
+                args: Dict - The function arguments.
+            Returns:
+                A list of CommandResults with Tweets data according to to the reqest.
+        """
+        headers = ['Tweet ID', 'Text', 'Created At', 'Author Name', 'Author Username', 'Likes Count', 'Attachments URL']
+        query = argToList(args.get('query'))
+        start_time = date_to_iso_format(args.get('start_time'))
+        end_time = date_to_iso_format(args.get('end_time'))
+        limit = arg_to_number(args.get('limit', 50))
+        next_token = args.get('next_token')
+        raw_response = client.tweet_search(query, start_time, end_time, limit, next_token)
+        context_data, next_token = create_context_data_search_tweets(raw_response)
+        dict_to_tableToMarkdown = create_human_readable_search(context_data)
+        human_readable = tableToMarkdown("Tweets search results:", dict_to_tableToMarkdown,
+                                         headers=headers, removeNull=False)
+        command_results = []
+        command_results.append(CommandResults(
+            outputs_prefix='Twitter.Tweet',
+            outputs_key_field='id',
+            outputs=context_data,
+            readable_output=human_readable,
+            raw_response=raw_response))
+        if next_token:
+            readable_output_next_token = tableToMarkdown("Tweet Next Token:", {'next_token': next_token},
+                                                         headers=['next_token'], removeNull=False)
+            command_results.append(CommandResults(
+                outputs={'Twitter(true)': {'TweetNextToken': next_token}},
+                readable_output=readable_output_next_token,
+            ))
+
+        return command_results
+
+
+    def twitter_user_get_command(client: Client, args: Dict[str, Any]) -> CommandResults:
+        """ Retruns users information according to the requested user's names.
+            Args:
+                client: client -  A Twitter client.
+                args: Dict - The function arguments.
+            Returns:
+                A CommandResult object with users' data according to the request.
+        """
+        headers = ['Name', 'User name', 'Created At', 'Description', 'Followers Count',
+                   'Tweet Count', 'Verified']
+        user_name = argToList(args.get('user_name'))
+        return_pinned_tweets = args.get('return_pinned_tweets', 'false')
+        raw_response = client.twitter_user_get(user_name, return_pinned_tweets)
+        context_data = create_context_data_get_user(raw_response, return_pinned_tweets)
+        contents: list = []
+        for dict_value in context_data:
+            contents.append({
+                'Name': dict_value.get('name'),
+                'User name': dict_value.get('username'),
+                'Created At': dict_value.get('created_at'),
+                'Description': dict_value.get('description'),
+                'Followers Count': dict_value.get('public_metrics', {}).get('followers_count'),
+                'Tweet Count': dict_value.get('public_metrics', {}).get('tweet_count'),
+                'Verified': dict_value.get('verified'),
+            })
+        human_readable = tableToMarkdown("Twitter user get results:", contents,
+                                         headers=headers, removeNull=False)
+        return CommandResults(
+            outputs_prefix='Twitter.User',
+            outputs_key_field='id',
+            outputs=context_data,
+            readable_output=human_readable,
+            raw_response=raw_response
+        )
+
+
+    ''' MAIN FUNCTION '''
+
+
+    def main() -> None:
+
+        bearer_token = demisto.params().get('credentials', {}).get('password')
+
+        # get the service API url
+        base_url = urljoin(demisto.params()['url'], '/2')
+        verify_certificate = not demisto.params().get('insecure', False)
+        proxy = demisto.params().get('proxy', False)
+
+        demisto.debug(f'Command being called is {demisto.command()}')
+        try:
+            headers: Dict = {'Authorization': f'Bearer {bearer_token}'}
+            headers
+            client = Client(
+                base_url=base_url,
+                verify=verify_certificate,
+                headers=headers,
+                proxy=proxy)
+
+            if demisto.command() == 'test-module':
+                # This is the call made when pressing the integration Test button.
+                result = test_module(client)
+                return_results(result)
+
+            elif demisto.command() == 'twitter-tweet-search':
+                return_results(twitter_tweet_search_command(client, demisto.args()))
+
+            elif demisto.command() == 'twitter-user-get':
+                return_results(twitter_user_get_command(client, demisto.args()))
+
+        # Log exceptions and return errors
+        except Exception as e:
+            return_error(f'Failed to execute {demisto.command()} command.\nError:\n{str(e)}')
+
+
+    ''' ENTRY POINT '''
+
+
+    if __name__ in ('__main__', '__builtin__', 'builtins'):
+        main()
+
+    register_module_line('Twitter v2', 'end', __line__())
+  subtype: python3
+  type: python
+system: true

@@ -191,7 +191,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 2.4.6
+    itemVersion: 2.6.9
     packID: VirusTotal
     packName: VirusTotal
     packPropagationLabels:
@@ -217,7 +217,7 @@ detaileddescription: |-
   ---
   [View Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/virus-total-api-v3)
 display: VirusTotal (API v3) (Partner Contribution)
-image: data:image/png;base64,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
+image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAyCAYAAACXpx/YAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/1JREFUeNrsmcFx2zAQRWmP71E6UAdRjjmFasChKxBVgaIKbFUgqwKTFZhOA6JPOYodmOmAHTi7mcUEgwEJkFodkvlvBiOLApdcfOxiAScJAAAAAAAAAAAAAAAAAAAAAAAAAP45rkIdvty+n+hjceZzlj9/XNVij22drN8K+m3d8+ycPp6sS1tq+5HP3pH9hx77b/J7ERiDd8/lllpD7cW9n/qn9HFP15f8PU1Tfs66JkIvS32f2SZ1LaxrbC+1ulX0exPj/HWMOOKICuR0I4NjyAa6f3O+V1rvISIw95HvfWU3uvSZWsn3k63QpDtQW0WIO5fxqOR7JpNjI12MDs90/UlFYHKmc0Tmz4+uw75G/fpmrC3UjAYo8wgwc8SvyGarmL140HbUOkvsMRO1o1aJ0DnZmA90534s1ixglv0tKDo7O8Do+x21B2ocuQ/yTLa30IhgV2Q2ehQBplIGItUX2S9WRrFb4ck4Q78nIkYqqTUqugJjw+PSKzCJ0spkzyImXWndV8m9rr1OJk1Q4JsxjtDA8IAdLZGX4uDoNE33ttagpIH0bBxKzFruSbWJ7/eBgTxY0bUnO9spvljvF+JFfCp60vNCxKs1n3s9YbZqRfLB+nsuxddQeu4SBcR2bgZa7LLI388wuwgNthRNqayzwegNrNVmfBpVgR2RqzNFdgumVUR61oBt1856PjlNk++8JnZSPMb4nA2tvxHippJFD770PTlFe0S+I+ee5cVOkq7bETZauqex1pFMtkGu2K0UM5rF1dazZPASlPU9y1kK5tLMMrIekbV4zB4d0XLJzu2AqBsZK37uoxRbyUUEtvazxul6YoVbWgKbNN25ez7lrdGsZ502Udz3PF+dsI6MXJOmG9aK11tnH7sKpOfWWtL4Pb6SjZNU2J26wCIEp4nZ0EFFZMraO47+ClTc58D2W0mrLh84i3CF7ZusfYclE2uPjYl6WZNZ8GWgCjfvVMt9TzJ2a1WBFcXtS9P24DZjIiTw3uYQ4W6g29yXwpWp5HDFjFses/Z64Hd8UxVYU9y+NO3sJzWjN5dqvB7wjyfX6ZICczRS9NW87kplvQpMuj47XcTBSXwVfSFxQ2usdnG1C2UUzhpyBn5J/uyJZe/bxZ4re/bNOlW0Iy6/TBl5vBecYZKma08Ro3Y0KYI1kfZKiariglFckEB7z3nAGPYxGe5mpLhmU39U9rn0CKy5913FDiQfX5LP/A+Ehdb6P5Cd8qE1lCYBH7405nRLUnKa/P0HyaNGBKdnzDK7zA85O5+YnuuIk6vXkXvprZN9dhP8DUUX23wNbHM+SSo3AdWJvwf734kAAAAAAAAAAAAAAAAAAAAAAAAA+M/4LcAAMsn0aEaEAoEAAAAASUVORK5CYII=
 name: VirusTotal (API v3)
 script:
   commands:
@@ -501,6 +501,9 @@ script:
       description: For malicious IPs, the vendor that made the decision.
     - contextPath: IP.Malicious.Description
       description: For malicious IPs, the reason that the vendor made the decision.
+    - contextPath: IP.ASOwner
+      description: The autonomous system owner of the IP.
+      type: String
     - contextPath: DBotScore.Indicator
       description: The indicator that was tested.
     - contextPath: DBotScore.Type
@@ -878,7 +881,7 @@ script:
       type: String
     - contextPath: VirusTotal.Submission.Size
       description: Size of the file.
-      type: Number
+      type: String
     - contextPath: VirusTotal.Submission.Type
       description: The type of the submission (analysis).
       type: String
@@ -995,6 +998,7 @@ script:
       - url
       - domain
       - file
+      - hash
     - defaultValue: "10"
       description: Maximum comments to fetch.
       name: limit
@@ -1301,9 +1305,12 @@ script:
       type: Number
   - arguments:
     - default: true
-      description: IP for which to get its DNS data.
+      description: IP or domain for which to get its DNS data.
+      name: id
+    - description: IP for which to get its DNS data.
       name: ip
-      required: true
+    - description: Domain for which to get its DNS data.
+      name: domain
     - defaultValue: "10"
       description: Maximum number of results to fetch.
       name: limit
@@ -1333,13 +1340,13 @@ script:
       type: String
   - arguments:
     - default: true
-      description: ID of the analysis (from file-scan, file-rescan, or url-scan)
+      description: ID of the analysis (from file-scan, file-rescan, or url-scan).
       name: id
       required: true
     - defaultValue: "false"
       description: Whether to return extended data (last_analysis_results).
       name: extended_data
-    description: Retrieves resolutions of the given IP.
+    description: Get analysis of a file submitted to VirusTotal.
     name: vt-analysis-get
     outputs:
     - contextPath: VirusTotal.Analysis.data.attributes.date
@@ -1382,7 +1389,7 @@ script:
       description: Name of the file (if it is a file).
     - contextPath: VirusTotal.Analysis.meta.file_info.size
       description: Size of the file (if it is a file).
-      type: String
+      type: Number
     - contextPath: VirusTotal.Analysis.meta.url_info.id
       description: ID of the url (if it is a URL).
       type: String
@@ -1453,10 +1460,238 @@ script:
     - contextPath: VirusTotal.SigmaAnalysis.data.id
       description: ID of the analysis.
       type: String
-  dockerimage: demisto/python3:3.10.4.30607
+  - arguments:
+    - default: true
+      description: Hash of the file to query. Supports MD5, SHA1, and SHA256.
+      isArray: true
+      name: file
+      required: true
+    description: Checks the file reputation of the specified private hash.
+    name: vt-privatescanning-file
+    outputs:
+    - contextPath: VirusTotal.File.attributes.type_description
+      description: Description of the type of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.tlsh
+      description: The locality-sensitive hashing.
+      type: String
+    - contextPath: VirusTotal.File.attributes.exiftool.MIMEType
+      description: MIME type of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.names
+      description: Names of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.javascript_info.tags
+      description: Tags of the JavaScript.
+      type: String
+    - contextPath: VirusTotal.File.attributes.exiftool.FileType
+      description: The file type.
+      type: String
+    - contextPath: VirusTotal.File.attributes.exiftool.WordCount
+      description: Total number of words in the file.
+      type: Number
+    - contextPath: VirusTotal.File.attributes.exiftool.LineCount
+      description: Total number of lines in file.
+      type: Number
+    - contextPath: VirusTotal.File.attributes.exiftool.MIMEEncoding
+      description: The MIME encoding.
+      type: String
+    - contextPath: VirusTotal.File.attributes.exiftool.FileTypeExtension
+      description: The file type extension.
+      type: String
+    - contextPath: VirusTotal.File.attributes.exiftool.Newlines
+      description: Number of newlines signs.
+      type: Number
+    - contextPath: VirusTotal.File.attributes.crowdsourced_ids_stats.info
+      description: Number of IDS that marked the file as "info".
+      type: Number
+    - contextPath: VirusTotal.File.attributes.crowdsourced_ids_stats.high
+      description: Number of IDS that marked the file as "high".
+      type: Number
+    - contextPath: VirusTotal.File.attributes.crowdsourced_ids_stats.medium
+      description: Number of IDS that marked the file as "medium".
+      type: Number
+    - contextPath: VirusTotal.File.attributes.crowdsourced_ids_stats.low
+      description: Number of IDS that marked the file as "low".
+      type: Number
+    - contextPath: VirusTotal.File.attributes.trid.file_type
+      description: The TrID file type.
+      type: String
+    - contextPath: VirusTotal.File.attributes.trid.probability
+      description: The TrID probability.
+      type: Number
+    - contextPath: VirusTotal.File.attributes.crowdsourced_yara_results.description
+      description: Description of the YARA rule.
+      type: String
+    - contextPath: VirusTotal.File.attributes.crowdsourced_yara_results.source
+      description: Source of the YARA rule.
+      type: String
+    - contextPath: VirusTotal.File.attributes.crowdsourced_yara_results.author
+      description: Author of the YARA rule.
+      type: String
+    - contextPath: VirusTotal.File.attributes.crowdsourced_yara_results.ruleset_name
+      description: Rule set name of the YARA rule.
+      type: String
+    - contextPath: VirusTotal.File.attributes.crowdsourced_yara_results.rule_name
+      description: Name of the YARA rule.
+      type: String
+    - contextPath: VirusTotal.File.attributes.crowdsourced_yara_results.ruleset_id
+      description: ID of the YARA rule.
+      type: String
+    - contextPath: VirusTotal.File.attributes.names
+      description: Name of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.type_tag
+      description: Tag of the type.
+      type: String
+    - contextPath: VirusTotal.File.attributes.size
+      description: Size of the file.
+      type: Number
+    - contextPath: VirusTotal.File.attributes.sha256
+      description: SHA-256 hash of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.type_extension
+      description: Extension of the type.
+      type: String
+    - contextPath: VirusTotal.File.attributes.tags
+      description: File tags.
+      type: String
+    - contextPath: VirusTotal.File.attributes.last_analysis_date
+      description: Last analysis date in epoch format.
+      type: Number
+    - contextPath: VirusTotal.File.attributes.ssdeep
+      description: SSDeep hash of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.md5
+      description: MD5 hash of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.sha1
+      description: SHA-1 hash of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.magic
+      description: Identification of file by the magic number.
+      type: String
+    - contextPath: VirusTotal.File.attributes.meaningful_name
+      description: Meaningful name of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.threat_severity.threat_severity_level
+      description: Threat severity level of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.threat_severity.threat_severity_data.popular_threat_category
+      description: Popular threat category of the file.
+      type: String
+    - contextPath: VirusTotal.File.attributes.threat_verdict
+      description: Threat verdict of the file.
+      type: String
+    - contextPath: VirusTotal.File.type
+      description: Type of the file.
+      type: String
+    - contextPath: VirusTotal.File.id
+      description: ID of the file.
+      type: String
+    - contextPath: VirusTotal.File.links.self
+      description: Link to the response.
+      type: String
+  - arguments:
+    - default: true
+      description: The file entry ID to submit.
+      isArray: true
+      name: entryID
+      required: true
+    description: Submits a file for private scanning. Use the vt-privatescanning-analysis-get
+      command to get the scan results.
+    name: vt-privatescanning-file-scan
+    outputs:
+    - contextPath: VirusTotal.Submission.type
+      description: The type of the submission (analysis).
+      type: String
+    - contextPath: VirusTotal.Submission.id
+      description: The ID of the submission.
+      type: String
+    - contextPath: VirusTotal.Submission.EntryID
+      description: The entry ID of the file detonated.
+      type: String
+    - contextPath: VirusTotal.Submission.Extension
+      description: File extension.
+      type: String
+    - contextPath: VirusTotal.Submission.Info
+      description: File info.
+      type: String
+    - contextPath: VirusTotal.Submission.MD5
+      description: MD5 hash of the file.
+      type: String
+    - contextPath: VirusTotal.Submission.Name
+      description: Name of the file.
+      type: String
+    - contextPath: VirusTotal.Submission.SHA1
+      description: SHA-1 of the file.
+      type: String
+    - contextPath: VirusTotal.Submission.SHA256
+      description: SHA-256 of the file.
+      type: String
+    - contextPath: VirusTotal.Submission.SHA512
+      description: SHA-512 of the file.
+      type: String
+    - contextPath: VirusTotal.Submission.SSDeep
+      description: SSDeep of the file.
+      type: String
+    - contextPath: VirusTotal.Submission.Size
+      description: Size of the file.
+      type: String
+    - contextPath: VirusTotal.Submission.Type
+      description: Type of the file.
+      type: String
+  - arguments:
+    - default: true
+      description: ID of the analysis.
+      name: id
+      required: true
+    description: Get analysis of a private file submitted to VirusTotal.
+    name: vt-privatescanning-analysis-get
+    outputs:
+    - contextPath: VirusTotal.Analysis.data.attributes.date
+      description: Date of the analysis in epoch format.
+      type: Number
+    - contextPath: VirusTotal.Analysis.data.attributes.status
+      description: Status of the analysis.
+      type: String
+    - contextPath: VirusTotal.Analysis.data.attributes.threat_severity_level
+      description: Threat severity level of the private file.
+      type: String
+    - contextPath: VirusTotal.Analysis.data.attributes.popular_threat_category
+      description: Popular threat category of the private file.
+      type: String
+    - contextPath: VirusTotal.Analysis.data.attributes.threat_verdict
+      description: Threat verdict of the private file.
+      type: String
+    - contextPath: VirusTotal.Analysis.data.id
+      description: ID of the analysis.
+      type: String
+    - contextPath: VirusTotal.Analysis.data.type
+      description: Type of object (analysis).
+      type: String
+    - contextPath: VirusTotal.Analysis.meta.file_info.sha256
+      description: SHA-256 hash of the file (if it is a file).
+      type: String
+    - contextPath: VirusTotal.Analysis.meta.file_info.sha1
+      description: SHA-1 hash of the file (if it is a file).
+      type: String
+    - contextPath: VirusTotal.Analysis.meta.file_info.md5
+      description: MD5 hash of the file (if it is a file).
+      type: String
+    - contextPath: VirusTotal.Analysis.meta.file_info.size
+      description: Size of the file (if it is a file).
+      type: Number
+    - contextPath: VirusTotal.Analysis.id
+      description: The analysis ID.
+      type: String
+  dockerimage: demisto/python3:3.10.12.63474
   runonce: false
   script: |
     register_module_line('VirusTotal (API v3)', 'start', __line__())
+    ### pack version: 2.6.9
+
+
     """
     An integration module for the Virus Total v3 API.
     API Documentation:
@@ -1466,8 +1701,6 @@ script:
     from typing import Callable, cast
 
     from dateparser import parse
-
-
 
 
     INTEGRATION_NAME = "VirusTotal"
@@ -1482,8 +1715,18 @@ script:
         'url': FeedIndicatorType.URL
     }
 
+    severity_levels = {'SEVERITY_UNKNOWN': 'UNKNOWN',
+                       'SEVERITY_LOW': 'LOW',
+                       'SEVERITY_MEDIUM': 'MEDIUM',
+                       'SEVERITY_HIGH': 'HIGH'}
 
-    """ RELATIONSHIP TYPE"""
+    verdicts = {'VERDICT_UNKNOWN': 'UNKNOWN',
+                'VERDICT_UNDETECTED': 'UNDETECTED',
+                'VERDICT_SUSPICIOUS': 'SUSPICIOUS',
+                'VERDICT_MALICIOUS': 'MALICIOUS'}
+
+
+    """RELATIONSHIP TYPE"""
     RELATIONSHIP_TYPE = {
         'file': {
             'carbonblack_children': EntityRelationship.Relationships.CREATES,
@@ -1584,7 +1827,18 @@ script:
             """
             return self._http_request(
                 'GET',
-                f'files/{file}?relationships={relationships}', ok_codes=(429, 200)
+                f'files/{file}?relationships={relationships}', ok_codes=(404, 429, 200)
+            )
+
+        # It is not a Reputation call
+        def private_file(self, file: str) -> dict:
+            """
+            See Also:
+                https://developers.virustotal.com/reference/private-files-info
+            """
+            return self._http_request(
+                'GET',
+                f'private/files/{file}', ok_codes=(404, 429, 200)
             )
 
         def url(self, url: str, relationships: str = ''):
@@ -1737,11 +1991,14 @@ script:
         def file_scan(self, file_path: str, /, upload_url: Optional[str]) -> dict:
             """
             See Also:
-                https://developers.virustotal.com/v3.0/reference#files-scan
+                https://developers.virustotal.com/reference/files-scan
             """
             response: requests.Response
             with open(file_path, 'rb') as file:
-                if upload_url:
+                if upload_url or os.stat(file_path).st_size / (1024 * 1024) >= 32:
+                    if not upload_url:
+                        raw_response = self.get_upload_url()
+                        upload_url = raw_response['data']
                     response = self._http_request(
                         'POST',
                         full_url=upload_url,
@@ -1761,6 +2018,35 @@ script:
             )
             return response.json()
 
+        def private_file_scan(self, file_path: str) -> dict:
+            """
+            See Also:
+                https://developers.virustotal.com/reference/post_files
+            """
+            response: requests.Response
+            with open(file_path, 'rb') as file:
+                if os.stat(file_path).st_size / (1024 * 1024) >= 32:
+                    raw_response = self.get_private_upload_url()
+                    upload_url = raw_response['data']
+                    response = self._http_request(
+                        'POST',
+                        full_url=upload_url,
+                        files={'file': file},
+                        resp_type='response'
+                    )
+                else:
+                    response = self._http_request(
+                        'POST',
+                        url_suffix='/private/files',
+                        files={'file': file},
+                        resp_type='response'
+                    )
+            demisto.debug(
+                f'scan_file response:\n'
+                f'{str(response.status_code)=}, {str(response.headers)=}, {str(response.content)}'
+            )
+            return response.json()
+
         def get_upload_url(self) -> dict:
             """
             See Also:
@@ -1769,6 +2055,16 @@ script:
             return self._http_request(
                 'GET',
                 'files/upload_url'
+            )
+
+        def get_private_upload_url(self) -> dict:
+            """
+            See Also:
+                https://developers.virustotal.com/reference/private-files-upload-url
+            """
+            return self._http_request(
+                'GET',
+                'private/files/upload_url'
             )
 
         def url_scan(self, url: str) -> dict:
@@ -1795,14 +2091,14 @@ script:
                 params={'limit': limit}
             )
 
-        def passive_dns_data(self, ip: str, limit: int) -> dict:
+        def passive_dns_data(self, id: dict, limit: int) -> dict:
             """
             See Also:
                 https://developers.virustotal.com/v3.0/reference#ip-relationships
             """
             return self._http_request(
                 'GET',
-                f'ip_addresses/{ip}/resolutions',
+                f'{"ip_addresses" if id["type"] == "ip" else "domains"}/{id["value"]}/resolutions',
                 params={'limit': limit}
             )
 
@@ -1827,6 +2123,26 @@ script:
                 f'/analyses/{analysis_id}'
             )
 
+        def get_private_analysis(self, analysis_id: str) -> dict:
+            """
+            See Also:
+                https://developers.virustotal.com/reference/private-analysis
+            """
+            return self._http_request(
+                'GET',
+                f'private/analyses/{analysis_id}'
+            )
+
+        def get_private_file_from_analysis(self, analysis_id: str) -> dict:
+            """
+            See Also:
+                https://developers.virustotal.com/reference/item-1
+            """
+            return self._http_request(
+                'GET',
+                f'private/analyses/{analysis_id}/item?attributes=threat_severity,threat_verdict'
+            )
+
         def get_file_sigma_analysis(self, file_hash: str) -> dict:
             """
             See Also:
@@ -1849,7 +2165,6 @@ script:
                 https://developers.virustotal.com/v3.0/reference#domains-relationships
                 https://developers.virustotal.com/v3.0/reference#ip-relationships
             """
-
             return self._http_request(
                 'GET',
                 urljoin(urljoin(indicator_type, indicator), relationship)
@@ -2492,8 +2807,8 @@ script:
                 base_score,
                 [
                     client.get_domain_communicating_files,
-                    client.get_url_downloaded_files,
-                    client.get_url_referrer_files
+                    client.get_domain_downloaded_files,
+                    client.get_domain_referrer_files
                 ]
             )
 
@@ -2620,6 +2935,9 @@ script:
             extended_data: bool):
         data = raw_response.get('data', {})
         attributes = data.get('attributes', {})
+        last_analysis_stats = attributes.get('last_analysis_stats', {})
+        positive_engines = last_analysis_stats.get('malicious', 0)
+        detection_engines = sum(last_analysis_stats.values())
         relationships_response = data.get('relationships', {})
         whois: defaultdict = get_whois(attributes.get('whois', ''))
         score = score_calculator.domain_score(domain, raw_response)
@@ -2665,16 +2983,19 @@ script:
             readable_output=tableToMarkdown(
                 f'Domain data of {domain}',
                 {
-                    'last_modified': epoch_to_timestamp(attributes.get('last_modification_date')),
                     **data,
+                    **attributes,
                     **whois,
-                    **attributes
+                    'last_modified': epoch_to_timestamp(attributes.get('last_modification_date')),
+                    'positives': f'{positive_engines}/{detection_engines}'
                 },
                 headers=[
                     'id',
                     'Registrant Country',
+                    'Registrar',
                     'last_modified',
-                    'last_analysis_stats'
+                    'reputation',
+                    'positives'
                 ],
                 removeNull=True,
                 headerTransform=underscoreToCamelCase
@@ -2732,19 +3053,19 @@ script:
                 f'URL data of "{url}"',
                 {
                     **data,
-                    **data.get('attributes', {}),
+                    **attributes,
                     'url': url,
+                    'last_modified': epoch_to_timestamp(attributes.get('last_modification_date')),
                     'positives': f'{positive_detections}/{detection_engines}',
-                    'last_modified': epoch_to_timestamp(attributes.get('last_modification_date'))
                 },
                 headers=[
                     'url',
                     'title',
-                    'last_modified',
                     'has_content',
                     'last_http_response_content_sha256',
-                    'positives',
-                    'reputation'
+                    'last_modified',
+                    'reputation',
+                    'positives'
                 ],
                 removeNull=True,
                 headerTransform=underscoreToCamelCase
@@ -2777,6 +3098,7 @@ script:
             geo_country=attributes.get('country'),
             detection_engines=detection_engines,
             positive_engines=positive_engines,
+            as_owner=attributes.get('as_owner'),
             relationships=relationships_list,
             dbot_score=Common.DBotScore(
                 ip,
@@ -2801,7 +3123,7 @@ script:
                     'last_modified': epoch_to_timestamp(attributes.get('last_modification_date')),
                     'positives': f'{positive_engines}/{detection_engines}'
                 },
-                headers=['id', 'network', 'country', 'last_modified', 'reputation', 'positives'],
+                headers=['id', 'network', 'country', 'as_owner', 'last_modified', 'reputation', 'positives'],
                 headerTransform=underscoreToCamelCase
             ),
             outputs=data,
@@ -2887,6 +3209,43 @@ script:
             outputs=data,
             raw_response=raw_response,
             relationships=relationships_list
+        )
+
+
+    def build_unknown_file_output(client: Client, file_hash: str) -> CommandResults:
+        desc = f'File "{file_hash}" was not found in VirusTotal'
+        dbot = Common.DBotScore(file_hash, DBotScoreType.FILE, INTEGRATION_NAME, 0, desc, client.reliability)
+        return CommandResults(indicator=Common.File(dbot), readable_output=desc)
+
+
+    def build_private_file_output(file_hash: str, raw_response: dict) -> CommandResults:
+        data = raw_response.get('data', {})
+        attributes = data.get('attributes', {})
+        threat_severity = attributes.get('threat_severity', {})
+        threat_severity_level = threat_severity.get('threat_severity_level', '')
+        threat_severity_data = threat_severity.get('threat_severity_data', {})
+        popular_threat_category = threat_severity_data.get('popular_threat_category', '')
+        threat_verdict = attributes.get('threat_verdict', '')
+        return CommandResults(
+            outputs_prefix=f'{INTEGRATION_ENTRY_CONTEXT}.File',
+            outputs_key_field='id',
+            readable_output=tableToMarkdown(
+                f'Results of file hash {file_hash}',
+                {
+                    **attributes,
+                    'Threat Severity Level': severity_levels.get(threat_severity_level, threat_severity_level),
+                    'Popular Threat Category': popular_threat_category,
+                    'Threat Verdict': verdicts.get(threat_verdict, threat_verdict)
+                },
+                headers=[
+                    'sha1', 'sha256', 'md5', 'meaningful_name', 'type_extension',
+                    'Threat Severity Level', 'Popular Threat Category', 'Threat Verdict'
+                ],
+                removeNull=True,
+                headerTransform=string_to_table_header
+            ),
+            outputs=data,
+            raw_response=raw_response,
         )
 
 
@@ -3030,7 +3389,7 @@ script:
                 continue
             execution_metrics.success += 1
             results.append(
-                build_ip_output(client, score_calculator, ip, raw_response, argToBoolean(args.get('extended_data'))))
+                build_ip_output(client, score_calculator, ip, raw_response, argToBoolean(args.get('extended_data', False))))
         if len(results) == 0:
             result = CommandResults(readable_output='No IPs were found.').to_context()
             results.append(result)
@@ -3046,7 +3405,7 @@ script:
         1 API Call
         """
         files = argToList(args['file'])
-        extended_data = argToBoolean(args.get('extended_data'))
+        extended_data = argToBoolean(args.get('extended_data', False))
         results: List[CommandResults] = list()
         execution_metrics = ExecutionMetrics()
 
@@ -3059,7 +3418,47 @@ script:
                     result = CommandResults(readable_output=f'Quota exceeded for file: {file}')
                     results.append(result)
                     continue
+                if raw_response.get('error', {}).get('code') == 'NotFoundError':
+                    results.append(build_unknown_file_output(client, file))
+                    continue
                 results.append(build_file_output(client, score_calculator, file, raw_response, extended_data))
+                execution_metrics.success += 1
+            except Exception as exc:
+                # If anything happens, just keep going
+                demisto.debug(f'Could not process file: "{file}"\n {str(exc)}')
+                execution_metrics.general_error += 1
+                continue
+        if len(results) == 0:
+            result = CommandResults(readable_output='No files were found.')
+            results.append(result)
+        if execution_metrics.is_supported():
+            _metric_results = execution_metrics.metrics
+            metric_results = cast(CommandResults, _metric_results)
+            results.append(metric_results)
+        return results
+
+
+    def private_file_command(client: Client, args: dict) -> List[CommandResults]:
+        """
+        1 API Call
+        """
+        files = argToList(args['file'])
+        results: List[CommandResults] = list()
+        execution_metrics = ExecutionMetrics()
+
+        for file in files:
+            raise_if_hash_not_valid(file)
+            try:
+                raw_response = client.private_file(file)
+                if raw_response.get('error', {}).get('code') == "QuotaExceededError":
+                    execution_metrics.quota_error += 1
+                    result = CommandResults(readable_output=f'Quota exceeded for file: {file}')
+                    results.append(result)
+                    continue
+                if raw_response.get('error', {}).get('code') == 'NotFoundError':
+                    results.append(CommandResults(readable_output=f'File "{file}" was not found in VirusTotal'))
+                    continue
+                results.append(build_private_file_output(file, raw_response))
                 execution_metrics.success += 1
             except Exception as exc:
                 # If anything happens, just keep going
@@ -3082,15 +3481,12 @@ script:
         1-4 API Calls for premium subscriptions
         """
         urls = argToList(args['url'])
-        extended_data = argToBoolean(args.get('extended_data'))
+        extended_data = argToBoolean(args.get('extended_data', False))
         results: List[CommandResults] = list()
         execution_metrics = ExecutionMetrics()
         for url in urls:
             try:
-                raw_response = client.url(
-                    url, relationships
-                )
-                demisto.results(raw_response)
+                raw_response = client.url(url, relationships)
                 if raw_response.get('error', {}).get('code') == "QuotaExceededError":
                     execution_metrics.quota_error += 1
                     result = CommandResults(readable_output=f'Quota exceeded for url: {url}')
@@ -3104,7 +3500,7 @@ script:
             execution_metrics.success += 1
             results.append(build_url_output(client, score_calculator, url, raw_response, extended_data))
         if len(results) == 0:
-            result = CommandResults(readable_output='No domains were found.')
+            result = CommandResults(readable_output='No urls were found.')
             results.append(result)
         if execution_metrics.is_supported():
             _metric_results = execution_metrics.metrics
@@ -3136,7 +3532,7 @@ script:
                 continue
             execution_metrics.success += 1
             result = build_domain_output(client, score_calculator, domain, raw_response,
-                                         argToBoolean(args.get('extended_data')))
+                                         argToBoolean(args.get('extended_data', False)))
             results.append(result)
         if len(results) == 0:
             result = CommandResults(readable_output='No domains were found.')
@@ -3222,6 +3618,20 @@ script:
         """
         1 API Call
         """
+        return upload_file(client, args)
+
+
+    def private_file_scan(client: Client, args: dict) -> List[CommandResults]:
+        """
+        1 API Call
+        """
+        return upload_file(client, args, True)
+
+
+    def upload_file(client: Client, args: dict, private: bool = False) -> List[CommandResults]:
+        """
+        1 API Call
+        """
         entry_ids = argToList(args['entryID'])
         upload_url = args.get('uploadURL')
         if len(entry_ids) > 1 and upload_url:
@@ -3231,7 +3641,10 @@ script:
             try:
                 file_obj = demisto.getFilePath(entry_id)
                 file_path = file_obj['path']
-                raw_response = client.file_scan(file_path, upload_url=upload_url)
+                if private:
+                    raw_response = client.private_file_scan(file_path)
+                else:
+                    raw_response = client.file_scan(file_path, upload_url)
                 data = raw_response.get('data', {})
                 # add current file as identifiers
                 data.update(
@@ -3250,6 +3663,7 @@ script:
                         f'The file has been submitted "{file_obj["name"]}"',
                         data,
                         headers=['id', 'EntryID', 'MD5', 'SHA1', 'SHA256'],
+                        removeNull=True
                     ),
                     outputs=context,
                     raw_response=raw_response
@@ -3291,18 +3705,35 @@ script:
         1 API Call
         """
         url = args['url']
-        raw_response = client.url_scan(url)
-        data = raw_response['data']
-        data['url'] = url
-        context = {
-            f'{INTEGRATION_ENTRY_CONTEXT}.Submission(val.id && val.id === obj.id)': data,
-            'vtScanID': data.get('id')  # BC preservation
-        }
+        raw_response: Dict[str, Any] = {}
+        data: Dict[str, Any] = {}
+        context: Dict[str, Any] = {}
+        headers = ['id', 'url']
+
+        try:
+            raw_response = client.url_scan(url)
+            data = raw_response['data']
+
+            data['url'] = url
+            context = {
+                f'{INTEGRATION_ENTRY_CONTEXT}.Submission(val.id && val.id === obj.id)': data,
+                'vtScanID': data.get('id')  # BC preservation
+            }
+        except DemistoException as ex:
+            error = ex.res.json().get('error')
+
+            # Invalid url, probably due to an unknown TLD
+            if error['code'] == 'InvalidArgumentError':
+                data = {'url': url, 'id': '', 'error': error['message']}
+                headers.append('error')
+            else:
+                raise
+
         return CommandResults(
             readable_output=tableToMarkdown(
                 'New url submission:',
                 data,
-                headers=['id', 'url']
+                headers=headers
             ),
             outputs=context,
             raw_response=raw_response
@@ -3344,7 +3775,7 @@ script:
             raw_response = client.get_ip_comments(resource, limit)
         elif resource_type == 'url':
             raw_response = client.get_url_comments(resource, limit)
-        elif resource_type == 'hash':
+        elif resource_type in ('hash', 'file'):
             raise_if_hash_not_valid(resource)
             raw_response = client.get_hash_comments(resource, limit)
         elif resource_type == 'domain':
@@ -3505,19 +3936,41 @@ script:
         """
         1 API Call
         """
-        ip = args['ip']
+
+        id = {}
+        if 'ip' in args:
+            id['value'] = args['ip']
+            id['type'] = 'ip'
+            raise_if_ip_not_valid(id['value'])
+        elif 'domain' in args:
+            id['value'] = args['domain']
+            id['type'] = 'domain'
+        elif 'id' in args:
+            id['value'] = args['id']
+            if is_ip_valid(id['value']):
+                id['type'] = 'ip'
+            else:
+                id['type'] = 'domain'
+        else:
+            return CommandResults(readable_output='No IP address or domain was given.')
+
         limit = arg_to_number_must_int(
             args['limit'],
             arg_name='limit',
             required=True
         )
-        raw_response = client.passive_dns_data(ip, limit)
+
+        try:
+            raw_response = client.passive_dns_data(id, limit)
+        except Exception:
+            return CommandResults(readable_output=f'{"IP" if id["type"] == "ip" else "Domain"} {id["value"]} was not found.')
+
         data = raw_response['data']
         return CommandResults(
             f'{INTEGRATION_ENTRY_CONTEXT}.PassiveDNS',
             'id',
             readable_output=tableToMarkdown(
-                f'Passive DNS data for IP {ip}',
+                f'Passive DNS data for {"IP" if id["type"] == "ip" else "domain"} {id["value"]}',
                 [
                     {
                         'id': item['id'],
@@ -3541,7 +3994,7 @@ script:
         limit = arg_to_number_must_int(args.get('limit'), 'limit', required=True)
         raw_response = client.search(query, limit)
         data = raw_response.get('data', [])
-        if not argToBoolean(args.get('extended_data')):
+        if not argToBoolean(args.get('extended_data', False)):
             data = decrease_data_size(data)
         return CommandResults(
             f'{INTEGRATION_ENTRY_CONTEXT}.SearchResults',
@@ -3574,10 +4027,52 @@ script:
                 {
                     **data.get('attributes', {}),
                     'id': analysis_id
-
                 },
                 headers=['id', 'stats', 'status'],
                 headerTransform=underscoreToCamelCase
+            ),
+            outputs={
+                **raw_response,
+                'id': analysis_id
+            },
+            raw_response=raw_response
+        )
+
+
+    def private_get_analysis_command(client: Client, args: dict) -> CommandResults:
+        """
+        1-2 API Call
+        """
+        analysis_id = args['id']
+        raw_response = client.get_private_analysis(analysis_id)
+        data = raw_response.get('data', {})
+        attributes = data.get('attributes', {})
+        stats = {'threat_severity_level': '',
+                 'popular_threat_category': '',
+                 'threat_verdict': ''}
+        if attributes.get('status', '') == 'completed':
+            file_response = client.get_private_file_from_analysis(analysis_id)
+            file_attributes = file_response.get('data', {}).get('attributes', {})
+            threat_severity = file_attributes.get('threat_severity', {})
+            severity_level = threat_severity.get('threat_severity_level', '')
+            stats['threat_severity_level'] = severity_levels.get(severity_level, severity_level)
+            threat_severity_data = threat_severity.get('threat_severity_data', {})
+            stats['popular_threat_category'] = threat_severity_data.get('popular_threat_category', '')
+            verdict = file_attributes.get('threat_verdict', '')
+            stats['threat_verdict'] = verdicts.get(verdict, verdict)
+        attributes.update(stats)
+        return CommandResults(
+            f'{INTEGRATION_ENTRY_CONTEXT}.Analysis',
+            'id',
+            readable_output=tableToMarkdown(
+                'Analysis results:',
+                {
+                    **attributes,
+                    'id': analysis_id
+                },
+                headers=['id', 'threat_severity_level', 'popular_threat_category', 'threat_verdict', 'status'],
+                removeNull=True,
+                headerTransform=string_to_table_header
             ),
             outputs={
                 **raw_response,
@@ -3605,29 +4100,29 @@ script:
     def file_sigma_analysis_command(client: Client, args: dict) -> CommandResults:
         """Get last sigma analysis for a given file"""
         file_hash = args['file']
-        only_stats = argToBoolean(args['only_stats'])
-        raw_response = client.get_file_sigma_analysis(file_hash)
+        only_stats = argToBoolean(args.get('only_stats', False))
+        raw_response = client.file(file_hash)
         data = raw_response['data']
 
-        if only_stats:
-            formatted_data = []
-            total = data['attributes']['severity_stats']
+        if 'sigma_analysis_stats' not in data['attributes'] or 'sigma_analysis_results' not in data['attributes']:
+            return CommandResults(readable_output=f'No Sigma analyses for file {file_hash} were found.')
 
-            for key, value in data['attributes']['source_severity_stats'].items():
-                formatted_data.append(merge_two_dicts(value, {'name': key}))
-            formatted_data.append(merge_two_dicts(total, {'name': 'TOTAL'}))
+        if only_stats:
             return CommandResults(
                 f'{INTEGRATION_ENTRY_CONTEXT}.SigmaAnalysis',
                 'id',
                 readable_output=tableToMarkdown(
                     f'Summary of the last Sigma analysis for file {file_hash}:',
-                    formatted_data,
-                    headers=['name', 'critical', 'high', 'medium', 'low'],
+                    {
+                        **data['attributes']['sigma_analysis_stats'],
+                        '**TOTAL**': sum(data['attributes']['sigma_analysis_stats'].values())
+                    },
+                    headers=['critical', 'high', 'medium', 'low', '**TOTAL**'],
                     removeNull=True,
-                    headerTransform=underscoreToCamelCase,
+                    headerTransform=underscoreToCamelCase
                 ),
                 outputs=data,
-                raw_response=raw_response,
+                raw_response=data['attributes']['sigma_analysis_stats'],
             )
         else:
             return CommandResults(
@@ -3635,16 +4130,16 @@ script:
                 'id',
                 readable_output=tableToMarkdown(
                     f'Matched rules for file {file_hash} in the last Sigma analysis:',
-                    data['attributes']['rule_matches'],
+                    data['attributes']['sigma_analysis_results'],
                     headers=[
-                        'match_context', 'rule_level', 'rule_description',
-                        'rule_source', 'rule_title', 'rule_id', 'rule_author'
+                        'rule_level', 'rule_description', 'rule_source',
+                        'rule_title', 'rule_id', 'rule_author', 'match_context'
                     ],
                     removeNull=True,
-                    headerTransform=underscoreToCamelCase,
+                    headerTransform=underscoreToCamelCase
                 ),
                 outputs=data,
-                raw_response=raw_response,
+                raw_response=data['attributes']['sigma_analysis_results'],
             )
 
 
@@ -3696,6 +4191,12 @@ script:
             results = get_analysis_command(client, args)
         elif command == f'{COMMAND_PREFIX}-file-sigma-analysis':
             results = file_sigma_analysis_command(client, args)
+        elif command == f'{COMMAND_PREFIX}-privatescanning-file':
+            results = private_file_command(client, args)
+        elif command == f'{COMMAND_PREFIX}-privatescanning-file-scan':
+            results = private_file_scan(client, args)
+        elif command == f'{COMMAND_PREFIX}-privatescanning-analysis-get':
+            results = private_get_analysis_command(client, args)
         else:
             raise NotImplementedError(f'Command {command} not implemented')
         return_results(results)

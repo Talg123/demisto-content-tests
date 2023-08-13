@@ -1,0 +1,182 @@
+{
+	"author": "Cortex XSOAR",
+	"authorImage": "content/packs/Base/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Analytics \u0026 SIEM"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration",
+		"classifier"
+	],
+	"contentItems": {
+		"automation": null,
+		"classifier": [
+			{
+				"description": "Classifies FireEye Alerts.",
+				"id": "FireEye Central Management - Classifier",
+				"name": "FireEye Central Management - Classifier"
+			}
+		],
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": null,
+		"incidenttype": null,
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Analytics \u0026 SIEM",
+				"commands": [
+					{
+						"description": "Searches and retrieves FireEye CM alerts based on several filters.",
+						"name": "fireeye-cm-get-alerts"
+					},
+					{
+						"description": "Searches and retrieves the details of a single alert.",
+						"name": "fireeye-cm-get-alert-details"
+					},
+					{
+						"description": "Confirms that the alert has been reviewed.",
+						"name": "fireeye-cm-alert-acknowledge"
+					},
+					{
+						"description": "Downloads malware artifacts data for the specified UUID as a zip file.",
+						"name": "fireeye-cm-get-artifacts-by-uuid"
+					},
+					{
+						"description": "Gets artifacts metadata for the specified UUID.",
+						"name": "fireeye-cm-get-artifacts-metadata-by-uuid"
+					},
+					{
+						"description": "Retrieves information about existing IPS NX events. An IPS enabled appliance is a prerequisite to be able to retrieve IPS event data.",
+						"name": "fireeye-cm-get-events"
+					},
+					{
+						"description": "Searches and retrieves quarantined emails.",
+						"name": "fireeye-cm-get-quarantined-emails"
+					},
+					{
+						"description": "Releases and deletes quarantined emails. This is not available when Email Security is in Drop mode.",
+						"name": "fireeye-cm-release-quarantined-emails"
+					},
+					{
+						"description": "Deletes quarantined emails. This is not available when Email Security is in Drop mode.",
+						"name": "fireeye-cm-delete-quarantined-emails"
+					},
+					{
+						"description": "Download quarantined emails.",
+						"name": "fireeye-cm-download-quarantined-emails"
+					},
+					{
+						"description": "Returns reports on selected alerts.",
+						"name": "fireeye-cm-get-reports"
+					}
+				],
+				"description": "FireEye Central Management (CM Series) is the FireEye threat intelligence hub. It services the FireEye ecosystem, ensuring that FireEye products share the latest intelligence and correlate across attack vectors to detect and prevent cyber attacks",
+				"id": "FireEye Central Management",
+				"name": "FireEye Central Management"
+			}
+		],
+		"layoutscontainer": null,
+		"list": null,
+		"playbook": null,
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"currentVersion": "1.1.21",
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.32.21",
+			"name": "Base"
+		},
+		"FireEyeCommonFields": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.0.5",
+			"name": "FireEye Common Fields"
+		},
+		"FireEyeEX": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "2.0.22",
+			"name": "FireEye Email Security (EX)"
+		},
+		"FireEyeNX": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.1.25",
+			"name": "FireEye Network Security (NX)"
+		}
+	},
+	"deprecated": false,
+	"description": "FireEye Central Management (CM Series) is the FireEye threat intelligence hub. It services the FireEye ecosystem, ensuring that FireEye products share the latest intelligence and correlate across attack vectors to detect and prevent cyber attacks",
+	"disabledMonthly": false,
+	"downloads": 1514,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"fromServerVersion": "5.5.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldByCortexXSOAR",
+		"generalFieldFree",
+		"generalFieldSupportIncluded"
+	],
+	"id": "FireEyeCM",
+	"installMessage": "",
+	"integrations": [
+		{
+			"imagePath": "content/packs/FireEyeCM/FireEyeCentralManagement_image.png",
+			"name": "FireEye Central Management"
+		},
+		{
+			"imagePath": "content/packs/FireEyeNX/FireEyeNX_image.png",
+			"name": "FireEye NX"
+		},
+		{
+			"imagePath": "content/packs/FireEyeEX/FireEyeEmailSecurity_image.png",
+			"name": "FireEye Email Security"
+		}
+	],
+	"itemVersion": "1.1.21",
+	"keywords": [],
+	"legacy": true,
+	"name": "FireEye Central Management",
+	"packID": "FireEyeCM",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"readme": "FireEye Central Management (CM Series) is the FireEye threat intelligence hub. It services the FireEye ecosystem, ensuring that FireEye products share the latest intelligence and correlate across attack vectors to detect and prevent cyber attacks.\r\n\r\n## What does this pack do?\r\n\r\n- Searches and retrieves FireEye Central Management alerts.\r\n- Searches and retrieves the details of a single alert.\r\n- Acknowledges that a specified alert was reviewed.\r\n- Downloads malware artifacts data for a specified UUID as a zip file.\r\n- Gets artifacts metadata for a specified UUID.\r\n- Retrieves information about existing IPS NX events. An IPS enabled appliance is a prerequisite to be able to retrieve IPS event data.\r\n- Searches, retrieves, releases, and deletes quarantined emails.\r\n- Returns reports on selected alerts.\r\n",
+	"searchRank": 10,
+	"serverMaxVersion": "",
+	"serverMinVersion": "5.5.0",
+	"support": "xsoar",
+	"supportDetails": {
+		"email": "",
+		"url": "https://www.paloaltonetworks.com/cortex"
+	},
+	"tags": [],
+	"toServerVersion": "",
+	"updated": "2023-07-25T19:24:27Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "5866730",
+	"videos": []
+}

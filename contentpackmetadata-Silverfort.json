@@ -1,0 +1,162 @@
+{
+	"author": "Silverfort",
+	"authorImage": "content/packs/Silverfort/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Authentication \u0026 Identity Management"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration",
+		"playbook"
+	],
+	"contentItems": {
+		"automation": null,
+		"classifier": null,
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": null,
+		"incidenttype": null,
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Authentication \u0026 Identity Management",
+				"commands": [
+					{
+						"description": "User risk commands - get the user entity risk.",
+						"name": "silverfort-get-user-risk"
+					},
+					{
+						"description": "Gets the resource entity risk information.",
+						"name": "silverfort-get-resource-risk"
+					},
+					{
+						"description": "Updates the user entity risk.",
+						"name": "silverfort-update-user-risk"
+					},
+					{
+						"description": "Update the resource entity risk.",
+						"name": "silverfort-update-resource-risk"
+					}
+				],
+				"description": "Use the Silverfort integration to get and update Silverfort risk severity.",
+				"id": "Silverfort",
+				"name": "Silverfort (Partner Contribution)"
+			}
+		],
+		"layoutscontainer": null,
+		"list": null,
+		"playbook": [
+			{
+				"description": "This playbook gets the user risk from Silverfort DB. If the risk is medium or higher, the user will be blocked \u0026 alert will be sent.",
+				"name": "Silverfort Disable High Risk Account"
+			},
+			{
+				"description": "This playbook gets an incident related to an account. If it is a domain admin, updates Silverfort risk.",
+				"name": "Silverfort Update Risk for Domain Admins Incidents"
+			}
+		],
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"currentVersion": "2.0.15",
+	"definitionId": "",
+	"dependencies": {
+		"Active_Directory_Query": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.6.20",
+			"name": "Active Directory Query"
+		},
+		"Base": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.32.26",
+			"name": "Base"
+		},
+		"CommonPlaybooks": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "2.3.88",
+			"name": "Common Playbooks"
+		},
+		"CommonScripts": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.12.13",
+			"name": "Common Scripts"
+		},
+		"FiltersAndTransformers": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.2.27",
+			"name": "Filters And Transformers"
+		}
+	},
+	"deprecated": false,
+	"description": "Silverfort protects organizations from data breaches by delivering strong authentication across entire corporate networks and cloud environments, without requiring any modifications to endpoints or servers. Using patent-pending technology, Silverfort's agentless approach enables multi-factor authentication and AI-driven adaptive authentication even for systems that don’t support it today, including proprietary systems, critical infrastructure, shared folders, IoT devices, and more. Use Silverfort integration to get \u0026 update Silverfort risk severity. This integration was integrated and tested with Silverfort version 2.12.",
+	"disabledMonthly": false,
+	"downloads": 1311,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"fromServerVersion": "5.0.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldByPartner",
+		"generalFieldFree",
+		"generalFieldSupportIncluded"
+	],
+	"id": "Silverfort",
+	"installMessage": "",
+	"integrations": [
+		{
+			"imagePath": "content/packs/Silverfort/Silverfort_image.png",
+			"name": "Silverfort"
+		},
+		{
+			"imagePath": "content/packs/Active_Directory_Query/ActiveDirectoryQueryv2_image.png",
+			"name": "Active Directory Query v2"
+		}
+	],
+	"itemVersion": "2.0.15",
+	"keywords": [
+		"Silverfort"
+	],
+	"legacy": true,
+	"name": "Silverfort",
+	"packID": "Silverfort",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"readme": "Whenever Cortex XSOAR runs an investigation that entails a suspicion of compromised user account it leverages Silverfort’s visibility to gain wider context of the investigated user account and applies Silverfort’s proactive protection capabilities such as requiring MFA or blocking access altogether as part of Cortex playbooks.\n\n##### What does this pack do?\nMutual data enrichment on user’s risk and triggering protective actions:\n- Cortex XSOAR queries Silverfort whether  an investigated user account is a service account or a human user\n- Cortex XSOAR queries Silverfort’s risk score for investigates user accounts\n- Cortex XSOAR actively updates users’ risk scores at Silverfort based on its automated investigation \n- Silverfort blocks user access to resources or requires MFA based on Cortex playbook\n\nAdd helpful, relevant links below \n- https://www.silverfort.com/\n- https://www.silverfort.com/request-a-demo/\n- https://www.silverfort.com/portfolio-item/form-blocking-identity-based-threats-with-silverfort-palo-alto-networks-cortex-xsoar-2/",
+	"searchRank": 10,
+	"serverMaxVersion": "",
+	"serverMinVersion": "5.0.0",
+	"support": "partner",
+	"supportDetails": {
+		"email": "support@silverfort.com",
+		"url": "https://support.silverfort.com/"
+	},
+	"tags": [],
+	"toServerVersion": "",
+	"updated": "2023-08-11T09:26:09Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "6020712",
+	"videos": []
+}

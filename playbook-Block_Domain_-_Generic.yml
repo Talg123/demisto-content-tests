@@ -138,7 +138,7 @@ tasks:
       id: f9253412-d3de-4e67-821b-e501fd7dd69e
       iscommand: false
       name: Block Domain - FireEye Email Security
-      playbookName: Block Domain - FireEye Email Security
+      playbookId: Block Domain - FireEye Email Security
       type: playbook
       version: -1
     taskid: f9253412-d3de-4e67-821b-e501fd7dd69e

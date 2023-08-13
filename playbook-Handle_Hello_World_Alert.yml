@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.2.12
+    itemVersion: 1.2.22
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:

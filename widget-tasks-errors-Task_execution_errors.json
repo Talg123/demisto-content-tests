@@ -21,7 +21,7 @@
 	"fromServerVersion": "6.2.0",
 	"id": "tasks-errors",
 	"isPredefined": true,
-	"itemVersion": "1.2.8",
+	"itemVersion": "1.2.28",
 	"name": "Task execution errors",
 	"packID": "CommonWidgets",
 	"packName": "Common Widgets",

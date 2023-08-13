@@ -1,0 +1,119 @@
+{
+	"author": "Cyble Infosec",
+	"authorImage": "content/packs/CybleThreatIntel/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Data Enrichment \u0026 Threat Intelligence"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration"
+	],
+	"contentItems": {
+		"automation": null,
+		"classifier": null,
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": null,
+		"incidenttype": null,
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Fetch the indicators based on the taxii service",
+						"name": "cyble-vision-fetch-taxii"
+					},
+					{
+						"description": "Get the data feed collection names for the taxii feed",
+						"name": "cyble-vision-get-collection-names"
+					}
+				],
+				"description": "Cyble Threat Intelligence for Vision Users. Must have access to Cyble TAXII Feed to access the threat intelligence.",
+				"id": "CybleThreatIntel",
+				"name": "Cyble Threat Intel (Partner Contribution)"
+			}
+		],
+		"layoutscontainer": null,
+		"list": null,
+		"playbook": null,
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"currentVersion": "2.0.15",
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.32.26",
+			"name": "Base"
+		},
+		"CommonScripts": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": false,
+			"minVersion": "1.12.13",
+			"name": "Common Scripts"
+		}
+	},
+	"deprecated": false,
+	"description": "Cyble Threat Intelligence for Vision Users. Must have access to Vision Taxii feed to access the threat intelligence.",
+	"disabledMonthly": false,
+	"downloads": 127,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"fromServerVersion": "6.2.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldByPartner",
+		"generalFieldFree",
+		"generalFieldSupportIncluded"
+	],
+	"id": "CybleThreatIntel",
+	"installMessage": "",
+	"integrations": [
+		{
+			"imagePath": "content/packs/CybleThreatIntel/CybleThreatIntel_image.png",
+			"name": "Cyble Threat Intel"
+		}
+	],
+	"itemVersion": "2.0.15",
+	"keywords": [],
+	"legacy": true,
+	"name": "Cyble Threat Intel",
+	"packID": "CybleThreatIntel",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"readme": "Cyble Threat Intel is an integration which will help users to fetch Cyble's TAXII Feed service into XSOAR Environment. User needs to contact their Cyble Account Manager for getting required pre-requisites to access the Cyble's TAXII Feed Service.\n\n## Configure Cyble Threat Intel on Cortex XSOAR\n\n1. Navigate to __Settings__ \u003e __Integrations__ \u003e __Servers \u0026 Services__.\n2. Search for Cyble Threat Intel.\n3. Click __Add instance__ to create and configure a new integration instance.\n    * __Name__: a textual name for the integration instance.\n    * __Fetch indicators__: boolean flag. If set to true will fetch indicators.\n    * __Fetch Interval__: Interval of the fetches.\n    * __Reliability__: Reliability of the feed.\n    * __Traffic Light Protocol Color__: The Traffic Light Protocol (TLP) designation to apply to indicators\n    fetched from the feed\n    * __Discovery Service__: TAXII discovery service endpoint.\n    * __Collection__: Collection name to fetch indicators from.\n    * __Username__: Username/Password (if required)\n    * __First Fetch Time__: The time interval for the first fetch (retroactive). Maximum of 7 days for retroactive value is allowed.\n    * __Indicator Fetch Limit__: The value to limit the indicator to be fetched per iteration\n\n4. Click __Test__ to validate the URLs, token, and connection.\n \n## Commands\n\nYou can execute these commands from the Cortex XSOAR CLI, as part of an automation, or in a playbook. After you\nsuccessfully execute a command, a DBot message appears in the War Room with the command details.\n\nThis integration provides following command(s) which can be used to access the Threat Intelligence\n\n### cyble-vision-fetch-taxii\n\n***\nFetch the indicators based on the taxii service\n\n#### Base Command\n\n`cyble-vision-fetch-taxii`\n\n#### Input\n\n| **Argument Name** | **Description**                                                                                        | **Required** |\n|-------------------|--------------------------------------------------------------------------------------------------------| --- |\n| limit             | Number of records to return, default value will be 50. Using a smaller limit will get faster responses. | Optional | \n| begin             | Returns records starting with given datetime (Format: %Y-%m-%d %H:%M:%S))                              | Optional | \n| end               | Returns records starting with given datetime (Format: %Y-%m-%d %H:%M:%S))                              | Optional | \n| collection        | Collection name to fetch indicators from                                                               | Required | \n\n#### Context Output\n\n| **Path** | **Type** | **Description** |\n| --- | --- | --- |\n| CybleIntel.Threat.details | String | Returns the Threat Intel details from the Taxii service  | \n\n### cyble-vision-get-collection-names\n\n***\nFetch the available collection name for the taxii service\n\n#### Base Command\n\n`cyble-vision-get-collection-names`\n\n#### Context Output\n\n| **Path**                      | **Type** | **Description**                                |\n|-------------------------------| --- |------------------------------------------------|\n| CybleIntel.collection.names | String | Available collection names for the feed service | ",
+	"searchRank": 10,
+	"serverMaxVersion": "",
+	"serverMinVersion": "6.2.0",
+	"support": "partner",
+	"supportDetails": {
+		"email": "",
+		"url": "https://cyble.com"
+	},
+	"tags": [
+		"TIM"
+	],
+	"toServerVersion": "",
+	"updated": "2023-08-11T09:24:49Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "6020712",
+	"videos": []
+}

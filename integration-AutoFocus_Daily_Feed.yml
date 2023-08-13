@@ -106,9 +106,9 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 2.0.22
+    itemVersion: 2.1.13
     packID: AutoFocus
-    packName: AutoFocus
+    packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
     - all
     prevname: ""
@@ -144,16 +144,15 @@ script:
   runonce: false
   script: |
     register_module_line('AutoFocus Daily Feed', 'start', __line__())
-    from typing import List, Tuple, Optional
+    ### pack version: 2.1.13
 
     # IMPORTS
-    import requests
-
-
+    from typing import List, Tuple, Optional
+    import urllib3
 
 
     # Disable insecure warnings
-    requests.packages.urllib3.disable_warnings()
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
     class Client(BaseClient):
@@ -201,10 +200,11 @@ script:
             Returns:
                 str: The type of the indicator.
             """
-            if re.match(urlRegex, indicator):
-                return FeedIndicatorType.URL
-            elif ip_type := FeedIndicatorType.ip_to_indicator_type(indicator):
+            if ip_type := FeedIndicatorType.ip_to_indicator_type(indicator):
                 return ip_type
+            elif re.match(urlRegex, indicator):
+                return FeedIndicatorType.URL
+
             elif re.match(sha256Regex, indicator):
                 return FeedIndicatorType.File
             else:

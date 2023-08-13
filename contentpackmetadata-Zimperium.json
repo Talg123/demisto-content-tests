@@ -1,0 +1,182 @@
+{
+	"author": "Cortex XSOAR",
+	"authorImage": "content/packs/Base/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Network Security"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration",
+		"incidenttype",
+		"playbook",
+		"classifier",
+		"layoutscontainer"
+	],
+	"contentItems": {
+		"automation": null,
+		"classifier": [
+			{
+				"description": "Classifies Zimperium incidents.",
+				"id": "Zimperium",
+				"name": "Zimperium - Classifier"
+			},
+			{
+				"description": "Maps incoming Zimperium incident fields.",
+				"id": "Zimperium-mapper",
+				"name": "Zimperium - Incoming Mapper"
+			}
+		],
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": null,
+		"incidenttype": [
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "Zimperium Event",
+				"playbook": "Zimperium Incident Enrichment",
+				"weeks": 0
+			}
+		],
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Network Security",
+				"commands": [
+					{
+						"description": "Search events.",
+						"name": "zimperium-events-search"
+					},
+					{
+						"description": "Search users.",
+						"name": "zimperium-users-search"
+					},
+					{
+						"description": "Retrieves details for a single user by object ID.",
+						"name": "zimperium-user-get-by-id"
+					},
+					{
+						"description": "Search devices.",
+						"name": "zimperium-devices-search"
+					},
+					{
+						"description": "Retrieves details for a single device.",
+						"name": "zimperium-device-get-by-id"
+					},
+					{
+						"description": "Retrieves devices from Greater than Last Updated.",
+						"name": "zimperium-devices-get-last-updated"
+					},
+					{
+						"description": "Retrieves application classification.",
+						"name": "zimperium-app-classification-get"
+					},
+					{
+						"description": "Gets a report.",
+						"name": "zimperium-report-get"
+					},
+					{
+						"description": "Checks the reputation of an app in Zimperium.",
+						"name": "file"
+					}
+				],
+				"description": "Fetch and investigate mobile security alerts, generated based on anomalous or unauthorized activities detected on a user's mobile device.",
+				"id": "Zimperium",
+				"name": "Zimperium"
+			}
+		],
+		"layoutscontainer": [
+			{
+				"description": "",
+				"name": "Zimperium Event"
+			}
+		],
+		"list": null,
+		"playbook": [
+			{
+				"description": "Enriches Zimperium incidents.",
+				"name": "Zimperium Incident Enrichment"
+			}
+		],
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"currentVersion": "1.1.11",
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.32.23",
+			"name": "Base"
+		},
+		"CommonTypes": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": false,
+			"minVersion": "3.3.81",
+			"name": "Common Types"
+		}
+	},
+	"deprecated": false,
+	"description": "Streamline investigation and remediation of mobile alerts, generated alerts based on anomalous or unauthorized activities using the Zimperium pack.",
+	"disabledMonthly": false,
+	"downloads": 2399,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"fromServerVersion": "5.0.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldByCortexXSOAR",
+		"generalFieldFree",
+		"generalFieldSupportIncluded"
+	],
+	"id": "Zimperium",
+	"installMessage": "",
+	"integrations": [
+		{
+			"imagePath": "content/packs/Zimperium/Zimperium_image.png",
+			"name": "Zimperium"
+		}
+	],
+	"itemVersion": "1.1.11",
+	"keywords": [
+		"Mobile"
+	],
+	"legacy": true,
+	"name": "Zimperium",
+	"packID": "Zimperium",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"searchRank": 20,
+	"serverMaxVersion": "",
+	"serverMinVersion": "5.0.0",
+	"support": "xsoar",
+	"supportDetails": {
+		"email": "",
+		"url": "https://www.paloaltonetworks.com/cortex"
+	},
+	"tags": [
+		"Featured"
+	],
+	"toServerVersion": "",
+	"updated": "2023-08-03T19:27:41Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "5950262",
+	"videos": []
+}

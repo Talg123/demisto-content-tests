@@ -31,9 +31,9 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.0.22
+    itemVersion: 2.1.13
     packID: AutoFocus
-    packName: AutoFocus
+    packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
     - all
     prevname: ""
@@ -329,6 +329,7 @@ script:
       type: string
   runonce: false
   script: |
+    // pack version: 2.1.13
     var SERVER = params.server.replace(/[\/]+$/, '') + '/api/' + params.version + '/';
 
     function doReq(path, data) {

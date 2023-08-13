@@ -7,7 +7,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.1.0
-    itemVersion: 1.2.8
+    itemVersion: 1.2.28
     packID: CommonWidgets
     packName: Common Widgets
     packPropagationLabels:
@@ -15,7 +15,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.9.7.24076
+dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
 name: FeedIntegrationErrorWidget
@@ -24,10 +24,10 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('FeedIntegrationErrorWidget', 'start', __line__())
+  ### pack version: 1.2.28
+
+
   from dateparser import parse
-
-
-
 
 
   def get_feed_integration_errors() -> TableOrListWidget:

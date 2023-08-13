@@ -333,7 +333,7 @@
 	"id": "EDL Change Layout",
 	"indicatorsDetails": null,
 	"indicatorsQuickView": null,
-	"itemVersion": "3.1.7",
+	"itemVersion": "3.2.6",
 	"locked": false,
 	"mobile": null,
 	"name": "EDL Change Layout",
@@ -346,6 +346,6 @@
 	"quickView": null,
 	"quickViewV2": null,
 	"system": true,
-	"toServerVersion": "",
+	"toServerVersion": "99.99.99",
 	"version": -1
 }

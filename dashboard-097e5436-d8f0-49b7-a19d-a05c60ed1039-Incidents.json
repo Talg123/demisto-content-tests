@@ -8,7 +8,7 @@
 	"hideSearch": false,
 	"id": "097e5436-d8f0-49b7-a19d-a05c60ed1039",
 	"isCommon": true,
-	"itemVersion": "1.2.0",
+	"itemVersion": "1.3.6",
 	"layout": [
 		{
 			"forceRange": false,
@@ -103,7 +103,7 @@
 				"params": {
 					"groupBy": [
 						"occurred(d)",
-						"type"
+						"rawType"
 					]
 				},
 				"prevName": "",
@@ -459,7 +459,7 @@
 				"params": {
 					"groupBy": [
 						"severity",
-						"type"
+						"rawType"
 					]
 				},
 				"prevName": "",
@@ -717,7 +717,7 @@
 				"created": "0001-01-01T00:00:00Z",
 				"dataType": "incidents",
 				"dateRange": {
-					"fromDate": "2018-02-01T00:00:00+02:00",
+					"fromDate": "2018-01-31T22:00:00Z",
 					"fromDateLicense": "0001-01-01T00:00:00Z",
 					"period": {
 						"by": "",

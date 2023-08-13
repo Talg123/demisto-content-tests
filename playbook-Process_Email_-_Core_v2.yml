@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 3.1.6
+    itemVersion: 3.5.26
     packID: Phishing
     packName: Phishing
     packPropagationLabels:
@@ -166,6 +166,8 @@ tasks:
     note: false
     quietmode: 0
     reputationcalc: 1
+    results:
+    - reportedemailentryid
     scriptarguments:
       entryid:
         complex:
@@ -200,6 +202,19 @@ tasks:
       }
   "2":
     continueonerrortype: ""
+    fieldMapping:
+    - incidentfield: Rendered HTML
+      output:
+        complex:
+          root: inputs.EmailHtml
+          transformers:
+          - args:
+              applyIfEmpty: {}
+              defaultValue:
+                iscontext: true
+                value:
+                  simple: inputs.EmailText
+            operator: SetIfEmpty
     id: "2"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -223,13 +238,14 @@ tasks:
       brand: ""
       description: Saves the email data extracted by the configured email listener
         integration to the context. Also extracts indicators from the email message.
-      id: 941132ec-6be8-41a0-8922-5befd8404408
+        Also saves the HTML or email text to the email body section in the layout.
+      id: 427170df-d844-44c5-8c7b-e45826113cec
       iscommand: false
       name: Save email details
       script: Set
       type: regular
       version: -1
-    taskid: 941132ec-6be8-41a0-8922-5befd8404408
+    taskid: 427170df-d844-44c5-8c7b-e45826113cec
     timertriggers: []
     type: regular
     view: |-
@@ -251,12 +267,16 @@ tasks:
     note: false
     quietmode: 0
     reputationcalc: 2
+    results:
+    - AttachmentName
     scriptarguments:
       entryid:
         complex:
           root: reportedemailentryid
           transformers:
           - operator: uniq
+      nesting_level_to_return:
+        simple: Inner file
     separatecontext: false
     skipunavailable: false
     task:
@@ -267,13 +287,13 @@ tasks:
         and not modified - only the "Label/x" context items that originated from the
         labels, and the best practice is to rely on these for the remainder of the
         playbook.
-      id: 9a2df146-3c00-4078-8754-a0e120b35266
+      id: b8e367d0-8147-4369-8216-acb86b53c088
       iscommand: false
       name: Extract and save email details
-      script: ParseEmailFiles
+      script: ParseEmailFilesV2
       type: regular
       version: -1
-    taskid: 9a2df146-3c00-4078-8754-a0e120b35266
+    taskid: b8e367d0-8147-4369-8216-acb86b53c088
     timertriggers: []
     type: regular
     view: |-
@@ -498,6 +518,18 @@ tasks:
       emailurlclicked:
         complex:
           root: EmailUrlClicked
+      renderedhtml:
+        complex:
+          accessor: HTML
+          root: Email
+          transformers:
+          - args:
+              applyIfEmpty: {}
+              defaultValue:
+                iscontext: true
+                value:
+                  simple: Email.Text
+            operator: SetIfEmpty
       reportedemailcc:
         complex:
           accessor: CC
@@ -543,15 +575,14 @@ tasks:
     skipunavailable: false
     task:
       brand: Builtin
-      description: Updates Cortex XSOAR incident fields using data from the email
-        object.
-      id: 687360e6-7e9e-48bb-80df-7b01a6be74f5
+      description: Updates Demisto incident fields using data from the email object.
+      id: d28fffd8-1d5b-4927-803b-f3589df019fd
       iscommand: true
       name: Display email information in layout
       script: Builtin|||setIncident
       type: regular
       version: -1
-    taskid: 687360e6-7e9e-48bb-80df-7b01a6be74f5
+    taskid: d28fffd8-1d5b-4927-803b-f3589df019fd
     timertriggers: []
     type: regular
     view: |-
@@ -774,12 +805,12 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "26"
-      - "27"
-      - "28"
-      - "29"
-      - "30"
-      - "31"
+      - "34"
+      - "33"
+      - "35"
+      - "36"
+      - "38"
+      - "37"
     note: false
     quietmode: 0
     separatecontext: false
@@ -799,337 +830,6 @@ tasks:
         "position": {
           "x": 1800,
           "y": 1170
-        }
-      }
-  "26":
-    continueonerrortype: ""
-    id: "26"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "19"
-    note: false
-    quietmode: 0
-    reputationcalc: 1
-    scriptarguments:
-      key:
-        simple: Email.Attachment.Extension
-      value:
-        complex:
-          accessor: Extension
-          filters:
-          - - left:
-                iscontext: true
-                value:
-                  simple: File.EntryID
-              operator: notIn
-              right:
-                iscontext: true
-                value:
-                  simple: IncidentFiles.EntryID
-          root: File
-          transformers:
-          - args:
-              separator:
-                value:
-                  simple: ', '
-            operator: join
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Saves the extensions of the email attachments.
-      id: 0dc2d34b-6f8d-4eae-85ba-243d137ca699
-      iscommand: false
-      name: Save attachment extensions
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 0dc2d34b-6f8d-4eae-85ba-243d137ca699
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 1800,
-          "y": 1310
-        }
-      }
-  "27":
-    continueonerrortype: ""
-    id: "27"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "19"
-    note: false
-    quietmode: 0
-    reputationcalc: 1
-    scriptarguments:
-      key:
-        simple: Email.Attachment.Count
-      value:
-        complex:
-          filters:
-          - - left:
-                iscontext: true
-                value:
-                  simple: File.EntryID
-              operator: notIn
-              right:
-                iscontext: true
-                value:
-                  simple: IncidentFiles.EntryID
-          root: File
-          transformers:
-          - operator: count
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Saves the number of email attachments.
-      id: 379627c5-3eef-4732-82fb-d813d944dca2
-      iscommand: false
-      name: Save number of attachments
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 379627c5-3eef-4732-82fb-d813d944dca2
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 2210,
-          "y": 1310
-        }
-      }
-  "28":
-    continueonerrortype: ""
-    id: "28"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "19"
-    note: false
-    quietmode: 0
-    reputationcalc: 1
-    scriptarguments:
-      key:
-        simple: Email.Attachment.Hash
-      value:
-        complex:
-          accessor: MD5
-          filters:
-          - - left:
-                iscontext: true
-                value:
-                  simple: File.EntryID
-              operator: notIn
-              right:
-                iscontext: true
-                value:
-                  simple: IncidentFiles.EntryID
-          root: File
-          transformers:
-          - args:
-              separator:
-                value:
-                  simple: ', '
-            operator: join
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Saves the MD5 hashes of the email attachments.
-      id: 1cb924b2-7869-4e11-8397-a6631ecaffab
-      iscommand: false
-      name: Save attachment MD5 hashes
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 1cb924b2-7869-4e11-8397-a6631ecaffab
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 2630,
-          "y": 1310
-        }
-      }
-  "29":
-    continueonerrortype: ""
-    id: "29"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "19"
-    note: false
-    quietmode: 0
-    reputationcalc: 1
-    scriptarguments:
-      key:
-        simple: Email.Attachment.Size
-      value:
-        complex:
-          accessor: Size
-          filters:
-          - - left:
-                iscontext: true
-                value:
-                  simple: File.EntryID
-              operator: notIn
-              right:
-                iscontext: true
-                value:
-                  simple: IncidentFiles.EntryID
-          root: File
-          transformers:
-          - args:
-              separator:
-                value:
-                  simple: ', '
-            operator: join
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Saves the sizes in bytes of the email attachments.
-      id: c8b63a5f-604d-43c0-8e76-150e8af17d2f
-      iscommand: false
-      name: Save attachment sizes
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: c8b63a5f-604d-43c0-8e76-150e8af17d2f
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 3020,
-          "y": 1310
-        }
-      }
-  "30":
-    continueonerrortype: ""
-    id: "30"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "19"
-    note: false
-    quietmode: 0
-    reputationcalc: 1
-    scriptarguments:
-      key:
-        simple: Email.Attachment.Name
-      value:
-        complex:
-          accessor: Name
-          filters:
-          - - left:
-                iscontext: true
-                value:
-                  simple: File.EntryID
-              operator: notIn
-              right:
-                iscontext: true
-                value:
-                  simple: IncidentFiles.EntryID
-          root: File
-          transformers:
-          - args:
-              separator:
-                value:
-                  simple: ', '
-            operator: join
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Saves the names of the email attachments.
-      id: 21bd6c50-ff4d-4fb0-805c-2ed39cf30e98
-      iscommand: false
-      name: Save attachment names
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 21bd6c50-ff4d-4fb0-805c-2ed39cf30e98
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 3420,
-          "y": 1310
-        }
-      }
-  "31":
-    continueonerrortype: ""
-    id: "31"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "19"
-    note: false
-    quietmode: 0
-    reputationcalc: 1
-    scriptarguments:
-      key:
-        simple: Email.Attachment.Type
-      value:
-        complex:
-          accessor: Type
-          filters:
-          - - left:
-                iscontext: true
-                value:
-                  simple: File.EntryID
-              operator: notIn
-              right:
-                iscontext: true
-                value:
-                  simple: IncidentFiles.EntryID
-          root: File
-          transformers:
-          - args:
-              separator:
-                value:
-                  simple: ', '
-            operator: join
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Saves the names of the email attachments.
-      id: 68afd2e1-4539-4aff-8aaf-a4ca1811b88d
-      iscommand: false
-      name: Save attachment types
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 68afd2e1-4539-4aff-8aaf-a4ca1811b88d
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 3820,
-          "y": 1310
         }
       }
   "32":
@@ -1170,6 +870,367 @@ tasks:
           "y": 690
         }
       }
+  "33":
+    continueonerrortype: ""
+    id: "33"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "19"
+    note: false
+    quietmode: 0
+    reputationcalc: 1
+    scriptarguments:
+      key:
+        simple: Email.Attachment.Count
+      value:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: notIn
+              right:
+                iscontext: true
+                value:
+                  simple: IncidentFiles.EntryID
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: isNotEmpty
+          root: File
+          transformers:
+          - operator: count
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Saves the number of attachments in the email.
+      id: 31bb2716-906b-48fe-8bdb-2839f6fddb3c
+      iscommand: false
+      name: Save number of attachments
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 31bb2716-906b-48fe-8bdb-2839f6fddb3c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2200,
+          "y": 1310
+        }
+      }
+  "34":
+    continueonerrortype: ""
+    id: "34"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "19"
+    note: false
+    quietmode: 0
+    reputationcalc: 1
+    scriptarguments:
+      key:
+        simple: Email.Attachment.Extension
+      value:
+        complex:
+          accessor: Extension
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: notIn
+              right:
+                iscontext: true
+                value:
+                  simple: IncidentFiles.EntryID
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: isNotEmpty
+          root: File
+          transformers:
+          - args:
+              separator:
+                value:
+                  simple: ', '
+            operator: join
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Saves the email attachment extensions.
+      id: 4e51eee8-a78d-4b81-8f9b-497694b3baa9
+      iscommand: false
+      name: Save attachment extensions
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 4e51eee8-a78d-4b81-8f9b-497694b3baa9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1800,
+          "y": 1310
+        }
+      }
+  "35":
+    continueonerrortype: ""
+    id: "35"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "19"
+    note: false
+    quietmode: 0
+    reputationcalc: 1
+    scriptarguments:
+      key:
+        simple: Email.Attachment.Hash
+      value:
+        complex:
+          accessor: MD5
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: notIn
+              right:
+                iscontext: true
+                value:
+                  simple: IncidentFiles.EntryID
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: isNotEmpty
+          root: File
+          transformers:
+          - args:
+              separator:
+                value:
+                  simple: ', '
+            operator: join
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Saves the email attachment MD5 hashes.
+      id: e2a6e654-7d0d-4100-8f44-3249d8f70424
+      iscommand: false
+      name: Save attachment MD5 hashes
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: e2a6e654-7d0d-4100-8f44-3249d8f70424
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2607.5,
+          "y": 1310
+        }
+      }
+  "36":
+    continueonerrortype: ""
+    id: "36"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "19"
+    note: false
+    quietmode: 0
+    reputationcalc: 1
+    scriptarguments:
+      key:
+        simple: Email.Attachment.Name
+      value:
+        complex:
+          accessor: Name
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: notIn
+              right:
+                iscontext: true
+                value:
+                  simple: IncidentFiles.EntryID
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: isNotEmpty
+          root: File
+          transformers:
+          - args:
+              separator:
+                value:
+                  simple: ', '
+            operator: join
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Saves the email attachment names.
+      id: 96f60056-52cb-4b5c-8b4c-7b2ad79dbd75
+      iscommand: false
+      name: Save attachment names
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 96f60056-52cb-4b5c-8b4c-7b2ad79dbd75
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 3420,
+          "y": 1310
+        }
+      }
+  "37":
+    continueonerrortype: ""
+    id: "37"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "19"
+    note: false
+    quietmode: 0
+    reputationcalc: 1
+    scriptarguments:
+      key:
+        simple: Email.Attachment.Size
+      value:
+        complex:
+          accessor: Size
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: notIn
+              right:
+                iscontext: true
+                value:
+                  simple: IncidentFiles.EntryID
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: isNotEmpty
+          root: File
+          transformers:
+          - args:
+              separator:
+                value:
+                  simple: ', '
+            operator: join
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Saves the email attachment sizes.
+      id: b26295cd-98f2-4655-83d5-aa56c6431d0b
+      iscommand: false
+      name: Save attachment sizes
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: b26295cd-98f2-4655-83d5-aa56c6431d0b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 3020,
+          "y": 1310
+        }
+      }
+  "38":
+    continueonerrortype: ""
+    id: "38"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "19"
+    note: false
+    quietmode: 0
+    reputationcalc: 1
+    scriptarguments:
+      key:
+        simple: Email.Attachment.Type
+      value:
+        complex:
+          accessor: Type
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: notIn
+              right:
+                iscontext: true
+                value:
+                  simple: IncidentFiles.EntryID
+          - - left:
+                iscontext: true
+                value:
+                  simple: File.EntryID
+              operator: isNotEmpty
+          root: File
+          transformers:
+          - args:
+              separator:
+                value:
+                  simple: ', '
+            operator: join
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Saves the email attachment types.
+      id: ead9ae68-c7de-4ae8-8bb1-ab20970b2c5f
+      iscommand: false
+      name: Save attachment types
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: ead9ae68-c7de-4ae8-8bb1-ab20970b2c5f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 3830,
+          "y": 1310
+        }
+      }
 version: -1
 view: |-
   {
@@ -1182,7 +1243,7 @@ view: |-
     "paper": {
       "dimensions": {
         "height": 1875,
-        "width": 4150,
+        "width": 4160,
         "x": 50,
         "y": 50
       }

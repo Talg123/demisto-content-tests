@@ -1,0 +1,176 @@
+{
+	"author": "Cortex XSOAR",
+	"authorImage": "content/packs/Base/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Network Security"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"incidentfield",
+		"incidenttype",
+		"playbook",
+		"layoutscontainer"
+	],
+	"contentItems": {
+		"automation": null,
+		"classifier": null,
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": [
+			{
+				"description": "",
+				"name": "Email Source Domain",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Email Queue ID",
+				"type": "shortText"
+			}
+		],
+		"incidenttype": [
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "Phishing Alerts",
+				"playbook": "Phishing Alerts Investigation",
+				"weeks": 0
+			}
+		],
+		"indicatorfield": null,
+		"integration": null,
+		"layoutscontainer": [
+			{
+				"description": "",
+				"name": "Phishing Alerts Incident"
+			}
+		],
+		"list": null,
+		"playbook": [
+			{
+				"description": "This playbook calculates and assigns the incident severity based on the highest returned severity level from the following calculations:\n- Email security alert action\n- DBotScores of indicators\n- Critical assets\n- Email authenticity\n- Current incident severity\n- Microsoft Headers",
+				"name": "Phishing Alerts - Check Severity"
+			},
+			{
+				"description": "This playbook investigates and remediates potential phishing incidents produced by either an email security gateway or a SIEM product. It retrieves original email files from the email security gateway or email service provider and generates a response based on the initial severity, hunting results, and the existence of similar phishing incidents in XSOAR.\nNo action is taken without an initial approval given by the analyst using the playbook inputs.",
+				"name": "Phishing Alerts Investigation"
+			}
+		],
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"currentVersion": "1.0.2",
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.32.21",
+			"name": "Base"
+		},
+		"CommonPlaybooks": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "2.3.80",
+			"name": "Common Playbooks"
+		},
+		"CommonScripts": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.12.4",
+			"name": "Common Scripts"
+		},
+		"CommonTypes": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": false,
+			"minVersion": "3.3.81",
+			"name": "Common Types"
+		},
+		"FiltersAndTransformers": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.2.24",
+			"name": "Filters And Transformers"
+		},
+		"FireEyeEX": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": false,
+			"minVersion": "2.0.21",
+			"name": "FireEye Email Security (EX)"
+		},
+		"Phishing": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "3.5.24",
+			"name": "Phishing"
+		}
+	},
+	"deprecated": false,
+	"description": "This pack will help you handle your email security gateway alerts",
+	"disabledMonthly": false,
+	"downloads": 757,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"fromServerVersion": "5.5.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldByCortexXSOAR",
+		"generalFieldFree",
+		"generalFieldSupportIncluded"
+	],
+	"id": "PhishingAlerts",
+	"installMessage": "",
+	"integrations": [
+		{
+			"imagePath": "content/packs/FireEyeEX/FireEyeEmailSecurity_image.png",
+			"name": "FireEye Email Security"
+		}
+	],
+	"itemVersion": "1.0.2",
+	"keywords": [],
+	"legacy": true,
+	"name": "PhishingAlerts",
+	"packID": "PhishingAlerts",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"readme": "\nEmail security gateways produce a high volume of phishing alerts. To protect an organization from malicious emails, analysts investigating phishing alerts need to adjust their response procedures by email type, severity, or content to identify campaigns and inspect IoCs.\n\nThis content pack enables analysts to retrieve, process, and analyze email files to manage phishing alert incidents. \nThe out-of-the-box items are robust enough to get you started, but are easily customizable to fit your specific requirements.\n\n\n##### What Does This Pack Do?\n- Retrieves emails from user inboxes or email security gateways.\n- Creates a Phishing Alerts incident in Cortex XSOAR associated with the alert.\n- Extracts and enriches all indicators from email attachments. \n- Analyzes files and provides reputation using your sandbox and threat intelligence integrations.\n- Generates a screenshot of the email and embedded links, and calculates reputation for all indicators involved.\n- Runs checks for URL SSL certificates, email address breach involvement, domain squatting and email authenticity using SPF, DKIM and DMARC checks.\n- Identifies similar phishing incidents belonging to the same campaign and provides visibility and manual or automatic actions to respond to such incidents.\n- Calculates severity for an incident based on initial severity, indicator reputations, email authenticity check, critical assets if any are involved, and alert action.\n- Remediates the incident by blocking malicious indicators, searching for and deleting malicious emails upon analyst approval.\n- Engages with the end user regarding the incident such as notifying them of receipt of email and providing further instructions if an email is found to be malicious.\n\nThis content pack also includes out-of-the-box phishing incident views, a full layout, and automation scripts. All of these are easily customizable to suit the needs of your organization.\n\n\n##### Additional Information\n\n_The Phishing content pack is the main content pack for all phishing purposes and is required for this content pack to respond to phishing alerts. See our documentation for information about the [Phishing](https://xsoar.pan.dev/docs/reference/packs/Phishing-Alerts) content pack._\n",
+	"searchRank": 10,
+	"serverMaxVersion": "",
+	"serverMinVersion": "5.5.0",
+	"support": "xsoar",
+	"supportDetails": {
+		"email": "",
+		"url": "https://www.paloaltonetworks.com/cortex"
+	},
+	"tags": [
+		"Use Case"
+	],
+	"toServerVersion": "",
+	"updated": "2023-07-19T16:33:13Z",
+	"useCases": [
+		"Phishing"
+	],
+	"version": -1,
+	"versionInfo": "5810923",
+	"videos": []
+}

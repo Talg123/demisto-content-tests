@@ -1,0 +1,554 @@
+category: Data Enrichment & Threat Intelligence
+commonfields:
+  id: CybleThreatIntel
+  version: -1
+configuration:
+- additionalinfo: The Traffic Light Protocol (TLP) designation to apply to indicators
+    fetched from the feed
+  display: Traffic Light Protocol Color
+  name: tlp_color
+  options:
+  - RED
+  - AMBER
+  - GREEN
+  - WHITE
+  required: false
+  type: 15
+- defaultvalue: "1440"
+  display: Feed Fetch Interval
+  name: feedFetchInterval
+  required: false
+  type: 19
+- additionalinfo: Collection name to fetch indicators from.
+  display: Discovery Service
+  name: discovery_service
+  required: true
+  type: 0
+- display: Username
+  name: credentials
+  required: true
+  type: 9
+- defaultvalue: "false"
+  display: Trust any certificate (not secure)
+  name: insecure
+  required: false
+  type: 8
+- defaultvalue: "false"
+  display: Use system proxy settings
+  name: proxy
+  required: false
+  type: 8
+- additionalinfo: Time interval for first fetch (retroactive), by days only. Maximum
+    of 7 days for retroactive value is allowed.
+  defaultvalue: "1"
+  display: First fetch time (by days)
+  name: initial_interval
+  required: true
+  type: 0
+- defaultvalue: "true"
+  display: Fetch indicators
+  name: feed
+  required: false
+  type: 8
+- additionalinfo: Indicators from this integration instance will be marked with this
+    reputation
+  defaultvalue: None
+  display: Indicator Reputation
+  name: feedReputation
+  options:
+  - None
+  - Good
+  - Suspicious
+  - Bad
+  required: false
+  type: 18
+- additionalinfo: Reliability of the source providing the intelligence data
+  defaultvalue: A - Completely reliable
+  display: Source Reliability
+  name: feedReliability
+  options:
+  - A - Completely reliable
+  - B - Usually reliable
+  - C - Fairly reliable
+  - D - Not usually reliable
+  - E - Unreliable
+  - F - Reliability cannot be judged
+  required: true
+  type: 15
+- additionalinfo: Provide value to limit the indicator to be fetched per iteration
+  display: Indicator Fetch Limit
+  name: limit
+  required: false
+  type: 0
+- display: Collection Name
+  name: collection
+  required: true
+  type: 0
+- display: ""
+  name: feedExpirationPolicy
+  options:
+  - never
+  - interval
+  - indicatorType
+  - suddenDeath
+  required: false
+  type: 17
+- display: ""
+  name: feedExpirationInterval
+  required: false
+  type: 1
+- additionalinfo: When selected, the exclusion list is ignored for indicators from
+    this feed. This means that if an indicator from this feed is on the exclusion
+    list, the indicator might still be added to the system.
+  display: Bypass exclusion list
+  name: feedBypassExclusionList
+  required: false
+  type: 8
+- additionalinfo: Supports CSV values.
+  display: Tags
+  name: feedTags
+  required: false
+  type: 0
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.2.0
+    itemVersion: 2.0.15
+    packID: CybleThreatIntel
+    packName: Cyble Threat Intel
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Cyble Threat Intelligence for Vision Users. Must have access to Cyble
+  TAXII Feed to access the threat intelligence.
+detaileddescription: |-
+  ### Partner Contributed Integration
+  #### Integration Author: Cyble Infosec
+  Support and maintenance for this integration are provided by the author. Please use the following contact details:
+  - **URL**: [https://cyble.com](https://cyble.com)
+  ***
+  Cyble Threat Intel is an integration which will help users to fetch Cyble's TAXII Feed service into XSOAR Environment. User needs to contact their Cyble Account Manager for getting required pre-requisites to access the Cyble's TAXII Feed Service.
+
+  For details on configuration please contact your Cyble Account Manager.
+
+  ---
+  [View Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/cyble-threat-intel)
+display: Cyble Threat Intel (Partner Contribution)
+image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAyCAYAAACXpx/YAAAACXBIWXMAAC4jAAAuIwF4pT92AAAF8mlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNy4xLWMwMDAgNzkuN2E3YTIzNiwgMjAyMS8wOC8xMi0wMDoyNToyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjUgKFdpbmRvd3MpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAyMi0wMy0xMVQxMDowMDozNiswNTozMCIgeG1wOk1vZGlmeURhdGU9IjIwMjItMDMtMjRUMTk6MjM6MjYrMDU6MzAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjItMDMtMjRUMTk6MjM6MjYrMDU6MzAiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIiBwaG90b3Nob3A6SUNDUHJvZmlsZT0ic1JHQiBJRUM2MTk2Ni0yLjEiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ZjhkNGE1M2MtMWIzZS0zZjRhLWE1NmItNDIyMDI4MzA0MDVjIiB4bXBNTTpEb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6MzNmOGMzZDktZWNlMy05YjQyLWE2MjAtNjQxNDg0OWJlMzQ0IiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6YTc0YmI3NDItMTU3Zi02ZTQ3LWIxMGUtM2IzMDYyNjIxZTQ0Ij4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDphNzRiYjc0Mi0xNTdmLTZlNDctYjEwZS0zYjMwNjI2MjFlNDQiIHN0RXZ0OndoZW49IjIwMjItMDMtMTFUMTA6MDA6MzYrMDU6MzAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMi41IChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6ZjhkNGE1M2MtMWIzZS0zZjRhLWE1NmItNDIyMDI4MzA0MDVjIiBzdEV2dDp3aGVuPSIyMDIyLTAzLTI0VDE5OjIzOjI2KzA1OjMwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjIuNSAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+78r0VAAAES5JREFUeJztnHmUJUWVxn83Ml/me1Vd1RvdQLMoo8hBEaRdUVB7ZBFZbBw4OICjA4yCyyhCC4iKywFcEUcWUZSDTjuCg8qwiYCABxEdQYXjiMrSMNJNLzRd3UXV2zK++SMy31L1qrpGcTl13nc6T+bLjLhxI27cG/feiGqTRB+zF+6vzUAff170BTzL0RfwLEdfwLMcfQHPcvQFPMvRF/Ash3HGdye/dQYuAjNwLvy2CJx7AWbLcW4ZZi/FuWHMFeWqmP0C527H3LWY/STUdYQy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
+name: CybleThreatIntel
+script:
+  commands:
+  - arguments:
+    - defaultValue: "50"
+      description: Number of records to fetch. Using a smaller limit will get faster
+        responses
+      name: limit
+    - description: 'Returns records starting with given datetime (Format: %Y-%m-%d
+        %H:%M:%S))'
+      name: begin
+    - description: 'Returns records till the end timeline value. (Format: %Y-%m-%d
+        %H:%M:%S)'
+      name: end
+    - description: Collection Name
+      name: collection
+      required: true
+    description: Fetch the indicators based on the taxii service
+    name: cyble-vision-fetch-taxii
+    outputs:
+    - contextPath: CybleIntel.Threat.details
+      description: 'Returns the Threat Intel details from the Taxii service '
+      type: String
+  - arguments: []
+    description: Get the data feed collection names for the taxii feed
+    name: cyble-vision-get-collection-names
+    outputs:
+    - contextPath: CybleIntel.collection.names
+      description: Available collection names for the feed service
+  dockerimage: demisto/taxii-server:1.0.0.69028
+  feed: true
+  runonce: false
+  script: |
+    register_module_line('CybleThreatIntel', 'start', __line__())
+    ### pack version: 2.0.15
+
+
+
+
+    ''' IMPORTS '''
+    import urllib3
+    import pytz
+    from cabby import create_client
+    from urllib.parse import urlparse
+    from lxml import etree
+    from stix.core import STIXPackage
+    from datetime import datetime
+    from dateutil import parser
+    from typing import *
+
+    # Disable insecure warnings
+    urllib3.disable_warnings()
+
+    ''' CONSTANTS '''
+    DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S.%f+00:00"
+
+
+    class Client(object):
+        """
+        Client will implement the feed service.
+        Contatins the requests and return data.
+        """
+
+        def __init__(self, params):
+            self.params = params
+            self.creds = params.get('credentials', {})
+            self.username = self.creds.get('identifier', "")
+            self.password = self.creds.get('password', "")
+            self.collection_name = params.get('collection', "")
+            self.discovery_service = params.get('discovery_service', "")
+            self.feedReputation = params.get('feedReputation', "")
+            self.feedReliability = params.get('feedReliability', "")
+            self.tlp_color = params.get('tlp_color', "")
+            self.initial_interval = arg_to_number(params.get('initial_interval', '1'))
+            self.limit = arg_to_number(params.get('limit', ''))
+            self.verify_certificate = not argToBoolean(params.get('insecure', False))
+            self.proxy = argToBoolean(params.get('proxy', False))
+
+            self.parsed_url = urlparse(self.discovery_service)
+            self.client = create_client(
+                self.parsed_url.netloc,
+                use_https=True,
+                discovery_path=self.parsed_url.path)
+            self.client.set_auth(username=self.username, password=self.password, verify_ssl=self.verify_certificate)
+            if self.proxy:
+                self.client.set_proxies(handle_proxy())
+
+        def fetch(self, begin, end, collection):
+            for block in self.client.poll(collection_name=collection, begin_date=begin, end_date=end):
+                yield block.content.decode('utf-8')
+
+        def get_recursively(self, search_dict, field):
+            """
+            Takes a dict with nested lists and dicts,
+            and searches all dicts for a key of the field
+            provided.
+            """
+            fields_found = []
+            for key, value in iter(search_dict.items()):
+
+                if key == field:
+                    fields_found.append(value)
+
+                elif isinstance(value, dict):
+                    results = self.get_recursively(value, field)
+                    for result in results:
+                        fields_found.append(result)
+
+                elif isinstance(value, list):
+                    for item in value:
+                        if isinstance(item, dict):
+                            more_results = self.get_recursively(item, field)
+                            for another_result in more_results:
+                                fields_found.append(another_result)
+
+            return fields_found
+
+        def build_indicators(self, args: Dict[str, Any], data: list):
+            indicators = []
+            for eachres in data:
+                indicator_obj = {
+                    "service": "Cyble Feed"
+                }
+                for eachtype in FeedIndicatorType.list_all_supported_indicators():
+                    if eachtype.lower() in args.get('collection').lower():      # type: ignore
+                        indicator_obj['type'] = eachtype
+                        break
+                multi_data = True
+                try:
+                    data = self.get_recursively(eachres['indicators'][0]['observable'], 'value')
+                    if not data:
+                        data = self.get_recursively(eachres['indicators'][0]['observable'], 'address_value')
+                except Exception:
+                    data = self.get_recursively(eachres['observables']['observables'][0], 'value')
+
+                if multi_data:
+                    ind_val = {}
+                    for eachindicator in data:
+                        typeval = auto_detect_indicator_type(eachindicator)
+                        indicator_obj['type'] = typeval
+                        if typeval:
+                            ind_val[typeval] = eachindicator
+
+                    if len(data) == 1:
+                        indicator_obj['value'] = str(data[0])
+                    elif indicator_obj['type'] in list(ind_val.keys()):
+                        indicator_obj['value'] = str(ind_val[indicator_obj['type']])
+                    elif len(ind_val) != 0:
+                        indicator_obj['type'] = list(ind_val.keys())[0]
+                        indicator_obj['value'] = ind_val[list(ind_val.keys())[0]]
+                #
+                if eachres.get('indicators'):
+                    for eachindicator in eachres.get('indicators'):
+                        indicator_obj['title'] = eachindicator.get('title')
+                        indicator_obj['time'] = eachindicator.get('timestamp')
+                else:
+                    for eachindicator in eachres.get('ttps').get('ttps'):
+                        indicator_obj['title'] = eachindicator.get('title')
+                        indicator_obj['time'] = eachindicator.get('timestamp')
+
+                indicator_obj['rawJSON'] = eachres
+                indicators.append(indicator_obj)
+
+            return indicators
+
+        def parse_to_json(self, content):
+            """
+            Parse the feed response to JSON
+            :param content: xml data to parse
+            """
+            if content:
+                stix_dict = STIXPackage.from_xml(etree.XML(content)).to_dict()  # parse to dictionary
+                return stix_dict
+            else:
+                return {}
+
+        def get_taxii(self, args: Dict[str, Any]):
+            """
+            Fetch Taxii events for the given parameters
+            :param args: arguments which would be used to fetch feed
+            :return:
+            """
+            taxii_data = []
+            save_fetch_time = None
+            count = 0
+            try:
+                for data in self.fetch(args.get('begin'), args.get('end'), args.get('collection')):
+                    response = self.parse_to_json(data)
+
+                    if response.get('indicators') or False:
+                        content = response.get('indicators')
+                    elif response.get('ttps') or False:
+                        content = response.get('ttps').get('ttps')
+                    else:
+                        raise ValueError("Last fetch time retrieval failed.")
+
+                    for eachone in content:
+                        save_fetch_time = parser.parse(eachone['timestamp']).replace(tzinfo=pytz.UTC).strftime(
+                            DATETIME_FORMAT)
+
+                    taxii_data.append(response)
+
+                    count += 1
+                    if count == arg_to_number(args.get('limit', 1)):
+                        break
+            except Exception as e:
+                demisto.error("Failed to fetch feed details, exception:{}".format(e))
+                raise e
+
+            return taxii_data, save_fetch_time
+
+        def get_services(self):
+            """
+            Fetch the services from the feed
+            """
+            collection_list = []
+            try:
+                services = self.client.discover_services()
+                if services:
+                    for service in services:
+                        if 'collection' in service.type.lower():
+                            for eachone in self.get_collection(service.address):
+                                collection_list.append({'name': eachone.name})
+                            break
+            except Exception as e:
+                demisto.error("Failed to fetch collections, exception:{}".format(e))
+                raise e
+
+            return collection_list
+
+        def get_collection(self, address):
+            """
+            Collection names available from the feed
+            """
+            return self.client.get_collections(uri=address)
+
+
+    def get_test_response(client: Client, args: Dict[str, Any]):
+        """
+        Test the integration connection state
+        :param client: instance of client to communicate with server
+        :param args: Parameters
+        :return: Test Response Success or Failure
+        """
+        ret_val = 'Unable to Contact Feed Service, Please Check the parameters.'
+        args['begin'] = str((datetime.utcnow() - timedelta(days=1)).replace(tzinfo=pytz.UTC))
+        args['end'] = str(datetime.utcnow().replace(tzinfo=pytz.UTC))
+
+        try:
+            services = client.get_taxii(args)
+        except Exception as e:
+            demisto.error(e)
+            services = None
+
+        if services:
+            ret_val = 'ok'
+        return ret_val
+
+
+    def get_feed_collection(client: Client):
+        """
+        get the collections from taxii feed
+        :param client: instance of client to communicate with server
+        :return: list of collection names
+        """
+        collections = client.get_services()
+        command_results = CommandResults(
+            outputs_prefix='CybleIntel.collection',
+            outputs_key_field='names',
+            outputs=collections
+        )
+        return command_results
+
+
+    def cyble_fetch_taxii(client: Client, args: Dict[str, Any]):
+        '''
+        TAXII feed details will be pulled from server
+        :param client: instance of client to communicate with server
+        :param args: Parameters for fetching the feed
+        :return: TAXII feed details
+        '''
+        try:
+            args['begin'] = str(parser.parse(args.get('begin', '')).replace(tzinfo=pytz.UTC)) if args.get('begin', None) else None
+            args['end'] = str(parser.parse(args.get('end', '')).replace(tzinfo=pytz.UTC)) if args.get('end', None) else None
+        except Exception as e:
+            raise ValueError("Invalid date format received, [{}]".format(e))
+
+        result, time = client.get_taxii(args)
+        indicators = client.build_indicators(args, result)
+
+        entry_result = camelize(indicators)
+        hr = tableToMarkdown('Indicators', entry_result, headers=['Type', 'Value', 'Title', 'Time', 'Rawjson'])
+        command_results = CommandResults(
+            readable_output=hr,
+            outputs_prefix='CybleIntel.Threat',
+            outputs_key_field='details',
+            outputs=indicators
+        )
+        return command_results
+
+
+    def fetch_indicators(client: Client):
+        '''
+        TAXII feed details will be pulled from server
+        :param client: instance of client to communicate with server
+        :return: TAXII feed details
+        '''
+        args = {}
+        last_run = demisto.getLastRun()
+        if isinstance(last_run, dict):
+            last_fetch_time = last_run.get('lastRun_{}'.format(client.collection_name), None)
+
+        if last_fetch_time:
+            args['begin'] = str(parser.parse(last_fetch_time).replace(tzinfo=pytz.UTC))
+        else:
+            last_fetch_time = datetime.utcnow() - timedelta(days=client.initial_interval)      # type: ignore
+            args['begin'] = str(last_fetch_time.replace(tzinfo=pytz.UTC))
+
+        args['end'] = str(datetime.utcnow().replace(tzinfo=pytz.UTC))
+
+        args['collection'] = client.collection_name
+        args['limit'] = client.limit       # type: ignore
+        indicator, save_fetch_time = client.get_taxii(args)
+        indicators = client.build_indicators(args, indicator)
+
+        if save_fetch_time:
+            last_run['lastRun_{}'.format(client.collection_name)] = save_fetch_time
+            demisto.setLastRun(last_run)
+
+        return indicators
+
+
+    def validate_input(args: Dict[str, Any]):
+        """
+        Check if the input params for the command are valid. Return an error if any
+        :param args: dictionary of input params
+        """
+        try:
+            # we assume all the params to be non-empty, as cortex ensures it
+            if args.get('limit') and int(args.get('limit', '1')) <= 0:
+                raise ValueError(f"Limit should be positive, limit: {args.get('limit')}")
+
+            try:
+                if args.get('begin', None):
+                    _start_date = parser.parse(args.get('begin', '')).replace(tzinfo=pytz.UTC)
+                if args.get('end', None):
+                    _end_date = parser.parse(args.get('end', '')).replace(tzinfo=pytz.UTC)
+            except Exception as e:
+                raise ValueError("Invalid date format received, [{}]".format(e))
+
+            if args.get('begin', None) and _start_date > datetime.now(timezone.utc):
+                raise ValueError("Start date must be a date before or equal to current")
+            if args.get('end', None) and _end_date > datetime.now(timezone.utc):
+                raise ValueError("End date must be a date before or equal to current")
+            if args.get('begin', None) and args.get('end', None) and _start_date > _end_date:
+                raise ValueError("Start date cannot be after end date")
+
+            if not args.get('collection', False):
+                raise ValueError(f"Collection Name should be provided: {arg_to_number(args.get('collection', None))}")
+
+            return None
+        except Exception as e:
+            demisto.error("Exception with validating inputs [{}]".format(e))
+            raise e
+
+
+    def main():
+        """
+            PARSE AND VALIDATE INTEGRATION PARAMS
+        """
+        # get the params in format
+        params = {key: value for key, value in demisto.params().items() if value is not None}
+
+        LOG(f'Command being called is {demisto.command()}')
+        try:
+            if params.get('initial_interval') and int(params.get('initial_interval')) > 7:      # type: ignore
+                raise ValueError(
+                    f"Retroactive timeline should be within 7 days, given value: {params.get('initial_interval')}")
+
+            client = Client(params)
+            args = demisto.args()
+
+            if demisto.command() == 'test-module':
+                if not args.get('collection', False):
+                    args['collection'] = params.get('collection', '')
+                return_results(get_test_response(client, args))
+
+            elif demisto.command() == 'fetch-indicators':
+                # fetch indicators using taxii service
+                indicators = fetch_indicators(client)
+                # we submit the indicators in batches
+                for b in batch(indicators, batch_size=2000):
+                    demisto.createIndicators(b)
+
+            elif demisto.command() == 'cyble-vision-fetch-taxii':
+                # fetch indicators using taxii service
+                validate_input(args)
+                return_results(cyble_fetch_taxii(client, args))
+
+            elif demisto.command() == 'cyble-vision-get-collection-names':
+                # fetch collections using taxii service
+                return_results(get_feed_collection(client))
+
+        # Log exceptions
+        except Exception as e:
+            return_error(f'Failed to execute {demisto.command()} command. Error: {str(e)}')
+
+
+    if __name__ in ('__main__', '__builtin__', 'builtins'):
+        main()
+
+    register_module_line('CybleThreatIntel', 'end', __line__())
+  subtype: python3
+  type: python
+system: true

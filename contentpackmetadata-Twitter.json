@@ -1,0 +1,134 @@
+{
+	"author": "Cortex XSOAR",
+	"authorImage": "content/packs/Base/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Utilities"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration"
+	],
+	"contentItems": {
+		"automation": null,
+		"classifier": null,
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": null,
+		"incidenttype": null,
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "This command will search for Tweets from the last 7 days and return all information available.",
+						"name": "twitter-tweet-search"
+					},
+					{
+						"description": "Lookup users by name to display information about them. Search multiple users simultaneously by separating them by commas. Ex: 'name='user1,user2,user3'",
+						"name": "twitter-user-get"
+					}
+				],
+				"description": "Twitter integration provides access to searching recent Tweets (in last 7 days) and user information using the Twitter v2 API.",
+				"id": "Twitter v2",
+				"name": "Twitter v2"
+			},
+			{
+				"category": "Utilities",
+				"commands": [
+					{
+						"description": "Search for public users on Twitter",
+						"name": "twitter-get-users"
+					},
+					{
+						"description": "Lookup users by name to display information about them. Search multiple users simultaneously by separating them by commas. Ex: \"name=\"user1,user2,user3\"",
+						"name": "twitter-get-user-info"
+					},
+					{
+						"description": "Search for tweets on Twitter.",
+						"name": "twitter-get-tweets"
+					}
+				],
+				"description": "Deprecated. Use Twitter v2 instead.",
+				"id": "Twitter",
+				"name": "Twitter (Deprecated)"
+			}
+		],
+		"layoutscontainer": null,
+		"list": null,
+		"playbook": null,
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"currentVersion": "2.0.7",
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.32.26",
+			"name": "Base"
+		}
+	},
+	"deprecated": false,
+	"description": "A simple integration that uses Twitter's API to perform searches on twitter for tweets and users.",
+	"disabledMonthly": false,
+	"downloads": 322,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"fromServerVersion": "6.0.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldByCortexXSOAR",
+		"generalFieldFree",
+		"generalFieldSupportIncluded"
+	],
+	"id": "Twitter",
+	"installMessage": "",
+	"integrations": [
+		{
+			"imagePath": "content/packs/Twitter/Twitter_image.png",
+			"name": "Twitter (Deprecated)"
+		},
+		{
+			"imagePath": "content/packs/Twitter/Twitterv2_image.png",
+			"name": "Twitter v2"
+		}
+	],
+	"itemVersion": "2.0.7",
+	"keywords": [],
+	"legacy": true,
+	"name": "Twitter",
+	"packID": "Twitter",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"readme": "The Twitter integration enables cybersecurity researchers and SOC teams to utilize the power of Twitter to enhance their security operations. With the Twitter integration, these teams can automate their Twitter searching processes to achieve various use cases, such as detecting potential security threats, gathering intelligence on cyber attacks, monitoring brand reputation, tracking threat actors, analyzing trends in the cybersecurity landscape, and preventing fraud by detecting fake accounts impersonating their company. This integration helps security teams to stay ahead of the curve and respond to security incidents in real-time.\n\n## What does this pack do?\nThe integration in this pack enables you to:\n- Detect fraudulent accounts.\n- Search for specific keywords, hashtags, and user accounts related to known indicators of compromise (IOCs) in order to identify and track potentially malicious activity.\n- Gather real-time information on emerging threats, malware campaigns, and other malicious activities, which can then be used to inform and update threat intelligence databases.\n- Search for specific keywords or hashtags related to known phishing campaigns in order to quickly identify and respond to any new phishing attempts.\n- Monitor trending topics and hashtags related to their area of interest in order to identify any emerging threats or malicious activities that may be related.\n",
+	"searchRank": 10,
+	"serverMaxVersion": "",
+	"serverMinVersion": "6.0.0",
+	"support": "xsoar",
+	"supportDetails": {
+		"email": "",
+		"url": "https://www.paloaltonetworks.com/cortex"
+	},
+	"tags": [],
+	"toServerVersion": "",
+	"updated": "2023-08-11T09:25:52Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "6020712",
+	"videos": []
+}

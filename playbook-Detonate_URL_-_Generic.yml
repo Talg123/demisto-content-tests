@@ -1064,7 +1064,7 @@ tasks:
       id: 538c5113-5469-4692-89b2-c1570b74aaef
       iscommand: false
       name: Detonate URL - FireEye AX
-      playbookName: Detonate URL - FireEye AX
+      playbookId: Detonate URL - FireEye AX
       type: playbook
       version: -1
     taskid: 538c5113-5469-4692-89b2-c1570b74aaef

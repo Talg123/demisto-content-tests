@@ -113,16 +113,17 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 2.0.22
+    itemVersion: 2.1.13
     packID: AutoFocus
-    packName: AutoFocus
+    packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
     - all
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: Use the AutoFocus Tags Feed integration to fetch indicators from AutoFocus
-  Tags.
+deprecated: true
+description: Deprecated. Use Unit 42 Intel Objects Feed instead. Use the AutoFocus
+  Tags Feed integration to fetch indicators from AutoFocus Tags.
 detaileddescription: "## AutoFocus Tags Feed\n- Use the AutoFocus Tags Feed integration
   to fetch indicators from AutoFocus Tags.\n- For more information, see the [AutoFocus
   documentation - Get Tags](https://docs.paloaltonetworks.com/autofocus/autofocus-api/perform-direct-searches/get-tags.html)
@@ -137,7 +138,7 @@ detaileddescription: "## AutoFocus Tags Feed\n- Use the AutoFocus Tags Feed inte
   Cortex XSOAR.\n  For more info on activating the license, see [Activating AutoFocus
   Licenses](https://docs.paloaltonetworks.com/autofocus/autofocus-admin/get-started-with-autofocus/activate-autofocus-licenses.html).\n\n\n---\n[View
   Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/auto-focus-tags-feed)"
-display: AutoFocus Tags Feed
+display: AutoFocus Tags Feed (Deprecated)
 image: data:image/png;base64,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
 name: AutoFocusTagsFeed
 script:
@@ -148,19 +149,20 @@ script:
       name: limit
     description: Gets indicators from the feed.
     name: autofocus-tags-feed-get-indicators
-  dockerimage: demisto/python3:3.10.4.30607
+  dockerimage: demisto/python3:3.10.10.49934
   feed: true
   runonce: false
   script: |
     register_module_line('AutoFocusTagsFeed', 'start', __line__())
+    ### pack version: 2.1.13
+
+
     """
     AutoFocus Tags Feed integration
     """
     from typing import Dict, List, Optional
 
     import urllib3
-
-
 
 
     # disable insecure warnings

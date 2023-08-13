@@ -11,7 +11,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -19,7 +19,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/py3-tools:0.0.1.30715
+dockerimage: demisto/py3-tools:1.0.0.49703
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -32,9 +32,14 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ParseExcel', 'start', __line__())
+  ### pack version: 1.12.13
 
   import xlrd
 
+
+  # Fixed xlrd known issue
+  xlrd.xlsx.ensure_elementtree_imported(False, None)
+  xlrd.xlsx.Element_has_iter = True
 
 
   def parse_excel(file_entry_id):

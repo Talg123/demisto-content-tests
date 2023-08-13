@@ -10,7 +10,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -55,6 +55,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
+  // pack version: 1.12.13
   var incidentId = args.incidentId;
 
   var entries = executeCommand("getEntries", { id: incidentId });
@@ -71,7 +72,7 @@ script: |
 
   var scheduledEntries = [];
   entries.forEach(function (entry) {
-      if (entry.Metadata.Recurrent && entry.Metadata.Schedule.Scheduled) {
+      if (entry.Metadata !== null && entry.Metadata.Recurrent && entry.Metadata.Schedule.Scheduled) {
           md += '['+ entry.ID + '](' + warRoomUrl + '/' + entry.ID + ')' + '|' + entry.Contents + '\n';
           scheduledEntries.push({
               id: entry.ID,
@@ -85,6 +86,9 @@ script: |
               investigationID: entry.Metadata.InvestigationID,
               schedule: entry.Metadata.Schedule
           });
+      } else {
+          logDebug("unexpected entry structure:");
+          logDebug(entry);
       }
   });
 

@@ -18,7 +18,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -26,7 +26,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/bs4:1.0.0.24033
+dockerimage: demisto/bs4-py3:1.0.0.48637
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -39,6 +39,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ExtractHTMLTables', 'start', __line__())
+  ### pack version: 1.12.13
 
   from bs4 import BeautifulSoup
 
@@ -95,13 +96,12 @@ script: |
       demisto.results(extract_html_table(html, indexes))
 
 
-  # python2 uses __builtin__ python3 uses builtins
-  if __name__ == "__builtin__" or __name__ == "builtins":
+  if __name__ in ['__main__', 'builtin', 'builtins']:
       main()
 
   register_module_line('ExtractHTMLTables', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags:
 - Utility

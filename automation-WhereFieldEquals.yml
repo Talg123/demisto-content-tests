@@ -33,11 +33,12 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.6.43
+    itemVersion: 1.7.18
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 dockerimage: demisto/python3:3.9.7.24076

@@ -3,10 +3,17 @@ commonfields:
   id: AutoFocus V2
   version: -1
 configuration:
+- display: ""
+  displaypassword: API Key
+  hiddenusername: true
+  name: credentials
+  required: false
+  type: 9
 - additionalinfo: TIM customers that upgraded to version 6.2 or above, can have this
     value pre-configured in their main account so no additional input is needed. To
     use this feature, upgrade your license so it includes the license key.
   display: API Key
+  hidden: true
   name: api_key
   required: false
   type: 4
@@ -51,9 +58,9 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.0.22
+    itemVersion: 2.1.13
     packID: AutoFocus
-    packName: AutoFocus
+    packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
     - all
     prevname: ""
@@ -1218,10 +1225,11 @@ script:
     - contextPath: Domain.Name
       description: The domain name.
       type: String
-  dockerimage: demisto/python3:3.10.5.31928
+  dockerimage: demisto/python3:3.10.12.65389
   runonce: false
   script: |
     register_module_line('AutoFocus V2', 'start', __line__())
+    ### pack version: 2.1.13
 
 
     ''' IMPORTS '''
@@ -1231,15 +1239,16 @@ script:
     import requests
     import socket
     import traceback
+    import urllib3
     from typing import Callable, Tuple
 
     # Disable insecure warnings
-    requests.packages.urllib3.disable_warnings()
+    urllib3.disable_warnings()
 
     ''' GLOBALS/PARAMS '''
     PARAMS = demisto.params()
 
-    API_KEY = AutoFocusKeyRetriever(PARAMS.get('api_key')).key
+    API_KEY = AutoFocusKeyRetriever(PARAMS.get('credentials', {}).get('password') or PARAMS.get('api_key')).key
 
     # Remove trailing slash to prevent wrong URL path to service
     SERVER = 'https://autofocus.paloaltonetworks.com'
@@ -1545,6 +1554,11 @@ script:
                 raise Exception("Response status code: 409 \nRequested sample not found")
             res_json = resp.json()
             resp.raise_for_status()
+
+            if 'x-trace-id' in resp.headers:
+                # this debug log was request by autofocus team for debugging on their end purposes
+                demisto.debug(f'x-trace-id: {resp.headers["x-trace-id"]}')
+
             return res_json
         # Errors returned from AutoFocus
         except requests.exceptions.HTTPError:
@@ -2278,7 +2292,9 @@ script:
             return VERDICTS_TO_DBOTSCORE.get(pan_db.lower(), 0)
         else:
             score = next(iter(latest_pan_verdicts.values()))
-            return VERDICTS_TO_DBOTSCORE.get(score.lower(), 0)
+            if score:
+                return VERDICTS_TO_DBOTSCORE.get(score.lower(), 0)
+            return 0
 
 
     def check_for_ip(indicator):
@@ -2712,9 +2728,10 @@ script:
                 domain = Common.Domain(
                     domain=domain_name,
                     dbot_score=dbot_score,
-                    creation_date=indicator.get('whoisDomainCreationDate'),
-                    expiration_date=indicator.get('whoisDomainExpireDate'),
-                    updated_date=indicator.get('whoisDomainUpdateDate'),
+                    # Converting date format from YYYY-MM-DD to DD-MM-YYYY due to a parsing problem on the server later
+                    creation_date="-".join((indicator.get("whoisDomainCreationDate") or '').split("-")[::-1]),
+                    expiration_date="-".join((indicator.get('whoisDomainExpireDate') or '').split("-")[::-1]),
+                    updated_date="-".join((indicator.get('whoisDomainUpdateDate') or '').split("-")[::-1]),
                     admin_email=indicator.get('whoisAdminEmail'),
                     admin_name=indicator.get('whoisAdminName'),
                     admin_country=indicator.get('whoisAdminCountry'),

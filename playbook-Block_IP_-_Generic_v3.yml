@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -66,7 +66,7 @@ inputs:
   value: {}
 - description: |-
     This input determines whether Palo Alto Networks Panorama or Firewall Dynamic Address Groups are used.
-    Specify the Dynamic Address Group tag name for IPs list handling.
+    Determine the Dynamic Address Group tag for IPs list handling.
   key: DAG
   playbookInputQuery: null
   required: false
@@ -101,13 +101,6 @@ inputs:
   playbookInputQuery: null
   required: false
   value: {}
-- description: Cisco ASA (firewall) value for the rule's source object in the created
-    blocking rule. Can be the value of an IPv4, an address block, or the name of a
-    network object.
-  key: CiscoFWSource
-  playbookInputQuery: null
-  required: false
-  value: {}
 - description: |-
     Possible values: True/False . Default: False
     Enrich the input IP address/es with reputation commands.
@@ -135,6 +128,22 @@ inputs:
   required: false
   value:
     simple: outbound
+- description: |-
+    This input determines whether Palo Alto Networks Panorama or Firewall Dynamic Address Groups are used.
+    Determine the Dynamic Address Group name for IPs list handling.
+  key: DAGName
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: |-
+    For prisma SASE usage - Specify the scope for a newly created security rule to be applied.
+    Remember, this input will only be used when there is no input to the CategoryName.
+    Default: Shared
+  key: Folder
+  playbookInputQuery: null
+  required: false
+  value:
+    simple: Shared
 name: Block IP - Generic v3
 outputs:
 - contextPath: Aria.BlockDestSubnet.Rule
@@ -170,6 +179,22 @@ outputs:
 - contextPath: SigSciences.Corp.Site.Blacklist.CreatedBy
   description: Signal Sciences - the blocking rule's creator name.
   type: unknown
+- contextPath: PrismaSase
+  description: The root context key for Prisma SASE integration output.
+  type: unknown
+- contextPath: PrismaSase.AddressGroup
+  description: The Prisma Access Address group object.
+  type: unknown
+- contextPath: PrismaSase.SecurityRule
+  description: Created security rule.
+- contextPath: PrismaSase.SecurityRule.profile_setting
+  description: The Security rule group object in the rule.
+  type: unknown
+- contextPath: PrismaSase.CandidateConfig
+  description: Configuration job object.
+  type: unknown
+- contextPath: PrismaSase.Address
+  description: Created address object.
 starttaskid: "0"
 system: true
 tasks:
@@ -198,8 +223,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1097.5,
-          "y": -10
+          "x": 1310,
+          "y": 120
         }
       }
   "2":
@@ -225,8 +250,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1990,
-          "y": 4645
+          "x": 1310,
+          "y": 4325
         }
       }
   "5":
@@ -251,6 +276,7 @@ tasks:
       - "79"
       - "74"
       - "104"
+      - "106"
     note: false
     quietmode: 0
     separatecontext: false
@@ -268,8 +294,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2542.5,
-          "y": 4005
+          "x": 1310,
+          "y": 3645
         }
       }
   "7":
@@ -285,6 +311,8 @@ tasks:
       - "29"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: CheckPointFirewall_v2
@@ -306,8 +334,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -92.5,
-          "y": 4305
+          "x": -1662.5,
+          "y": 3945
         }
       }
   "8":
@@ -357,8 +385,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 737.5,
-          "y": 3180
+          "x": 1310,
+          "y": 2020
         }
       }
   "12":
@@ -374,6 +402,8 @@ tasks:
       - "13"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Zscaler
@@ -395,8 +425,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 357.5,
-          "y": 4305
+          "x": -1212.5,
+          "y": 3945
         }
       }
   "13":
@@ -439,8 +469,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 470,
-          "y": 4480
+          "x": -1100,
+          "y": 4120
         }
       }
   "14":
@@ -461,13 +491,17 @@ tasks:
     quietmode: 0
     scriptarguments:
       AutoCommit:
-        simple: ${inputs.AutoCommit}
+        complex:
+          root: inputs.AutoCommit
       IP:
         complex:
           accessor: Final
           root: BlockList
           transformers:
           - operator: uniq
+      LogForwarding:
+        complex:
+          root: inputs.LogForwarding
     separatecontext: true
     skipunavailable: true
     task:
@@ -475,20 +509,20 @@ tasks:
       description: |-
         This playbook blocks IP addresses using Custom Block Rules in Palo Alto Networks Panorama or Firewall.
         The playbook receives malicious IP addresses as inputs, creates a custom bi-directional rule to block them, and commits the configuration.
-      id: 67195439-4dcc-4cf1-87a1-5e3587c92c42
+      id: 3bd3ff6a-1dda-4a72-8f94-de4b25140a1b
       iscommand: false
       name: PAN-OS - Block IP - Custom Block Rule
-      playbookName: PAN-OS - Block IP - Custom Block Rule
+      playbookId: PAN-OS - Block IP - Custom Block Rule
       type: playbook
       version: -1
-    taskid: 67195439-4dcc-4cf1-87a1-5e3587c92c42
+    taskid: 3bd3ff6a-1dda-4a72-8f94-de4b25140a1b
     timertriggers: []
     type: playbook
     view: |-
       {
         "position": {
-          "x": -1330,
-          "y": 4480
+          "x": -2900,
+          "y": 4120
         }
       }
   "15":
@@ -509,9 +543,11 @@ tasks:
     quietmode: 0
     scriptarguments:
       AddressGroupName:
-        simple: ${inputs.StaticAddressGroup}
+        complex:
+          root: inputs.StaticAddressGroup
       AutoCommit:
-        simple: ${inputs.AutoCommit}
+        complex:
+          root: inputs.AutoCommit
       IP:
         complex:
           accessor: Final
@@ -524,23 +560,23 @@ tasks:
       brand: ""
       description: |-
         This playbook blocks IP addresses using Static Address Groups in Palo Alto Networks Panorama or Firewall.
-        The playbook receives malicious IP addresses and an address group name as inputs, verifies that the addresses are not already part of the address group, adds them and commits the configuration.
+        The playbook receives malicious IP addresses and an address group name as inputs, verifies that the addresses are not already a part of the address group, adds them and commits the configuration.
 
         ***Note - The playbook does not block the address group communication using a policy block rule. This step will be taken once outside of the playbook.
-      id: d3899bdb-8b05-4a85-832c-592dbf0f2a6d
+      id: db15c8b3-8d89-4217-89d1-50f93161fd5e
       iscommand: false
       name: PAN-OS - Block IP - Static Address Group
-      playbookName: PAN-OS - Block IP - Static Address Group
+      playbookId: PAN-OS - Block IP - Static Address Group
       type: playbook
       version: -1
-    taskid: d3899bdb-8b05-4a85-832c-592dbf0f2a6d
+    taskid: db15c8b3-8d89-4217-89d1-50f93161fd5e
     timertriggers: []
     type: playbook
     view: |-
       {
         "position": {
-          "x": -880,
-          "y": 4480
+          "x": -2450,
+          "y": 4120
         }
       }
   "17":
@@ -571,8 +607,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -1095,
-          "y": 4160
+          "x": -2665,
+          "y": 3790
         }
       }
   "18":
@@ -601,8 +637,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -92.5,
-          "y": 4160
+          "x": -1662.5,
+          "y": 3790
         }
       }
   "20":
@@ -631,8 +667,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 357.5,
-          "y": 4160
+          "x": -1212.5,
+          "y": 3790
         }
       }
   "21":
@@ -655,11 +691,14 @@ tasks:
       action-type:
         simple: drop
       address_group_name:
-        simple: ${inputs.StaticAddressGroup}
+        complex:
+          root: inputs.DAGName
       auto_commit:
-        simple: ${inputs.AutoCommit}
+        complex:
+          root: inputs.AutoCommit
       inbound-or-outbound-rule:
-        simple: ${inputs.RuleDirection}
+        complex:
+          root: inputs.RuleDirection
       ip_list:
         complex:
           accessor: Final
@@ -671,7 +710,8 @@ tasks:
       rule-position:
         simple: top
       tag_name:
-        simple: ${inputs.DAG}
+        complex:
+          root: inputs.DAG
     separatecontext: true
     skipunavailable: true
     task:
@@ -683,20 +723,20 @@ tasks:
         tag already exists. If the tag exists, then the IP address is added to the
         tag.\n\nIf the tag does not exist, a new address group is created with the
         given tag and a matching rule, and the configuration is committed. \n"
-      id: 0f515dc1-a3f0-4783-80fd-56ee960550c1
+      id: 0e68ca31-6c08-4918-8ed2-6da4bd98c940
       iscommand: false
       name: PAN-OS DAG Configuration
-      playbookName: PAN-OS DAG Configuration
+      playbookId: PAN-OS DAG Configuration
       type: playbook
       version: -1
-    taskid: 0f515dc1-a3f0-4783-80fd-56ee960550c1
+    taskid: 0e68ca31-6c08-4918-8ed2-6da4bd98c940
     timertriggers: []
     type: playbook
     view: |-
       {
         "position": {
-          "x": -430,
-          "y": 4480
+          "x": -2000,
+          "y": 4120
         }
       }
   "22":
@@ -742,8 +782,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -1442.5,
-          "y": 4305
+          "x": -3012.5,
+          "y": 3945
         }
       }
   "23":
@@ -785,8 +825,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -992.5,
-          "y": 4305
+          "x": -2562.5,
+          "y": 3945
         }
       }
   "24":
@@ -827,8 +867,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5917.5,
-          "y": 4285
+          "x": 4347.5,
+          "y": 3925
         }
       }
   "25":
@@ -870,8 +910,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -542.5,
-          "y": 4305
+          "x": -2112.5,
+          "y": 3945
         }
       }
   "26":
@@ -900,8 +940,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 807.5,
-          "y": 4160
+          "x": -762.5,
+          "y": 3790
         }
       }
   "27":
@@ -917,6 +957,8 @@ tasks:
       - "28"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: FortiGate
@@ -938,8 +980,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 807.5,
-          "y": 4305
+          "x": -762.5,
+          "y": 3945
         }
       }
   "28":
@@ -966,7 +1008,7 @@ tasks:
                   simple: ','
             operator: join
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: Adds IP addresses to the banned list.
@@ -982,8 +1024,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 920,
-          "y": 4480
+          "x": -650,
+          "y": 4120
         }
       }
   "29":
@@ -1037,7 +1079,7 @@ tasks:
       rule_position:
         simple: top
     separatecontext: true
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: |-
@@ -1055,8 +1097,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 20,
-          "y": 4480
+          "x": -1550,
+          "y": 4120
         }
       }
   "30":
@@ -1085,8 +1127,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1257.5,
-          "y": 4160
+          "x": -312.5,
+          "y": 3790
         }
       }
   "31":
@@ -1116,7 +1158,7 @@ tasks:
       note:
         simple: ${inputs.RuleName}
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: F5Silverline
       description: Adds a new particular threatening IP address object by its IP address.
@@ -1132,8 +1174,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1370,
-          "y": 4480
+          "x": -200,
+          "y": 4120
         }
       }
   "32":
@@ -1149,6 +1191,8 @@ tasks:
       - "31"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: F5Silverline
@@ -1170,8 +1214,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1257.5,
-          "y": 4305
+          "x": -312.5,
+          "y": 3945
         }
       }
   "36":
@@ -1221,8 +1265,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1097.5,
-          "y": 220
+          "x": 1310,
+          "y": 280
         }
       }
   "41":
@@ -1272,8 +1316,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -80,
-          "y": 1780
+          "x": 240,
+          "y": 1580
         }
       }
   "42":
@@ -1332,8 +1376,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -80,
-          "y": 2135
+          "x": 240,
+          "y": 1795
         }
       }
   "43":
@@ -1362,8 +1406,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2542.5,
-          "y": 2635
+          "x": 1310,
+          "y": 2265
         }
       }
   "44":
@@ -1407,8 +1451,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2542.5,
-          "y": 2780
+          "x": 1310,
+          "y": 2410
         }
       }
   "45":
@@ -1594,8 +1638,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2972.5,
-          "y": 3130
+          "x": 1532.5,
+          "y": 2770
         }
       }
   "47":
@@ -1659,8 +1703,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 520,
-          "y": 1790
+          "x": 650,
+          "y": 1580
         }
       }
   "48":
@@ -1731,8 +1775,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 430,
-          "y": 2130
+          "x": 650,
+          "y": 1795
         }
       }
   "51":
@@ -1763,8 +1807,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 520,
-          "y": 1640
+          "x": 650,
+          "y": 1440
         }
       }
   "53":
@@ -1821,8 +1865,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1257.5,
-          "y": 1230
+          "x": 1030,
+          "y": 1080
         }
       }
   "55":
@@ -1851,8 +1895,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1767.5,
-          "y": 4150
+          "x": 210,
+          "y": 3790
         }
       }
   "56":
@@ -1868,6 +1912,8 @@ tasks:
       - "57"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Cisco ASA
@@ -1889,8 +1935,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1780,
-          "y": 4300
+          "x": 210,
+          "y": 3940
         }
       }
   "57":
@@ -1973,7 +2019,7 @@ tasks:
                   simple: 0.0.0.0
             operator: If-Then-Else
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: Creates a rule.
@@ -1989,8 +2035,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1980,
-          "y": 4470
+          "x": 410,
+          "y": 4100
         }
       }
   "58":
@@ -2006,6 +2052,8 @@ tasks:
       - "59"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Stealthwatch Cloud
@@ -2027,8 +2075,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2317.5,
-          "y": 4295
+          "x": 747.5,
+          "y": 3935
         }
       }
   "59":
@@ -2050,7 +2098,7 @@ tasks:
           transformers:
           - operator: uniq
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: Add a domain or IP to the block list.
@@ -2066,8 +2114,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2430,
-          "y": 4470
+          "x": 860,
+          "y": 4110
         }
       }
   "60":
@@ -2096,8 +2144,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2317.5,
-          "y": 4150
+          "x": 747.5,
+          "y": 3790
         }
       }
   "61":
@@ -2113,6 +2161,8 @@ tasks:
       - "89"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Cisco Firepower
@@ -2134,8 +2184,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 3217.5,
-          "y": 4295
+          "x": 1647.5,
+          "y": 3935
         }
       }
   "63":
@@ -2164,8 +2214,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 3217.5,
-          "y": 4150
+          "x": 1647.5,
+          "y": 3790
         }
       }
   "64":
@@ -2194,8 +2244,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2767.5,
-          "y": 4150
+          "x": 1197.5,
+          "y": 3790
         }
       }
   "65":
@@ -2211,6 +2261,8 @@ tasks:
       - "66"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Akamai WAF
@@ -2232,8 +2284,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2767.5,
-          "y": 4295
+          "x": 1197.5,
+          "y": 3935
         }
       }
   "66":
@@ -2261,7 +2313,7 @@ tasks:
       network_list_id:
         simple: ${inputs.AkamaiNetworkListID}
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: Adds elements to the specified network list.
@@ -2277,8 +2329,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2880,
-          "y": 4470
+          "x": 1310,
+          "y": 4110
         }
       }
   "67":
@@ -2307,8 +2359,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 4030,
-          "y": 4140
+          "x": 2460,
+          "y": 3790
         }
       }
   "68":
@@ -2325,6 +2377,8 @@ tasks:
       - "93"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: ThreatX
@@ -2346,8 +2400,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 4030,
-          "y": 4285
+          "x": 2460,
+          "y": 3925
         }
       }
   "69":
@@ -2375,7 +2429,7 @@ tasks:
                   simple: ','
             operator: join
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: Temporarily blocks an IP address or CIDR. Default is 30 minutes.
@@ -2391,8 +2445,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 3780,
-          "y": 4470
+          "x": 2210,
+          "y": 4110
         }
       }
   "71":
@@ -2421,8 +2475,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 4567.5,
-          "y": 4140
+          "x": 2997.5,
+          "y": 3790
         }
       }
   "72":
@@ -2438,6 +2492,8 @@ tasks:
       - "73"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Signal Sciences WAF
@@ -2459,8 +2515,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 4567.5,
-          "y": 4285
+          "x": 2997.5,
+          "y": 3925
         }
       }
   "73":
@@ -2490,7 +2546,7 @@ tasks:
       siteName:
         simple: ${inputs.SiteName}
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: Adding IPs to the Signal Sciences WAF integration.
@@ -2506,8 +2562,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 4680,
-          "y": 4460
+          "x": 3110,
+          "y": 4100
         }
       }
   "74":
@@ -2536,8 +2592,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5467.5,
-          "y": 4140
+          "x": 3897.5,
+          "y": 3790
         }
       }
   "75":
@@ -2565,7 +2621,7 @@ tasks:
                   simple: ','
             operator: join
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: Adds a rule that blocks packets destined for a specific IP address
@@ -2582,8 +2638,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5130,
-          "y": 4460
+          "x": 3560,
+          "y": 4100
         }
       }
   "76":
@@ -2599,6 +2655,8 @@ tasks:
       - "94"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: sophos_firewall
@@ -2620,8 +2678,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5467.5,
-          "y": 4285
+          "x": 3897.5,
+          "y": 3925
         }
       }
   "78":
@@ -2637,6 +2695,8 @@ tasks:
       - "75"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: ARIA Packet Intelligence
@@ -2658,8 +2718,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5017.5,
-          "y": 4285
+          "x": 3447.5,
+          "y": 3925
         }
       }
   "79":
@@ -2688,8 +2748,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5017.5,
-          "y": 4140
+          "x": 3447.5,
+          "y": 3790
         }
       }
   "80":
@@ -2715,7 +2775,8 @@ tasks:
                   simple: ','
             operator: split
       ipRanges:
-        simple: ${inputs.InternalRange}
+        complex:
+          root: inputs.InternalRange
     separatecontext: false
     skipunavailable: false
     task:
@@ -2734,8 +2795,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1520,
-          "y": 510
+          "x": 1030,
+          "y": 490
         }
       }
   "85":
@@ -2782,8 +2843,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1050,
-          "y": 1780
+          "x": 1060,
+          "y": 1580
         }
       }
   "86":
@@ -2822,8 +2883,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1830,
-          "y": 3690
+          "x": 640,
+          "y": 2610
         }
       }
   "89":
@@ -2856,7 +2917,7 @@ tasks:
       Override:
         simple: "False"
     separatecontext: true
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: This playbook will append a network group object with new elements
@@ -2873,8 +2934,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 3330,
-          "y": 4470
+          "x": 1760,
+          "y": 4110
         }
       }
   "90":
@@ -2894,27 +2955,29 @@ tasks:
       key:
         simple: BlockList.Final
       value:
-        simple: ${Please answer the following.Answers.2}
+        complex:
+          accessor: "2"
+          root: Please answer the following.Answers
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
       description: Set a value in context under the key you entered. If no value is
         entered, the script does nothing.
-      id: 369a1c95-02fe-411e-8ba0-909aa30b7847
+      id: e8095de9-3bd5-4f8c-8ccb-02d76b87d1a1
       iscommand: false
       name: Re-set the block list [Inputs]
       script: SetAndHandleEmpty
       type: regular
       version: -1
-    taskid: 369a1c95-02fe-411e-8ba0-909aa30b7847
+    taskid: e8095de9-3bd5-4f8c-8ccb-02d76b87d1a1
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 2757.5,
-          "y": 3480
+          "x": 1310,
+          "y": 3120
         }
       }
   "91":
@@ -2934,27 +2997,29 @@ tasks:
       key:
         simple: BlockList.Final
       value:
-        simple: ${Please answer the following.Answers.0}
+        complex:
+          accessor: "0"
+          root: Please answer the following.Answers
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
       description: Set a value in context under the key you entered. If no value is
         entered, the script does nothing.
-      id: 4d7eefb5-912c-4fbe-8eea-f502217a095f
+      id: 397b5fa6-e8b1-43a0-89d1-b6f63514e8d1
       iscommand: false
       name: Re-set the block list [Malicious]
       script: SetAndHandleEmpty
       type: regular
       version: -1
-    taskid: 4d7eefb5-912c-4fbe-8eea-f502217a095f
+    taskid: 397b5fa6-e8b1-43a0-89d1-b6f63514e8d1
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 2757.5,
-          "y": 3655
+          "x": 1310,
+          "y": 3295
         }
       }
   "92":
@@ -2974,27 +3039,29 @@ tasks:
       key:
         simple: BlockList.Final
       value:
-        simple: ${Please answer the following.Answers.1}
+        complex:
+          accessor: "1"
+          root: Please answer the following.Answers
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
       description: Set a value in context under the key you entered. If no value is
         entered, the script does nothing.
-      id: 102cd6be-250a-459a-8456-db274d0f7faa
+      id: c0352087-e558-45f5-8400-6fec3e641441
       iscommand: false
       name: Re-set the block list [Suspicious]
       script: SetAndHandleEmpty
       type: regular
       version: -1
-    taskid: 102cd6be-250a-459a-8456-db274d0f7faa
+    taskid: c0352087-e558-45f5-8400-6fec3e641441
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 2757.5,
-          "y": 3830
+          "x": 1310,
+          "y": 3470
         }
       }
   "93":
@@ -3022,7 +3089,7 @@ tasks:
                   simple: ','
             operator: join
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: Adds an IP address or CIDR to the block list.
@@ -3038,8 +3105,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 4230,
-          "y": 4460
+          "x": 2660,
+          "y": 4110
         }
       }
   "94":
@@ -3066,7 +3133,7 @@ tasks:
           transformers:
           - operator: uniq
     separatecontext: true
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: |-
@@ -3086,8 +3153,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5580,
-          "y": 4460
+          "x": 4010,
+          "y": 4100
         }
       }
   "95":
@@ -3127,8 +3194,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2757.5,
-          "y": 2955
+          "x": 1310,
+          "y": 2595
         }
       }
   "96":
@@ -3157,8 +3224,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 737.5,
-          "y": 3480
+          "x": -3870,
+          "y": 3780
         }
       }
   "98":
@@ -3291,8 +3358,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2517.5,
-          "y": 3225
+          "x": 1087.5,
+          "y": 2865
         }
       }
   "99":
@@ -3336,8 +3403,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1520,
-          "y": 990
+          "x": 1030,
+          "y": 840
         }
       }
   "100":
@@ -3400,8 +3467,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1520,
-          "y": 1425
+          "x": 650,
+          "y": 1250
         }
       }
   "102":
@@ -3421,27 +3488,29 @@ tasks:
       key:
         simple: BlockList.Final
       value:
-        simple: ${Please answer the following.Answers.3}
+        complex:
+          accessor: "3"
+          root: Please answer the following.Answers
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
       description: Set a value in context under the key you entered. If no value is
         entered, the script does nothing.
-      id: df150cc1-8e2a-459e-80e6-8ec606ffd4ff
+      id: d8d772aa-064f-4701-8c08-710f49819fb7
       iscommand: false
       name: Re-set the block list [Internal Address]
       script: SetAndHandleEmpty
       type: regular
       version: -1
-    taskid: df150cc1-8e2a-459e-80e6-8ec606ffd4ff
+    taskid: d8d772aa-064f-4701-8c08-710f49819fb7
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 2972.5,
-          "y": 3305
+          "x": 1532.5,
+          "y": 2945
         }
       }
   "103":
@@ -3456,6 +3525,11 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
+      field:
+        simple: tags
+      fieldValue:
+        complex:
+          root: inputs.Tag
       indicatorsValues:
         complex:
           accessor: Final
@@ -3466,27 +3540,25 @@ tasks:
                 value:
                   simple: ','
             operator: join
-      tags:
-        simple: ${inputs.Tag}
     separatecontext: false
     skipunavailable: false
     task:
       brand: Builtin
-      description: commands.local.cmd.set.indicators
-      id: e6994f60-33dc-4da7-89b4-ac815ab58d93
+      description: commands.local.cmd.add.values.to.indicator.multi.select.field
+      id: e0a5eadb-97eb-4117-8771-4ec381dd65dc
       iscommand: true
       name: Update Indicator Tag for EDL
-      script: Builtin|||setIndicators
+      script: Builtin|||appendIndicatorField
       type: regular
       version: -1
-    taskid: e6994f60-33dc-4da7-89b4-ac815ab58d93
+    taskid: e0a5eadb-97eb-4117-8771-4ec381dd65dc
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 6030,
-          "y": 4460
+          "x": 4460,
+          "y": 4100
         }
       }
   "104":
@@ -3515,8 +3587,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 5917.5,
-          "y": 4140
+          "x": 4347.5,
+          "y": 3790
         }
       }
   "105":
@@ -3560,8 +3632,138 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1520,
-          "y": 745
+          "x": 1030,
+          "y": 665
+        }
+      }
+  "106":
+    continueonerrortype: ""
+    id: "106"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "108"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: c4cee8d1-81c7-4c4e-8465-0b913bce5337
+      iscommand: false
+      name: Prisma SASE
+      type: title
+      version: -1
+    taskid: c4cee8d1-81c7-4c4e-8465-0b913bce5337
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -3422.5,
+          "y": 3790
+        }
+      }
+  "107":
+    continueonerrortype: ""
+    id: "107"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      AutoCommit:
+        complex:
+          root: inputs.AutoCommit
+      Folder:
+        complex:
+          root: inputs.Folder
+          transformers:
+          - operator: uniq
+      IP:
+        complex:
+          accessor: Final
+          root: BlockList
+          transformers:
+          - operator: uniq
+      StaticAddressGroupName:
+        complex:
+          root: inputs.StaticAddressGroup
+          transformers:
+          - operator: uniq
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: |-
+        This playbook assists in blocking communication with the provided IPs in the Prisma SASE policy.
+        If a group name is provided, the IPs will be added to the mentioned static address group (there should be a rule associated with the group name to block communication with that group).
+        And if the group name is not provided, a new group will be created with a dedicated rule to block communication with those IPs.
+      id: 281f9d65-c396-4441-86f2-340da163d601
+      iscommand: false
+      name: Prisma SASE - Block IP
+      playbookId: Prisma SASE - Block IP
+      type: playbook
+      version: -1
+    taskid: 281f9d65-c396-4441-86f2-340da163d601
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": -3422.5,
+          "y": 4120
+        }
+      }
+  "108":
+    continueonerrortype: ""
+    id: "108"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "2"
+      "yes":
+      - "107"
+    note: false
+    quietmode: 0
+    results:
+    - brandInstances
+    scriptarguments:
+      brandname:
+        simple: Palo Alto Networks - Prisma SASE
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Returns 'yes' if integration brand is available. Otherwise returns
+        'no'
+      id: 4d7717be-2f2d-4962-8b96-18edd3a0977c
+      iscommand: false
+      name: Is Prisma SASE enabled?
+      script: IsIntegrationAvailable
+      type: condition
+      version: -1
+    taskid: 4d7717be-2f2d-4962-8b96-18edd3a0977c
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -3422.5,
+          "y": 3945
         }
       }
 version: -1
@@ -3569,26 +3771,29 @@ view: |-
   {
     "linkLabelsPosition": {
       "12_2_#default#": 0.11,
-      "22_2_#default#": 0.22,
-      "23_2_#default#": 0.2,
+      "22_2_#default#": 0.1,
+      "23_2_#default#": 0.1,
       "24_2_#default#": 0.1,
       "25_2_#default#": 0.1,
       "27_2_#default#": 0.1,
-      "32_2_#default#": 0.1,
+      "32_2_#default#": 0.21,
       "36_8_#default#": 0.19,
-      "41_42_yes": 0.65,
-      "41_8_#default#": 0.38,
-      "47_8_#default#": 0.12,
-      "56_2_#default#": 0.11,
-      "58_2_#default#": 0.14,
+      "41_42_yes": 0.59,
+      "41_8_#default#": 0.17,
+      "44_95_yes": 0.42,
+      "47_48_YES": 0.64,
+      "47_8_#default#": 0.24,
+      "56_2_#default#": 0.28,
+      "58_2_#default#": 0.38,
       "61_2_#default#": 0.1,
+      "65_2_#default#": 0.11,
       "68_2_#default#": 0.1,
-      "68_69_yes": 0.52,
+      "68_69_yes": 0.65,
       "68_93_yes": 0.52,
-      "72_2_#default#": 0.1,
+      "72_2_#default#": 0.16,
       "76_2_#default#": 0.12,
-      "78_2_#default#": 0.1,
-      "7_2_#default#": 0.39,
+      "78_2_#default#": 0.14,
+      "7_2_#default#": 0.1,
       "8_43_yes": 0.5,
       "8_96_#default#": 0.1,
       "99_100_#default#": 0.83,
@@ -3596,10 +3801,10 @@ view: |-
     },
     "paper": {
       "dimensions": {
-        "height": 4720,
-        "width": 7852.5,
-        "x": -1442.5,
-        "y": -10
+        "height": 4270,
+        "width": 8710,
+        "x": -3870,
+        "y": 120
       }
     }
   }

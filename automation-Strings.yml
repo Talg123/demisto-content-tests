@@ -19,7 +19,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -27,60 +27,78 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python:2.7.18.24398
+dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
 name: Strings
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: |-
+script: |
+  register_module_line('Strings', 'start', __line__())
+  ### pack version: 1.12.13
+
+
   import re
   import string
-  # Optional arguments and default values
-  chars = 4
-  if 'chars' in demisto.args():
-      chars = int(demisto.args()['chars'])
-  size = 1024
-  if 'size' in demisto.args():
-      size = int(demisto.args()['size'])
-  regex = None
-  if 'filter' in demisto.args():
-      regex = re.compile(demisto.args()['filter'], re.I)
-  fEntry = demisto.executeCommand('getFilePath', {'id': demisto.args()['entry']})[0]
-  if not isError(fEntry):
-      matches = []
-      with open(demisto.get(fEntry, 'Contents.path'), 'rb', 1024 * 1024) as f:
-          buff = ''
-          c = f.read(1)
-          while c != '':
-              if c in string.printable:
-                  buff += c
-              else:
-                  if len(buff) >= chars:
-                      if regex:
-                          if regex.match(buff):
-                              matches.append(buff)
-                      else:
-                          matches.append(buff)
-                      if len(matches) >= size:
-                          break
-                  buff = ''
+
+
+  def strings(args):
+      # Optional arguments and default values
+      chars = 4
+      if 'chars' in args:
+          chars = int(args['chars'])
+      size = 1024
+      if 'size' in args:
+          size = int(args['size'])
+      regex = None
+      if 'filter' in args:
+          regex = re.compile(args['filter'], re.I)
+      fEntry = demisto.executeCommand('getFilePath', {'id': args['entry']})[0]
+      if not isError(fEntry):
+          matches = []
+          with open(demisto.get(fEntry, 'Contents.path'), 'r', 1024 * 1024, errors='ignore') as f:
+              buff = ''
               c = f.read(1)
-          if len(buff) >= chars and len(matches) < size:
-              if regex:
-                  if regex.match(buff):
+              while c != '':
+                  if c in string.printable:
+                      buff += c
+                  else:
+                      if len(buff) >= chars:
+                          if regex:
+                              if regex.match(buff):
+                                  matches.append(buff)
+                          else:
+                              matches.append(buff)
+                          if len(matches) >= size:
+                              break
+                      buff = ''
+                  c = f.read(1)
+              if len(buff) >= chars and len(matches) < size:
+                  if regex:
+                      if regex.match(buff):
+                          matches.append(buff)
+                  else:
                       matches.append(buff)
-              else:
-                  matches.append(buff)
-      if matches:
-          demisto.results('\n'.join(matches))
+          if matches:
+              return '\n'.join(matches)
+          else:
+              return 'No strings were found.'
       else:
-          demisto.results('No strings were found.')
-  else:
-      demisto.results(fEntry)
+          return fEntry
+
+
+  def main():
+      args = demisto.args()
+      demisto.results(strings(args))
+
+
+  if __name__ in ['__main__', 'builtin', 'builtins']:
+      main()
+
+  register_module_line('Strings', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags:
 - server

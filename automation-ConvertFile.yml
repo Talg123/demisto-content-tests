@@ -26,7 +26,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -34,7 +34,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/office-utils:2.0.0.23094
+dockerimage: demisto/office-utils:2.0.0.54910
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -60,6 +60,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ConvertFile', 'start', __line__())
+  ### pack version: 1.12.13
 
 
 
@@ -111,7 +112,7 @@ script: |
           # make sure we don't have zombie processes (seen when converting pdf to html)
           try:
               zombies, ps_out = find_zombie_processes()
-              if zombies:
+              if zombies:  # pragma no cover
                   demisto.info("Found zombie processes will waitpid: {}".format(ps_out))
                   for pid in zombies:
                       waitres = os.waitpid(int(pid), os.WNOHANG)

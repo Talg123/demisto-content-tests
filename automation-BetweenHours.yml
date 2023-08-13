@@ -16,39 +16,63 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
-    packID: CommonScripts
-    packName: Common Scripts
+    itemVersion: 1.2.27
+    packID: FiltersAndTransformers
+    packName: Filters And Transformers
     packPropagationLabels:
     - all
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.9.8.24399
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: BetweenHours
+outputs:
+- contextPath: BetweenHours.result
+  description: Whether the input hour is between the given hours.
+  type: boolean
+- contextPath: BetweenHours.value
+  description: The value to check.
+  type: string
+- contextPath: BetweenHours.begin_time
+  description: The start time range in the format HH:MM:SS.
+  type: string
+- contextPath: BetweenHours.end_time
+  description: The end time range in the format HH:MM:SS.
+  type: string
 pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('BetweenHours', 'start', __line__())
+  ### pack version: 1.2.27
+
+
   import dateparser
 
 
-
-
   def is_between_hours(value, begin_time, end_time):
-      input_time = dateparser.parse(value).time()  # type: ignore
-      start_time = dateparser.parse(begin_time).time()  # type: ignore
-      end_time = dateparser.parse(end_time).time()  # type: ignore
+      # https://stackoverflow.com/questions/71256416/pytzusagewarning-doesnt-seem-to-go-away
+      input_time = dateparser.parse(value, settings={'TIMEZONE': 'UTC'}).time()  # type: ignore
+      start_time = dateparser.parse(begin_time, settings={'TIMEZONE': 'UTC'}).time()  # type: ignore
+      end_time = dateparser.parse(end_time, settings={'TIMEZONE': 'UTC'}).time()  # type: ignore
 
       return start_time <= input_time <= end_time
 
 
   if __name__ in ('__main__', '__builtin__', 'builtins'):
-      return_results(is_between_hours(**demisto.args()))
+      args = demisto.args()
+      value, begin_time, end_time = args['value'], args['begin_time'], args['end_time']
+
+      result = is_between_hours(value, begin_time, end_time)
+
+      output = {"value": value, "begin_time": begin_time, "end_time": end_time, "result": result}
+      human_readable = f'# BetweenHours\n' \
+          f'The time *{value}* {"*IS*" if result else "*IS NOT*"} between *{begin_time}* and *{end_time}*'
+
+      return_results(CommandResults(outputs_prefix="BetweenHours", readable_output=human_readable, outputs=result))
 
   register_module_line('BetweenHours', 'end', __line__())
 scripttarget: 0

@@ -22,7 +22,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -48,9 +48,10 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('SSDeepSimilarity', 'start', __line__())
+  ### pack version: 1.12.13
+
+
   import traceback
-
-
 
   import tempfile
 

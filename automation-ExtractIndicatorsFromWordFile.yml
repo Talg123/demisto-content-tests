@@ -9,7 +9,7 @@ comment: |-
 
   This automation runs using the default Limited User role, unless you explicitly change the permissions.
   For more information, see the section about permissions here:
-  https://docs.paloaltonetworks.com/cortex/cortex-xsoar/6-2/cortex-xsoar-admin/playbooks/automations.html
+  https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations
 commonfields:
   id: ExtractIndicatorsFromWordFile
   version: -1
@@ -17,7 +17,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -25,7 +25,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/office-utils:2.0.0.23094
+dockerimage: demisto/office-utils:2.0.0.49835
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -35,6 +35,7 @@ runas: DBotRole
 runonce: false
 script: |
   register_module_line('ExtractIndicatorsFromWordFile', 'start', __line__())
+  ### pack version: 1.12.13
 
 
 
@@ -119,7 +120,7 @@ script: |
               document.core_properties.keywords + " " + \
               document.core_properties.subject + " " + \
               document.core_properties.title + " "
-          return " ".join(all_properties_txt.split())
+          return " " + " ".join(all_properties_txt.split()) + " "
 
       def get_hyperlinks(self, document):
           all_hyperlinks = ""
@@ -157,7 +158,7 @@ script: |
 
       # Returning Indicators:
       indicators_hr = demisto.executeCommand("extractIndicators", {
-          'text': parser.all_data})[0][u'Contents']
+          'text': parser.all_data})[0]['Contents']
       demisto.results({
           'Type': entryTypes['note'],
           'ContentsFormat': formats['text'],
@@ -181,7 +182,7 @@ script: |
 
   register_module_line('ExtractIndicatorsFromWordFile', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags:
 - parser

@@ -10,7 +10,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -18,7 +18,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.9.8.24399
+dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
 name: Base64EncodeV2
@@ -31,6 +31,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('Base64EncodeV2', 'start', __line__())
+  ### pack version: 1.12.13
 
 
 
@@ -63,4 +64,5 @@ subtype: python3
 system: true
 tags:
 - Utility
+- incident-action-button
 type: python

@@ -8,7 +8,7 @@
 	"hideSearch": false,
 	"id": "health-status-dashboard",
 	"isCommon": true,
-	"itemVersion": "1.31.17",
+	"itemVersion": "1.31.16",
 	"layout": [
 		{
 			"forceRange": false,
@@ -22,6 +22,7 @@
 				"cacheVersn": 0,
 				"category": "",
 				"commitMessage": "",
+				"created": "0001-01-01T00:00:00Z",
 				"dataType": "system",
 				"dateRange": {
 					"fromDate": "0001-01-01T00:00:00Z",
@@ -69,6 +70,7 @@
 				"query": "disk.usedPercent",
 				"shouldCommit": false,
 				"size": 60,
+				"sizeInBytes": 0,
 				"toServerVersion": "",
 				"vcShouldIgnore": false,
 				"vcShouldKeepItemLegacyProdMachine": false,
@@ -90,6 +92,7 @@
 				"cacheVersn": 0,
 				"category": "",
 				"commitMessage": "",
+				"created": "0001-01-01T00:00:00Z",
 				"dataType": "system",
 				"dateRange": {
 					"fromDate": "0001-01-01T00:00:00Z",
@@ -137,6 +140,7 @@
 				"query": "cpu.usedPercent",
 				"shouldCommit": false,
 				"size": 60,
+				"sizeInBytes": 0,
 				"toServerVersion": "",
 				"vcShouldIgnore": false,
 				"vcShouldKeepItemLegacyProdMachine": false,
@@ -158,6 +162,7 @@
 				"cacheVersn": 0,
 				"category": "",
 				"commitMessage": "",
+				"created": "0001-01-01T00:00:00Z",
 				"dataType": "system",
 				"dateRange": {
 					"fromDate": "0001-01-01T00:00:00Z",
@@ -205,6 +210,7 @@
 				"query": "memory.usedPercent",
 				"shouldCommit": false,
 				"size": 61,
+				"sizeInBytes": 0,
 				"toServerVersion": "",
 				"vcShouldIgnore": false,
 				"vcShouldKeepItemLegacyProdMachine": false,
@@ -226,6 +232,7 @@
 				"cacheVersn": 0,
 				"category": "",
 				"commitMessage": "",
+				"created": "0001-01-01T00:00:00Z",
 				"dataType": "system",
 				"dateRange": {
 					"fromDate": "0001-01-01T00:00:00Z",
@@ -257,6 +264,7 @@
 				"query": "cpu.usedPercent",
 				"shouldCommit": false,
 				"size": 1440,
+				"sizeInBytes": 0,
 				"toServerVersion": "",
 				"vcShouldIgnore": false,
 				"vcShouldKeepItemLegacyProdMachine": false,
@@ -278,6 +286,7 @@
 				"cacheVersn": 0,
 				"category": "",
 				"commitMessage": "",
+				"created": "0001-01-01T00:00:00Z",
 				"dataType": "system",
 				"dateRange": {
 					"fromDate": "0001-01-01T00:00:00Z",
@@ -309,6 +318,7 @@
 				"query": "memory.usedPercent",
 				"shouldCommit": false,
 				"size": 1440,
+				"sizeInBytes": 0,
 				"toServerVersion": "",
 				"vcShouldIgnore": false,
 				"vcShouldKeepItemLegacyProdMachine": false,

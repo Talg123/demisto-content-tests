@@ -31,11 +31,12 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.31.17
+    itemVersion: 1.31.16
     packID: Base
     packName: Base
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 dockerimage: demisto/xsoar-tools-hf:1.0.0.31061

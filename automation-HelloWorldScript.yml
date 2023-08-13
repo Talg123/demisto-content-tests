@@ -1,7 +1,7 @@
 args:
 - description: Hello command - prints hello to anyone.
   name: name
-comment: Hello World Script
+comment: Hello World Script.
 commonfields:
   id: HelloWorldScript
   version: -1
@@ -9,7 +9,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.2.12
+    itemVersion: 1.2.22
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:
@@ -17,7 +17,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.4.30607
+dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
 name: HelloWorldScript
@@ -30,6 +30,9 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('HelloWorldScript', 'start', __line__())
+  ### pack version: 1.2.22
+
+
   """HelloWorld Script for Cortex XSOAR (aka Demisto)
 
   This script is just a simple example on Code Conventions to write automation
@@ -53,8 +56,6 @@ script: |
 
 
 
-
-
   from typing import Dict, Any
 
 
@@ -62,13 +63,14 @@ script: |
 
 
   def say_hello(name: str) -> str:
-      """Returns 'Hello {name}'
+      """
+      Returns 'Hello {name}'.
 
-      :type name: ``str``
-      :param name: name to append to the 'Hello' string
+      Args:
+          name (str): name to append to the 'Hello' string.
 
-      :return: string containing 'Hello {name}'
-      :rtype: ``str``
+      Returns:
+          dict: string containing 'Hello {name}'
       """
 
       return f'Hello {name}'
@@ -80,15 +82,12 @@ script: |
   def say_hello_command(args: Dict[str, Any]) -> CommandResults:
       """helloworld-say-hello command: Returns Hello {somename}
 
-      :type args: ``str``
-      :param args:
-          all command arguments, usually passed from ``demisto.args()``.
-          ``args['name']`` is used as input name
+      Args:
+          args (dict): all command arguments, usually passed from ``demisto.args()``.
+              ``args['name']`` is used as input name
 
-      :return:
-          CommandResults with output context and human readable string.
-
-      :rtype: ``CommandResults``
+      Returns:
+          CommandResults: CommandResults with output context and human readable string.
       """
 
       # Check the HelloWorld comments from the HelloWorld Integration

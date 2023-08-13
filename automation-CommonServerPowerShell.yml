@@ -7,7 +7,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.31.16
+    itemVersion: 1.32.26
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -22,7 +22,8 @@ name: CommonServerPowerShell
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: |2
+script: |
+  ### pack version: 1.32.26
 
 
   [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "", Scope = "", Justification = "Use of globals set by the Demisto Server")]

@@ -118,7 +118,7 @@ tasks:
       id: b32916b5-8000-4c43-80d6-fc491edfedd6
       iscommand: false
       name: Get Email From Email Gateway - FireEye
-      playbookName: Get Email From Email Gateway - FireEye
+      playbookId: Get Email From Email Gateway - FireEye
       type: playbook
       version: -1
     taskid: b32916b5-8000-4c43-80d6-fc491edfedd6

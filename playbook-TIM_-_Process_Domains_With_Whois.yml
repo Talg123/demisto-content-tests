@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.2.11
+    itemVersion: 1.4.17
     packID: Whois
     packName: Whois
     packPropagationLabels:
@@ -14,26 +14,6 @@ description: This playbook uses several sub playbooks to process and tag indicat
   based on the results of the Whois tool.
 id: TIM - Process Domains With Whois
 inputs:
-- description: ""
-  key: ""
-  playbookInputQuery:
-    daterange:
-      fromdate: "0001-01-01T00:00:00Z"
-      fromdatelicenseval: "0001-01-01T00:00:00Z"
-      period:
-        by: ""
-        byfrom: ""
-        byto: ""
-        field: ""
-        fromvalue: null
-        tovalue: null
-      todate: "0001-01-01T00:00:00Z"
-    query: ""
-    queryEntity: indicators
-    results: null
-    runFromLastJobTime: false
-  required: false
-  value: {}
 - description: Setting this input as True will run the TIM - Process Domain registrant
     With Whois playbook.
   key: CheckForWhoisRegistrant
@@ -178,12 +158,15 @@ tasks:
         }
       }
   "4":
-    continueonerrortype: ""
+    continueonerror: true
+    continueonerrortype: errorPath
     id: "4"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
     nexttasks:
+      '#error#':
+      - "2"
       '#none#':
       - "6"
       - "8"
@@ -210,13 +193,13 @@ tasks:
     task:
       brand: ""
       description: Enrich domains with data from the whois script.
-      id: dbb7e5e0-66b2-48fc-8e23-0153e92fff2f
+      id: f20880ef-0dc5-48f0-8e4d-7b6f365ae65b
       iscommand: true
       name: Run Whois on domain indicators
       script: '|||whois'
       type: regular
       version: -1
-    taskid: dbb7e5e0-66b2-48fc-8e23-0153e92fff2f
+    taskid: f20880ef-0dc5-48f0-8e4d-7b6f365ae65b
     timertriggers: []
     type: regular
     view: |-

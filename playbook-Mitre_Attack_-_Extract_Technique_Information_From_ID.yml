@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.2.0
-    itemVersion: 1.1.3
+    itemVersion: 1.1.21
     packID: FeedMitreAttackv2
     packName: MITRE ATT&CK
     packPropagationLabels:
@@ -57,8 +57,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 290,
-          "y": -100
+          "x": 120,
+          "y": -320
         }
       }
   "2":
@@ -75,26 +75,29 @@ tasks:
     reputationcalc: 2
     scriptarguments:
       attack_ids:
-        simple: ${inputs.TechniqueID}
+        complex:
+          root: inputs.TechniqueID
+          transformers:
+          - operator: uniq
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
       description: Gets the Attack Pattern value from the Attack Pattern ID.
-      id: 71ead20e-81e4-41ad-8228-152b9308eec0
+      id: c06c8807-6cce-4048-8f8c-6f4fa6a0c274
       iscommand: true
       name: Get MITRE name
       script: '|||mitre-get-indicator-name'
       type: regular
       version: -1
-    taskid: 71ead20e-81e4-41ad-8228-152b9308eec0
+    taskid: c06c8807-6cce-4048-8f8c-6f4fa6a0c274
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 500,
-          "y": 210
+          "x": 550,
+          "y": 150
         }
       }
   "3":
@@ -111,26 +114,30 @@ tasks:
     reputationcalc: 2
     scriptarguments:
       attack_pattern:
-        simple: ${MITREATTACK.value}
+        complex:
+          accessor: value
+          root: MITREATTACK
+          transformers:
+          - operator: uniq
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
       description: Looks up the indicator reputation.
-      id: 255f9603-fbae-493b-8b36-e5bf3cd68698
+      id: e8ae624f-69bd-4cb7-8467-37ed23b8f308
       iscommand: true
       name: Get MITRE details
       script: '|||attack-pattern'
       type: regular
       version: -1
-    taskid: 255f9603-fbae-493b-8b36-e5bf3cd68698
+    taskid: e8ae624f-69bd-4cb7-8467-37ed23b8f308
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 630,
-          "y": 590
+          "x": 740,
+          "y": 490
         }
       }
   "5":
@@ -156,8 +163,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 290,
-          "y": 760
+          "x": 120,
+          "y": 660
         }
       }
   "6":
@@ -196,8 +203,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 500,
-          "y": 380
+          "x": 550,
+          "y": 320
         }
       }
   "7":
@@ -210,9 +217,11 @@ tasks:
       "no":
       - "5"
       "yes":
-      - "2"
+      - "8"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: MITRE ATT&CK v2
@@ -233,8 +242,49 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 290,
-          "y": 30
+          "x": 120,
+          "y": -190
+        }
+      }
+  "8":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.TechniqueID
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "5"
+      "yes":
+      - "2"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Are MITRE Attack Technique IDs provided?
+      id: e013809e-88cf-4415-87cf-32fe291b92a7
+      iscommand: false
+      name: Are MITRE Attack Technique IDs provided?
+      type: condition
+      version: -1
+    taskid: e013809e-88cf-4415-87cf-32fe291b92a7
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 340,
+          "y": -20
         }
       }
 version: -1
@@ -243,10 +293,10 @@ view: |-
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 925,
-        "width": 720,
-        "x": 290,
-        "y": -100
+        "height": 1045,
+        "width": 1000,
+        "x": 120,
+        "y": -320
       }
     }
   }

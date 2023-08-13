@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,8 +10,9 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: This playbook searches and delete emails with similar attributes of a
-  malicious email.
+deprecated: true
+description: Deprecated. Use `Search And Delete Emails - Generic v2` instead. This
+  playbook searches and delete emails with similar attributes of a malicious email.
 id: search_and_delete_emails_-_generic
 inputs:
 - description: The value of the malicious email's "From" attribute.

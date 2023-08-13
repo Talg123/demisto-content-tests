@@ -1,0 +1,389 @@
+category: Email
+commonfields:
+  id: CheckPointHEC
+  version: -1
+configuration:
+- display: Smart API URL (e.g. https://smart-api-dev-1-us.avanan-dev.net)
+  name: url
+  required: true
+  section: Connect
+  type: 0
+- display: Fetch incidents
+  name: isFetch
+  required: false
+  section: Collect
+  type: 8
+- display: Incident type
+  name: incidentType
+  required: false
+  section: Collect
+  type: 13
+- defaultvalue: "10"
+  display: Maximum number of incidents per fetch
+  name: max_fetch
+  required: false
+  section: Collect
+  type: 0
+- display: ""
+  displaypassword: Client ID
+  hiddenusername: true
+  name: client_id
+  required: true
+  section: Connect
+  type: 9
+- display: ""
+  displaypassword: Client Secret
+  hiddenusername: true
+  name: client_secret
+  required: true
+  type: 9
+- defaultvalue: 1 hour
+  display: First fetch time
+  name: first_fetch
+  required: false
+  section: Collect
+  type: 0
+- advanced: true
+  display: Trust any certificate (not secure)
+  name: insecure
+  required: false
+  section: Connect
+  type: 8
+- advanced: true
+  display: Use system proxy settings
+  name: proxy
+  required: false
+  section: Connect
+  type: 8
+- defaultvalue: "1"
+  display: Incidents Fetch Interval
+  name: incidentFetchInterval
+  required: false
+  type: 19
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.9.0
+    itemVersion: 1.0.2
+    packID: CheckPointHEC
+    packName: Check Point Harmony Email and Collaboration (HEC)
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: The Best Way to Protect Enterprise Email & Collaboration from phishing,
+  malware, account takeover, data loss, etc.
+detaileddescription: "### Partner Contributed Integration\n#### Integration Author:
+  Check Point Harmony Email & Collaboration (HEC)\nSupport and maintenance for this
+  integration are provided by the author. Please use the following contact details:\n-
+  **Email**: [EmailSecurity_Support@checkpoint.com](mailto:EmailSecurity_Support@checkpoint.com)\n-
+  **URL**: [https://supportcenter.checkpoint.com/](https://supportcenter.checkpoint.com/)\n***\n#
+  CheckPointHEC\n\nTo set up a CheckPointHEC instance, please provide the SMART API
+  url based on your portal's region:\n\n* US: https://smart-api-production-1-us.avanan.net\n*
+  EU: https://smart-api-production-1-eu.avanan.net\n* CA: https://smart-api-production-1-ca.avanan.net\n\nIf
+  you have several portals in different regions, you will need to use an instance
+  per region\n\n* Contact support to get your client id and client secret at [support
+  page](https://supportcenter.checkpoint.com/)\n* Keep your credentials secret since
+  they give access to your data in Check Point Systems \n\n\n---\n[View Integration
+  Documentation](https://xsoar.pan.dev/docs/reference/integrations/check-point-hec)"
+display: Check Point Harmony Email and Collaboration (HEC) (Partner Contribution)
+image: data:image/png;base64,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
+name: CheckPointHEC
+script:
+  commands:
+  - arguments:
+    - description: Entity id to retrieve
+      name: entity
+      required: true
+    description: Retrieve specific entity
+    name: checkpointhec-get-entity
+    outputs:
+    - contextPath: CheckPointHEC.Entity.internetMessageId
+      description: Email message id in internet.
+      type: String
+    - contextPath: CheckPointHEC.Entity.subject
+      description: Email subject.
+      type: String
+    - contextPath: CheckPointHEC.Entity.received
+      description: Datetime email was received in iso 8601 format.
+      type: String
+    - contextPath: CheckPointHEC.Entity.size
+      description: Email size.
+      type: String
+    - contextPath: CheckPointHEC.Entity.emailLinks
+      description: Links in email.
+    - contextPath: CheckPointHEC.Entity.attachmentCount
+      description: Number of attachments in email.
+      type: Number
+    - contextPath: CheckPointHEC.Entity.attachments
+      description: File attachments in email.
+    - contextPath: CheckPointHEC.Entity.mode
+      description: Internal policy rule.
+      type: String
+    - contextPath: CheckPointHEC.Entity.recipients
+      description: Recipient email addresses.
+    - contextPath: CheckPointHEC.Entity.subject
+      description: Email subject.
+      type: String
+    - contextPath: CheckPointHEC.Entity.fromEmail
+      description: Email sender.
+      type: String
+    - contextPath: CheckPointHEC.Entity.fromDomain
+      description: Domain where the email was sent from.
+      type: String
+    - contextPath: CheckPointHEC.Entity.fromUser
+      description: Sender user details.
+    - contextPath: CheckPointHEC.Entity.fromName
+      description: Sender name.
+      type: String
+    - contextPath: CheckPointHEC.Entity.to
+      description: Email main recipients.
+    - contextPath: CheckPointHEC.Entity.toUser
+      description: User details for main recipients.
+    - contextPath: CheckPointHEC.Entity.cc
+      description: Email carbon copy recipients.
+    - contextPath: CheckPointHEC.Entity.ccUser
+      description: User details for carbon copy recipients.
+    - contextPath: CheckPointHEC.Entity.bcc
+      description: Email blind carbon copy recipients.
+    - contextPath: CheckPointHEC.Entity.bccUser
+      description: User details for blind carbon copy recipients.
+    - contextPath: CheckPointHEC.Entity.replyToEmail
+      description: Email reply.
+      type: String
+    - contextPath: CheckPointHEC.Entity.replyToNickname
+      description: Email reply nickname.
+      type: String
+    - contextPath: CheckPointHEC.Entity.isRead
+      description: Email has been read.
+      type: Boolean
+    - contextPath: CheckPointHEC.Entity.isDeleted
+      description: Email has been deleted.
+      type: Boolean
+    - contextPath: CheckPointHEC.Entity.isIncoming
+      description: Email is from external organization.
+      type: Boolean
+    - contextPath: CheckPointHEC.Entity.isInternal
+      description: Email is from same organization.
+      type: Boolean
+    - contextPath: CheckPointHEC.Entity.isOutgoing
+      description: Email is to an external organization.
+      type: Boolean
+    - contextPath: CheckPointHEC.Entity.isQuarantined
+      description: Email has been quarantined.
+      type: Boolean
+    - contextPath: CheckPointHEC.Entity.isQuarantineNotification
+      description: Email is a notification of another quarantined email.
+      type: Boolean
+    - contextPath: CheckPointHEC.Entity.isRestored
+      description: Email is restored from quarantine.
+      type: Boolean
+    - contextPath: CheckPointHEC.Entity.isRestoreRequested
+      description: Email is a request to restore.
+      type: Boolean
+    - contextPath: CheckPointHEC.Entity.isRestoreDeclined
+      description: Email is a declined restore request.
+      type: Boolean
+    - contextPath: CheckPointHEC.Entity.saasSpamVerdict
+      description: Spam verdict.
+      type: String
+    - contextPath: CheckPointHEC.Entity.SpfResult
+      description: Sender Policy Framework check result.
+      type: String
+    - contextPath: CheckPointHEC.Entity.restoreRequestTime
+      description: Restore request datetime in iso 8601 format.
+      type: String
+  dockerimage: demisto/python3:3.10.12.68714
+  isfetch: true
+  runonce: false
+  script: |
+    register_module_line('CheckPointHEC', 'start', __line__())
+    ### pack version: 1.0.2
+
+
+    import base64
+    import hashlib
+    import json
+    import urllib3
+    import uuid
+    from typing import Any
+
+    urllib3.disable_warnings()
+
+    DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+
+
+    class Client(BaseClient):
+        def __init__(self, base_url: str, client_id: str, client_secret: str, verify: bool, proxy: bool):
+            super().__init__(base_url=base_url, verify=verify, proxy=proxy)
+
+            self.api_version = 'v1.0'
+            self.client_id = client_id
+            self.client_secret = client_secret
+            self.token = None
+
+        def _generate_signature(self, request_id: str, timestamp: str, request_string: str = None) -> str:
+            if request_string:
+                signature_string = f'{request_id}{self.client_id}{timestamp}{request_string}{self.client_secret}'
+            else:
+                signature_string = f'{request_id}{self.client_id}{timestamp}{self.client_secret}'
+            signature_bytes = signature_string.encode('utf-8')
+            signature_base64_bytes = base64.b64encode(signature_bytes)
+            signature_hash = hashlib.sha256(signature_base64_bytes).hexdigest()
+            return signature_hash
+
+        def _get_headers(self, request_string: str = None, auth: bool = False) -> dict[str, str]:
+            request_id = str(uuid.uuid4())
+            timestamp = datetime.utcnow().isoformat()
+            headers = {
+                'x-av-req-id': request_id,
+                'x-av-app-id': self.client_id,
+                'x-av-date': timestamp,
+                'x-av-sig': self._generate_signature(request_id, timestamp, request_string)
+            }
+            if not auth:
+                headers['x-av-token'] = self._get_token()
+            return headers
+
+        def _get_token(self) -> str:
+            if self.token:
+                return self.token
+
+            self.token = self._http_request(
+                'GET',
+                url_suffix=f'{self.api_version}/auth',
+                headers=self._get_headers(auth=True),
+                resp_type='text',
+            )
+            return self.token or ''
+
+        def _call_api(self, method: str, url_suffix: str, json_data: dict = None) -> dict[str, Any]:
+            path = '/'.join([self.api_version, url_suffix])
+            request_string = f'/{path}'
+            return self._http_request(
+                method,
+                url_suffix=path,
+                headers=self._get_headers(request_string),
+                json_data=json_data
+            )
+
+        def get_scopes(self) -> dict[str, Any]:
+            return self._call_api(
+                'GET',
+                url_suffix='scopes'
+            )
+
+        def query_events(self, start_date: str) -> dict[str, Any]:
+            saas = ['office365_emails']
+            request_data = {
+                'startDate': start_date,
+                'saas': saas
+            }
+            payload = {
+                'requestData': request_data
+            }
+            return self._call_api(
+                'POST',
+                url_suffix='event/query',
+                json_data=payload
+            )
+
+        def get_entity(self, entity: str) -> dict[str, Any]:
+            return self._call_api(
+                'GET',
+                url_suffix=f'search/entity/{entity}'
+            )
+
+
+    def test_module(client: Client):
+        client.get_scopes()
+        demisto.results('ok')
+
+
+    def fetch_incidents(client: Client, first_fetch: str, max_fetch: int):
+        last_run = demisto.getLastRun()
+        if not (last_fetch := last_run.get('last_fetch')):
+            last_fetch, _ = parse_date_range(first_fetch, DATE_FORMAT)
+        result = client.query_events(start_date=last_fetch)
+        events = result['responseData'][:min(max_fetch, len(result['responseData']))]
+
+        incidents: list[dict[str, Any]] = []
+        for event in events:
+            event_id = event.get('eventId')
+            incidents.append({
+                'name': f'#CP Event: {event_id}',
+                'details': event.get('description'),
+                'occurred': event.get('eventCreated'),
+                'rawJSON': json.dumps(event),
+                'type': 'CheckPointHEC Security Event',
+                'severity': int(event.get('severity')),
+                'dbotMirrorId': event_id,
+                'CustomFields': {
+                    'checkpointheccustomer': event.get('customerId'),
+                    'checkpointhecsaas': event.get('saas'),
+                    'checkpointhecentity': event.get('entityId'),
+                    'checkpointhectype': event.get('type'),
+                    'state': event.get('state'),  # From CommonTypes Pack
+                },
+            })
+
+        last = incidents[-1]['occurred'] if incidents else datetime.utcnow().isoformat()
+        demisto.setLastRun({
+            'last_fetch': last
+        })
+        demisto.incidents(incidents)
+
+
+    def checkpointhec_get_entity(client: Client, entity: str) -> CommandResults:
+        result = client.get_entity(entity)
+        if row := result['responseData']:
+            return CommandResults(
+                outputs_prefix='CheckPointHEC.Entity',
+                outputs_key_field='entity_id',
+                outputs=row[0]['entityPayload']
+            )
+
+        raise Exception(f'Entity with id {entity} not found')
+
+
+    def main() -> None:  # pragma: no cover
+        params = demisto.params()
+        base_url = params.get('url')
+        client_id = params.get('client_id', {}).get('password')
+        client_secret = params.get('client_secret', {}).get('password')
+        verify = not params.get('insecure', False)
+        proxy = params.get('proxy', False)
+
+        client = Client(
+            base_url,
+            client_id,
+            client_secret,
+            verify,
+            proxy
+        )
+
+        try:
+            command = demisto.command()
+            if command == 'test-module':
+                test_module(client)
+            elif command == 'fetch-incidents':
+                first_fetch = params.get('first_fetch')
+                args = demisto.args()
+                max_fetch = int(args.get('max_fetch', 10))
+                fetch_incidents(client, first_fetch, max_fetch)
+            elif command == 'checkpointhec-get-entity':
+                args = demisto.args()
+                return_results(checkpointhec_get_entity(client, args.get('entity')))
+
+        except Exception as e:
+            return_error(f'Failed to execute {demisto.command()} command.\nError:\n{str(e)}')
+
+
+    if __name__ in ('__main__', '__builtin__', 'builtins'):  # pragma: no cover
+        main()
+
+    register_module_line('CheckPointHEC', 'end', __line__())
+  subtype: python3
+  type: python
+system: true

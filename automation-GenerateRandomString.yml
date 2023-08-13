@@ -38,7 +38,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.2.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -46,7 +46,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.4.30607
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -60,10 +60,11 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('GenerateRandomString', 'start', __line__())
+  ### pack version: 1.12.13
+
+
   import random
   import string
-
-
 
 
   MAX_LENGTH = 10000

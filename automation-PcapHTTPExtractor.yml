@@ -25,7 +25,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -33,7 +33,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/pcap-http-extractor:1.0.0.20132
+dockerimage: demisto/pcap-http-extractor:1.0.0.32113
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -83,6 +83,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('PcapHTTPExtractor', 'start', __line__())
+  ### pack version: 1.12.13
 
 
   import zlib
@@ -91,10 +92,7 @@ script: |
   import re
   import sys
   import traceback
-  try:
-      from StringIO import StringIO  # for Python 2
-  except ImportError:
-      from io import StringIO  # type: ignore #for Python 3
+  from io import StringIO
 
   serr = sys.stderr
   sys.stderr = StringIO()
@@ -315,7 +313,7 @@ script: |
           sanitized_res = res
 
           if req:
-              req_fields = req['HTTP'].__dict__["_all_fields"].keys()
+              req_fields = req['HTTP']._all_fields.keys()
 
               # if the file contains only a response, the response will falsely appear in the 'req' variable
               if 'http.response' in req_fields:
@@ -382,7 +380,7 @@ script: |
           }
 
       # Get the HTTP and TCP, IP and Meta fields.
-      r = flow["HTTP"].__dict__["_all_fields"]
+      r = flow["HTTP"]._all_fields
       flow_info = get_flow_info(flow)
 
       # Map the keys to the conventions
@@ -518,7 +516,7 @@ script: |
 
   register_module_line('PcapHTTPExtractor', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags:
 - pcap

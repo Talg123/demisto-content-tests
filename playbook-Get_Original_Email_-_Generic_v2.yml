@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 3.1.6
+    itemVersion: 3.5.26
     packID: Phishing
     packName: Phishing
     packPropagationLabels:
@@ -34,11 +34,6 @@ inputs:
 - description: The email address of the user to fetch the original email for. For
     Gmail, the authenticated user.
   key: UserID
-  playbookInputQuery: null
-  required: false
-  value: {}
-- description: The original email subject.
-  key: EmailSubject
   playbookInputQuery: null
   required: false
   value: {}
@@ -177,9 +172,6 @@ tasks:
       MessageID:
         complex:
           root: inputs.MessageID
-      ThreadTopic:
-        complex:
-          root: inputs.EmailSubject
       UserID:
         complex:
           root: inputs.UserID
@@ -277,7 +269,7 @@ tasks:
         complex:
           root: inputs.UserID
     separatecontext: true
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: "This v2 playbook uses the reporter's email headers to retrieve

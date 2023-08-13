@@ -165,7 +165,7 @@ tasks:
       id: 0a7ca589-107b-48e4-8705-2becca697165
       iscommand: false
       name: Search And Delete Emails - EWS
-      playbookName: Search And Delete Emails - EWS
+      playbookId: search_and_delete_emails_-_ews
       type: playbook
       version: -1
     taskid: 0a7ca589-107b-48e4-8705-2becca697165
@@ -257,7 +257,7 @@ tasks:
       id: b17bdcb8-c603-448c-8fd6-77bca91e7e2f
       iscommand: false
       name: O365 - Security And Compliance - Search And Delete
-      playbookName: O365 - Security And Compliance - Search And Delete
+      playbookId: O365 - Security And Compliance - Search And Delete
       type: playbook
       version: -1
     taskid: b17bdcb8-c603-448c-8fd6-77bca91e7e2f

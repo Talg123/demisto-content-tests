@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,7 +10,9 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
+deprecated: true
 description: |
+  Deprecated. Use `Get File Sample From Path - Generic V3` instead.
   This playbook returns a file sample correlating to a path into the War Room using the following sub-playbooks:
   inputs:
   1) Get File Sample From Path - D2.

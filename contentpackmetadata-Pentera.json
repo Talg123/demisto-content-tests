@@ -1,0 +1,181 @@
+{
+	"author": "Pentera",
+	"authorImage": "content/packs/Pcysys/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Data Enrichment \u0026 Threat Intelligence"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration",
+		"automation",
+		"incidentfield",
+		"incidenttype",
+		"playbook",
+		"layoutscontainer"
+	],
+	"contentItems": {
+		"automation": [
+			{
+				"description": "Renders a Markdown Table from penteraoperationdetails field in Pentera Insight incidents",
+				"name": "PenteraDynamicTable",
+				"tags": [
+					"dynamic-section"
+				]
+			},
+			{
+				"description": "Groups Pentera Full Actions Reports by Operation Type to generate an output usable in creating incidents",
+				"name": "PenteraOperationToIncident",
+				"tags": []
+			}
+		],
+		"classifier": null,
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": [
+			{
+				"description": "",
+				"name": "Pentera Operation Details",
+				"type": "grid"
+			}
+		],
+		"incidenttype": [
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "Pentera Insight",
+				"playbook": "",
+				"weeks": 0
+			}
+		],
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Run a specific template by its name. Please add the template name in the parameters",
+						"name": "pentera-run-template-by-name"
+					},
+					{
+						"description": "Get the status of a task run by its task run id",
+						"name": "pentera-get-task-run-status"
+					},
+					{
+						"description": "Get the full action report of a task run",
+						"name": "pentera-get-task-run-full-action-report"
+					}
+				],
+				"description": "Automate remediation actions based on Pentera, the Automated Security Validation Platform, proactively exposing high-risk vulnerabilities",
+				"id": "Pentera",
+				"name": "Pentera (Partner Contribution)"
+			}
+		],
+		"layoutscontainer": [
+			{
+				"description": "",
+				"name": "Pentera Insight"
+			}
+		],
+		"list": null,
+		"playbook": [
+			{
+				"description": "",
+				"name": "Pentera Run Scan"
+			},
+			{
+				"description": "Sub-playbook to select specific entries from the Pentera action report and create incidents for each of the selected entries",
+				"name": "Pentera Filter And Create Incident"
+			},
+			{
+				"description": "This playbook will run a pentera task given the Pentera task name. It will generate the full action report that contains all the actions that Pentera made during the scan, and will create incidents according to the filters in the Pentera Filter and Create incidents playbook.",
+				"name": "Pentera Run Scan and Create Incidents"
+			}
+		],
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"currentVersion": "1.3.5",
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.32.21",
+			"name": "Base"
+		},
+		"CommonPlaybooks": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "2.3.81",
+			"name": "Common Playbooks"
+		},
+		"CommonScripts": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.12.5",
+			"name": "Common Scripts"
+		}
+	},
+	"deprecated": false,
+	"description": "Automate remediation actions based on Pentera, the Automated Security Validation Platform, proactively exposing high-risk vulnerabilities.",
+	"disabledMonthly": false,
+	"downloads": 1250,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"fromServerVersion": "5.0.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldByPartner",
+		"generalFieldFree",
+		"generalFieldSupportIncluded"
+	],
+	"id": "Pcysys",
+	"installMessage": "",
+	"integrations": [
+		{
+			"imagePath": "content/packs/Pcysys/Pentera_image.png",
+			"name": "Pentera"
+		}
+	],
+	"itemVersion": "1.3.5",
+	"keywords": [],
+	"legacy": true,
+	"name": "Pentera",
+	"packID": "Pcysys",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"readme": "Pentera integrate the adversary perspective into an organization’s ongoing cyber defense strategy. Pentera’s Automated Security Validation platform tests, assesses, and reduces corporate cybersecurity risk so you can know where you stand at any given moment. Running remotely on the cloud or on-prem, Pentera immediately puts to action a risk-based remediation roadmap by continuously emulating real-life attacks and validating the efficacy of your defensive controls.\r\n\r\nTogether, Pentera and Cortex XSOAR enable security teams to combine both offensive security techniques and extended detection \u0026 response. The content pack provides the right intelligence to focus remediation effort on high priority vulnerabilities that would be exploited by adversaries if left unattended. Key use cases include:\r\n- Eliminate attack surface exposure and maintain cyber hygiene with automated real-time validation for critical vulnerabilities without false positives.\r\n- Apply the most current adversary techniques and uncover the complete attack operation while increasing SOC focus, automation, and threat hunting effectiveness.\r\n- Leverage real-time test results and get a clear packaged summary of critical remediation steps to perform within the Cortex XSOAR War Room.\r\n \r\n\r\n**Let’s get started**\r\n- Configure the Pentera content pack available within the XSOAR Marketplace\r\n- Schedule security tests and start exposing assets and root vulnerabilities\r\n- Apply automated remediation actions with XSOAR available playbooks\r\n \r\n\r\nTo learn more about Pentera visit [pentera.io](https://www.pentera.io) or [watch a product demo](https://www.youtube.com/watch?v=JM1b6qu-RB4).\r\n",
+	"searchRank": 20,
+	"serverMaxVersion": "",
+	"serverMinVersion": "5.0.0",
+	"support": "partner",
+	"supportDetails": {
+		"email": "support@pentera.io",
+		"url": "https://pentera.io"
+	},
+	"tags": [
+		"Featured"
+	],
+	"toServerVersion": "",
+	"updated": "2023-07-25T19:28:08Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "5866730",
+	"videos": []
+}

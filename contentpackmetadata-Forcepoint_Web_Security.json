@@ -1,0 +1,155 @@
+{
+	"author": "Cortex XSOAR",
+	"authorImage": "content/packs/Base/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Network Security"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration",
+		"automation"
+	],
+	"contentItems": {
+		"automation": [
+			{
+				"description": "Adds (or updates existing) rule in Forcepoint Triton. Preserves order of rules and modifies policy in-place if a rule exists with the exact type and value.",
+				"name": "FPSetRule",
+				"tags": [
+					"forcepoint",
+					"triton"
+				]
+			},
+			{
+				"description": "Deletes a rule in Forcepoint Triton.",
+				"name": "FPDeleteRule",
+				"tags": [
+					"forcepoint",
+					"triton"
+				]
+			}
+		],
+		"classifier": null,
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": null,
+		"incidenttype": null,
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Network Security",
+				"commands": [
+					{
+						"description": "Create custom category.",
+						"name": "fp-add-category"
+					},
+					{
+						"description": "Retrieve a list of all the categories, or only API-managed categories.",
+						"name": "fp-list-categories"
+					},
+					{
+						"description": "Get a list of URLs and IP addresses in an API-managed category.",
+						"name": "fp-get-category-detailes"
+					},
+					{
+						"description": "Add URLs and IP addresses to an API-managed category. Refer to category either by it's ID or by it's name.",
+						"name": "fp-add-address-to-category"
+					},
+					{
+						"description": "Delete API-managed categories. Refer to categories you wish to delete either by ID list or by name list. It is possible to pass both lists, when each list refers to different categories.",
+						"name": "fp-delete-categories"
+					},
+					{
+						"description": " Remove URLs, IP addresses, and ranges from a specific API-managed category.  Refer to category either by it's ID or by it's name.",
+						"name": "fp-delete-address-from-category"
+					}
+				],
+				"description": "Advanced threat protection with added local management controls.",
+				"id": "Forcepoint",
+				"name": "Forcepoint Web Security"
+			}
+		],
+		"layoutscontainer": null,
+		"list": null,
+		"playbook": null,
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"currentVersion": "1.0.10",
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.32.26",
+			"name": "Base"
+		},
+		"RemoteAccess": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.0.26",
+			"name": "Remote Access"
+		}
+	},
+	"deprecated": false,
+	"description": "Advanced threat protection with added local management controls.",
+	"disabledMonthly": false,
+	"downloads": 1685,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"fromServerVersion": "5.0.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldByCortexXSOAR",
+		"generalFieldFree",
+		"generalFieldSupportIncluded"
+	],
+	"id": "Forcepoint",
+	"installMessage": "",
+	"integrations": [
+		{
+			"imagePath": "content/packs/Forcepoint/Forcepoint_image.png",
+			"name": "Forcepoint Web Security"
+		},
+		{
+			"imagePath": "content/packs/RemoteAccess/RemoteAccessv2_image.png",
+			"name": "RemoteAccess v2"
+		}
+	],
+	"itemVersion": "1.0.10",
+	"keywords": [],
+	"legacy": true,
+	"name": "Forcepoint Web Security",
+	"packID": "Forcepoint",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"readme": "# Forcepoint NGFW\nThis pack includes Cortex XSIAM content. \n## Configuration on Server Side\nYou need to configure Forcepoint NGFW to forward Syslog messages in CEF format.\n\nOpen Forcepoint NGFW interface, and follow these instructions;\n1. Select **Home**.\n2. Browse to **Others** \u003e **Log Server**\n3. Right-click the Log Server from which you want to forward log data, and select **Properties**.\n4. Click the **Log Forwarding** tab.\n5. To create a rule, click **Add**.\n6. In the select **Target Host** cell, select the external host to which the log data is forwarded.\n    6.1. Double-click the **Target Host** cell.\n    6.2. Select a Host element.\n    6.3. Click **Select**\n7. To add a rule, click **Add**.\n8. Configure the log forwarding rules.\n9. Click **OK**.\n\n* Additional documentation for log forwarding is available [here](https://help.stonesoft.com/onlinehelp/StoneGate/SMC/6.5.0/) at: **SMC configuration** \u003e **Configuring the Log Server** \u003e **Forwarding log data from Log Servers to external hosts** \u003e **Add log forwarding rules to Log Servers**.\n\n## Collect Events from Vendor\n\nIn order to use the collector, use the [Broker VM](#broker-vm) option.\n\n### Broker VM\nTo create or configure the Broker VM, use the information described [here](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR/Cortex-XDR-Pro-Administrator-Guide/Configure-the-Broker-VM).\n\nYou can configure the specific vendor and product for this instance.\n\n\n1. Navigate to **Settings** \u003e **Configuration** \u003e **Data Broker** \u003e **Broker VMs**. \n2. Right-click, and select **Syslog Collector** \u003e **Configure**.\n3. When configuring the Syslog Collector, set the following values:\n   - vendor as vendor - forcepoint\n   - product as product - firewall",
+	"searchRank": 10,
+	"serverMaxVersion": "",
+	"serverMinVersion": "5.0.0",
+	"support": "xsoar",
+	"supportDetails": {
+		"email": "",
+		"url": "https://www.paloaltonetworks.com/cortex"
+	},
+	"tags": [],
+	"toServerVersion": "",
+	"updated": "2023-08-12T09:22:29Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "6029785",
+	"videos": []
+}

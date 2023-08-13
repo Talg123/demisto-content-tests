@@ -43,6 +43,49 @@ args:
     `input_data_type:else=<type>`, `input_data_type:lhs=<type>` and `input_data_type:rhs=<type>`.
     Choose `value`, `json` or `raw` for <type>.'
   name: options
+- description: The value to compare in the second condition (left hand side)
+  name: lhsB
+- description: The value to compare in the second condition (right hand side)
+  name: rhsB
+- auto: PREDEFINED
+  description: The second condition expression to evaluate such as lhsB==rhsB or lhsB!=rhsB.
+    Will evaluate as value==rhsB if left empty for backward compatibility.
+  name: conditionB
+  predefined:
+  - lhsB===rhsB
+  - lhsB!==rhsB
+  - lhsB==rhsB
+  - lhsB!=rhsB
+  - lhsB>rhsB
+  - lhsB>=rhsB
+  - lhsB<rhsB
+  - lhsB<=rhsB
+  - lhsB=~rhsB
+  - lhsB in list rhsB
+  - lhsB not in list rhsB
+  - value===rhsB
+  - value!==rhsB
+  - value==rhsB
+  - value!=rhsB
+  - value>rhsB
+  - value>=rhsB
+  - value<rhsB
+  - value<=rhsB
+  - value=~rhsB
+  - value in list rhsB
+  - value not in list rhsB
+- auto: PREDEFINED
+  description: The condition to put between the first condition (lhs and rhs) and
+    the second condition (lhsB and rhsB)
+  name: conditionInBetween
+  predefined:
+  - and
+  - or
+- description: 'Option flags (comma separated list): available options are `case_insensitive`,
+    `regex_dot_all`, `regex_multiline`, `regex_full_match`, `input_data_type:then=<type>`,
+    `input_data_type:else=<type>`, `input_data_type:lhs=<type>` and `input_data_type:rhs=<type>`.
+    Choose `value`, `json` or `raw` for <type>.'
+  name: optionsB
 comment: A transformer for simple if-then-else logic.
 commonfields:
   id: If-Then-Else
@@ -51,9 +94,9 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
-    packID: CommonScripts
-    packName: Common Scripts
+    itemVersion: 1.2.27
+    packID: FiltersAndTransformers
+    packName: Filters And Transformers
     packPropagationLabels:
     - all
     prevname: ""
@@ -66,7 +109,8 @@ name: If-Then-Else
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: |2
+script: |
+  // pack version: 1.2.27
 
   function convertValue(args, type, value) {
       if (type === undefined || type === null || type == "raw") {
@@ -81,8 +125,8 @@ script: |2
       return value === undefined ? null : value;
   }
 
-  function getValue(args, condition, options, lhs) {
-      for (var name of ["equals", "value", "lhs", "rhs"]) { // descending order by length
+  function getValue(args, condition, options, lhs, getValueArray) {
+      for (var name of getValueArray) { // descending order by length
           if (lhs ? condition.startsWith(name) : condition.endsWith(name)) {
               return [name, convertValue(args, options[`input_data_type:${name}`], args[name])];
           }
@@ -141,11 +185,11 @@ script: |2
           }
           case "==": {
               [lhs, rhs] = lowerIfPossible(lhs, rhs, options.case_insensitive);
-              return lhs == rhs;
+              return (lhs === null ? "" : lhs) == (rhs === null ? "" : rhs);
           }
           case "!=": {
               [lhs, rhs] = lowerIfPossible(lhs, rhs, options.case_insensitive);
-              return lhs != rhs;
+              return (lhs === null ? "" : lhs) != (rhs === null ? "" : rhs);
           }
           case ">": {
               [lhs, rhs] = lowerIfPossible(lhs, rhs, options.case_insensitive);
@@ -194,20 +238,50 @@ script: |2
       }
   }
 
-  if (args.condition && args.condition.indexOf("equals") >= 0) {
+  if ((args.condition && args.condition.indexOf("equals") >= 0 || (args.conditionB && args.conditionB.indexOf("equals") >= 0))) {
       throw "Legacy parameter (equals) is not supported for `condition`, please use lhs and rhs or leave it blank";
   }
   const condition = args.condition ? args.condition.trim() : 'value==equals';
+  const conditionB = args.conditionB ? args.conditionB.trim() : 'value==equals';
+  const conditionInBetween = args.conditionInBetween ? args.conditionInBetween.trim() : 'and';
   const options = makeOptions(args.options);
-  const [lhs_name, lhs] = getValue(args, condition, options, true);
-  const [rhs_name, rhs] = getValue(args, condition, options, false);
+  const optionsB = makeOptions(args.optionsB);
+  const getValueArrayA = ["equals", "value", "lhs", "rhs"];
+  const [lhs_name, lhs] = getValue(args, condition, options, true, getValueArrayA);
+  const [rhs_name, rhs] = getValue(args, condition, options, false, getValueArrayA);
   const operator = getOperator(lhs_name, rhs_name, condition);
+  const getValueArrayB = ["equals", "value","lhsB", "rhsB"];
+  const [lhsB_name, lhsB] = getValue(args, conditionB, optionsB, true, getValueArrayB);
+  const [rhsB_name, rhsB] = getValue(args, conditionB, optionsB, false, getValueArrayB);
+  const operator2 = getOperator(lhsB_name, rhsB_name, conditionB);
+
+  var resultA = evaluate(operator, lhs, rhs, options);
 
   var ret;
-  if (evaluate(operator, lhs, rhs, options)) {
-      ret = convertValue(args, options["input_data_type:then"], args.then);
-  } else {
-      ret = convertValue(args, options["input_data_type:else"], args.else);
+  if (lhsB &&
+      (args.lhsB !== undefined ||
+       args.rhsB !== undefined ||
+       args.conditionB !== undefined ||
+       args.conditionInBetween !== undefined ||
+       args.optionsB !== undefined)) {
+      var resultB = evaluate(operator2, lhsB, rhsB, optionsB);
+      if (conditionInBetween == 'and' && (resultA && resultB))  {
+          ret = convertValue(args, options["input_data_type:then"], args.then);
+      }
+      else if (conditionInBetween == 'or' && (resultA || resultB))  {
+          ret = convertValue(args, options["input_data_type:then"], args.then);
+      }
+      else {
+          ret = convertValue(args, options["input_data_type:else"], args.else);
+      }
+  }
+  else {
+      if (resultA) {
+          ret = convertValue(args, options["input_data_type:then"], args.then);
+      }
+      else {
+          ret = convertValue(args, options["input_data_type:else"], args.else);
+      }
   }
   return ret === null ? "" : ret;
 scripttarget: 0

@@ -1,0 +1,36 @@
+{
+	"brands": null,
+	"cacheVersn": 0,
+	"defaultIncidentType": "Zimperium Event",
+	"definitionId": "",
+	"description": "Classifies Zimperium incidents.",
+	"feed": false,
+	"fromServerVersion": "6.0.0",
+	"id": "Zimperium",
+	"incidentSamples": null,
+	"indicatorSamples": null,
+	"instanceIds": null,
+	"itemVersion": "1.1.11",
+	"keyTypeMap": {
+		"ZIPS_EVENT": "Zimperium Event"
+	},
+	"locked": false,
+	"logicalVersion": 0,
+	"mapping": null,
+	"name": "Zimperium - Classifier",
+	"nameRaw": "Zimperium - Classifier",
+	"packID": "Zimperium",
+	"packName": "Zimperium",
+	"packPropagationLabels": [
+		"all"
+	],
+	"sourceClassifierId": "",
+	"system": true,
+	"toServerVersion": "",
+	"transformer": {
+		"simple": "typeDesc"
+	},
+	"type": "classification",
+	"unclassifiedCases": null,
+	"version": -1
+}

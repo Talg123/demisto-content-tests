@@ -19,7 +19,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -27,7 +27,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python:2.7.18.27799
+dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
 name: URLSSLVerification
@@ -58,9 +58,10 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('URLSSLVerification', 'start', __line__())
+  ### pack version: 1.12.13
+
+
   import requests
-
-
 
 
   NON_SSL_PREFIX = "http"
@@ -87,7 +88,7 @@ script: |
       if isinstance(arg, STRING_TYPES):
           if arg[0] == '[' and arg[-1] == ']':
               return json.loads(arg)
-          return re.split(URL_REGEX_PATTERN, arg)
+          return re.split(URL_REGEX_PATTERN, arg)   # type: ignore[arg-type]
       return arg
 
 
@@ -96,7 +97,7 @@ script: |
       return set_http_as_suspicious != 'false'
 
 
-  def main():
+  def main():     # pragma: no cover
       url_arg = demisto.get(demisto.args(), "url")
       urls = arg_to_list_with_regex(url_arg)
 
@@ -172,7 +173,7 @@ script: |
 
   register_module_line('URLSSLVerification', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags:
 - url

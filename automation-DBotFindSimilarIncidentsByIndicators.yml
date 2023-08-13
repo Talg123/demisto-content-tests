@@ -45,7 +45,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.31.16
+    itemVersion: 1.32.26
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -53,7 +53,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/ml:1.0.0.25666
+dockerimage: demisto/ml:1.0.0.57750
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -63,6 +63,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('DBotFindSimilarIncidentsByIndicators', 'start', __line__())
+  ### pack version: 1.32.26
 
 
 
@@ -328,7 +329,7 @@ script: |
       if is_error(res):
           return_error(res)
       if not json.loads(res[0]['Contents']):
-          return df
+          return []
       else:
           incidents = json.loads(res[0]['Contents'])
           incidents_dict = {incident['id']: incident for incident in incidents}
@@ -543,6 +544,7 @@ script: |
 
   def get_incidents_filtered_from_query(incident_ids, query):
       if incident_ids:
+          incident_ids = [f'incident.id:{inc_id}' for inc_id in incident_ids]
           ids_condition = "(" + " OR ".join(incident_ids) + ")"
       else:
           ids_condition = ""

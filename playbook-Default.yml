@@ -7,6 +7,7 @@ contentitemexportablefields:
     packName: Default Playbook
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 description: This playbook executes when no other playbook is associated with an incident.

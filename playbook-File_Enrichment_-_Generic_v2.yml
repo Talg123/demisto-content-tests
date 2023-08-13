@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.2.12
+    itemVersion: 2.3.88
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -61,6 +61,15 @@ inputs:
       root: File.SHA1
       transformers:
       - operator: uniq
+- description: |-
+    Define if you would like to use the !file command.
+    Note: This input should be used whenever there is no auto-extract enabled in the investigation flow.
+    Possible values: True / False.
+  key: UseReputationCommand
+  playbookInputQuery: null
+  required: true
+  value:
+    simple: "False"
 name: File Enrichment - Generic v2
 outputs:
 - contextPath: DBotScore.Indicator
@@ -120,18 +129,18 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 00109219-5fc8-4bbb-881e-e597ec3b7439
+      id: 90f7ce25-c27c-4ca9-8fe6-2168349b0702
       iscommand: false
       name: ""
       version: -1
-    taskid: 00109219-5fc8-4bbb-881e-e597ec3b7439
+    taskid: 90f7ce25-c27c-4ca9-8fe6-2168349b0702
     timertriggers: []
     type: start
     view: |-
       {
         "position": {
           "x": 470,
-          "y": -130
+          "y": -180
         }
       }
   "7":
@@ -146,19 +155,19 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 89ce26db-58e9-4a6d-88f2-d6810e458ee2
+      id: be10b4ea-fb5e-478c-8614-ae684debb82f
       iscommand: false
       name: Done
       type: title
       version: -1
-    taskid: 89ce26db-58e9-4a6d-88f2-d6810e458ee2
+    taskid: be10b4ea-fb5e-478c-8614-ae684debb82f
     timertriggers: []
     type: title
     view: |-
       {
         "position": {
           "x": 470,
-          "y": 870
+          "y": 970
         }
       }
   "25":
@@ -191,19 +200,19 @@ tasks:
     task:
       brand: ""
       description: Check if there is a SHA256 hash in context.
-      id: 339fc232-e5d0-468b-87ea-cf8d41ea0ca6
+      id: e607bf1e-fe9b-41bf-8b96-bb9d6d88dd07
       iscommand: false
       name: Is there a SHA256 hash?
       type: condition
       version: -1
-    taskid: 339fc232-e5d0-468b-87ea-cf8d41ea0ca6
+    taskid: e607bf1e-fe9b-41bf-8b96-bb9d6d88dd07
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
           "x": 470,
-          "y": 180
+          "y": 320
         }
       }
   "27":
@@ -254,19 +263,19 @@ tasks:
       brand: ""
       description: Checks if there is an active instance of the Cylance Protect v2
         integration enabled.
-      id: 0783a3a6-5d8b-48f1-8dee-f3f0ef62defc
+      id: 27539369-ccb3-441c-89d9-001a4fc03093
       iscommand: false
       name: Is Cylance Protect v2 enabled?
       type: condition
       version: -1
-    taskid: 0783a3a6-5d8b-48f1-8dee-f3f0ef62defc
+    taskid: 27539369-ccb3-441c-89d9-001a4fc03093
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
           "x": 470,
-          "y": 380
+          "y": 520
         }
       }
   "28":
@@ -293,67 +302,20 @@ tasks:
     task:
       brand: Cylance Protect v2
       description: Gets threat information from the Cylance Protect v2 integration.
-      id: ff014724-3ad2-4ce2-8578-5106c126e76b
+      id: a06a7e73-028d-4c7f-85b1-7f0344db5906
       iscommand: true
       name: Get threat information from Cylance Protect v2
       script: Cylance Protect v2|||cylance-protect-get-threat
       type: regular
       version: -1
-    taskid: ff014724-3ad2-4ce2-8578-5106c126e76b
+    taskid: a06a7e73-028d-4c7f-85b1-7f0344db5906
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": 470,
-          "y": 590
-        }
-      }
-  "29":
-    continueonerrortype: ""
-    id: "29"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 0
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "7"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      MD5:
-        complex:
-          root: inputs.MD5
-      SHA1:
-        complex:
-          root: inputs.SHA1
-      SHA256:
-        complex:
-          root: inputs.SHA256
-    separatecontext: true
-    skipunavailable: true
-    task:
-      brand: ""
-      description: Get file information using the Virus Total Private API integration.
-      id: be6126b7-0676-4b5f-88d2-a257f8dfa4e3
-      iscommand: false
-      name: File Enrichment - Virus Total Private API
-      playbookName: File Enrichment - Virus Total Private API
-      type: playbook
-      version: -1
-    taskid: be6126b7-0676-4b5f-88d2-a257f8dfa4e3
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 940,
-          "y": 180
+          "y": 730
         }
       }
   "30":
@@ -394,20 +356,20 @@ tasks:
     task:
       brand: ""
       description: Get file information using the Virus Total API integration.
-      id: f030af26-2985-453a-88bf-4f1dcc536fab
+      id: f5488926-c247-4181-8824-1c81eac47049
       iscommand: false
       name: File Enrichment - Virus Total (API v3)
       playbookId: File Enrichment - Virus Total (API v3)
       type: playbook
       version: -1
-    taskid: f030af26-2985-453a-88bf-4f1dcc536fab
+    taskid: f5488926-c247-4181-8824-1c81eac47049
     timertriggers: []
     type: playbook
     view: |-
       {
         "position": {
-          "x": 1390,
-          "y": 180
+          "x": 1010,
+          "y": 320
         }
       }
   "31":
@@ -441,9 +403,9 @@ tasks:
       '#default#':
       - "7"
       "yes":
-      - "25"
-      - "29"
-      - "30"
+      - "36"
+      - "32"
+      - "35"
     note: false
     quietmode: 0
     scriptarguments:
@@ -454,19 +416,206 @@ tasks:
     task:
       brand: ""
       description: Check if there is a SHA256 hash in context.
-      id: cf0cb24c-31c1-4d7d-815b-d203e44b1f44
+      id: 7cf6f2ba-710b-4d71-8860-852707418e81
       iscommand: false
       name: Is there a file hash?
       type: condition
       version: -1
-    taskid: cf0cb24c-31c1-4d7d-815b-d203e44b1f44
+    taskid: 7cf6f2ba-710b-4d71-8860-852707418e81
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
           "x": 470,
-          "y": -10
+          "y": -50
+        }
+      }
+  "32":
+    continueonerrortype: ""
+    id: "32"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "33"
+      - "7"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: aa3b5462-64fd-4033-8812-9d952347a79d
+      iscommand: false
+      name: Check Reputation Using All Available Integrations
+      type: title
+      version: -1
+    taskid: aa3b5462-64fd-4033-8812-9d952347a79d
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -150,
+          "y": 160
+        }
+      }
+  "33":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.UseReputationCommand
+          operator: isEqualString
+          right:
+            value:
+              simple: "True"
+      label: "yes"
+    continueonerrortype: ""
+    id: "33"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "7"
+      "yes":
+      - "34"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if should run file reputation command
+      id: e41f1d02-f6ea-45a6-8c43-d858ec8aa875
+      iscommand: false
+      name: Should use !file command?
+      type: condition
+      version: -1
+    taskid: e41f1d02-f6ea-45a6-8c43-d858ec8aa875
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -150,
+          "y": 320
+        }
+      }
+  "34":
+    continueonerrortype: ""
+    id: "34"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "7"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      file:
+        complex:
+          root: inputs.SHA256
+          transformers:
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: inputs.MD5
+            operator: append
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: inputs.SHA1
+            operator: append
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Checks the file reputation of the specified hash.
+      id: 260f6a83-ba18-4aca-8eb1-294f470b1c81
+      iscommand: true
+      name: Check Reputation
+      script: '|||file'
+      type: regular
+      version: -1
+    taskid: 260f6a83-ba18-4aca-8eb1-294f470b1c81
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -150,
+          "y": 480
+        }
+      }
+  "35":
+    continueonerrortype: ""
+    id: "35"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "30"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 4d022016-e7a4-454b-85d5-fad65548649c
+      iscommand: false
+      name: Virus Total enrichment
+      type: title
+      version: -1
+    taskid: 4d022016-e7a4-454b-85d5-fad65548649c
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1010,
+          "y": 160
+        }
+      }
+  "36":
+    continueonerrortype: ""
+    id: "36"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "25"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 601042e3-6757-4e60-8293-6c026caba2d1
+      iscommand: false
+      name: Cylance Protect enrichment
+      type: title
+      version: -1
+    taskid: 601042e3-6757-4e60-8293-6c026caba2d1
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 470,
+          "y": 160
         }
       }
 version: -1
@@ -481,10 +630,10 @@ view: |-
     },
     "paper": {
       "dimensions": {
-        "height": 1065,
-        "width": 1300,
-        "x": 470,
-        "y": -130
+        "height": 1215,
+        "width": 1540,
+        "x": -150,
+        "y": -180
       }
     }
   }

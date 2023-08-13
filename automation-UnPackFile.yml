@@ -18,7 +18,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -40,10 +40,11 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('UnPackFile', 'start', __line__())
+  ### pack version: 1.12.13
+
+
   import os
   from os.path import isdir, isfile
-
-
 
   from pyunpack import Archive
 

@@ -99,7 +99,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.2.12
+    itemVersion: 1.2.22
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:
@@ -132,11 +132,14 @@ script:
       name: limit
     description: Gets indicators from the feed.
     name: helloworld-get-indicators
-  dockerimage: demisto/python3:3.9.8.24399
+  dockerimage: demisto/python3:3.10.12.63474
   feed: true
   runonce: false
   script: |
     register_module_line('HelloWorld Feed', 'start', __line__())
+    ### pack version: 1.2.22
+
+
     """HelloWorld Feed Integration for Cortex XSOAR (aka Demisto)
 
     This feed integration is a good example on you can build a Cortex XSOAR feed
@@ -296,8 +299,6 @@ script:
     from urllib.parse import urlparse
 
 
-
-
     # disable insecure warnings
     urllib3.disable_warnings()
 
@@ -380,7 +381,7 @@ script:
         # Cortex XSOAR will print everything you return different than 'ok' as
         # an error
 
-        client.build_iterator()
+        fetch_indicators(client, limit=1)
         return 'ok'
 
 
@@ -441,14 +442,15 @@ script:
             if (relations := item.get('relations')) and create_relationships:
                 relationships = []
                 for relation in relations:
-                    entity_relation = EntityRelationship(
-                        name=relation.get('relationType'),
-                        entity_a=value_,
-                        entity_a_type=type_,
-                        entity_b=relation.get('value'),
-                        entity_b_type=relation.get('type')
-                    )
-                    relationships.append(entity_relation.to_indicator())
+                    if relation:
+                        entity_relation = EntityRelationship(
+                            name=relation.get('relationType'),
+                            entity_a=value_,
+                            entity_a_type=type_,
+                            entity_b=relation.get('value'),
+                            entity_b_type=relation.get('type')
+                        )
+                        relationships.append(entity_relation.to_indicator())
 
                 indicator_obj['relationships'] = relationships
 
@@ -558,7 +560,6 @@ script:
 
         # Log exceptions and return errors
         except Exception as e:
-            demisto.error(traceback.format_exc())  # Print the traceback
             return_error(f'Failed to execute {command} command.\nError:\n{str(e)}')
 
 

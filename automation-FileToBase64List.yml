@@ -21,7 +21,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -29,7 +29,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python:2.7.18.27799
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -39,6 +39,7 @@ runas: DBotWeakRole
 runonce: true
 script: |
   register_module_line('FileToBase64List', 'start', __line__())
+  ### pack version: 1.12.13
 
 
 
@@ -52,7 +53,7 @@ script: |
           if zip:
               data = zlib.compress(data)
 
-      return base64.b64encode(data)
+      return base64.b64encode(data).decode('utf-8')
 
 
   def main():
@@ -83,12 +84,12 @@ script: |
       }
 
 
-  if __name__ == "__builtin__" or __name__ == '__main__':
+  if __name__ in ('__main__', '__builtin__', 'builtins'):
       demisto.results(main())
 
   register_module_line('FileToBase64List', 'end', __line__())
 scripttarget: 0
-subtype: python2
+subtype: python3
 system: true
 tags:
 - Utility

@@ -1,0 +1,510 @@
+category: Data Enrichment & Threat Intelligence
+commonfields:
+  id: TeamCymru
+  version: -1
+configuration:
+- display: Trust any certificate (not secure)
+  name: insecure
+  required: false
+  type: 8
+- advanced: true
+  defaultvalue: "false"
+  display: Use system proxy settings
+  name: proxy
+  required: false
+  section: Connect
+  type: 8
+- additionalinfo: Supports socks4/socks5/http connect proxies (e.g., socks5h://host:1080).
+  advanced: true
+  display: Proxy URL
+  name: proxy_url
+  required: false
+  section: Connect
+  type: 0
+- additionalinfo: Reliability of the source providing the intelligence data.
+  defaultvalue: B - Usually reliable
+  display: Source Reliability
+  name: integration_reliability
+  options:
+  - A+ - 3rd party enrichment
+  - A - Completely reliable
+  - B - Usually reliable
+  - C - Fairly reliable
+  - D - Not usually reliable
+  - E - Unreliable
+  - F - Reliability cannot be judged
+  required: false
+  type: 15
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    itemVersion: 1.0.13
+    packID: TeamCymru
+    packName: Team Cymru
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Team Cymru provides various service options dedicated to mapping IP numbers
+  to BGP prefixes and ASNs. Each of the services is based on the same BGP feeds from
+  50+ BGP peers and is updated at 4-hour intervals.
+detaileddescription: |-
+  ## Team Cymru Help
+
+  Use the Team Cymru integration to get enriched data for IP addresses.
+
+
+  ### Configuration Options
+  - **Proxy URL**: Specify a proxy to be used. The URL should in the format: scheme://host:port. If the scheme is omitted, the default socks5h scheme will be used. To use the system HTTP proxy, you can also specify the value: **system_http**. The following schemes are supported:
+    * **socks5h**: SOCKS version 5 protocol with remote DNS resolving.
+    * **socks5**: SOCKS version 5 protocol with local DNS resolving.
+    * **socks4a**: SOCKS version 4 with remote DNS resolving.
+    * **socks4**: SOCKS version 4 with remote local DNS resolving.
+    * **http**: HTTP proxy with support for CONNECT method on port 43 (default Whois port). Note that most HTTP proxies block the CONNECT method to non-HTTP/HTTPS standard ports (such as the default Whois port 43).
+
+
+
+
+  ---
+  [View Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/team-cymru)
+display: Team Cymru
+image: data:image/png;base64,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
+name: TeamCymru
+script:
+  commands:
+  - arguments:
+    - default: true
+      description: An IPv4 address to query, e.g., 1.1.1.1.
+      isArray: true
+      name: ip
+      required: true
+    description: Checks the reputation of an IP address.
+    name: ip
+    outputs:
+    - contextPath: IP.Address
+      description: IP address.
+      type: String
+    - contextPath: IP.ASN
+      description: 'The autonomous system name for the IP address, for example: "AS8948".'
+      type: String
+    - contextPath: IP.ASOwner
+      description: The autonomous system owner of the IP address.
+      type: String
+    - contextPath: IP.Geo.Country
+      description: The country in which the IP address is located.
+      type: String
+    - contextPath: IP.Registrar.Abuse.Network
+      description: The network of the contact for reporting abuse.
+      type: String
+    - contextPath: DBotScore.Indicator
+      description: The indicator that was tested.
+      type: String
+    - contextPath: DBotScore.Type
+      description: The indicator type.
+      type: String
+    - contextPath: DBotScore.Vendor
+      description: The vendor used to calculate the score.
+      type: String
+    - contextPath: DBotScore.Score
+      description: The actual score.
+      type: Number
+    - contextPath: DBotScore.Reliability
+      description: Reliability of the source providing the intelligence data.
+      type: String
+    - contextPath: TeamCymru.IP.Address
+      description: The IP address.
+      type: String
+    - contextPath: TeamCymru.IP.ASN
+      description: The IP ASN.
+      type: String
+    - contextPath: TeamCymru.IP.ASOwner
+      description: The IP AS owner.
+      type: String
+    - contextPath: TeamCymru.IP.Geo.Country
+      description: The IP country.
+      type: String
+    - contextPath: TeamCymru.IP.Registrar.Abuse.Network
+      description: The IP range relevant for abuse inquiries provided for the IP.
+      type: String
+  - arguments:
+    - description: The file's War Room entry ID.
+      name: entry_id
+      required: true
+    - defaultValue: ','
+      description: |-
+        Delimiter by which the content of the file is separated.
+        Eg:  " , " , " : ", " ; "
+      name: delimiter
+    description: "Checks the reputation of a CSV list of IPv4 addresses within a file.
+      \nNote: Results for queries exceeding 10,000 IPs may take more than a minute
+      given a moderately sized Internet link."
+    name: cymru-bulk-whois
+    outputs:
+    - contextPath: IP.Address
+      description: IP address.
+      type: String
+    - contextPath: IP.ASN
+      description: 'The autonomous system name for the IP address, for example: "AS8948".'
+      type: String
+    - contextPath: IP.ASOwner
+      description: The autonomous system owner of the IP address.
+      type: String
+    - contextPath: IP.Geo.Country
+      description: The country in which the IP address is located.
+      type: String
+    - contextPath: IP.Registrar.Abuse.Network
+      description: The network of the contact for reporting abuse.
+      type: String
+    - contextPath: DBotScore.Indicator
+      description: The indicator that was tested.
+      type: String
+    - contextPath: DBotScore.Type
+      description: The indicator type.
+      type: String
+    - contextPath: DBotScore.Vendor
+      description: The vendor used to calculate the score.
+      type: String
+    - contextPath: DBotScore.Score
+      description: The actual score.
+      type: Number
+    - contextPath: DBotScore.Reliability
+      description: Reliability of the source providing the intelligence data.
+      type: String
+    - contextPath: TeamCymru.IP.Address
+      description: The IP address.
+      type: String
+    - contextPath: TeamCymru.IP.ASN
+      description: The IP ASN.
+      type: String
+    - contextPath: TeamCymru.IP.ASOwner
+      description: The IP AS owner.
+      type: String
+    - contextPath: TeamCymru.IP.Geo.Country
+      description: The IP country.
+      type: String
+    - contextPath: TeamCymru.IP.Registrar.Abuse.Network
+      description: The IP range relevant for abuse inquiries provided for the IP.
+      type: String
+  dockerimage: demisto/cymruwhois:1.0.0.66558
+  runonce: false
+  script: |
+    register_module_line('TeamCymru', 'start', __line__())
+    ### pack version: 1.0.13
+
+
+
+    '''IMPORTS'''
+
+    import urllib3
+    from cymruwhois import Client  # Python interface to whois.cymru.com
+    import csv
+    import socks
+    import socket
+
+    # Disable insecure warnings
+    urllib3.disable_warnings()
+
+    '''GLOBALS'''
+
+    HEADERS = ['ip', 'asn', 'owner', 'cc', 'prefix']
+    MAPPING = {'ip': 'IP', 'asn': 'ASN', 'owner': 'Organization', 'cc': 'Country', 'prefix': 'Range'}
+
+    ''' CLIENT COMMANDS '''
+
+
+    class CymruClient(Client):
+
+        def _connect(self):  # pragma: no coverage
+            demisto.debug("Start connecting...")
+            self.socket = socks.socksocket()
+            self.socket.settimeout(30.0)
+            self.socket.connect((self.host, self.port))
+            self.socket.settimeout(60.0)
+            self.file = self.socket.makefile("rw")
+
+        def lookup(self, ip: str) -> dict[str, Any] | None:
+            """Perform lookups by ip address and return ASN, Country Code, and Network Owner.
+
+            :type ip: ``str``
+            :param ip: string to add in the dummy dict that is returned
+
+            :return: Dictionary contains the results of the lookup API call if succeeded, else None
+            :rtype: Dict[str, Any] or None
+            """
+            raw_result = super().lookup(ip)
+            return vars(raw_result) if raw_result else None
+
+        def lookupmany_dict(self, bulk: list[str]) -> Optional[dict[str, Any]]:
+            """Perform lookups by bulk of ip addresses,
+            returning a dictionary of ip -> record (ASN, Country Code, and Netblock Owner.)
+
+            :type bulk: ``list``
+            :param bulk: list of ip addresses
+
+            :return: Dictionary contains the results of the lookupmany API call if succeeded, else None
+            :rtype: Dict[str, Dict[str, str]] or None
+            """
+
+            raw_result = super().lookupmany_dict(bulk)
+            return {k: vars(raw_result[k]) for k in raw_result} if raw_result else None
+
+
+    ''' HELPER FUNCTIONS '''
+
+
+    def parse_ip_result(ip: str, ip_data: dict[str, str], reliability: str) -> CommandResults:
+        """
+        Arranges the IP's result from the API to the context format.
+        :param ip: ip address
+        :param ip_data: the ip given data (as returned from the API call)
+        :param reliability: reliability of the source providing the intelligence.
+        :return: commandResult of the given IP
+        """
+        asn = demisto.get(ip_data, 'asn')
+        owner = demisto.get(ip_data, 'owner')
+        country = demisto.get(ip_data, 'cc')
+        prefix = demisto.get(ip_data, 'prefix')
+        entry_context = {'Address': ip,
+                         'ASN': asn,
+                         'ASOwner': owner,
+                         'Geo': {'Country': country},
+                         'Registrar': {'Abuse': {'Network': prefix}}}
+        indicator = Common.IP(
+            ip=ip,
+            asn=asn,
+            as_owner=owner,
+            geo_country=country,
+            registrar_abuse_network=prefix,
+            dbot_score=Common.DBotScore(indicator=ip,
+                                        indicator_type=DBotScoreType.IP,
+                                        score=Common.DBotScore.NONE,
+                                        reliability=DBotScoreReliability.get_dbot_score_reliability_from_str(reliability)))
+
+        human_readable = tableToMarkdown(f'Team Cymru results for {ip}', ip_data, HEADERS,
+                                         headerTransform=lambda header: MAPPING.get(header, header))
+        outputs_key_field = 'ip'  # marks the ip address
+        return CommandResults(
+            readable_output=human_readable,
+            raw_response=ip_data,
+            outputs_prefix='TeamCymru.IP',
+            outputs_key_field=outputs_key_field,
+            indicator=indicator,
+            outputs=entry_context
+        )
+
+
+    def validate_ip_addresses(ips_list: list[str]) -> tuple[list[str], list[str]]:
+        """
+        Given a list of IP addresses, returns the invalid and valid ips.
+        :param ips_list: list of ip addresses
+        :return: invalid_ip_addresses, valid_ip_addresses
+        """
+        invalid_ip_addresses = []
+        valid_ip_addresses = []
+        for ip in ips_list:
+            ip = ip.strip().strip('\"')
+            if ip:
+                if is_ip_valid(ip):
+                    valid_ip_addresses.append(ip)
+                else:
+                    invalid_ip_addresses.append(ip)
+        return invalid_ip_addresses, valid_ip_addresses
+
+
+    def parse_file(file_path_res: dict[str, str], delimiter: str = ",") -> List[str]:
+        """
+        Parses the given file line by line to list.
+        :param delimiter: delimiter by which the content of the list is seperated.
+        :param file_path_res: Object contains file ID, path and name
+        :return: bulk list of the elements in the file
+        """
+        bulk_list = []
+        with open(file_path_res['path']) as file:
+            reader = csv.reader(file, delimiter=delimiter, skipinitialspace=True)
+            for row in reader:
+                for col in row:
+                    bulk_list += col.split()
+        return bulk_list
+
+
+    def parse_ips_list(client: CymruClient, ips_list: list[str], reliability: str) -> list[CommandResults]:
+        """
+        Creates a commandResults array based on a list of IP addresses,
+        this by calling the relevant functions.
+        :param client: client to use
+        :param ips_list: list of IP addresses
+        :return: CommandResults object
+        """
+        command_results: list[CommandResults] = []
+        invalid_ips, valid_ips = validate_ip_addresses(ips_list)
+        if invalid_ips:
+            return_warning('The following IP Addresses were found invalid: {}'.format(', '.join(invalid_ips)),
+                           exit=len(invalid_ips) == len(ips_list))
+
+        results = client.lookupmany_dict(valid_ips)
+        if results:
+            for ip, ip_data in results.items():
+                command_results.append(parse_ip_result(ip, ip_data, reliability))
+        return command_results
+
+
+    ''' COMMAND FUNCTIONS '''
+
+
+    def test_module(client: CymruClient) -> str:
+        """Tests API connectivity
+
+        Returning 'ok' indicates that the integration works like it is supposed to.
+        Connection to the service is successful.
+        Raises exceptions if something goes wrong.
+
+        :type client: ``Client``
+        :param Client: client to use
+
+        :return: 'ok' if test passed, anything else will fail the test.
+        :rtype: ``str``
+        """
+
+        message: str = ''
+        try:
+            result = client.lookup('8.8.8.8')
+            if result and result.get('owner') == 'GOOGLE, US':
+                demisto.info('ok')
+                message = 'ok'
+        except DemistoException as e:
+            if 'Forbidden' in str(e) or 'Authorization' in str(e):
+                message = 'Authorization Error: make sure API Key is correctly set'
+            else:
+                raise e
+        return message
+
+
+    def ip_command(client: CymruClient, args: dict[str, Any], reliability: str) -> list[CommandResults]:
+        """
+        Returns the results of 'ip' command
+        :type client: ``Client``
+        :param Client: client to use
+
+        :type args: ``Dict[str, Any]``
+        :param args: All command arguments, the field 'ip'
+        :return: CommandResults object containing the results of the lookup action as returned from the API
+        and its readable output.
+        """
+        command_results: list[CommandResults] = []
+        ip = argToList(args.get('ip'))
+        if not ip:
+            raise ValueError('IP not specified')
+        if len(ip) > 1:
+            return parse_ips_list(client, ip, reliability)
+        if len(ip) == 1 and not is_ip_valid(ip[0]):
+            raise ValueError(f"The given IP address: {ip[0]} is not valid")
+
+        # Call the Client function and get the raw response
+        result = client.lookup(ip[0])
+        if result:
+            command_results.append(parse_ip_result(ip[0], result, reliability))
+        return command_results
+
+
+    def cymru_bulk_whois_command(client: CymruClient, args: dict[str, Any], reliability: str) -> list[CommandResults]:
+        """
+        Returns results of 'cymru-bulk-whois' command
+        :type client: ``Client``
+        :param Client: client to use
+
+        :type args: ``Dict[str, Any]``
+        :param args: All command arguments - 'entry_id', 'delimiter'
+        :return: CommandResults object containing the results of the lookup action as returned from the API
+        and its readable output.
+        """
+
+        if args.get('entry_id'):
+            demisto.debug("Using the entry_id to find the file's path")
+            file_path = demisto.getFilePath(args.get('entry_id'))
+            if not file_path:
+                raise ValueError('No file was found for given entry_id')
+            ips_list = parse_file(file_path, args.get('delimiter', ','))
+        else:
+            raise ValueError('No entry_id specified.')
+
+        return parse_ips_list(client, ips_list, reliability)
+
+
+    def setup_proxy():  # pragma: no coverage
+        """
+        The function is based on setup_proxy() from 'Whois' pack
+        """
+        scheme_to_proxy_type = {
+            'socks5': [socks.PROXY_TYPE_SOCKS5, False],
+            'socks5h': [socks.PROXY_TYPE_SOCKS5, True],
+            'socks4': [socks.PROXY_TYPE_SOCKS4, False],
+            'socks4a': [socks.PROXY_TYPE_SOCKS4, True],
+            'http': [socks.PROXY_TYPE_HTTP, True]
+        }
+        proxy_url = demisto.params().get('proxy_url')
+        def_scheme = 'socks5h'
+        if proxy_url == 'system_http' or not proxy_url and demisto.params().get('proxy'):
+            system_proxy = handle_proxy('proxy')
+            # use system proxy. Prefer https and fallback to http
+            proxy_url = system_proxy.get('https') if system_proxy.get('https') else system_proxy.get('http')
+            def_scheme = 'http'
+        if not proxy_url and not demisto.params().get('proxy'):
+            return
+        scheme, host = (def_scheme, proxy_url) if '://' not in proxy_url else proxy_url.split('://')
+        host, port = (host, None) if ':' not in host else host.split(':')
+        if port:
+            port = int(port)
+        proxy_type = scheme_to_proxy_type.get(scheme)
+        if not proxy_type:
+            raise ValueError(f"Un supported proxy scheme: {scheme}")
+        socks.set_default_proxy(proxy_type[0], host, port, proxy_type[1])
+        socket.socket = socks.socksocket  # type: ignore
+        demisto.info("Proxy setup completed successfully.")
+
+
+    ''' MAIN FUNCTION '''
+
+
+    def main() -> None:
+        """
+        main function, parses params and runs command functions
+        """
+
+        demisto.debug(f'Command being called is {demisto.command()}')
+        org_socket = None
+        try:
+            org_socket = socket.socket
+            setup_proxy()
+            client = CymruClient()
+            reliability = demisto.params().get('integration_reliability', '')
+
+            if demisto.command() == 'test-module':
+                result = test_module(client)
+                return_results(result)
+
+            elif demisto.command() == 'ip':
+                return_results(ip_command(client, demisto.args(), reliability))
+            elif demisto.command() == 'cymru-bulk-whois':
+                return_results(cymru_bulk_whois_command(client, demisto.args(), reliability))
+            else:
+                raise NotImplementedError(f"command {demisto.command()} is not implemented.")
+
+        # Log exceptions and return errors
+        except Exception as e:
+            return_error(f'Failed to execute {demisto.command()} command.\nError:\n{str(e)}')
+        finally:
+            socks.set_default_proxy()   # clear proxy settings
+            socket.socket = org_socket  # type: ignore
+
+
+    ''' ENTRY POINT '''
+
+    if __name__ in ('__main__', '__builtin__', 'builtins'):
+        main()
+
+    register_module_line('TeamCymru', 'end', __line__())
+  subtype: python3
+  type: python
+system: true

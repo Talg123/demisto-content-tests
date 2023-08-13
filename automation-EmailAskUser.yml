@@ -29,6 +29,13 @@ args:
   predefined:
   - text
   - html
+- auto: PREDEFINED
+  defaultValue: "false"
+  description: Indicates whether to render the email body
+  name: renderBody
+  predefined:
+  - "true"
+  - "false"
 - description: Address of reply for html links
   name: replyAddress
 - description: Tag to add on email reply entries
@@ -50,7 +57,7 @@ args:
   name: bcc
 - defaultValue: ${currentPlaybookID}
   description: Subplaybook ID, use ${currentPlaybookID} to get it from context, `all`
-    to complete all tasks from all plabooks
+    to complete all tasks from all playbooks
   name: playbookTaskID
 comment: Ask a user a question via email and process the reply directly into the investigation.
 commonfields:
@@ -60,7 +67,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.7.18
+    itemVersion: 1.12.13
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -75,6 +82,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
+  // pack version: 1.12.13
   // email body type
   var bodyType = 'text';
   if (args.bodyType === 'html') {
@@ -155,11 +163,19 @@ script: |
       addresses = addresses.concat(email.split(','));
   }
 
+  var renderBody = args.renderBody;
+  if (!renderBody) {
+      renderBody = false;
+  }
+
   if (addresses.length > 0) {
       // prepare args and run send-mail
-      emailArgs = args;
-      emailArgs.to = addresses.join(',');
-      emailArgs.subject = subject;
+      emailArgs = {
+          to: addresses.join(','),
+          subject: subject,
+          bodyType: bodyType,
+          renderBody: renderBody,
+      };
       if (bodyType === 'html') {
           emailArgs.htmlBody = message;
       } else {
@@ -177,7 +193,16 @@ script: |
       if (args.bcc) {
           emailArgs.bcc = args.bcc;
       }
-      return executeCommand('send-mail', emailArgs);
+
+       // Add additional fields from args to emailArgs
+      for (const key in args) {
+          if (args.hasOwnProperty(key) && !emailArgs.hasOwnProperty(key)) {
+              emailArgs[key] = args[key];
+          }
+      }
+
+    return executeCommand('send-mail', emailArgs);
+
   } else {
       return {Type: entryTypes.error, ContentsFormat: formats.text, Contents: 'No email address found'};
   }

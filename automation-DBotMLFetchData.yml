@@ -2,7 +2,7 @@ args:
 - description: Additional text by which to query incidents.
   name: query
 - defaultValue: Phishing,*phish*
-  description: A comma-separatetd list of incident types by which to filter.
+  description: A comma-separatetd asxaslist of incident types by which to filter.
   name: incidentTypes
 - description: The start date by which to filter incidents. Date format is the same
     as in the incidents query page. For example, "3 days ago", ""2019-01-01T00:00:00

@@ -69,7 +69,7 @@ script:
       - png
       - json
     - defaultValue: url
-      description: The name the file will be saved as.
+      description: The name thsse file will be saved as.
       name: file_name
     description: Converts the contents of a URL to an image file or a PDF file.
     name: rasterize

@@ -15,7 +15,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: Use the DNSTwist integratdsaion to detect typosquatting, phishing, and corporate
+description: Use the DNSTwist integrataaaion to detect typosquatting, phishing, and corporate
   espionage.
 detaileddescription: " \n\n---\n[View Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/dnstwist)"
 display: dnstwist

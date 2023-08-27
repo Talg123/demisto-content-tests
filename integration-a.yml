@@ -1,6 +1,6 @@
 category: Utilities
 commonfields:
-  id: test1
+  id: Rasterize
   version: -1
 configuration:
 - defaultvalue: "false"
@@ -31,7 +31,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     itemVersion: 1.0.19
-    packID: ""
+    packID: rasterize
     packPropagationLabels:
     - all
     propagationLabels: []

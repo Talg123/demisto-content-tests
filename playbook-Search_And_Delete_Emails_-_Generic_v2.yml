@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.1.0
-    itemVersion: 2.3.94
+    itemVersion: 2.3.98
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -224,8 +224,7 @@ tasks:
     scriptarguments:
       allow_not_found_exchange_locations:
         complex:
-          root: |
-            inputs.O365AllowNotFoundExchangeLocations
+          root: inputs.O365AllowNotFoundExchangeLocations
       delete_type:
         complex:
           root: inputs.O365DeleteType

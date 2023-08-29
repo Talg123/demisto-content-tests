@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.8.0
-    itemVersion: 2.3.94
+    itemVersion: 2.3.98
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -1124,13 +1124,13 @@ tasks:
     task:
       brand: ""
       description: Uploads a URL of a webpage to WildFire for analysis.
-      id: 3d09fd2a-ac72-4d4f-8f1e-10261797c94b
+      id: 7acc875b-ca43-4e39-8977-c15f0373a98f
       iscommand: true
       name: Detonate URL - WildFire
       script: '|||wildfire-upload-url'
       type: regular
       version: -1
-    taskid: 3d09fd2a-ac72-4d4f-8f1e-10261797c94b
+    taskid: 7acc875b-ca43-4e39-8977-c15f0373a98f
     timertriggers: []
     type: regular
     view: |-

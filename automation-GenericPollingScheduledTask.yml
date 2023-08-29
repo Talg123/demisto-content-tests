@@ -45,7 +45,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.16
+    itemVersion: 1.12.18
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -61,7 +61,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |-
-  // pack version: 1.12.16
+  // pack version: 1.12.18
   /**
    * GenericPollingScheduledTask
    *   This task is ment to be scheduled by the ScheduleGenericPolling automation

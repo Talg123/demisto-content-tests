@@ -6,7 +6,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 1.12.16
+    itemVersion: 1.12.18
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -27,7 +27,7 @@ runas: DBotRole
 runonce: false
 script: |
   register_module_line('GetEnabledInstances', 'start', __line__())
-  ### pack version: 1.12.16
+  ### pack version: 1.12.18
 
 
 

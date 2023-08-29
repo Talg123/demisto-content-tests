@@ -12,7 +12,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.16
+    itemVersion: 1.12.18
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -29,7 +29,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CreateIndicatorsFromSTIX', 'start', __line__())
-  ### pack version: 1.12.16
+  ### pack version: 1.12.18
 
 
   import json

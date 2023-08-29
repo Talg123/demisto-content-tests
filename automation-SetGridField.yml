@@ -43,7 +43,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.16
+    itemVersion: 1.12.18
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -59,7 +59,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: "register_module_line('SetGridField', 'start', __line__())\n### pack version:
-  1.12.16\n\n\n# STD Libraries\nfrom typing import Optional, List, Dict, Any\n# 3-rd
+  1.12.18\n\n\n# STD Libraries\nfrom typing import Optional, List, Dict, Any\n# 3-rd
   party libraries\nimport pandas as pd\nimport phrases_case\n# Local packages\n\n\n\ndef
   normalized_string(phrase: str) -> str:\n    \"\"\" Normalize a string to flatcase
   (to match `cli name`).\n\n    Args:\n        phrase: Phrase to normalize.\n\n    Returns:\n

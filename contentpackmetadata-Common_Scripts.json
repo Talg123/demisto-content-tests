@@ -2115,14 +2115,14 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.12.16",
+	"currentVersion": "1.12.18",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.27",
+			"minVersion": "1.32.28",
 			"name": "Base"
 		},
 		"BreachNotification-US": {
@@ -2150,7 +2150,7 @@
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.3.13",
+			"minVersion": "1.3.14",
 			"name": "Elasticsearch"
 		},
 		"FeedMitreAttackv2": {
@@ -2192,14 +2192,14 @@
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.0.19",
+			"minVersion": "1.0.20",
 			"name": "Mail Sender (New)"
 		},
 		"MicrosoftGraphMail": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.5.10",
+			"minVersion": "1.5.13",
 			"name": "Microsoft Graph Mail"
 		},
 		"ProtectWise": {
@@ -2220,7 +2220,7 @@
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.1.16",
+			"minVersion": "1.1.17",
 			"name": "Shodan"
 		},
 		"SumoLogic": {
@@ -2234,7 +2234,7 @@
 	"deprecated": false,
 	"description": "Frequently used scripts pack.",
 	"disabledMonthly": false,
-	"downloads": 124131,
+	"downloads": 125523,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -2299,7 +2299,7 @@
 			"name": "SumoLogic"
 		}
 	],
-	"itemVersion": "1.12.16",
+	"itemVersion": "1.12.18",
 	"keywords": [],
 	"legacy": true,
 	"name": "Common Scripts",
@@ -2323,13 +2323,14 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
+		"Trending",
 		"Core",
 		"Transformer"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-26T09:25:59Z",
+	"updated": "2023-08-28T19:21:16Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6086488",
+	"versionInfo": "6174567",
 	"videos": []
 }

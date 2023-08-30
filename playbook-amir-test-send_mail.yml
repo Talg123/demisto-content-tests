@@ -11,7 +11,7 @@ contentitemexportablefields:
     toServerVersion: ""
 id: 220c4e5b-1888-412f-824c-3a0a7a83f3ec
 inputs: []
-name: amir-test-tombstone
+name: amir-test-send mail
 outputs: []
 quiet: true
 starttaskid: "0"

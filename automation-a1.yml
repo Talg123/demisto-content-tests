@@ -17,7 +17,7 @@ engineinfo: {}
 mainengineinfo: {}
 name: a12
 pswd: ""
-runas: DBotWeakRole
+runas: DBot
 runonce: false
 script: |-
   demisto.log("sasasass ")

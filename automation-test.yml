@@ -21,6 +21,7 @@ runas: Administrator
 runonce: false
 script: |-
   demisto.log("hello")
+  ss
   demisto.log("world")
 scripttarget: 0
 subtype: python3

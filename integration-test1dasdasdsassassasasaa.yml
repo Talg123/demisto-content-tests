@@ -1,0 +1,149 @@
+category: Utilities
+commonfields:
+  id: test1
+  version: -1
+configuration:
+- defaultvalue: "false"
+  display: Return Errors
+  name: with_error
+  required: false
+  type: 8
+- defaultvalue: "0"
+  display: Time to wait before taking a screen shot (in seconds)
+  name: wait_time
+  required: false
+  type: 0
+- defaultvalue: "180"
+  display: Maximum time to wait for a page to load (in seconds)
+  name: max_page_load_time
+  required: false
+  type: 0
+- display: Chrome options (Advanced. See [?])
+  name: chrome_options
+  required: false
+  type: 0
+- display: Use system proxy settings
+  name: proxy
+  required: false
+  type: 8
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    itemVersion: 1.0.19
+    packID: ""
+    packName: ""
+    packPropagationLabels:
+    - all
+    propagationLabels: []
+    toServerVersion: ""
+description: asdasdadsadasdsssssaaasadassassasas
+display: test1dasdasdsassssssasssasasaa
+image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAyCAYAAACXpx/YAAAABGdBTUEAALGPC/xhBQAABGZJREFUeAHtnF2oFWUUhvfpaEoWmj8XgZoFpoUgwdEuCqJAqAi9ESKQwiAVUST0gEmggooieNOFJBSEBYIRBQkRXogGCUYSqESk+EOCiZRBRf5Uz5vzeRYbZ5+Z7Zk9a5+zFjx7vvlmvjVr1trrnTlbsKfRHfavCbPHjL3Nm9B8DO/xEUZEUVUGosBVZdaJXyt3TkK6HcaA/H677Paku0HfHhuSu3xGB9vyDMNxFHgYFtXe0ii742xs5W5ArqsO0kpusUeDjbPq6Er7jw4unbLuWhAF7q56lY7Ws0TXL8vF5NrG6U6uo4NL90R3LYgCd1e9SkfrWaKt3FkZLH2Tgy6wb8vFZNm6tHHaeRfj6GAXZaguiChwdbl14dmzRA+NLJeVXCvXxUpk43Qn19HBxYrYtWdFgbu2dMUC9yzRVu6sDA5+Z3mynDef57HY+TbOPE+1zUcH15b6zlw4CtyZPNd2Fc8SXa0s58lv2flGw8bpTq6jg2vrrc5cOArcmTzXdhXPEm3lzsrgQLLKymkV5zcaNs6B2JyMooOdFKKqMKLAVWXWiV/PEu1Xlu3v1X17bJzu5Do62EmnVRVGFLiqzDrx605ScvKSJ4Pe5nPCr286Ori+3HfkylHgjqQ5LhIZiAxEBiIDkYHIwEjLQK+TG55MHNNA24lwE/6Guu0ZAvgCTsD5uoNp5/pe3qJXE/wPGT+y/Q2+hoehXdPaQ/B4uw5YpwYQXvJ0F7dS79LNXF4/WjwHT8JKUBere9o1+ZLPp9p1EOuGLgOpwNONy8OML2T789l+ChfhJLwFqavGMn4XzsNZ2AkL4QyowNp+BzKtWQ9n4RfYDVov2wH6H1WWgK7bD8+DrvcsyD4D7VvGs9/KL4frM6//mjSblPTBl1lq5rL9A/pBxd4FR+EbeA2WgwozGmbBT3AMHgEVRfuytbAFNsIV2AqXYBNMhRdgAbwHuvaj8AQ8ALL9MAmmwDtwEH6HdZDnl0NhqYNPkwp1jzrvHMwDaw+x8xL8A0qobBtchyVwLyRbwUB+rERLAT6HBzM+YnscZB+D/NprLmJfPl4Ga1ITvSfoxVDWyu+tM0b4ZyrwJvLwPiipr0CyOQyOgLrlK7gBKohM3bUP9My+DG+CrLnA9zMnv82kx4D8/QXW7lTg1zlBPvSFkg3m99ZZI/wzFXg6eVAXqpP1Np068hRjyXGSyj8ZpwIz/N9m8Ck5Vhc+BstAhXgakv3K4ACMMvRmB4sUWPFdhU+yNWnTym86p5atXg682TUCehtmwuosuLFsVbip0A/aT7aKwVJQV38PPTAGfgbZq5D+VNrL+EVYAzNAcq/nbBGT3w/hPpDMy4/Ql+5u/LJ8+NtmblHdpg5Jpo7Vc24KvJGNVWS96ByH1MEbsmNar2fxdpCNhiOgea3TDyjj4APQl0HzV2AxyOSvlUTP5bjWNKP5Vn45HFYkA+raCTknqrv05VB3NZu6fnLTpHzp/KFWsKr8NoUfu5GByMDIyMB/DVAH+glQKKAAAAAASUVORK5CYII=
+name: test1dasdasdsassassasasaa
+script:
+  commands:
+  - arguments:
+    - description: Time in seconds to wait before taking a screenshot
+      name: wait_time
+    - description: Maximum time to wait for a page to load (in seconds)
+      name: max_page_load_time
+    - default: true
+      description: The URL to rasterize. Must be the full URL, including the http
+        prefix.
+      name: url
+      required: true
+    - defaultValue: 1024px
+      description: The page width, for example, 1024px. Specify with or without the
+        px suffix.
+      name: width
+    - defaultValue: 800px
+      description: The page height, for example, 800px. Specify with or without the
+        px suffix.
+      name: height
+    - description: The file type to which to convert the contents of the URL. Can
+        be "pdf" or "png". Default is "png".
+      name: type
+      predefined:
+      - pdf
+      - png
+      - json
+    - defaultValue: url
+      description: The name thsse file will be saved as.
+      name: file_name
+    description: Converts the contents of a URL to an image file or a PDF file.
+    name: rasterize
+  - arguments:
+    - default: true
+      description: The HTML body of the email.
+      name: htmlBody
+      required: true
+    - defaultValue: 600px
+      description: The html page width, for example, 600px. Specify with or without
+        the px suffix.
+      name: width
+    - defaultValue: 800px
+      description: The html page height, for example, 800px. Specify with or without
+        the px suffix.
+      name: height
+    - description: The file type to which to convert the email body. Can be "pdf"
+        or "png". Default is "png".
+      name: type
+    - auto: PREDEFINED
+      description: If "true", will block all outgoing communication.
+      name: offline
+      predefined:
+      - "true"
+      - "false"
+    - defaultValue: email
+      description: The name the file will be saved as.
+      name: file_name
+    description: Converts the body of an email to an image file or a PDF file.
+    name: rasterize-email
+  - arguments:
+    - default: true
+      description: The entry ID of the image file.
+      name: EntryID
+      required: true
+    - defaultValue: 600px
+      description: The image width, for example, 600px. Specify with or without the
+        px suffix.
+      name: width
+    - defaultValue: 800px
+      description: The image height, for example, 800px. If empty, the height is the
+        entire image.
+      name: height
+    - description: The name the file will be saved as.
+      name: file_name
+    description: Converts an image file to a PDF file.
+    name: rasterize-image
+  - arguments:
+    - default: true
+      description: The entry ID of PDF file.
+      name: EntryID
+      required: true
+    - defaultValue: "3"
+      description: The maximum number of pages to render. Default is "3".
+      name: maxPages
+    - description: The password to access the PDF.
+      name: pdfPassword
+    - auto: PREDEFINED
+      defaultValue: "false"
+      description: Whether to stack the pages horizontally. If "true", will stack
+        the pages horizontally. If "false", will stack the pages vertically. Default
+        is "false".
+      name: horizontal
+      predefined:
+      - "true"
+      - "false"
+    - defaultValue: image
+      description: The name the file will be saved as.
+      name: file_name
+    description: Converts a PDF file to an image file.
+    name: rasterize-pdf
+  dockerimage: demisto/chromium:1.0.0.26579
+  runonce: false
+  script: |
+    aaaaajashdkjsahdlkj
+  subtype: python3
+  type: python

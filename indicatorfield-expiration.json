@@ -27,8 +27,10 @@
 	"name": "expiration",
 	"neverSetAsRequired": false,
 	"openEnded": false,
+	"orgType": "date",
 	"ownerOnly": false,
 	"packID": "",
+	"packName": "",
 	"placeholder": "",
 	"propagationLabels": [
 		"all"

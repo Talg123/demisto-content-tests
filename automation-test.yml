@@ -17,7 +17,7 @@ engineinfo: {}
 mainengineinfo: {}
 name: test
 pswd: ""
-runas: DBotWeakRole
+runas: Administrator
 runonce: false
 script: |-
   demisto.log("hello")

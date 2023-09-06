@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.0.3
+    itemVersion: 2.0.4
     packID: DefaultPlaybook
     packName: Default
     packPropagationLabels:

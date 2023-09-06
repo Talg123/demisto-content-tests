@@ -58,7 +58,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.1.13
+    itemVersion: 2.1.14
     packID: AutoFocus
     packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
@@ -1225,11 +1225,11 @@ script:
     - contextPath: Domain.Name
       description: The domain name.
       type: String
-  dockerimage: demisto/python3:3.10.12.65389
+  dockerimage: demisto/python3:3.10.12.68714
   runonce: false
   script: |
     register_module_line('AutoFocus V2', 'start', __line__())
-    ### pack version: 2.1.13
+    ### pack version: 2.1.14
 
 
     ''' IMPORTS '''

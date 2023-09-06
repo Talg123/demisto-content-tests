@@ -46,12 +46,12 @@
 		"list": null,
 		"playbook": [
 			{
-				"description": "This playbook compares the domain registrant against the Cortex XSOAR list of approved registrants provided in the inputs. A registrant is the company or entity that owns the domain.",
-				"name": "TIM - Process Domain Registrant With Whois"
-			},
-			{
 				"description": "This playbook compares the domain creation time against a provided time value such as one month ago. The period can be configured within the playbook inputs MinimumAgeOfDomainMonths or MinimumAgeOfDomainHours. The playbook calculates the timestamp for the relevant period and compares it to the domain creation time value provided by Whois. The domains are outputted accordingly if they were created before or after the compared time, respectively.",
 				"name": "TIM - Process Domain Age With Whois"
+			},
+			{
+				"description": "This playbook compares the domain registrant against the Cortex XSOAR list of approved registrants provided in the inputs. A registrant is the company or entity that owns the domain.",
+				"name": "TIM - Process Domain Registrant With Whois"
 			},
 			{
 				"description": "This playbook uses several sub playbooks to process and tag indicators based on the results of the Whois tool.",
@@ -63,21 +63,21 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.5.0",
+	"currentVersion": "1.5.1",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.26",
+			"minVersion": "1.32.28",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.12.15",
+			"minVersion": "1.12.18",
 			"name": "Common Scripts"
 		},
 		"DomainTools": {
@@ -98,7 +98,7 @@
 	"deprecated": false,
 	"description": "This Content Pack helps you run Whois commands as playbook tasks or real-time actions within Cortex XSOAR to obtain valuable domain metadata.",
 	"disabledMonthly": false,
-	"downloads": 24985,
+	"downloads": 25998,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -123,7 +123,7 @@
 			"name": "DomainTools"
 		}
 	],
-	"itemVersion": "1.5.0",
+	"itemVersion": "1.5.1",
 	"keywords": [],
 	"legacy": true,
 	"name": "Whois",
@@ -149,14 +149,14 @@
 	},
 	"tags": [
 		"Plug \u0026 Enrich",
-		"Getting Started",
 		"Free Enricher",
-		"TIM"
+		"TIM",
+		"Getting Started"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-15T19:23:07Z",
+	"updated": "2023-08-30T09:22:00Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6058978",
+	"versionInfo": "6190939",
 	"videos": []
 }

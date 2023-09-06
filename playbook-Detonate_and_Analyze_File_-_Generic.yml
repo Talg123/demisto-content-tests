@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 2.3.98
+    itemVersion: 2.3.99
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -442,7 +442,7 @@ tasks:
       '#default#':
       - "3"
       "yes":
-      - "20"
+      - "22"
     note: false
     quietmode: 0
     results:
@@ -492,7 +492,7 @@ tasks:
         simple: json
       webid:
         complex:
-          accessor: webid
+          accessor: ID
           root: Joe.Analysis
           transformers:
           - operator: uniq
@@ -503,13 +503,13 @@ tasks:
       description: Download a resource belonging to a report. This can be the full
         report, dropped binaries, etc. See integration README for the full supported
         report types.
-      id: 46faec6e-c540-45a8-8025-a118cab9357c
+      id: 723d2bf6-e92a-4ac9-851c-c1227ce3b386
       iscommand: true
       name: Get a full report from Joe Sandbox - JSON
       script: '|||joe-download-report'
       type: regular
       version: -1
-    taskid: 46faec6e-c540-45a8-8025-a118cab9357c
+    taskid: 723d2bf6-e92a-4ac9-851c-c1227ce3b386
     timertriggers: []
     type: regular
     view: |-
@@ -525,8 +525,12 @@ tasks:
       - - left:
             iscontext: true
             value:
-              simple: Joe.Analysis
+              complex:
+                accessor: Analysis
+                root: Joe
           operator: isNotEmpty
+          right:
+            value: {}
       label: "yes"
     continueonerrortype: ""
     id: "15"
@@ -581,7 +585,7 @@ tasks:
         simple: pdf
       webid:
         complex:
-          accessor: webid
+          accessor: ID
           root: Joe.Analysis
           transformers:
           - operator: uniq
@@ -755,50 +759,6 @@ tasks:
           "y": 1450
         }
       }
-  "20":
-    continueonerrortype: ""
-    id: "20"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 100
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "15"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      File:
-        complex:
-          root: inputs.File
-    separatecontext: true
-    skipunavailable: true
-    task:
-      brand: ""
-      description: |-
-        Detonates one or more files using the Joe Security - Joe Sandbox integration.
-        Returns relevant reports to the War Room and file reputations to the context data.
-        All file types are supported.
-      id: 59b9b222-8339-41b5-88f5-410d11ad9a20
-      iscommand: false
-      name: Detonate and Analyze File - JoeSecurity
-      playbookName: Detonate and Analyze File - JoeSecurity
-      type: playbook
-      version: -1
-    taskid: 59b9b222-8339-41b5-88f5-410d11ad9a20
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 280,
-          "y": 580
-        }
-      }
   "21":
     conditions:
     - condition:
@@ -847,6 +807,58 @@ tasks:
         "position": {
           "x": 70,
           "y": 1250
+        }
+      }
+  "22":
+    continueonerrortype: ""
+    id: "22"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 0
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "15"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      File:
+        complex:
+          root: inputs.File
+      InternetAccess:
+        simple: "True"
+      Interval:
+        simple: "1"
+      Timeout:
+        simple: "1200"
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: The Detonate File using Joe Sandbox Process is designed to streamline
+        and enhance the security assessment of files. This automated system accepts
+        a user-submitted file, sends it for in-depth analysis using Joe Sandbox technology,
+        and returns comprehensive results as attachments to the user. The process
+        is designed to be swift, efficient, and secure, providing users with valuable
+        insights into potential threats and vulnerabilities within their files.
+      id: 9bdf9a41-2a91-4582-8640-d40a3401e20d
+      iscommand: false
+      name: Detonate File - JoeSecurity V2
+      playbookName: Detonate File - JoeSecurity V2
+      type: playbook
+      version: -1
+    taskid: 9bdf9a41-2a91-4582-8640-d40a3401e20d
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 280,
+          "y": 580
         }
       }
 version: -1

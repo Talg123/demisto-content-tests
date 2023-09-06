@@ -125,6 +125,9 @@ tasks:
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
+    nexttasks:
+      '#none#':
+      - "4"
     note: false
     quietmode: 0
     scriptarguments:
@@ -151,13 +154,45 @@ tasks:
           "y": 700
         }
       }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: not push to VC
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      id: e3f397fe-7e3e-430f-87ed-b239489f6774
+      iscommand: false
+      name: VC test1
+      script: Print
+      type: regular
+      version: -1
+    taskid: e3f397fe-7e3e-430f-87ed-b239489f6774
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 900
+        }
+      }
 version: -1
 view: |-
   {
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 745,
+        "height": 945,
         "width": 390,
         "x": 440,
         "y": 50

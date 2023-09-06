@@ -106,7 +106,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 2.1.13
+    itemVersion: 2.1.14
     packID: AutoFocus
     packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
@@ -144,7 +144,7 @@ script:
   runonce: false
   script: |
     register_module_line('AutoFocus Daily Feed', 'start', __line__())
-    ### pack version: 2.1.13
+    ### pack version: 2.1.14
 
     # IMPORTS
     from typing import List, Tuple, Optional

@@ -39,6 +39,14 @@ configuration:
   name: ipThreshold
   required: false
   type: 0
+- additionalinfo: To reduce the number of lookups made to the VT API, this option
+    can be selected to gracefully skip enrichment of any IP addresses allocated for
+    private networks.
+  defaultvalue: "false"
+  display: Disable reputation lookups for private IP addresses
+  name: disable_private_ip_lookup
+  required: false
+  type: 8
 - defaultvalue: "10"
   display: URL Threshold. Minimum number of positive results from VT scanners to consider
     the URL malicious.
@@ -191,7 +199,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 2.6.9
+    itemVersion: 2.6.10
     packID: VirusTotal
     packName: VirusTotal
     packPropagationLabels:
@@ -270,7 +278,7 @@ script:
     - contextPath: DBotScore.Type
       description: The indicator type.
     - contextPath: DBotScore.Vendor
-      description: The vendor used to calculate the DBot score.
+      description: The vendor used to calculate the score.
     - contextPath: DBotScore.Score
       description: The actual score.
       type: Number
@@ -473,6 +481,13 @@ script:
       predefined:
       - "true"
       - "false"
+    - defaultValue: "false"
+      description: When set to "true", enrichment of private IP addresses will be
+        conducted even if it has been disabled at the integration level.
+      name: override_private_lookup
+      predefined:
+      - "true"
+      - "false"
     description: Checks the reputation of an IP address.
     name: ip
     outputs:
@@ -509,9 +524,10 @@ script:
     - contextPath: DBotScore.Type
       description: The indicator type.
     - contextPath: DBotScore.Vendor
-      description: The vendor used to calculate the DBot score.
+      description: The vendor used to calculate the score.
     - contextPath: DBotScore.Score
       description: The actual score.
+      type: Number
     - contextPath: DBotScore.Reliability
       description: Reliability of the source providing the intelligence data.
       type: String
@@ -617,9 +633,10 @@ script:
     - contextPath: DBotScore.Type
       description: The indicator type.
     - contextPath: DBotScore.Vendor
-      description: The vendor used to calculate the DBot score.
+      description: The vendor used to calculate the score.
     - contextPath: DBotScore.Score
       description: The actual score.
+      type: Number
     - contextPath: DBotScore.Reliability
       description: Reliability of the source providing the intelligence data.
       type: String
@@ -760,7 +777,8 @@ script:
     - contextPath: DBotScore.Vendor
       description: The vendor used to calculate the score.
     - contextPath: DBotScore.Score
-      description: The actual DBot score.
+      description: The actual score.
+      type: Number
     - contextPath: DBotScore.Reliability
       description: Reliability of the source providing the intelligence data.
       type: String
@@ -1685,11 +1703,11 @@ script:
     - contextPath: VirusTotal.Analysis.id
       description: The analysis ID.
       type: String
-  dockerimage: demisto/python3:3.10.12.63474
+  dockerimage: demisto/python3:3.10.13.72123
   runonce: false
   script: |
     register_module_line('VirusTotal (API v3)', 'start', __line__())
-    ### pack version: 2.6.9
+    ### pack version: 2.6.10
 
 
     """
@@ -1698,10 +1716,11 @@ script:
         https://developers.virustotal.com/v3.0/reference
     """
     from collections import defaultdict
-    from typing import Callable, cast
+    from typing import cast
+    from collections.abc import Callable
 
     from dateparser import parse
-
+    import ipaddress
 
     INTEGRATION_NAME = "VirusTotal"
     COMMAND_PREFIX = "vt"
@@ -1798,6 +1817,7 @@ script:
         def __init__(self, params: dict):
             self.is_premium = argToBoolean(params['is_premium_api'])
             self.reliability = DBotScoreReliability.get_dbot_score_reliability_from_str(params['feedReliability'])
+
             super().__init__(
                 'https://www.virustotal.com/api/v3/',
                 verify=not argToBoolean(params.get('insecure')),
@@ -2382,7 +2402,7 @@ script:
                 arg_name='Relationship Files Threshold',
                 required=True
             )
-            self.logs = list()
+            self.logs = []
 
         def get_logs(self) -> str:
             """Returns the log string
@@ -2710,9 +2730,9 @@ script:
             files = relationship_files_response.get('data', [])[:lookback]  # lookback on recent 20 results. By design
             total_malicious = 0
             for file in files:
-                if file_hash := file.get('sha256', file.get('sha1', file.get('md5', file.get('ssdeep')))):
-                    if self.file_score(file_hash, files) == Common.DBotScore.BAD:
-                        total_malicious += 1
+                if (file_hash := file.get('sha256', file.get('sha1', file.get('md5', file.get('ssdeep'))))) and (
+                        self.file_score(file_hash, files) == Common.DBotScore.BAD):
+                    total_malicious += 1
 
             if total_malicious >= self.url_threshold:
                 self.logs.append(
@@ -3365,17 +3385,31 @@ script:
     # region Reputation commands
 
 
-    def ip_command(client: Client, score_calculator: ScoreCalculator, args: dict, relationships: str) -> List[CommandResults]:
+    def ip_command(client: Client,
+                   score_calculator: ScoreCalculator,
+                   args: dict,
+                   relationships: str,
+                   disable_private_ip_lookup: bool
+                   ) -> List[CommandResults]:
         """
         1 API Call for regular
         1-4 API Calls for premium subscriptions
         """
         ips = argToList(args['ip'])
-        results: List[CommandResults] = list()
+        results: List[CommandResults] = []
         execution_metrics = ExecutionMetrics()
+        override_private_lookup = argToBoolean(args.get("override_private_lookup", "False"))
+
         for ip in ips:
             raise_if_ip_not_valid(ip)
             try:
+                if disable_private_ip_lookup and ipaddress.ip_address(ip).is_private and not override_private_lookup:
+                    readable_output = (f'Reputation lookups have been disabled for private IP addresses.'
+                                       f'Enrichment skipped for {ip}')
+                    result = CommandResults(readable_output=readable_output)
+                    results.append(result)
+                    execution_metrics.success += 1
+                    continue
                 raw_response = client.ip(ip, relationships)
                 if raw_response.get('error', {}).get('code') == "QuotaExceededError":
                     execution_metrics.quota_error += 1
@@ -3406,7 +3440,7 @@ script:
         """
         files = argToList(args['file'])
         extended_data = argToBoolean(args.get('extended_data', False))
-        results: List[CommandResults] = list()
+        results: List[CommandResults] = []
         execution_metrics = ExecutionMetrics()
 
         for file in files:
@@ -3443,7 +3477,7 @@ script:
         1 API Call
         """
         files = argToList(args['file'])
-        results: List[CommandResults] = list()
+        results: List[CommandResults] = []
         execution_metrics = ExecutionMetrics()
 
         for file in files:
@@ -3482,7 +3516,7 @@ script:
         """
         urls = argToList(args['url'])
         extended_data = argToBoolean(args.get('extended_data', False))
-        results: List[CommandResults] = list()
+        results: List[CommandResults] = []
         execution_metrics = ExecutionMetrics()
         for url in urls:
             try:
@@ -3516,7 +3550,7 @@ script:
         """
         execution_metrics = ExecutionMetrics()
         domains = argToList(args['domain'])
-        results: List[CommandResults] = list()
+        results: List[CommandResults] = []
         for domain in domains:
             try:
                 raw_response = client.domain(domain, relationships)
@@ -3591,7 +3625,7 @@ script:
         Returns:
             base64 encoded of md5:id_
         """
-        return base64.b64encode(f'{md5}:{id_}'.encode('utf-8')).decode('utf-8')
+        return base64.b64encode(f'{md5}:{id_}'.encode()).decode('utf-8')
 
 
     def get_working_id(id_: str, entry_id: str) -> str:
@@ -3636,7 +3670,7 @@ script:
         upload_url = args.get('uploadURL')
         if len(entry_ids) > 1 and upload_url:
             raise DemistoException('You can supply only one entry ID with an upload URL.')
-        results = list()
+        results = []
         for entry_id in entry_ids:
             try:
                 file_obj = demisto.getFilePath(entry_id)
@@ -4154,13 +4188,15 @@ script:
         domain_relationships = (','.join(argToList(params.get('domain_relationships')))).replace('* ', '').replace(" ", "_")
         file_relationships = (','.join(argToList(params.get('file_relationships')))).replace('* ', '').replace(" ", "_")
 
+        disable_private_ip_lookup = argToBoolean(params.get("disable_private_ip_lookup", "False"))
+
         demisto.debug(f'Command called {command}')
         if command == 'test-module':
             results = check_module(client)
         elif command == 'file':
             results = file_command(client, score_calculator, args, file_relationships)
         elif command == 'ip':
-            results = ip_command(client, score_calculator, args, ip_relationships)
+            results = ip_command(client, score_calculator, args, ip_relationships, disable_private_ip_lookup)
         elif command == 'url':
             results = url_command(client, score_calculator, args, url_relationships)
         elif command == 'domain':

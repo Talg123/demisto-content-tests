@@ -342,42 +342,42 @@
 		],
 		"wizard": null
 	},
-	"currentVersion": "2.6.9",
+	"currentVersion": "2.6.10",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.23",
+			"minVersion": "1.32.30",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "2.3.85",
+			"minVersion": "2.3.99",
 			"name": "Common Playbooks"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.12.11",
+			"minVersion": "1.12.19",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.3.82",
+			"minVersion": "3.3.83",
 			"name": "Common Types"
 		}
 	},
 	"deprecated": false,
 	"description": "Analyze suspicious hashes, URLs, domains and IP addresses",
 	"disabledMonthly": false,
-	"downloads": 30004,
+	"downloads": 31813,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -410,7 +410,7 @@
 			"name": "VirusTotal Retrohunt Feed"
 		}
 	],
-	"itemVersion": "2.6.9",
+	"itemVersion": "2.6.10",
 	"keywords": [],
 	"legacy": true,
 	"name": "VirusTotal",
@@ -439,9 +439,9 @@
 		"Featured"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-06T09:23:40Z",
+	"updated": "2023-09-03T19:23:49Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "5969979",
+	"versionInfo": "6226805",
 	"videos": []
 }

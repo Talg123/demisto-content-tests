@@ -25,18 +25,6 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
-						"description": "Gets indicators from the feed.",
-						"name": "autofocus-tags-feed-get-indicators"
-					}
-				],
-				"description": "Deprecated. Use Unit 42 Intel Objects Feed instead. Use the AutoFocus Tags Feed integration to fetch indicators from AutoFocus Tags.",
-				"id": "AutoFocusTagsFeed",
-				"name": "AutoFocus Tags Feed (Deprecated)"
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
 						"description": "Searches for samples in AutoFocus. To view results, run the autofocus-samples-search-results command with the returned AF Cookie. The AF Cookie expires 120 seconds after the search completes. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
 						"name": "autofocus-search-samples"
 					},
@@ -101,6 +89,30 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
+						"description": "Gets the indicators from AutoFocus.",
+						"name": "autofocus-get-indicators"
+					}
+				],
+				"description": "Use the AutoFocus Feeds integration to fetch indicators from AutoFocus.",
+				"id": "AutoFocus Feed",
+				"name": "AutoFocus Feed"
+			},
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Gets indicators from the feed.",
+						"name": "autofocus-tags-feed-get-indicators"
+					}
+				],
+				"description": "Deprecated. Use Unit 42 Intel Objects Feed instead. Use the AutoFocus Tags Feed integration to fetch indicators from AutoFocus Tags.",
+				"id": "AutoFocusTagsFeed",
+				"name": "AutoFocus Tags Feed (Deprecated)"
+			},
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
 						"description": "Search for samples on Autofocus",
 						"name": "autofocus-search-samples"
 					},
@@ -136,42 +148,30 @@
 				"description": "Deprecated. No available replacement.",
 				"id": "AutoFocus Daily Feed",
 				"name": "AutoFocus Daily Feed (Deprecated)"
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
-						"description": "Gets the indicators from AutoFocus.",
-						"name": "autofocus-get-indicators"
-					}
-				],
-				"description": "Use the AutoFocus Feeds integration to fetch indicators from AutoFocus.",
-				"id": "AutoFocus Feed",
-				"name": "AutoFocus Feed"
 			}
 		],
 		"layoutscontainer": null,
 		"list": null,
 		"playbook": [
 			{
-				"description": "The playbook queries the PANW Autofocus session and samples log data for file indicators such as MD5, SHA256, and SHA1 hashes. \n\nA simple search mode is used to query Autofocus based on the file indicators specified in the playbook inputs. Advanced search mode queries can also be used with multiple query parameters, but require all field names, parameters, and operators (JSON format) to be specified. \nWe recommended using the Autofocus UI to create an advanced query, exporting it, and pasting it into the relevant playbook inputs. \n\nNote that multiple search values should be separated by commas only (without spaces or any special characters).",
-				"name": "Autofocus - File Indicators Hunting"
-			},
-			{
 				"description": "Use this playbook as a sub-playbook to  query PANW Autofocus Threat intelligence system. This sub-playbook is the same as the generic polling sub-playbook besides that it provides outputs in the playbook. The reason for that is that in Autofocus its impossible to query the results of the same query more than once so the outputs have to be in the polling context.\n\nThis playbook implements polling by continuously running the command in Step \\#2 until the operation completes.\nThe remote action should have the following structure:\n\n1. Initiate the operation.\n2. Poll to check if the operation completed.\n3. (optional) Get the results of the operation.",
 				"name": "AutoFocusPolling"
-			},
-			{
-				"description": "This playbook is used for querying the PANW threat intelligence Autofocus system. The playbook accepts indicators such as IP's, hashes, domains to run basic queries or mode advanced queries that can leverage several query parameters. In order to run the more advanced queries its recommended to use the Autofocus UI https://autofocus.paloaltonetworks.com/#/dashboard/organization to created a query and than use the export search button. The result can be used as a playbook input.\n\nThe playbook supports searching both the Samples API and the sessions API.",
-				"name": "Autofocus Query Samples, Sessions and Tags"
 			},
 			{
 				"description": "The playbook queries the PANW Autofocus session and samples log data for file and traffic indicators, such as SHA256, SHA1, MD5, IP addresses, URLs, and domains. \n\nA simple search mode queries Autofocus based on the indicators specified in the playbook inputs. Advanced queries can also use with multiple query parameters, but require all field names, parameters, and operators (JSON format) to be specified. \nWe recommended using the Autofocus UI to create an advanced query, exporting it, and pasting it into the relevant playbook inputs. \n\nNote that multiple search values should be separated by commas only (without spaces or any special characters).",
 				"name": "Autofocus - Hunting And Threat Detection"
 			},
 			{
+				"description": "The playbook queries the PANW Autofocus session and samples log data for file indicators such as MD5, SHA256, and SHA1 hashes. \n\nA simple search mode is used to query Autofocus based on the file indicators specified in the playbook inputs. Advanced search mode queries can also be used with multiple query parameters, but require all field names, parameters, and operators (JSON format) to be specified. \nWe recommended using the Autofocus UI to create an advanced query, exporting it, and pasting it into the relevant playbook inputs. \n\nNote that multiple search values should be separated by commas only (without spaces or any special characters).",
+				"name": "Autofocus - File Indicators Hunting"
+			},
+			{
 				"description": "The playbook queries the PANW Autofocus session and samples log data for traffic indicators such as URLs, IP addresses, and domains. \n\nA simple search mode queries Autofocus based on the traffic indicators specified in the playbook inputs. Advanced search mode queries can also be used with multiple query parameters, but require all field names, parameters, and operators (JSON format) to be specified. \nWe recommended using the Autofocus UI to create an advanced query, exporting it, and pasting it into the relevant playbook inputs. \n\nNote that multiple search values should be separated by commas only (without spaces or any special characters).",
 				"name": "Autofocus - Traffic Indicators Hunting"
+			},
+			{
+				"description": "This playbook is used for querying the PANW threat intelligence Autofocus system. The playbook accepts indicators such as IP's, hashes, domains to run basic queries or mode advanced queries that can leverage several query parameters. In order to run the more advanced queries its recommended to use the Autofocus UI https://autofocus.paloaltonetworks.com/#/dashboard/organization to created a query and than use the export search button. The result can be used as a playbook input.\n\nThe playbook supports searching both the Samples API and the sessions API.",
+				"name": "Autofocus Query Samples, Sessions and Tags"
 			}
 		],
 		"report": null,
@@ -179,28 +179,28 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "2.1.13",
+	"currentVersion": "2.1.14",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.23",
+			"minVersion": "1.32.28",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.12.10",
+			"minVersion": "1.12.17",
 			"name": "Common Scripts"
 		}
 	},
 	"deprecated": false,
 	"description": "Use the Palo Alto Networks AutoFocus integration to distinguish the most\n  important threats from everyday commodity attacks.",
 	"disabledMonthly": false,
-	"downloads": 35701,
+	"downloads": 37083,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -233,7 +233,7 @@
 			"name": "Palo Alto Networks AutoFocus v2"
 		}
 	],
-	"itemVersion": "2.1.13",
+	"itemVersion": "2.1.14",
 	"keywords": [
 		"TIM"
 	],
@@ -260,14 +260,14 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
-		"TIM",
+		"Threat Intelligence Management",
 		"Palo Alto Networks Products",
-		"Threat Intelligence Management"
+		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-21T09:19:50Z",
+	"updated": "2023-08-27T19:22:07Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "5969979",
+	"versionInfo": "6166488",
 	"videos": []
 }

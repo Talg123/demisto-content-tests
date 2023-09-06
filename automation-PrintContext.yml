@@ -10,7 +10,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.18
+    itemVersion: 1.12.20
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -27,7 +27,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('PrintContext', 'start', __line__())
-  ### pack version: 1.12.18
+  ### pack version: 1.12.20
 
 
 

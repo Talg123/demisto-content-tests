@@ -1,8 +1,8 @@
 args:
-- description: Jmespath expression
+- description: Jmespath expression.
   name: expression
   required: true
-- description: Original input value
+- description: Original input value.
   name: value
   required: true
 comment: Performs a JMESPath search on an input JSON format, when using a transformer.
@@ -13,7 +13,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.2.28
+    itemVersion: 1.2.29
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -21,7 +21,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/py3-tools:1.0.0.71964
+dockerimage: demisto/py3-tools:1.0.0.73055
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -31,7 +31,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('jmespath', 'start', __line__())
-  ### pack version: 1.2.28
+  ### pack version: 1.2.29
 
 
   from typing import Union

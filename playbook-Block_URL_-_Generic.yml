@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.3.99
+    itemVersion: 2.4.1
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,13 +10,8 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: |-
-  This playbook blocks malicious URLs using all integrations that are enabled.
-
-  Supported integrations for this playbook:
-  * Palo Alto Networks Minemeld
-  * Palo Alto Networks PAN-OS
-  * Zscaler
+deprecated: true
+description: Deprecated. Use 'Block URL - Generic v2' instead.
 id: block_url_-_generic
 inputs:
 - description: The name of the URL block list Miner in  Minemeld.

@@ -573,21 +573,21 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.2.28",
+	"currentVersion": "1.2.29",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.27",
+			"minVersion": "1.32.31",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Frequently used filters and transformers pack.",
 	"disabledMonthly": false,
-	"downloads": 30898,
+	"downloads": 32336,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -599,7 +599,7 @@
 	"id": "FiltersAndTransformers",
 	"installMessage": "",
 	"integrations": [],
-	"itemVersion": "1.2.28",
+	"itemVersion": "1.2.29",
 	"keywords": [],
 	"legacy": true,
 	"name": "Filters And Transformers",
@@ -623,14 +623,15 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
-		"Transformer",
 		"Filter",
-		"Core"
+		"Transformer",
+		"Core",
+		"Trending"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-22T09:21:27Z",
+	"updated": "2023-09-07T11:01:38Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6117817",
+	"versionInfo": "6259960",
 	"videos": []
 }

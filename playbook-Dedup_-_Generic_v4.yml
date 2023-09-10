@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.2.0
-    itemVersion: 2.3.99
+    itemVersion: 2.4.1
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:

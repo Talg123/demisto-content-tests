@@ -108,8 +108,6 @@ tasks:
       - "14"
     note: false
     quietmode: 0
-    results:
-    - brandInstances
     scriptarguments:
       brandname:
         simple: MicrosoftGraphMail

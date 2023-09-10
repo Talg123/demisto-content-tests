@@ -9,11 +9,11 @@
 	"certification": "certified",
 	"contentItemTypes": [
 		"integration",
-		"xsiamreport",
-		"xsiamdashboard",
-		"parsingrule",
 		"correlationrule",
-		"modelingrule"
+		"parsingrule",
+		"modelingrule",
+		"xsiamdashboard",
+		"xsiamreport"
 	],
 	"contentItems": {
 		"automation": null,

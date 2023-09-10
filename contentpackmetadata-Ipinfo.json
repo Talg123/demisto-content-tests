@@ -9,11 +9,11 @@
 	"certification": "certified",
 	"contentItemTypes": [
 		"integration",
-		"parsingrule",
+		"correlationrule",
 		"xsiamreport",
+		"parsingrule",
 		"modelingrule",
-		"xsiamdashboard",
-		"correlationrule"
+		"xsiamdashboard"
 	],
 	"contentItems": {
 		"automation": null,
@@ -129,7 +129,7 @@
 		"Relationship"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-08T09:21:41Z",
+	"updated": "2023-08-27T19:26:36Z",
 	"useCases": [],
 	"version": -1,
 	"versionInfo": "3343460",

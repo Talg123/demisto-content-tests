@@ -117,31 +117,31 @@
 				"category": "Utilities",
 				"commands": [
 					{
-						"description": "send HTTP POST request",
+						"description": "send HTTP POST request.",
 						"name": "demisto-api-post"
 					},
 					{
-						"description": "send HTTP GET requests",
+						"description": "send HTTP GET requests.",
 						"name": "demisto-api-get"
 					},
 					{
-						"description": "send HTTP PUT request",
+						"description": "send HTTP PUT request.",
 						"name": "demisto-api-put"
 					},
 					{
-						"description": "send HTTP DELETE request",
+						"description": "send HTTP DELETE request.",
 						"name": "demisto-api-delete"
 					},
 					{
-						"description": "Download files from Demisto server",
+						"description": "Download files from Demisto server.",
 						"name": "demisto-api-download"
 					},
 					{
-						"description": "Send HTTP Multipart request to upload files to Demisto server",
+						"description": "Send HTTP Multipart request to upload files to Demisto server.",
 						"name": "demisto-api-multipart"
 					},
 					{
-						"description": "Delete Demisto incidents",
+						"description": "Delete Demisto incidents.",
 						"name": "demisto-delete-incidents"
 					},
 					{
@@ -149,31 +149,31 @@
 						"name": "demisto-api-install-packs"
 					},
 					{
-						"description": "send HTTP POST request",
+						"description": "send HTTP POST request.",
 						"name": "core-api-post"
 					},
 					{
-						"description": "send HTTP GET requests",
+						"description": "send HTTP GET requests.",
 						"name": "core-api-get"
 					},
 					{
-						"description": "send HTTP PUT request",
+						"description": "send HTTP PUT request.",
 						"name": "core-api-put"
 					},
 					{
-						"description": "send HTTP DELETE request",
+						"description": "send HTTP DELETE request.",
 						"name": "core-api-delete"
 					},
 					{
-						"description": "Download files from Core server",
+						"description": "Download files from Core server.",
 						"name": "core-api-download"
 					},
 					{
-						"description": "Send HTTP Multipart request to upload files to Core server",
+						"description": "Send HTTP Multipart request to upload files to Core server.",
 						"name": "core-api-multipart"
 					},
 					{
-						"description": "Delete Core incidents",
+						"description": "Delete Core incidents.",
 						"name": "core-delete-incidents"
 					},
 					{
@@ -197,7 +197,7 @@
 						"name": "core-api-file-check"
 					}
 				],
-				"description": "Use Core REST APIs",
+				"description": "Use Core REST APIs.",
 				"id": "Core REST API",
 				"name": "Core REST API"
 			},
@@ -250,21 +250,21 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.3.34",
+	"currentVersion": "1.3.35",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.23",
+			"minVersion": "1.32.30",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Use Demisto REST APIs",
 	"disabledMonthly": false,
-	"downloads": 43856,
+	"downloads": 47146,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -285,7 +285,7 @@
 			"name": "Demisto REST API (Deprecated)"
 		}
 	],
-	"itemVersion": "1.3.34",
+	"itemVersion": "1.3.35",
 	"keywords": [
 		"Demisto REST API",
 		"Core REST API"
@@ -313,9 +313,9 @@
 	},
 	"tags": [],
 	"toServerVersion": "",
-	"updated": "2023-08-06T09:21:06Z",
+	"updated": "2023-09-06T19:25:42Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "5969979",
+	"versionInfo": "6253250",
 	"videos": []
 }

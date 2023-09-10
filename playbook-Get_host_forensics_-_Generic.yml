@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 2.3.99
+    itemVersion: 2.4.1
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -85,8 +85,6 @@ tasks:
       - "4"
     note: false
     quietmode: 0
-    results:
-    - brandInstances
     scriptarguments:
       brandname:
         simple: IllusiveNetworks
@@ -194,8 +192,6 @@ tasks:
       - "6"
     note: false
     quietmode: 0
-    results:
-    - brandInstances
     scriptarguments:
       brandname:
         simple: Microsoft Defender Advanced Threat Protection

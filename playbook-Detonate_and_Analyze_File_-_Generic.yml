@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 2.3.99
+    itemVersion: 2.4.1
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -123,7 +123,7 @@ tasks:
       description: Env ID - return to transformer.
       id: 2d74acbf-eb10-4ede-8880-21e9afb7325a
       iscommand: false
-      name: Falcon Intelligence Sandbox Detonate and Analyze File
+      name: CrowdStrike Falcon Intelligence Sandbox Detonate and Analyze File
       playbookName: CrowdStrike Falcon Intelligence Sandbox Detonate and Analyze File
       type: playbook
       version: -1
@@ -216,8 +216,6 @@ tasks:
       - "1"
     note: false
     quietmode: 0
-    results:
-    - brandInstances
     scriptarguments:
       brandname:
         simple: CrowdStrike Falcon X
@@ -301,8 +299,6 @@ tasks:
       - "2"
     note: false
     quietmode: 0
-    results:
-    - brandInstances
     scriptarguments:
       brandname:
         simple: WildFire-v2
@@ -445,8 +441,6 @@ tasks:
       - "22"
     note: false
     quietmode: 0
-    results:
-    - brandInstances
     scriptarguments:
       brandname:
         simple: JoeSecurityV2

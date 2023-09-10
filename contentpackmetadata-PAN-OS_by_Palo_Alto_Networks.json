@@ -46,6 +46,11 @@
 		"generictype": null,
 		"incidentfield": [
 			{
+				"description": "List of CVEs to check",
+				"name": "CVE List",
+				"type": "shortText"
+			},
+			{
 				"description": "Target Firewall - Usually serial number",
 				"name": "Target",
 				"type": "shortText"
@@ -53,11 +58,6 @@
 			{
 				"description": "Version to install on the firewall e.g. 9.0.5 for PAN-OS",
 				"name": "Target Firewall Version",
-				"type": "shortText"
-			},
-			{
-				"description": "List of CVEs to check",
-				"name": "CVE List",
 				"type": "shortText"
 			}
 		],
@@ -1163,6 +1163,54 @@
 		"list": null,
 		"playbook": [
 			{
+				"description": "This playbook pulls Panorama content update file from shared SMB folder, uploads it to the Panorama server and installs it. It also uploads the content file to SCP folder for future use of the Panorama Device Deployment content updates engine which can be scheduled to pull the files automatically from SCP server.\nThis playbook should run in \"Air Gap internal network\" and works together with \"Air Gap - Panorama Content Update Sender - External\" playbook that runs in \"Air Gap external network\".\n\nThis playbook should be run as part of a Job in the internal network.\n\nPlaybook inputs:\npanorama_admin_email - email address of the panorama admin for sending the output of the update.\nsmbshare - the SMB share of the content update folder. Example: Folder\nscpwildfire - scp folder for wildfire content update file. Example: /home/demisto/Folder/wildfire\nscpcontents - scp folder for contents  (antivirus and apps) content update file. Example: /home/demisto/Folder/contents\nscpantivirus - scp folder for Anti-Virus content update file. Example: /home/demisto/Folder/antivirus\nsmbpath - SMB path to the content files files. Example: Content",
+				"name": "panorama_content_update_test"
+			},
+			{
+				"description": "Creates or edits a Panorama rule and moves it into the desired position",
+				"name": "PAN-OS - Create Or Edit EDL Rule"
+			},
+			{
+				"description": "This TIM playbook should be run as a job. The playbook runs on domain indicators and performs various checks to decide if they should be sinkholed.\n\nIf a domain is related to a campaign or a threat actor, or if it resolves to a malicious IP or has malware-related tags, the playbook will add a new tag to it in order to sinkhole that domain.\n\nThe playbook assumes that the user is exporting indicators with the sinkhole tag to an EDL (External Dynamic List) using the Export Generic Indicators Service integration in Cortex XSOAR. That EDL should be connected to PAN-OS. It also assumes that a DNS sinkhole is configured in the PAN-OS firewall. However, these are not required for the sole purpose of tagging the domains.\n\nNote: This playbook has inputs from both the \"From context data\" tab and the \"From indicators\" tab.",
+				"name": "PAN-OS - Job - Add Malicious Domains To Sinkhole"
+			},
+			{
+				"description": "Find if there is signature coverage for a specific CVE.",
+				"name": "NetOps Panorama coverage by CVE"
+			},
+			{
+				"description": "This playbook sets up and maintains log forwarding for the Panorama rulebase.\nIt can be run when setting up a new instance, or as a periodic job to enforce log forwarding policy.\nYou can either update all rules and override previous profiles, or update only rules that do not have a log forwarding profile configured.",
+				"name": "PAN-OS Log Forwarding Setup And Configuration"
+			},
+			{
+				"description": "This playbook queries the following PAN-OS log types: traffic, threat, url, data-filtering and wildfire. The playbook accepts inputs such as IP. hash, and url.",
+				"name": "PAN-OS Query Logs For Indicators"
+			},
+			{
+				"description": "This playbook utilizes the Dynamic Address Group (DAG) capability of PAN-OS.\nDAG enables analysts to create a rule one time, where the group is the source/destination, and adds IP addresses dynamically without the need to commit the configuration every time.\n\nThe playbook checks if the given tag already exists. If the tag exists, then the IP address is added to the tag.\n\nIf the tag does not exist, a new address group is created with the given tag and a matching rule, and the configuration is committed. \n",
+				"name": "PAN-OS DAG Configuration"
+			},
+			{
+				"description": "This playbook blocks IP addresses using Static Address Groups in Palo Alto Networks Panorama or Firewall.\nThe playbook receives malicious IP addresses and an address group name as inputs, verifies that the addresses are not already a part of the address group, adds them and commits the configuration.\n\n***Note - The playbook does not block the address group communication using a policy block rule. This step will be taken once outside of the playbook.",
+				"name": "PAN-OS - Block IP - Static Address Group"
+			},
+			{
+				"description": "This playbook blocks URLs using Palo Alto Networks Panorama or Firewall through Custom URL Categories.\nThe playbook checks whether the input URL category already exists, and if the URLs are a part of this category. Otherwise, it will create the category, block the URLs, and commit the configuration.",
+				"name": "PAN-OS - Block URL - Custom URL Category"
+			},
+			{
+				"description": "This playbook should be run as a job. It is used to periodically remove the specified tag from domain indicators. It should be used in conjunction with the \"PAN-OS - Job - Add Malicious Domains To Sinkhole\" playbook, to stop domains from being sinkholed after a certain amount of time.\nThe idea is that traffic to malicious domains will not be redirected to a sinkhole address forever, as malicious domains tend to lose their malicious properties (become inactive, get taken down, or the malware using them is no longer used or maintained).",
+				"name": "PAN-OS - Job - Remove Malicious Domains From Sinkhole"
+			},
+			{
+				"description": "This playbook creates a DNS sinkhole in a PAN-OS firewall. It does the following:\n1. Finds a security rule that allows DNS traffic from the internal network to the internet using the \"Security Policy Match\" feature against traffic from the internal DNS server/s to the public DNS server.\n2. Creates or adds an existing anti-spyware security profile to the security rule/s that were found.\n3. Sets the DNS Signature Source under the DNS Policies configuration of the security profile with the \"sinkhole\" action.\n4. Creates an address object for the sinkhole address so that it can be referenced later in a deny rule (the sinkhole IP constantly rotates).\n5. Creates a new security rule to deny traffic to the sinkhole address object, in order to generate traffic logs for the compromised systems. The IPs of the compromised systems can then be retrieved using the \"PAN-OS - Extract IPs From Traffic Logs To Sinkhole\" playbook.\n\nOnce the configuration is completed, the playbook will create a Tag object and tag the relevant security rules to indicate that sinkholing is configured. That tag will be checked in consecutive playbook runs in order to minimize the actions done on the firewall and time time spent in the playbook execution.\n\nHow it works:\nA DNS sinkhole can be used to identify infected hosts on a network where there is an internal DNS Server in-route to the firewall that causes the reference of the original source IP address of the host that first originated the query to be lost (the query is received by the internal DNS server, and the internal DNS server sources a new query if the name-to-IP resolution is not locally cached).\n\nThis causes the firewall to report observations of malicious DNS queries in the Threat logs where the source IP of the malicious DNS query is the Internal DNS server, which would force the administrator to look into the DNS Server logs to try to trace down what was the infected host that originally sourced the malicious DNS query.\n\nAfter a security profile with a \"sinkhole\" action for domains that are listed in the DNS signature source is applied to a rule that allows DNS traffic from the internal server/s to the external one, the threat logs will show that requests from the internal DNS server/s were sinkholed. However, the compromised systems will not appear in those logs.\n\nIn order to find the IP addresses of those systems, a new rule denying all requests to our sinkhole address needs to be created. Since the infected systems received a forged DNS response (due to the security profile involved in our previous step), they will now try to connect to the sinkhole address, assuming it is their C\u0026C server. The new rule will deny the subsequent attempts of those systems when they try to access the sinkhole address, and log them.\n\n\nAssumptions:\n- The domains that should be sinkholed are already in a DNS signature source. It can be one of the following sources available in PAN-OS:\n1. An existing External Dynamic List (EDL) of type Domain configured in the PAN-OS firewall. Note: XSOAR simplifies the process of creating an EDL, with the Export Generic Indicators Service integration.\n2. Palo Alto Networks Content-delivered malicious domains\n3. DNS Security Categories available with a DNS Security subscription.\n- There is at least one internal DNS server that is sending the DNS requests out through the firewall to a specific public DNS server.",
+				"name": "PAN-OS - Configure DNS Sinkhole"
+			},
+			{
+				"description": "This playbook blocks IP addresses using Custom Block Rules in Palo Alto Networks Panorama or Firewall.\nThe playbook receives malicious IP addresses as inputs, creates a custom bi-directional rule to block them, and commits the configuration.",
+				"name": "PAN-OS - Block IP - Custom Block Rule"
+			},
+			{
 				"description": "Commit the PAN-OS Panorama or Firewall configuration.\\nIf specified as Panorama, it also pushes the Policies to the specified Device Group in the instance.",
 				"name": "PAN-OS Commit Configuration"
 			},
@@ -1171,92 +1219,44 @@
 				"name": "PAN-OS - Create Or Edit Rule"
 			},
 			{
-				"description": "Network operations playbook that upgrades the firewall. You must have Superuser permissions to update the PAN-OS version. Note: This playbook should only be used for minor version upgrades. Major version upgrades will not work due to a change in the API key.",
-				"name": "NetOps - Upgrade PAN-OS Firewall Device"
-			},
-			{
-				"description": "Creates or edits a Panorama rule and moves it into the desired position",
-				"name": "PAN-OS - Create Or Edit EDL Rule"
-			},
-			{
-				"description": "This playbook creates a DNS sinkhole in a PAN-OS firewall. It does the following:\n1. Finds a security rule that allows DNS traffic from the internal network to the internet using the \"Security Policy Match\" feature against traffic from the internal DNS server/s to the public DNS server.\n2. Creates or adds an existing anti-spyware security profile to the security rule/s that were found.\n3. Sets the DNS Signature Source under the DNS Policies configuration of the security profile with the \"sinkhole\" action.\n4. Creates an address object for the sinkhole address so that it can be referenced later in a deny rule (the sinkhole IP constantly rotates).\n5. Creates a new security rule to deny traffic to the sinkhole address object, in order to generate traffic logs for the compromised systems. The IPs of the compromised systems can then be retrieved using the \"PAN-OS - Extract IPs From Traffic Logs To Sinkhole\" playbook.\n\nOnce the configuration is completed, the playbook will create a Tag object and tag the relevant security rules to indicate that sinkholing is configured. That tag will be checked in consecutive playbook runs in order to minimize the actions done on the firewall and time time spent in the playbook execution.\n\nHow it works:\nA DNS sinkhole can be used to identify infected hosts on a network where there is an internal DNS Server in-route to the firewall that causes the reference of the original source IP address of the host that first originated the query to be lost (the query is received by the internal DNS server, and the internal DNS server sources a new query if the name-to-IP resolution is not locally cached).\n\nThis causes the firewall to report observations of malicious DNS queries in the Threat logs where the source IP of the malicious DNS query is the Internal DNS server, which would force the administrator to look into the DNS Server logs to try to trace down what was the infected host that originally sourced the malicious DNS query.\n\nAfter a security profile with a \"sinkhole\" action for domains that are listed in the DNS signature source is applied to a rule that allows DNS traffic from the internal server/s to the external one, the threat logs will show that requests from the internal DNS server/s were sinkholed. However, the compromised systems will not appear in those logs.\n\nIn order to find the IP addresses of those systems, a new rule denying all requests to our sinkhole address needs to be created. Since the infected systems received a forged DNS response (due to the security profile involved in our previous step), they will now try to connect to the sinkhole address, assuming it is their C\u0026C server. The new rule will deny the subsequent attempts of those systems when they try to access the sinkhole address, and log them.\n\n\nAssumptions:\n- The domains that should be sinkholed are already in a DNS signature source. It can be one of the following sources available in PAN-OS:\n1. An existing External Dynamic List (EDL) of type Domain configured in the PAN-OS firewall. Note: XSOAR simplifies the process of creating an EDL, with the Export Generic Indicators Service integration.\n2. Palo Alto Networks Content-delivered malicious domains\n3. DNS Security Categories available with a DNS Security subscription.\n- There is at least one internal DNS server that is sending the DNS requests out through the firewall to a specific public DNS server.",
-				"name": "PAN-OS - Configure DNS Sinkhole"
-			},
-			{
-				"description": "Query Panorama Logs of types: traffic, threat, url, data-filtering and wildfire.",
-				"name": "Panorama Query Logs"
-			},
-			{
-				"description": "This playbook searches for outgoing traffic to the sinkhole address in PAN-OS. It should be used after a DNS sinkhole was created using the \"PAN-OS - Configure DNS Sinkhole\" playbook. If a DNS sinkhole was created manually, you should verify in your PAN-OS firewall that there is an address object for the sinkhole FQDN \"sinkhole.paloaltonetworks.com\", and that there is a rule denying traffic to it from any source. You may specify the name of the deny rule if you know it, or you can let the playbook find the rule automatically.",
-				"name": "PAN-OS - Extract IPs From Traffic Logs To Sinkhole"
-			},
-			{
-				"description": "This playbook deletes a PAN-OS static route from the PAN-OS instance.",
-				"name": "PAN-OS - Delete Static Routes"
-			},
-			{
 				"description": "Block a user by tagging them in the Palo Alto Networks NGFW. This requires PAN-OS 9.1 or higher.",
 				"name": "NetSec - Palo Alto Networks DUG - Tag User"
-			},
-			{
-				"description": "This playbook sets up and maintains log forwarding for the Panorama rulebase.\nIt can be run when setting up a new instance, or as a periodic job to enforce log forwarding policy.\nYou can either update all rules and override previous profiles, or update only rules that do not have a log forwarding profile configured.",
-				"name": "PAN-OS Log Forwarding Setup And Configuration"
-			},
-			{
-				"description": "This playbook blocks IP addresses using Custom Block Rules in Palo Alto Networks Panorama or Firewall.\nThe playbook receives malicious IP addresses as inputs, creates a custom bi-directional rule to block them, and commits the configuration.",
-				"name": "PAN-OS - Block IP - Custom Block Rule"
-			},
-			{
-				"description": "This playbook is designed to enhance the security level in PAN-OS firewalls by safely adding an Anti-Spyware security profile to a security rule.\nThe playbook provides control over the behavior when a a rule:\n- Already has an Anti-Spyware profile\n- Uses a security profile group, with or without an Anti-Spyware profile\n\nThe output of the playbook is the Anti-Spyware profile configured for the rule upon playbook completion. This can be:\n- The initial profile, if untouched\n- A newly overwritten profile\n- A newly added profile\n",
-				"name": "PAN-OS - Add Anti-Spyware Security Profile To Rule"
-			},
-			{
-				"description": "This playbook accepts a PAN-OS static route configuration and creates it in the PAN-OS instance.",
-				"name": "PAN-OS - Add Static Routes"
 			},
 			{
 				"description": "This playbook add domains EDL to Panorama Anti-Spyware. It assigns External Dynamic List URLs that contain domains to block to Panorama Anti-Spyware. You can create an External Dynamic List (EDL) and add domains to it using the Cortex XSOAR pack called \"Generic Export Indicators Service\".\nWe recommend using this playbook as a one-time job. Once EDL is created and assigned to anti-spyware, domains can be blocked by adding them to the EDL.",
 				"name": "PAN-OS - Add Domains EDL To Anti-Spyware"
 			},
 			{
+				"description": "This playbook accepts a PAN-OS static route configuration and creates it in the PAN-OS instance.",
+				"name": "PAN-OS - Add Static Routes"
+			},
+			{
+				"description": "Query Panorama Logs of types: traffic, threat, url, data-filtering and wildfire.",
+				"name": "Panorama Query Logs"
+			},
+			{
+				"description": "This playbook is designed to enhance the security level in PAN-OS firewalls by safely adding an Anti-Spyware security profile to a security rule.\nThe playbook provides control over the behavior when a a rule:\n- Already has an Anti-Spyware profile\n- Uses a security profile group, with or without an Anti-Spyware profile\n\nThe output of the playbook is the Anti-Spyware profile configured for the rule upon playbook completion. This can be:\n- The initial profile, if untouched\n- A newly overwritten profile\n- A newly added profile\n",
+				"name": "PAN-OS - Add Anti-Spyware Security Profile To Rule"
+			},
+			{
+				"description": "This playbook searches for outgoing traffic to the sinkhole address in PAN-OS. It should be used after a DNS sinkhole was created using the \"PAN-OS - Configure DNS Sinkhole\" playbook. If a DNS sinkhole was created manually, you should verify in your PAN-OS firewall that there is an address object for the sinkhole FQDN \"sinkhole.paloaltonetworks.com\", and that there is a rule denying traffic to it from any source. You may specify the name of the deny rule if you know it, or you can let the playbook find the rule automatically.",
+				"name": "PAN-OS - Extract IPs From Traffic Logs To Sinkhole"
+			},
+			{
 				"description": "This playbook blocks a Destination IP and Service (TCP or UDP port) by creating a rule for a specific Device Group on PAN-OS. ",
 				"name": "PAN-OS - Block Destination Service"
 			},
 			{
-				"description": "This playbook should be run as a job. It is used to periodically remove the specified tag from domain indicators. It should be used in conjunction with the \"PAN-OS - Job - Add Malicious Domains To Sinkhole\" playbook, to stop domains from being sinkholed after a certain amount of time.\nThe idea is that traffic to malicious domains will not be redirected to a sinkhole address forever, as malicious domains tend to lose their malicious properties (become inactive, get taken down, or the malware using them is no longer used or maintained).",
-				"name": "PAN-OS - Job - Remove Malicious Domains From Sinkhole"
+				"description": "This playbook deletes a PAN-OS static route from the PAN-OS instance.",
+				"name": "PAN-OS - Delete Static Routes"
 			},
 			{
-				"description": "This TIM playbook should be run as a job. The playbook runs on domain indicators and performs various checks to decide if they should be sinkholed.\n\nIf a domain is related to a campaign or a threat actor, or if it resolves to a malicious IP or has malware-related tags, the playbook will add a new tag to it in order to sinkhole that domain.\n\nThe playbook assumes that the user is exporting indicators with the sinkhole tag to an EDL (External Dynamic List) using the Export Generic Indicators Service integration in Cortex XSOAR. That EDL should be connected to PAN-OS. It also assumes that a DNS sinkhole is configured in the PAN-OS firewall. However, these are not required for the sole purpose of tagging the domains.\n\nNote: This playbook has inputs from both the \"From context data\" tab and the \"From indicators\" tab.",
-				"name": "PAN-OS - Job - Add Malicious Domains To Sinkhole"
+				"description": "Network operations playbook that upgrades the firewall. You must have Superuser permissions to update the PAN-OS version. Note: This playbook should only be used for minor version upgrades. Major version upgrades will not work due to a change in the API key.",
+				"name": "NetOps - Upgrade PAN-OS Firewall Device"
 			},
 			{
 				"description": "Network operations playbook that updates the version and content of the firewall. You must have Superuser permissions to update the PAN-OS version.",
 				"name": "NetOps - Firewall Version and Content Upgrade"
-			},
-			{
-				"description": "Find if there is signature coverage for a specific CVE.",
-				"name": "NetOps Panorama coverage by CVE"
-			},
-			{
-				"description": "This playbook blocks IP addresses using Static Address Groups in Palo Alto Networks Panorama or Firewall.\nThe playbook receives malicious IP addresses and an address group name as inputs, verifies that the addresses are not already a part of the address group, adds them and commits the configuration.\n\n***Note - The playbook does not block the address group communication using a policy block rule. This step will be taken once outside of the playbook.",
-				"name": "PAN-OS - Block IP - Static Address Group"
-			},
-			{
-				"description": "This playbook pulls Panorama content update file from shared SMB folder, uploads it to the Panorama server and installs it. It also uploads the content file to SCP folder for future use of the Panorama Device Deployment content updates engine which can be scheduled to pull the files automatically from SCP server.\nThis playbook should run in \"Air Gap internal network\" and works together with \"Air Gap - Panorama Content Update Sender - External\" playbook that runs in \"Air Gap external network\".\n\nThis playbook should be run as part of a Job in the internal network.\n\nPlaybook inputs:\npanorama_admin_email - email address of the panorama admin for sending the output of the update.\nsmbshare - the SMB share of the content update folder. Example: Folder\nscpwildfire - scp folder for wildfire content update file. Example: /home/demisto/Folder/wildfire\nscpcontents - scp folder for contents  (antivirus and apps) content update file. Example: /home/demisto/Folder/contents\nscpantivirus - scp folder for Anti-Virus content update file. Example: /home/demisto/Folder/antivirus\nsmbpath - SMB path to the content files files. Example: Content",
-				"name": "panorama_content_update_test"
-			},
-			{
-				"description": "This playbook utilizes the Dynamic Address Group (DAG) capability of PAN-OS.\nDAG enables analysts to create a rule one time, where the group is the source/destination, and adds IP addresses dynamically without the need to commit the configuration every time.\n\nThe playbook checks if the given tag already exists. If the tag exists, then the IP address is added to the tag.\n\nIf the tag does not exist, a new address group is created with the given tag and a matching rule, and the configuration is committed. \n",
-				"name": "PAN-OS DAG Configuration"
-			},
-			{
-				"description": "This playbook queries the following PAN-OS log types: traffic, threat, url, data-filtering and wildfire. The playbook accepts inputs such as IP. hash, and url.",
-				"name": "PAN-OS Query Logs For Indicators"
-			},
-			{
-				"description": "This playbook blocks URLs using Palo Alto Networks Panorama or Firewall through Custom URL Categories.\nThe playbook checks whether the input URL category already exists, and if the URLs are a part of this category. Otherwise, it will create the category, block the URLs, and commit the configuration.",
-				"name": "PAN-OS - Block URL - Custom URL Category"
 			}
 		],
 		"report": null,
@@ -1264,49 +1264,49 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "2.1.3",
+	"currentVersion": "2.1.4",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.27",
+			"minVersion": "1.32.31",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "2.3.92",
+			"minVersion": "2.4.1",
 			"name": "Common Playbooks"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.12.15",
+			"minVersion": "1.12.20",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.3.83",
+			"minVersion": "3.3.84",
 			"name": "Common Types"
 		},
 		"FiltersAndTransformers": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.2.27",
+			"minVersion": "1.2.28",
 			"name": "Filters And Transformers"
 		}
 	},
 	"deprecated": false,
 	"description": "Manage Palo Alto Networks Firewall and Panorama. Use this pack to manage Prisma Access through Panorama. For more information see Panorama documentation.",
 	"disabledMonthly": false,
-	"downloads": 39107,
+	"downloads": 40265,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -1323,13 +1323,16 @@
 			"name": "Palo Alto Networks PAN-OS"
 		}
 	],
-	"itemVersion": "2.1.3",
+	"itemVersion": "2.1.4",
 	"keywords": [
 		"Panorama",
 		"Firewall",
 		"vsys",
 		"SASE",
-		"Access"
+		"Access",
+		"Sinkhole",
+		"Sinkholing",
+		"DNS Sinkhole"
 	],
 	"legacy": true,
 	"name": "PAN-OS by Palo Alto Networks",
@@ -1355,9 +1358,9 @@
 	},
 	"tags": [],
 	"toServerVersion": "",
-	"updated": "2023-08-21T19:27:05Z",
+	"updated": "2023-09-07T11:01:34Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6080447",
+	"versionInfo": "6259960",
 	"videos": []
 }

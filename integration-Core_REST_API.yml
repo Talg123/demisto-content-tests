@@ -48,7 +48,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.3.34
+    itemVersion: 1.3.35
     packID: DemistoRESTAPI
     packName: Cortex REST API
     packPropagationLabels:
@@ -56,9 +56,19 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: Use Core REST APIs
+description: Use Core REST APIs.
 detaileddescription: |-
   ### Generate an API Key and API Key ID
+
+  1. In your Cortex XSIAM platform, go to Settings -> Configurations -> API Keys.
+  2. Click the **+New Key** button in the top right corner.
+  3. Generate a key of type **Advanced**.
+  4. Copy and paste the key.
+  5. From the ID column, copy the Key ID.
+
+  ### URL
+  1. In your Cortex XSIAM platform, go to **Settings** -> API Keys.
+  2. Click the **Copy URL** button in the top right corner.
 
 
   In version 8.0.0 and above:
@@ -89,62 +99,62 @@ script:
   commands:
   - arguments:
     - default: true
-      description: Request URI (i.e. /incident)
+      description: Request URI (i.e. /incident).
       name: uri
       required: true
-    - description: Body of HTTP POST
+    - description: Body of HTTP POST.
       name: body
-    description: send HTTP POST request
+    description: send HTTP POST request.
     execution: true
     name: demisto-api-post
   - arguments:
     - default: true
-      description: Request URI (i.e. /user)
+      description: Request URI (i.e. /user).
       name: uri
       required: true
-    description: send HTTP GET requests
+    description: send HTTP GET requests.
     name: demisto-api-get
   - arguments:
     - default: true
-      description: Request URI (i.e. /user)
+      description: Request URI (i.e. /user).
       name: uri
       required: true
-    - description: Request body
+    - description: Request body.
       name: body
-    description: send HTTP PUT request
+    description: send HTTP PUT request.
     execution: true
     name: demisto-api-put
   - arguments:
     - default: true
-      description: Request URI (i.e. /user)
+      description: Request URI (i.e. /user).
       name: uri
       required: true
-    description: send HTTP DELETE request
+    description: send HTTP DELETE request.
     execution: true
     name: demisto-api-delete
   - arguments:
-    - description: Request URI
+    - description: Request URI.
       name: uri
       required: true
-    - description: File name of download
+    - description: File name of download.
       name: filename
-    - description: Description of file entry
+    - description: Description of file entry.
       name: description
-    description: Download files from Demisto server
+    description: Download files from Demisto server.
     name: demisto-api-download
   - arguments:
-    - description: Request URI
+    - description: Request URI.
       name: uri
       required: true
-    - description: File entry ID
+    - description: File entry ID.
       name: entryID
       required: true
-    - description: Request body
+    - description: Request body.
       name: body
-    description: Send HTTP Multipart request to upload files to Demisto server
+    description: Send HTTP Multipart request to upload files to Demisto server.
     name: demisto-api-multipart
   - arguments:
-    - description: IDs of the incidents to delete
+    - description: IDs of the incidents to delete.
       isArray: true
       name: ids
       required: true
@@ -153,7 +163,7 @@ script:
         "all" for all fields. WARNING: Setting all fields may result in big results.'
       isArray: true
       name: fields
-    description: Delete Demisto incidents
+    description: Delete Demisto incidents.
     execution: true
     name: demisto-delete-incidents
   - arguments:
@@ -185,62 +195,62 @@ script:
     name: demisto-api-install-packs
   - arguments:
     - default: true
-      description: Request URI (i.e. /incident)
+      description: Request URI (i.e. /incident).
       name: uri
       required: true
-    - description: Body of HTTP POST
+    - description: Body of HTTP POST.
       name: body
-    description: send HTTP POST request
+    description: send HTTP POST request.
     execution: true
     name: core-api-post
   - arguments:
     - default: true
-      description: Request URI (i.e. /user)
+      description: Request URI (i.e. /user).
       name: uri
       required: true
-    description: send HTTP GET requests
+    description: send HTTP GET requests.
     name: core-api-get
   - arguments:
     - default: true
-      description: Request URI (i.e. /user)
+      description: Request URI (i.e. /user).
       name: uri
       required: true
-    - description: Request body
+    - description: Request body.
       name: body
-    description: send HTTP PUT request
+    description: send HTTP PUT request.
     execution: true
     name: core-api-put
   - arguments:
     - default: true
-      description: Request URI (i.e. /user)
+      description: Request URI (i.e. /user).
       name: uri
       required: true
-    description: send HTTP DELETE request
+    description: send HTTP DELETE request.
     execution: true
     name: core-api-delete
   - arguments:
-    - description: Request URI
+    - description: Request URI.
       name: uri
       required: true
-    - description: File name of download
+    - description: File name of download.
       name: filename
-    - description: Description of file entry
+    - description: Description of file entry.
       name: description
-    description: Download files from Core server
+    description: Download files from Core server.
     name: core-api-download
   - arguments:
-    - description: Request URI
+    - description: Request URI.
       name: uri
       required: true
-    - description: File entry ID
+    - description: File entry ID.
       name: entryID
       required: true
-    - description: Request body
+    - description: Request body.
       name: body
-    description: Send HTTP Multipart request to upload files to Core server
+    description: Send HTTP Multipart request to upload files to Core server.
     name: core-api-multipart
   - arguments:
-    - description: IDs of the incidents to delete
+    - description: IDs of the incidents to delete.
       isArray: true
       name: ids
       required: true
@@ -249,7 +259,7 @@ script:
         "all" for all fields. WARNING: Setting all fields may result in big results.'
       isArray: true
       name: fields
-    description: Delete Core incidents
+    description: Delete Core incidents.
     execution: true
     name: core-delete-incidents
   - arguments:
@@ -322,7 +332,7 @@ script:
         as a value.
   runonce: false
   script: |
-    // pack version: 1.3.34
+    // pack version: 1.3.35
 
     const MIN_HOSTED_XSOAR_VERSION = '8.0.0';
 
@@ -670,27 +680,6 @@ script:
         return res;
     };
 
-    /**
-     * deletes an entry  by entryID by the key_to_delete
-    Arguments:
-        @param {String} key_to_delete  -- the name of the key to delete
-        @param {String} incident_id  -- the incident id
-    Returns:
-        CommandResults
-    """
-     */
-    var deleteContextRequest = function (incident_id, key_to_delete) {
-        var body = JSON.stringify({
-            "args": null,
-            "id": "",
-            "investigationId": `${incident_id}`,
-            "data": `!DeleteContext key=${key_to_delete}\n`,
-            "markdown": false,
-            "version": 0
-        });
-       return sendRequest('POST', '/entry', body);
-    };
-
 
     /**
      * deletes a file  by entryID
@@ -756,7 +745,7 @@ script:
     """
      */
     var fileUploadCommand = function(incident_id, file_content, file_name, entryID ) {
-        incident_id = (incident_id === 'undefined')? investigation.id: incident_id;
+        incident_id = (typeof incident_id === 'undefined')? investigation.id: incident_id;
         if (incident_id!=investigation.id){
             log(`Note that the file would be uploaded to ${incident_id} from incident ${investigation.id}`);
         }
@@ -813,13 +802,9 @@ script:
             throw new Error(`Files not found.`);
 
         }
-        var edit_content_data_files = []
         var not_found = true
         for (var i = 0 ;i <=Object.keys(files).length - 1;  i++) {
-            if (files[i]['EntryID'] != EntryID) {
-                edit_content_data_files.push(files[i]);
-            }
-            else{
+            if (files[i]['EntryID'] == EntryID) {
                 not_found= false
             }
 
@@ -827,18 +812,12 @@ script:
         if(not_found){
             throw new Error(`File already deleted or not found.`);
         }
-        deleteContextRequest(investigation.id, 'File');
         deleteFileRequest(EntryID);
-        let context = {
-            'File(val.MD5==obj.MD5)': createContext(edit_content_data_files)
-        };
         return  {Type: entryTypes.note,
                 Contents: '',
                 ContentsType: formats.json,
-                EntryContext: context,
+                EntryContext: invContext,
                 HumanReadable: `File ${EntryID} was deleted successfully.`};
-
-
     }
 
 
@@ -881,7 +860,7 @@ script:
             Show a message that the file was deleted successfully
     */
     var fileDeleteAttachmentCommand = function (attachment_path, incident_id, field_name){
-        incident_id = (incident_id=='undefined')? investigation.id: incident_id;
+        incident_id = (typeof incident_id == 'undefined')? investigation.id: incident_id;
         deleteAttachmentRequest(incident_id, attachment_path, field_name);
         return `Attachment ${attachment_path} deleted `;
     };

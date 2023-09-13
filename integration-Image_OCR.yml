@@ -14,7 +14,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.1.18
+    itemVersion: 1.1.19
     packID: ImageOCR
     packName: Image OCR
     packPropagationLabels:
@@ -56,7 +56,7 @@ script:
   runonce: false
   script: |
     register_module_line('Image OCR', 'start', __line__())
-    ### pack version: 1.1.18
+    ### pack version: 1.1.19
 
 
     import subprocess

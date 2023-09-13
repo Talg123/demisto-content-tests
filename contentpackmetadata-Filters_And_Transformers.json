@@ -573,7 +573,7 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.2.29",
+	"currentVersion": "1.2.30",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
@@ -587,7 +587,7 @@
 	"deprecated": false,
 	"description": "Frequently used filters and transformers pack.",
 	"disabledMonthly": false,
-	"downloads": 32336,
+	"downloads": 32676,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -599,7 +599,7 @@
 	"id": "FiltersAndTransformers",
 	"installMessage": "",
 	"integrations": [],
-	"itemVersion": "1.2.29",
+	"itemVersion": "1.2.30",
 	"keywords": [],
 	"legacy": true,
 	"name": "Filters And Transformers",
@@ -623,15 +623,15 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
+		"Trending",
 		"Filter",
 		"Transformer",
-		"Core",
-		"Trending"
+		"Core"
 	],
 	"toServerVersion": "",
-	"updated": "2023-09-07T11:01:38Z",
+	"updated": "2023-09-12T19:21:59Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6259960",
+	"versionInfo": "6285754",
 	"videos": []
 }

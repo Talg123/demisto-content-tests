@@ -58,7 +58,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.1.14
+    itemVersion: 2.1.15
     packID: AutoFocus
     packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
@@ -1229,7 +1229,7 @@ script:
   runonce: false
   script: |
     register_module_line('AutoFocus V2', 'start', __line__())
-    ### pack version: 2.1.14
+    ### pack version: 2.1.15
 
 
     ''' IMPORTS '''

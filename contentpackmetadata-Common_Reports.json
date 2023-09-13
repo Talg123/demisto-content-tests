@@ -109,21 +109,21 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.0.3",
+	"currentVersion": "1.0.4",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.23",
+			"minVersion": "1.32.31",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Frequently used reports pack.",
 	"disabledMonthly": false,
-	"downloads": 2300,
+	"downloads": 3898,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -135,7 +135,7 @@
 	"id": "CommonReports",
 	"installMessage": "",
 	"integrations": [],
-	"itemVersion": "1.0.3",
+	"itemVersion": "1.0.4",
 	"keywords": [],
 	"legacy": true,
 	"name": "Common Reports",
@@ -162,9 +162,9 @@
 		"Core"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-06T09:22:54Z",
+	"updated": "2023-09-10T20:42:25Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "5969979",
+	"versionInfo": "6285754",
 	"videos": []
 }

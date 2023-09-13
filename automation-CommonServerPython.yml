@@ -6,7 +6,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.32.31
+    itemVersion: 1.32.33
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -22,7 +22,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
-  ### pack version: 1.32.31
+  ### pack version: 1.32.33
   """Common functions script
   This script will be appended to each server script before being executed.
   Please notice that to add custom common code, add it to the CommonServerUserPython script.

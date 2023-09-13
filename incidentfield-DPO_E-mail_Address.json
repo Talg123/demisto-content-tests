@@ -23,7 +23,7 @@
 	"hidden": false,
 	"id": "incident_dpoemailaddress",
 	"isReadOnly": false,
-	"itemVersion": "1.12.20",
+	"itemVersion": "1.12.22",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "DPO E-mail Address",

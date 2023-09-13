@@ -98,18 +98,20 @@ tasks:
         simple: amir the big
       to:
         simple: amir876@gmail.com
+      using:
+        simple: Gmail_instance_2
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
       description: Send an email
-      id: 2df96fcf-c724-4075-8ccd-91dacf7c52e4
+      id: 2b2f738e-fa71-4d00-8a70-687d1bf21b26
       iscommand: true
       name: send-mail
       script: '|||send-mail'
       type: regular
       version: -1
-    taskid: 2df96fcf-c724-4075-8ccd-91dacf7c52e4
+    taskid: 2b2f738e-fa71-4d00-8a70-687d1bf21b26
     timertriggers: []
     type: regular
     view: |-

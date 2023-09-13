@@ -86,6 +86,9 @@ tasks:
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
     note: false
     quietmode: 0
     scriptarguments:
@@ -112,14 +115,41 @@ tasks:
           "y": 490
         }
       }
+  "3":
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d119c04b-a717-428d-8e19-4feb98bccf17
+      iscommand: false
+      name: Untitled Task
+      type: regular
+      version: -1
+    taskid: d119c04b-a717-428d-8e19-4feb98bccf17
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 470,
+          "y": 710
+        }
+      }
 version: -1
 view: |-
   {
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 535,
-        "width": 390,
+        "height": 755,
+        "width": 400,
         "x": 450,
         "y": 50
       }

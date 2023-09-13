@@ -94,7 +94,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.1.22
+    itemVersion: 1.1.23
     packID: FeedMitreAttackv2
     packName: MITRE ATT&CK
     packPropagationLabels:
@@ -205,7 +205,7 @@ script:
   runonce: false
   script: |
     register_module_line('MITRE ATT&CK v2', 'start', __line__())
-    ### pack version: 1.1.22
+    ### pack version: 1.1.23
 
 
     import logging

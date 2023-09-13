@@ -45,7 +45,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.32.31
+    itemVersion: 1.32.33
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -63,7 +63,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('DBotFindSimilarIncidentsByIndicators', 'start', __line__())
-  ### pack version: 1.32.31
+  ### pack version: 1.32.33
 
 
 
@@ -619,7 +619,7 @@ script: |
       }
       if tag is not None:
           return_entry["Tags"] = [tag]
-      return CommandResults(outputs=return_entry)
+      return return_entry
 
 
   def main():

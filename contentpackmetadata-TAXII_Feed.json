@@ -11,10 +11,10 @@
 		"integration",
 		"indicatorfield",
 		"correlationrule",
-		"modelingrule",
-		"parsingrule",
 		"xsiamreport",
-		"xsiamdashboard"
+		"parsingrule",
+		"xsiamdashboard",
+		"modelingrule"
 	],
 	"contentItems": {
 		"automation": null,

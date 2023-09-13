@@ -71,7 +71,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.5.1
+    itemVersion: 1.5.2
     packID: Whois
     packName: Whois
     packPropagationLabels:
@@ -620,7 +620,7 @@ script:
   runonce: false
   script: |
     register_module_line('Whois', 'start', __line__())
-    ### pack version: 1.5.1
+    ### pack version: 1.5.2
 
 
 

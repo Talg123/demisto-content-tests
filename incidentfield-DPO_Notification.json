@@ -24,7 +24,7 @@
 	"hidden": false,
 	"id": "incident_dponotification",
 	"isReadOnly": false,
-	"itemVersion": "1.12.20",
+	"itemVersion": "1.12.22",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "DPO Notification",

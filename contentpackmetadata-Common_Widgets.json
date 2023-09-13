@@ -424,7 +424,7 @@
 		],
 		"wizard": null
 	},
-	"currentVersion": "1.2.30",
+	"currentVersion": "1.2.31",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
@@ -438,14 +438,14 @@
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.12.20",
+			"minVersion": "1.12.22",
 			"name": "Common Scripts"
 		}
 	},
 	"deprecated": false,
 	"description": "Frequently used widgets pack.",
 	"disabledMonthly": false,
-	"downloads": 29212,
+	"downloads": 29439,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -457,7 +457,7 @@
 	"id": "CommonWidgets",
 	"installMessage": "",
 	"integrations": [],
-	"itemVersion": "1.2.30",
+	"itemVersion": "1.2.31",
 	"keywords": [],
 	"legacy": true,
 	"name": "Common Widgets",
@@ -484,9 +484,9 @@
 		"Core"
 	],
 	"toServerVersion": "",
-	"updated": "2023-09-07T11:03:59Z",
+	"updated": "2023-09-10T20:42:42Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6259960",
+	"versionInfo": "6285754",
 	"videos": []
 }

@@ -253,7 +253,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.1.3
+    itemVersion: 2.1.5
     packID: PAN-OS
     packName: PAN-OS by Palo Alto Networks
     packPropagationLabels:
@@ -9851,12 +9851,12 @@ script:
     - contextPath: Panorama.DeviceGroupNames
       description: The list of device groups.
       type: string
-  dockerimage: demisto/pan-os-python:1.0.0.68955
+  dockerimage: demisto/pan-os-python:1.0.0.72295
   isfetch: true
   runonce: false
   script: |
     register_module_line('Panorama', 'start', __line__())
-    ### pack version: 2.1.3
+    ### pack version: 2.1.5
 
 
     from collections import defaultdict

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.4.1
+    itemVersion: 2.4.3
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -134,6 +134,14 @@ inputs:
     complex:
       accessor: ID
       root: CVE
+- description: |-
+    Whether to verify SSL certificates for URLs.
+    Can be True or False.
+  key: URLSSLVerification
+  playbookInputQuery: null
+  required: false
+  value:
+    simple: "False"
 name: Entity Enrichment - Generic v3
 outputs:
 - contextPath: IP
@@ -240,6 +248,66 @@ outputs:
   description: The device information about the hostname that was enriched using Cylance
     Protect v2.
   type: unknown
+- contextPath: PaloAltoNetworksXDR.RiskyUser
+  description: The account object.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyUser.type
+  description: Form of identification element.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyUser.id
+  description: Identification value of the type field.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyUser.score
+  description: The score assigned to the user.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyUser.reasons
+  description: The account risk objects.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyUser.reasons.date created
+  description: Date when the incident was created.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyUser.reasons.description
+  description: Description of the incident.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyUser.reasons.severity
+  description: The severity of the incident
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyUser.reasons.status
+  description: The incident status
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyUser.reasons.points
+  description: The score.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyHost
+  description: The endpoint object.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyHost.type
+  description: Form of identification element.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyHost.id
+  description: Identification value of the type field.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyHost.score
+  description: The score assigned to the host.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyHost.reasons
+  description: The endpoint risk objects.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyHost.reasons.date created
+  description: Date when the incident was created.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyHost.reasons.description
+  description: Description of the incident.
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyHost.reasons.severity
+  description: The severity of the incident
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyHost.reasons.status
+  description: The incident status
+  type: string
+- contextPath: PaloAltoNetworksXDR.RiskyHost.reasons.points
+  description: The score.
+  type: string
 starttaskid: "0"
 system: true
 tasks:
@@ -440,19 +508,30 @@ tasks:
           root: inputs.URL
           transformers:
           - operator: uniq
-      VerifyURL:
+      UseReputationCommand:
         simple: "False"
+      VerifyURL:
+        complex:
+          root: inputs.URLSSLVerification
     separatecontext: true
     skipunavailable: false
     task:
       brand: ""
-      id: b00cb02f-d44b-4e40-8c27-281d17a94723
+      description: |-
+        Enrich URLs using one or more integrations.
+
+        URL enrichment includes:
+        * SSL verification for URLs
+        * Threat information
+        * Providing of URL screenshots
+        * URL Reputation using !url
+      id: a80df9df-c0d4-4d25-88d1-39a974a9c2cb
       iscommand: false
       name: URL Enrichment - Generic v2
       playbookId: URL Enrichment - Generic v2
       type: playbook
       version: -1
-    taskid: b00cb02f-d44b-4e40-8c27-281d17a94723
+    taskid: a80df9df-c0d4-4d25-88d1-39a974a9c2cb
     timertriggers: []
     type: playbook
     view: |-

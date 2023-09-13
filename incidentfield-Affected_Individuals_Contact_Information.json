@@ -67,7 +67,7 @@
 	"hidden": false,
 	"id": "incident_affectedindividualscontactinformation",
 	"isReadOnly": false,
-	"itemVersion": "1.12.20",
+	"itemVersion": "1.12.22",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Affected Individuals Contact Information",

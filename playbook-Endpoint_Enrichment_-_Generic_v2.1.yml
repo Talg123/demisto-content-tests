@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.8.0
-    itemVersion: 2.4.1
+    itemVersion: 2.4.3
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -553,8 +553,7 @@ tasks:
       - - left:
             iscontext: true
             value:
-              complex:
-                root: inputs.Hostname
+              simple: inputs.Hostname
           operator: isNotEmpty
       label: "yes"
     continueonerrortype: ""
@@ -579,12 +578,12 @@ tasks:
     task:
       brand: ""
       description: Checks whether there is at least one endpoint to enrich (by hostname).
-      id: efeca58b-3c8f-40aa-8c2e-f9e84257b1bb
+      id: ddba13dd-92fc-47a3-8ffe-b849c626eb22
       iscommand: false
       name: Is there an endpoint to enrich?
       type: condition
       version: -1
-    taskid: efeca58b-3c8f-40aa-8c2e-f9e84257b1bb
+    taskid: ddba13dd-92fc-47a3-8ffe-b849c626eb22
     timertriggers: []
     type: condition
     view: |-
@@ -1615,7 +1614,7 @@ tasks:
     scriptarguments:
       host_id:
         complex:
-          root: inputs.EndpointID
+          root: inputs.Hostname
           transformers:
           - operator: uniq
     separatecontext: false
@@ -1625,13 +1624,13 @@ tasks:
       description: Retrieve the risk score of a specific host or list of hosts with
         the highest risk score in the environment along with the reason affecting
         each score.
-      id: cc6f374f-6be2-4f2a-8d2a-dc5ccbe6e4be
+      id: 7036bd6a-33c9-44da-8087-f9b8173cdbe4
       iscommand: true
       name: Cortex XDR get endpoint risk score
       script: '|||xdr-list-risky-hosts'
       type: regular
       version: -1
-    taskid: cc6f374f-6be2-4f2a-8d2a-dc5ccbe6e4be
+    taskid: 7036bd6a-33c9-44da-8087-f9b8173cdbe4
     timertriggers: []
     type: regular
     view: |-

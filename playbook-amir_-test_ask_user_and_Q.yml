@@ -74,7 +74,7 @@ tasks:
     message:
       bcc: null
       body:
-        simple: aaa
+        simple: 'yes - no Q playbook '
       cc: null
       format: ""
       methods:
@@ -98,12 +98,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 88624f75-bac1-452d-8f33-e268474c9c78
+      id: 1a5e6988-d793-4d45-8c8f-7e6edfc81c8b
       iscommand: false
       name: yes - no Q
       type: collection
       version: -1
-    taskid: 88624f75-bac1-452d-8f33-e268474c9c78
+    taskid: 1a5e6988-d793-4d45-8c8f-7e6edfc81c8b
     timertriggers: []
     type: collection
     view: |-
@@ -122,7 +122,7 @@ tasks:
     message:
       bcc: null
       body:
-        simple: aaaaaaaa
+        simple: 'testing amir - reply = yes '
       cc: null
       format: ""
       methods:
@@ -131,7 +131,7 @@ tasks:
       - "Yes"
       - "No"
       subject:
-        simple: aaa
+        simple: please reply to this mail - YES ( amir testing)
       timings:
         completeafterreplies: 1
         completeaftersla: false
@@ -153,12 +153,12 @@ tasks:
         textual response line of the provided entry that contains the reply body.
         Use ${lastCompletedTaskEntries} to analyze the previous playbook task containing
         the user's reply.
-      id: a114a7b7-495d-4835-84b5-6ed98f1aaad2
+      id: 07a362c3-16a7-432c-8b21-fbc1915ffc9e
       iscommand: false
       name: condition - ask user
       type: condition
       version: -1
-    taskid: a114a7b7-495d-4835-84b5-6ed98f1aaad2
+    taskid: 07a362c3-16a7-432c-8b21-fbc1915ffc9e
     timertriggers: []
     type: condition
     view: |-
@@ -176,16 +176,21 @@ tasks:
     isoversize: false
     note: false
     quietmode: 2
+    scriptarguments:
+      value:
+        simple: 'done '
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: 4b6da10c-6c0f-4b1d-8e4c-0918783cba7e
+      description: Prints text to war room (Markdown supported)
+      id: 65893ced-7e25-4f1f-86be-949ad2a15ce1
       iscommand: false
       name: success
+      script: Print
       type: regular
       version: -1
-    taskid: 4b6da10c-6c0f-4b1d-8e4c-0918783cba7e
+    taskid: 65893ced-7e25-4f1f-86be-949ad2a15ce1
     timertriggers: []
     type: regular
     view: |-

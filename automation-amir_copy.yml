@@ -29,16 +29,18 @@ commonfields:
 contentitemexportablefields:
   contentitemfields:
     definitionid: ""
-    fromServerVersion: 5.0.0
-    itemVersion: 1.12.23
+    fromServerVersion: ""
+    itemVersion: ""
     packID: ""
-    packName: Common Scripts
+    packName: ""
     prevname: ""
     propagationLabels:
     - all
     toServerVersion: ""
 dockerimage: demisto/python3:3.10.12.63474
-engineinfo: {}
+enabled: true
+engineinfo:
+  engine: 170b622f-6bfb-4978-a88b-79f26e937059
 mainengineinfo: {}
 name: amir_copy
 pswd: ""
@@ -147,7 +149,6 @@ script: |
 
   register_module_line('AddKeyToList', 'end', __line__())
 scripttarget: 0
-sourcescripid: AddKeyToList
 subtype: python3
 tags: []
 type: python

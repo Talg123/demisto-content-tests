@@ -40,7 +40,7 @@ contentitemexportablefields:
 dockerimage: demisto/python3:3.10.12.63474
 engineinfo: {}
 mainengineinfo: {}
-name: AddKeyToList_copy
+name: amir_copy
 pswd: ""
 runas: DBotWeakRole
 runonce: false

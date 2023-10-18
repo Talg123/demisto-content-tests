@@ -4,15 +4,15 @@ args:
   name: incidentId
 - auto: PREDEFINED
   description: 'Comma-separated list of incident text fields to take into account
-    when computing similarity. For example: commandline, URL'
+    when computing similarity. For example: commandline, URL.'
   name: similarTextField
 - auto: PREDEFINED
   description: 'Comma-separated list of incident categorical fields to take into account
-    whe computing similarity. For example: IP, URL'
+    whe computing similarity. For example: IP, URL.'
   name: similarCategoricalField
 - auto: PREDEFINED
   description: 'Comma-separated list of incident JSON fields to take into account
-    whe computing similarity. For example: CustomFields'
+    whe computing similarity. For example: CustomFields.'
   name: similarJsonField
 - auto: PREDEFINED
   description: Comma-separated list of additional incident fields to display, but
@@ -99,7 +99,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.32.33
+    itemVersion: 1.32.35
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -107,7 +107,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/ml:1.0.0.23334
+dockerimage: demisto/ml:1.0.0.74577
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -117,7 +117,7 @@ runas: DBotWeakRole
 runonce: true
 script: |
   register_module_line('DBotFindSimilarIncidents', 'start', __line__())
-  ### pack version: 1.32.33
+  ### pack version: 1.32.35
 
 
 
@@ -804,9 +804,10 @@ script: |
 
 
   def get_data_from_indicators_automation(res, TAG_SCRIPT_INDICATORS_VALUE):
-      for entry in res:
-          if entry and entry.get('Tags') and TAG_SCRIPT_INDICATORS_VALUE in entry.get('Tags'):
-              return entry['Contents']
+      if res is not None:
+          for entry in res:
+              if entry and entry.get('Tags') and TAG_SCRIPT_INDICATORS_VALUE in entry.get('Tags'):
+                  return entry['Contents']
       return None
 
 

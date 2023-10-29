@@ -65,7 +65,7 @@ args:
   - "true"
   - "false"
 - defaultValue: "0.99"
-  description: Threshold to consider incident as duplication, number between 0-1
+  description: Threshold to consider incident as duplication, number between 0-1.
   name: threshold
 - defaultValue: "20"
   description: Maximum number of duplicate incidents IDs to return.
@@ -84,7 +84,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 3.5.26
+    itemVersion: 3.5.29
     packID: Phishing
     packName: Phishing
     packPropagationLabels:
@@ -92,7 +92,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/sklearn:1.0.0.29944
+dockerimage: demisto/sklearn:1.0.0.78931
 engineinfo: {}
 mainengineinfo: {}
 name: FindDuplicateEmailIncidents
@@ -139,7 +139,7 @@ runas: DBotWeakRole
 runonce: true
 script: |
   register_module_line('FindDuplicateEmailIncidents', 'start', __line__())
-  ### pack version: 3.5.26
+  ### pack version: 3.5.29
 
 
   import dateutil  # type: ignore
@@ -245,7 +245,7 @@ script: |
 
 
   def get_text_from_html(html):
-      soup = BeautifulSoup(html)
+      soup = BeautifulSoup(html, features="html.parser")
       # kill all script and style elements
       for script in soup(["script", "style"]):
           script.extract()  # rip it out

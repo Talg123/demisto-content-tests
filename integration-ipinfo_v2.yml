@@ -9,6 +9,7 @@ configuration:
   hiddenusername: true
   name: credentials
   required: false
+  section: Connect
   type: 9
 - additionalinfo: Reliability of the source providing the intelligence data.
   defaultvalue: C - Fairly reliable
@@ -23,25 +24,31 @@ configuration:
   - E - Unreliable
   - F - Reliability cannot be judged
   required: true
+  section: Collect
   type: 15
 - defaultvalue: https://ipinfo.io
   display: Base URL
   name: base_url
   required: true
+  section: Connect
   type: 0
-- display: Trust any certificate (not secure)
+- advanced: true
+  display: Trust any certificate (not secure)
   name: insecure
   required: false
+  section: Connect
   type: 8
-- display: Use system proxy settings
+- advanced: true
+  display: Use system proxy settings
   name: proxy
   required: false
+  section: Connect
   type: 8
 contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 2.1.3
+    itemVersion: 2.1.19
     packID: ipinfo
     packName: Ipinfo
     packPropagationLabels:
@@ -60,6 +67,7 @@ script:
   - arguments:
     - default: true
       description: IP address to query, e.g., 1.1.1.1.
+      isArray: true
       name: ip
       required: true
     description: Check IP reputation (when information is available, returns a JSON
@@ -147,13 +155,19 @@ script:
       description: The type of the destination of the relationship.
       type: string
     - contextPath: IP.Geo.Location
-      description: The IP geographic location (coordinates as lat:lon)
+      description: The IP geographic location (coordinates as lat:lon).
       type: String
     - contextPath: IP.Geo.Country
       description: The IP country.
       type: String
     - contextPath: IP.Geo.Description
       description: The IP location as <City, Region, Postal Code, Country>.
+      type: String
+    - contextPath: IP.Organization.Name
+      description: The organization of the IP.
+      type: String
+    - contextPath: IP.Organization.Type
+      description: The organization type of the IP.
       type: String
     - contextPath: DBotScore.Indicator
       description: The indicator that was tested.
@@ -170,19 +184,20 @@ script:
     - contextPath: DBotScore.Vendor
       description: The vendor used to calculate the score.
       type: String
-  dockerimage: demisto/python3:3.10.1.25933
+  dockerimage: demisto/python3:3.10.13.75921
   runonce: false
   script: |
     register_module_line('ipinfo_v2', 'start', __line__())
+    ### pack version: 2.1.19
 
 
 
-    import requests
+    import urllib3
     import traceback
     from typing import Dict, Any
 
     # Disable insecure warnings
-    requests.packages.urllib3.disable_warnings()  # pylint: disable=no-member
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     BRAND_NAME = "IPinfo"  # matches context output path for faster caching
 
@@ -213,9 +228,15 @@ script:
         return 'ok'  # on any failure, an exception is raised
 
 
-    def ipinfo_ip_command(client: Client, ip: str) -> List[CommandResults]:
-        response = client.ipinfo_ip(ip)
-        return parse_results(ip, response, client.reliability)
+    def ipinfo_ip_command(client: Client, ip: str) -> List[List[CommandResults]]:
+        ip_lists = argToList(ip)
+        ip_results = []
+
+        for ip in ip_lists:
+            response = client.ipinfo_ip(ip)
+            ip_results.append(parse_results(ip, response, client.reliability))
+
+        return ip_results
 
 
     def parse_results(ip: str, raw_result: Dict[str, Any], reliability: str) -> List[CommandResults]:
@@ -224,8 +245,7 @@ script:
         # default values
         asn = as_owner = None
         feed_related_indicators: List[Common.FeedRelatedIndicators] = []
-        relationships = []
-
+        relationships: list[EntityRelationship] = []
         if not raw_result:
             return command_results
 
@@ -329,6 +349,8 @@ script:
             geo_description=description or None,
             geo_country=country,
             tags=','.join(tags),
+            organization_name=organization.get('Name') if organization else None,
+            organization_type=organization.get('Type') if organization else None,
             relationships=relationships)
 
         if lat and lon:

@@ -1205,7 +1205,7 @@
 	"id": "Phishing",
 	"indicatorsDetails": null,
 	"indicatorsQuickView": null,
-	"itemVersion": "3.5.26",
+	"itemVersion": "3.5.29",
 	"locked": false,
 	"mobile": {
 		"sections": [

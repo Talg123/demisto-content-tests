@@ -168,7 +168,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.1.24
+    itemVersion: 1.1.25
     packID: FeedPlainText
     packName: Plain Text Feed
     packPropagationLabels:
@@ -245,12 +245,12 @@ script:
       name: indicator_type
     description: Gets indicators from the feed.
     name: plaintext-get-indicators
-  dockerimage: demisto/py3-tools:1.0.0.44868
+  dockerimage: demisto/py3-tools:1.0.0.75615
   feed: true
   runonce: false
   script: |
     register_module_line('Plain Text Feed', 'start', __line__())
-    ### pack version: 1.1.24
+    ### pack version: 1.1.25
 
 
 
@@ -558,7 +558,7 @@ script:
                         )
                     if self.ignore_regex is not None:
                         result = filter(
-                            lambda x: self.ignore_regex.match(x) is None,  # type: ignore[union-attr]
+                            lambda x: self.ignore_regex.match(x) is None,  # type: ignore[union-attr, arg-type]
                             result
                         )
                     results.append({url: {'result': result, 'no_update': res_data.get('no_update')}})

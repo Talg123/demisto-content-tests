@@ -11,7 +11,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.2.30
+    itemVersion: 1.2.35
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -29,7 +29,10 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ConvertToSingleElementArray', 'start', __line__())
-  ### pack version: 1.2.30
+  ### pack version: 1.2.35
+
+
+
 
 
 
@@ -42,6 +45,8 @@ script: |
           demisto.results([value])
       else:
           demisto.results([])
+
+
 
 
   if __name__ in ('__main__', '__builtin__', 'builtins'):

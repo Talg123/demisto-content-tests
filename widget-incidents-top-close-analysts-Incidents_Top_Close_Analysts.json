@@ -20,7 +20,7 @@
 	"fromServerVersion": "5.0.0",
 	"id": "incidents-top-close-analysts",
 	"isPredefined": true,
-	"itemVersion": "1.2.31",
+	"itemVersion": "1.2.34",
 	"name": "Incidents Top Close Analysts",
 	"packID": "CommonWidgets",
 	"packName": "Common Widgets",

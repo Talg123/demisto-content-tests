@@ -48,7 +48,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.0.21
+    itemVersion: 1.0.23
     packID: MailSenderNew
     packName: Mail Sender (New)
     packPropagationLabels:
@@ -56,7 +56,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: Send emails implemented in Python with embedded image support
+description: Send emails implemented in Python with embedded image support.
 detaileddescription: |-
   ## SMTP Sender
     Send emails including support for rich emails with HTML and embedded files.
@@ -77,49 +77,49 @@ script:
   commands:
   - arguments:
     - default: true
-      description: Email addresses for the 'To' field
+      description: Email addresses for the 'To' field.
       isArray: true
       name: to
-    - description: Email addresses for the 'Cc' field
+    - description: Email addresses for the 'Cc' field.
       isArray: true
       name: cc
-    - description: Email addresses for the 'Bcc' field
+    - description: Email addresses for the 'Bcc' field.
       isArray: true
       name: bcc
-    - description: Subject for the email to be sent
+    - description: Subject for the email to be sent.
       name: subject
-    - description: The contents (body) of the email to be sent in plain text
+    - description: The contents (body) of the email to be sent in plain text.
       name: body
-    - description: The contents (body) of the email to be sent in HTML format
+    - description: The contents (body) of the email to be sent in HTML format.
       name: htmlBody
-    - description: Address that should be used to reply to the message
+    - description: Address that should be used to reply to the message.
       name: replyTo
     - description: A comma-separated list of IDs of war room entries that contain
-        the files that should be attached to the email
+        the files that should be attached to the email.
       isArray: true
       name: attachIDs
     - description: A comma-separated list to rename file-names of corresponding attachments
         IDs. (e.g. rename first two files - attachNames=file_name1,file_name2. rename
-        first and third file - attachNames=file_name1,,file_name3)
+        first and third file - attachNames=file_name1,,file_name3).
       isArray: true
       name: attachNames
     - description: A comma-separated list of CIDs to embed attachments inside the
-        email itself
+        email itself.
       isArray: true
       name: attachCIDs
     - description: Desired name for attached file. Multiple files are supported as
         comma-separated list. (e.g. transientFile="t1.txt,temp.txt,t3.txt" transientFileContent="test
-        2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz")
+        2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz").
       isArray: true
       name: transientFile
     - description: Content for attached file. Multiple files are supported as comma-separated
         list. (e.g. transientFile="t1.txt,temp.txt,t3.txt" transientFileContent="test
-        2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz")
+        2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz").
       isArray: true
       name: transientFileContent
     - description: CID for attached file if we want it inline. Multiple files are
         supported as comma-separated list. (e.g. transientFile="t1.txt,temp.txt,t3.txt"
-        transientFileContent="test 2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz")
+        transientFileContent="test 2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz").
       isArray: true
       name: transientFileCID
     - description: 'Replace {varname} variables with values from this argument. Expected
@@ -143,18 +143,18 @@ script:
       - HTML
       - Text
     - auto: PREDEFINED
-      description: Indicates whether to render the email body
+      description: Indicates whether to render the email body.
       name: renderBody
       predefined:
       - "true"
       - "false"
-    description: Send an email
+    description: Send an email.
     name: send-mail
-  dockerimage: demisto/python3:3.10.13.72123
+  dockerimage: demisto/python3:3.10.13.75921
   runonce: false
   script: |
     register_module_line('Mail Sender (New)', 'start', __line__())
-    ### pack version: 1.0.21
+    ### pack version: 1.0.23
 
 
     import contextlib

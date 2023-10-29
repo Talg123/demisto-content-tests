@@ -60,22 +60,31 @@ configuration:
   required: false
   section: Collect
   type: 0
-- additionalinfo: |-
-    Runs the service on this port from within Cortex XSOAR. Requires a unique port for each long-running integration instance. Do not use the same port for multiple instances.
-    Note: If you click the test button more than once, a failure may occur mistakenly indicating that the port is already in use.
+- additionalinfo: "Runs the service on this port from within Cortex XSOAR. Requires
+    a unique port for each long-running integration instance. Do not use the same
+    port for multiple instances.\nNote: If you click the test button more than once,
+    a failure may occur mistakenly indicating that the port is already in use. (For
+    Cortex XSOAR 8 and Cortex XSIAM) If you do not enter a Listen Port, an unused
+    port for the EDL will automatically be generated when the instance is saved. However,
+    if using an engine, you must enter a Listen Port.                     "
   display: Listen Port
   name: longRunningPort
   required: false
   section: Connect
   type: 0
-- additionalinfo: For use with HTTPS - the certificate that the service should use.
+- additionalinfo: (For Cortex XSOAR 6.x) For use with HTTPS - the certificate that
+    the service should use. (For Cortex XSOAR 8 and Cortex XSIAM) Custom certificates
+    are not supported.
   advanced: true
   display: Certificate (Required for HTTPS)
   name: certificate
   required: false
   section: Connect
   type: 12
-- additionalinfo: For use with HTTPS - the private key that the service should use.
+- additionalinfo: (For Cortex XSOAR 6.x) For use with HTTPS - the private key that
+    the service should use.  <br> (For Cortex XSOAR 8 and Cortex XSIAM) When using
+    an engine, configure a private API key. Not supported on the Cortex XSOAR​​ 8
+    or Cortex XSIAM server.
   advanced: true
   display: Private Key (Required for HTTPS)
   name: key
@@ -83,7 +92,8 @@ configuration:
   section: Connect
   type: 14
 - additionalinfo: Uses basic authentication for accessing the list. If empty, no authentication
-    is enforced.
+    is enforced. (For Cortex XSOAR 8 and Cortex XSIAM) Optional for engines, otherwise
+    mandatory.
   display: Username
   name: credentials
   required: false
@@ -119,6 +129,15 @@ configuration:
   defaultvalue: "false"
   display: Truncate URL length
   name: url_truncate
+  required: false
+  section: Collect
+  type: 8
+- additionalinfo: If selected, it will force the list to contain only ASCII chars
+    (non-ASCII URLs will be dropped).
+  advanced: true
+  defaultvalue: "false"
+  display: Enforce ASCII only
+  name: enforce_ascii
   required: false
   section: Collect
   type: 8
@@ -177,6 +196,13 @@ configuration:
   required: false
   section: Collect
   type: 8
+- additionalinfo: When set to true and the certificate and private key are provided,
+    the HSTS header is added to all requests.
+  defaultvalue: "false"
+  display: Add HSTS header
+  name: hsts_header
+  required: false
+  type: 8
 - additionalinfo: For use with McAfee Web Gateway format - set the indicator list
     type.
   advanced: true
@@ -215,7 +241,6 @@ configuration:
   type: 0
 - additionalinfo: If selected, CSV format appears in a textual webpage instead of
     initiating a file download.
-  advanced: true
   display: Show CSV format as Text
   name: csv_text
   required: false
@@ -279,7 +304,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 3.2.9
+    itemVersion: 3.2.12
     packID: EDL
     packName: Generic Export Indicators Service
     packPropagationLabels:
@@ -326,8 +351,11 @@ detaileddescription: |-
   To access the Generic Export Indicators Service by instance name, make sure *Instance execute external* is enabled.
 
   1. In Cortex XSOAR, go to **Settings > About > Troubleshooting**.
-  2. In the **Server Configuration** section, verify that the `instance.execute.external.<instance_name>` key is set to `true`. If this key does not exist, click **+ Add Server Configuration** and add the `instance.execute.external.<instance_name>` and set the value to `true`. See [this documentation](https://xsoar.pan.dev/docs/reference/articles/long-running-invoke) for further information.
-  3. In a web browser, go to `https://<cortex-xsoar-address>/instance/execute/<instance_name>/`.
+  2. (For Cortex XSOAR 6.x only) In the **Server Configuration** section, verify that the `instance.execute.external.<instance_name>` key is set to `true`. If this key does not exist, click **+ Add Server Configuration** and add the `instance.execute.external.<instance_name>` and set the value to `true`. See [this documentation](https://xsoar.pan.dev/docs/reference/articles/long-running-invoke) for further information.
+  3.  In a web browser, go to:
+     (For Cortex XSOAR 6.x) `https://*<xsoar_address>*/instance/execute/*<instance_name>*`
+        (For Cortex XSOAR 8 or Cortex XSIAM) `https://ext-<tenant>.crtx.<region>.paloaltonetworks.com/xsoar/instance/execute/<instance-name>`
+
 
      In Multi Tenant environments, go to `https://<cortex-xsoar-address>/acc-<account name>/instance/execute/<instance_name>/`
 
@@ -375,7 +403,7 @@ script:
   - arguments:
     - description: The query to run to update the indicators list. To view expected
         results, run the following command from the Cortex XSOAR CLI `!findIndicators
-        query=<your query>`
+        query=<your query>`.
       name: query
     - auto: PREDEFINED
       defaultValue: PAN-OS (text)
@@ -555,13 +583,13 @@ script:
       - "True"
     description: Updates values stored in the List (only available On-Demand).
     name: export-indicators-list-update
-  dockerimage: demisto/flask-nginx:1.0.0.69390
+  dockerimage: demisto/flask-nginx:1.0.0.75066
   longRunning: true
   longRunningPort: true
   runonce: false
   script: |
     register_module_line('EDL', 'start', __line__())
-    ### pack version: 3.2.9
+    ### pack version: 3.2.12
 
 
     import tempfile
@@ -1262,6 +1290,7 @@ script:
             1) if drop_invalids, drop invalids (has invalid chars)
             2) if port_stripping, strip ports
         """
+        enforce_ascii = argToBoolean(demisto.params().get('enforce_ascii', False))
         ipv4_formatted_indicators = set()
         ipv6_formatted_indicators = set()
         iocs.seek(0)
@@ -1272,6 +1301,11 @@ script:
             indicator = ioc.get('value')
             if not indicator:
                 continue
+            if enforce_ascii:
+                try:
+                    indicator.encode('ascii')
+                except UnicodeEncodeError:
+                    continue
             ioc_type = ioc.get('indicator_type')
 
             if ioc_type not in [FeedIndicatorType.IP, FeedIndicatorType.IPv6,
@@ -1869,7 +1903,7 @@ script:
 
         proxy_cache_key $scheme$proxy_host$request_uri$extra_cache_key;
         $proxy_set_range_header
-
+        $extra_headers
         # Static test file
         location = /nginx-test {
             alias /var/lib/nginx/html/index.html;
@@ -1880,6 +1914,7 @@ script:
         location / {
             proxy_pass http://localhost:$serverport/;
             add_header X-Proxy-Cache $upstream_cache_status;
+            $extra_headers
             # allow bypassing the cache with an arg of nocache=1 ie http://server:7000/?nocache=1
             proxy_cache_bypass $arg_nocache;
             proxy_read_timeout $timeout;
@@ -1909,10 +1944,8 @@ script:
         certificate: str = params.get('certificate', '')
         private_key: str = params.get('key', '')
         timeout: str = params.get('timeout') or '3600'
-        ssl = ''
-        sslcerts = ''
+        ssl, extra_headers, sslcerts, proxy_set_range_header = '', '', '', ''
         serverport = port + 1
-        proxy_set_range_header = ''
         extra_cache_keys = []
         if (certificate and not private_key) or (private_key and not certificate):
             raise DemistoException('If using HTTPS connection, both certificate and private key should be provided.')
@@ -1924,6 +1957,8 @@ script:
                 f.write(private_key)
             ssl = 'ssl'  # to be included in the listen directive
             sslcerts = NGINX_SSL_CERTS
+            if argToBoolean(params.get("hsts_header", False)):
+                extra_headers = 'add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;'
         credentials = params.get('credentials') or {}
         if credentials.get('identifier'):
             extra_cache_keys.append("$http_authorization")
@@ -1936,7 +1971,8 @@ script:
         extra_cache_keys_str = ''.join(extra_cache_keys)
         server_conf = Template(template_str).safe_substitute(port=port, serverport=serverport, ssl=ssl,
                                                              sslcerts=sslcerts, extra_cache_key=extra_cache_keys_str,
-                                                             proxy_set_range_header=proxy_set_range_header, timeout=timeout)
+                                                             proxy_set_range_header=proxy_set_range_header, timeout=timeout,
+                                                             extra_headers=extra_headers)
         with open(file_path, mode='wt+') as f:
             f.write(server_conf)
 

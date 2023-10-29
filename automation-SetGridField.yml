@@ -49,7 +49,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.23
+    itemVersion: 1.12.38
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -57,7 +57,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/pandas:1.0.0.72335
+dockerimage: demisto/pandas:1.0.0.76121
 engineinfo: {}
 mainengineinfo: {}
 name: SetGridField
@@ -65,7 +65,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: "register_module_line('SetGridField', 'start', __line__())\n### pack version:
-  1.12.23\n\n\n# STD Libraries\nfrom typing import Optional, List, Dict, Any\n# 3-rd
+  1.12.38\n\n\n# STD Libraries\nfrom typing import Optional, List, Dict, Any\n# 3-rd
   party libraries\nimport pandas as pd\nimport phrases_case\n# Local packages\n\n\n\ndef
   normalized_string(phrase: str) -> str:\n    \"\"\" Normalize a string to flatcase
   (to match `cli name`).\n\n    Args:\n        phrase: Phrase to normalize.\n\n    Returns:\n
@@ -127,25 +127,20 @@ script: "register_module_line('SetGridField', 'start', __line__())\n### pack ver
   unpacked_data\n\n\n@logger\ndef get_current_table(grid_id: str) -> pd.DataFrame:\n
   \   \"\"\" Get current Data from the grid\n\n    Args:\n        grid_id: Grid ID
   to retrieve data from.\n\n    Returns:\n        DataFrame: Existing grid data.\n
-  \   \"\"\"\n    custom_fields = demisto.incident().get(\"CustomFields\", {})\n    if
-  grid_id not in custom_fields:\n        raise ValueError(f\"The following grid id
-  was not found: {grid_id}. Please make sure you entered the correct \"\n                         f\"incident
-  type with the \\\"Machine name\\\" as it appears in the incident field editor in
-  \"\n                         f\"Settings->Advanced ->Fields (Incident). Also make
-  sure that this value appears in the \"\n                         f\"incident Context
-  Data under incident - if not then please consult with support.\")\n\n    current_table:
-  Optional[List[dict]] = custom_fields.get(grid_id)\n\n    return pd.DataFrame(current_table)\n\n\n@logger\ndef
-  validate_entry_context(context_path: str, entry_context: Any, unpack_nested_elements:
-  bool):\n    \"\"\" Validate entry context structure is valid, should be:\n        -
-  For unpack_nested_elements==False:\n            1. List[Dict[str, Any]]\n            2.
-  List[str/bool/int/float]\n            3. Dict[str, str/bool/int/float] - for developer
-  it will be in first index of a list.\n        - For unpack_nested_elements==True:\n
-  \           1. Dict[str, Any]\n\n    Args:\n        context_path: Path of entry
-  context\n        entry_context: Entry context to validate\n        unpack_nested_elements:
-  True for unpacking nested elements, False otherwise.\n\n    Raises:\n        ValueError:
-  If structure is not valid.\n        data_type (str): The type of information in
-  the context path.\n    \"\"\"\n    if unpack_nested_elements:\n        if not isinstance(entry_context,
-  dict):\n            raise ValueError(\n                'When the unpack_nested_elements
+  \   \"\"\"\n    custom_fields = demisto.incident().get(\"CustomFields\", {})\n    current_table:
+  Optional[List[dict]] = custom_fields.get(grid_id)\n    return pd.DataFrame(current_table)
+  if current_table else pd.DataFrame()\n\n\n@logger\ndef validate_entry_context(context_path:
+  str, entry_context: Any, unpack_nested_elements: bool):\n    \"\"\" Validate entry
+  context structure is valid, should be:\n        - For unpack_nested_elements==False:\n
+  \           1. List[Dict[str, Any]]\n            2. List[str/bool/int/float]\n            3.
+  Dict[str, str/bool/int/float] - for developer it will be in first index of a list.\n
+  \       - For unpack_nested_elements==True:\n            1. Dict[str, Any]\n\n    Args:\n
+  \       context_path: Path of entry context\n        entry_context: Entry context
+  to validate\n        unpack_nested_elements: True for unpacking nested elements,
+  False otherwise.\n\n    Raises:\n        ValueError: If structure is not valid.\n
+  \       data_type (str): The type of information in the context path.\n    \"\"\"\n
+  \   if unpack_nested_elements:\n        if not isinstance(entry_context, dict):\n
+  \           raise ValueError(\n                'When the unpack_nested_elements
   argument is set to True, the context object for the path should be '\n                'of
   type dict.')\n        else:\n            return\n\n    if not isinstance(entry_context,
   (list, dict)):\n        raise ValueError(\n            f'The context object {context_path}
@@ -226,24 +221,34 @@ script: "register_module_line('SetGridField', 'start', __line__())\n### pack ver
   \       new_table.sort_values(by=sort_by, inplace=True)\n\n    # filter empty values
   in the generated table\n    filtered_table = []\n    for record in new_table.to_dict(orient='records'):\n
   \       filtered_table.append({k: v for k, v in record.items() if pd.notnull(v)})\n\n
-  \   return filtered_table\n\n\ndef main():\n    args = demisto.args()\n    try:\n
-  \       # Normalize grid id from any form to connected lower words, e.g. my_word/myWord
-  -> myword\n        grid_id = normalized_string(args.get('grid_id'))\n        context_path
-  = args.get('context_path')\n        # Build updated table\n        table = build_grid_command(grid_id=grid_id,\n
-  \                                  context_path=context_path,\n                                   keys=argToList(args.get('keys')),\n
-  \                                  overwrite=argToBoolean(args.get('overwrite')),\n
+  \   return filtered_table\n\n\ndef main():  # pragma: no cover\n    args = demisto.args()\n
+  \   try:\n        # Normalize grid id from any form to connected lower words, e.g.
+  my_word/myWord -> myword\n        grid_id = normalized_string(args.get('grid_id'))\n\n
+  \       context_path = args.get('context_path')\n        # Build updated table\n
+  \       table = build_grid_command(grid_id=grid_id,\n                                   context_path=context_path,\n
+  \                                  keys=argToList(args.get('keys')),\n                                   overwrite=argToBoolean(args.get('overwrite')),\n
   \                                  columns=argToList(args.get('columns')),\n                                   sort_by=argToList(args.get('sort_by')),\n
   \                                  unpack_nested_elements=argToBoolean(args.get('unpack_nested_elements')),\n
   \                                  keys_from_nested=argToList(args.get('keys_from_nested'))\n
   \                                  )\n        # Execute automation 'setIncident`
   which change the Context data in the incident\n        res = demisto.executeCommand(\"setIncident\",
   {\n            'customFields': {\n                grid_id: table,\n            },\n
-  \       })\n        if is_error(res):\n            demisto.error(f'failed to execute
-  \"setIncident\" with table: {table}')\n            return_results(res)\n        else:\n
-  \           return_results(f'Set grid {grid_id} using {context_path} successfully.')\n\n
-  \   except Exception as exc:\n        return_error(f'Failed to execute setGridField.
-  Error: {str(exc)}', error=traceback.format_exc())\n\n\nif __name__ in ('__main__',
-  '__builtin__', 'builtins'):\n    main()\n\nregister_module_line('SetGridField',
+  \       })\n        # we want to check if the incident was succefully updated\n
+  \       # we execute command and not using `demisto.incident()` because we want
+  to get the updated incident and context\n        res = demisto.executeCommand(\"getIncidents\",
+  {\"id\": demisto.incident().get(\"id\")})\n        data = res[0][\"Contents\"][\"data\"]\n
+  \       custom_fields = data[0].get(\"CustomFields\")\n\n        if table and grid_id
+  not in custom_fields:\n            raise ValueError(f\"The following grid id was
+  not found: {grid_id}. Please make sure you entered the correct \"\n                             f\"incident
+  type with the \\\"Machine name\\\" as it appears in the incident field editor in
+  \"\n                             f\"Settings->Advanced ->Fields (Incident). Also
+  make sure that this value appears in the \"\n                             f\"incident
+  Context Data under incident - if not then please consult with support.\")\n\n        if
+  is_error(res):\n            demisto.error(f'failed to execute \"setIncident\" with
+  table: {table}')\n            return_results(res)\n        else:\n            return_results(f'Set
+  grid {grid_id} using {context_path} successfully.')\n\n    except Exception as exc:\n
+  \       return_error(f'Failed to execute setGridField. Error: {str(exc)}', error=traceback.format_exc())\n\n\nif
+  __name__ in ('__main__', '__builtin__', 'builtins'):\n    main()\n\nregister_module_line('SetGridField',
   'end', __line__())\n"
 scripttarget: 0
 subtype: python3

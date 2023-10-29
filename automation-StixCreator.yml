@@ -11,7 +11,7 @@ args:
   description: Adds a second backslash to all existing backslashes in the value field.
   name: doubleBackslash
 comment: Gets a list of indicators from the indicators argument, and generates a JSON
-  file in STIX 2.0 format.
+  file in STIX 2.1 format.
 commonfields:
   id: StixCreator
   version: -1
@@ -19,7 +19,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.23
+    itemVersion: 1.12.38
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -27,7 +27,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/py3-tools:1.0.0.72621
+dockerimage: demisto/py3-tools:1.0.0.74403
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -50,7 +50,7 @@ outputs:
     and so on. '
   type: string
 - contextPath: StixExportedIndicators.score
-  description: The STIX impact score ("High", "Medium", "None", or "Not Specified")
+  description: The STIX impact score ("High", "Medium", "None", or "Not Specified").
   type: string
 - contextPath: StixExportedIndicators.modified
   description: The date/time that the indicator was last seen.
@@ -60,7 +60,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('StixCreator', 'start', __line__())
-  ### pack version: 1.12.23
+  ### pack version: 1.12.38
 
 
   import dateparser
@@ -445,7 +445,7 @@ script: |
                   demisto.info(f"Export failure exception: {traceback.format_exc()}")
                   continue
       if len(indicators) > 1:
-          bundle = Bundle(indicators, allow_custom=True)
+          bundle = Bundle(indicators, allow_custom=True, spec_version='2.1')
           context = {
               'StixExportedIndicators(val.pattern && val.pattern == obj.pattern)': json.loads(str(bundle))
           }

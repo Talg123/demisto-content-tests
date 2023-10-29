@@ -18,7 +18,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 1.4.8
+    itemVersion: 1.4.9
     packID: Malware
     packName: Malware Core
     packPropagationLabels:
@@ -282,7 +282,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CreateHashIndicatorWrapper', 'start', __line__())
-  ### pack version: 1.4.8
+  ### pack version: 1.4.9
   from typing import Tuple
 
 

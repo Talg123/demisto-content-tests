@@ -79,7 +79,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.3.13
+    itemVersion: 1.3.14
     packID: Gmail
     packName: Gmail
     packPropagationLabels:
@@ -402,7 +402,7 @@ script:
       required: true
     - description: 'Returns messages matching the specified query. Supports the same
         query format as the Gmail search box. For example, "from:someuser@example.com
-        rfc822msgid: is:unread". For more syntax information see "https://support.google.com/mail/answer/7190?hl=en"'
+        rfc822msgid: is:unread". For more syntax information see "https://support.google.com/mail/answer/7190?hl=en".'
       name: query
     - defaultValue: "100"
       description: The maximum number of results to return. Default is 100. Maximum
@@ -411,7 +411,7 @@ script:
     - description: 'Enables partial responses to be retrieved, separated by commas.
         Valid fields are only from the following list: Type, Mailbox, ThreadId, Labels,
         Headers, Attachments, RawData, Format, Subject, From, To, Body, Cc, Bcc, Date,
-        Html, Attachment Names'
+        Html, Attachment Names.'
       isArray: true
       name: fields
     - description: Returns messages with labels that match all of the specified label
@@ -422,27 +422,27 @@ script:
     - auto: PREDEFINED
       defaultValue: "False"
       description: 'Include messages from SPAM and TRASH in the results. (Default:
-        false)'
+        false).'
       name: include-spam-trash
       predefined:
       - "False"
       - "True"
-    - description: Specifies the sender. For example, "john"
+    - description: Specifies the sender. For example, "john".
       name: from
-    - description: Specifies the receiver. For example, "john"
+    - description: Specifies the receiver. For example, "john".
       name: to
-    - description: Words in the subject line. For example, "alert"
+    - description: Words in the subject line. For example, "alert".
       name: subject
     - description: Attachments with a certain name or file type. For example, "pdf"
-        or "report.pdf"
+        or "report.pdf".
       name: filename
     - description: 'Messages in any folder, including Spam and Trash. For example:
-        shopping'
+        shopping.'
       name: in
-    - description: 'Search for messages sent after a specific date. For example: 2018/05/06'
+    - description: 'Search for messages sent after a specific date. For example: 2018/05/06.'
       name: after
     - description: 'Search for messages sent before a specific date. for example:
-        2018/05/09'
+        2018/05/09.'
       name: before
     - auto: PREDEFINED
       description: Whether to search for messages sent with attachments (boolean value).
@@ -528,7 +528,7 @@ script:
   - arguments:
     - description: 'Returns messages matching the specified query. Supports the same
         query format as the Gmail search box. For example, "from:someuser@example.com
-        rfc822msgid: is:unread". For more syntax information,see "https://support.google.com/mail/answer/7190?hl=en"'
+        rfc822msgid: is:unread". For more syntax information,see "https://support.google.com/mail/answer/7190?hl=en".'
       name: query
     - defaultValue: "100"
       description: The maximum number of results to return. Default is 100. Maximum
@@ -537,7 +537,7 @@ script:
     - description: 'Enables partial responses to be retrieved, separated by commas.
         Valid fields are only from the following list: Type, Mailbox, ThreadId, Labels,
         Headers, Attachments, RawData, Format, Subject, From, To, Body, Cc, Bcc, Date,
-        Html, Attachment Names'
+        Html, Attachment Names.'
       isArray: true
       name: fields
     - description: Returns messages with labels that match all of the specified label
@@ -548,26 +548,26 @@ script:
     - auto: PREDEFINED
       defaultValue: "False"
       description: 'Includes messages from SPAM and TRASH in the results. (Default:
-        false)'
+        false).'
       name: include-spam-trash
       predefined:
       - "False"
       - "True"
-    - description: Specifies the sender. For example, "john"
+    - description: Specifies the sender. For example, "john".
       name: from
-    - description: Specifies the receiver. For example, "john"
+    - description: Specifies the receiver. For example, "john".
       name: to
-    - description: Words in the subject line. For example, "alert"
+    - description: Words in the subject line. For example, "alert".
       name: subject
     - description: Attachments with a certain name or file type. For example, "pdf"
-        or "report.pdf"
+        or "report.pdf".
       name: filename
     - description: Messages in any folder, including Spam and Trash. For example,
-        shopping
+        shopping.
       name: in
-    - description: Search for messages sent after a specific date. For example, 2018/05/06
+    - description: Search for messages sent after a specific date. For example, 2018/05/06.
       name: after
-    - description: Search for messages sent before a specific date. For example, 2018/05/09
+    - description: Search for messages sent before a specific date. For example, 2018/05/09.
       name: before
     - auto: PREDEFINED
       description: Whether to search for messages sent with attachments.
@@ -590,7 +590,7 @@ script:
     - description: Used to track search progress.
       name: search_to
     description: Searches the Gmail records for all Google users. (For more than 2500
-      accounts, use with the `Search all mailboxes - Gmail with polling` playbook)
+      accounts, use with the `Search all mailboxes - Gmail with polling` playbook).
     name: gmail-search-all-mailboxes
     outputs:
     - contextPath: Gmail.ID
@@ -716,7 +716,7 @@ script:
       - "False"
       - "True"
     - auto: PREDEFINED
-      description: How to sort the results. Can be ASCENDING/DESCENDING
+      description: How to sort the results. Can be ASCENDING/DESCENDING.
       name: sort-order
       predefined:
       - ASCENDING
@@ -861,7 +861,7 @@ script:
         ID, labels, and email headers / "minimal": Returns only email message ID and
         labels; does not return the email headers, body, or payload / "raw": Returns
         the full email message data with body content in the raw field as a base64url
-        encoded string; the payload field is not used'
+        encoded string; the payload field is not used.'
       name: format
       predefined:
       - full
@@ -1218,7 +1218,7 @@ script:
       name: user-id
       required: true
     - description: A comma-separated list of filter IDs (can be retrieve using `gmail-list-filters`
-        command)
+        command).
       isArray: true
       name: filter_ids
       required: true
@@ -1452,7 +1452,7 @@ script:
     - description: |-
         A comma-separated list of new names to rename attachments corresponding to the order that they were attached to the email.
                 Examples - To rename first and third file attachNames=new_fileName1,,new_fileName3
-                To rename second and fifth files attachNames=,new_fileName2,,,new_fileName5
+                To rename second and fifth files attachNames=,new_fileName2,,,new_fileName5.
       isArray: true
       name: attachNames
     - description: A comma-separated list of CID images to embed attachments inside
@@ -1462,19 +1462,19 @@ script:
     - description: |-
         Textual name for an attached file. Multiple files are supported as a
                 comma-separated list. For example, transientFile="t1.txt,temp.txt,t3.txt" transientFileContent="test
-                2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz")
+                2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz").
       isArray: true
       name: transientFile
     - description: |-
         Content for the attached file. Multiple files are supported as a comma-separated
                 list. For example, transientFile="t1.txt,temp.txt,t3.txt" transientFileContent="test
-                2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz")
+                2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz").
       isArray: true
       name: transientFileContent
     - description: |-
         CID image for an attached file to include within the email body. Multiple files are
                 supported as a comma-separated list. (e.g. transientFile="t1.txt,temp.txt,t3.txt"
-                transientFileContent="test 2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz")
+                transientFileContent="test 2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz").
       isArray: true
       name: transientFileCID
     - description: 'A CSV list of additional headers in the format: headerName=headerValue.
@@ -1496,7 +1496,7 @@ script:
       - HTML
       - Text
     - auto: PREDEFINED
-      description: Indicates whether to render the email body
+      description: Indicates whether to render the email body.
       name: renderBody
       predefined:
       - "true"
@@ -1572,7 +1572,7 @@ script:
     - description: |-
         A comma-separated list of new names used to rename attachments corresponding to the order in which they were attached to the email.
                 Examples - To rename the first and third file: attachNames=new_fileName1,,new_fileName3
-                To rename the second and fifth files: attachNames=,new_fileName2,,,new_fileName5
+                To rename the second and fifth files: attachNames=,new_fileName2,,,new_fileName5.
       isArray: true
       name: attachNames
     - description: A comma-separated list of CID images to embed as attachments inside
@@ -1581,17 +1581,17 @@ script:
       name: attachCIDs
     - description: Textual name for an attached file. Multiple files are supported
         as a comma-separated list. For example, transientFile="t1.txt,temp.txt,t3.txt"
-        transientFileContent="test2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz")
+        transientFileContent="test2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz").
       isArray: true
       name: transientFile
     - description: Content for the attached file. Multiple files are supported as
         a comma-separated list. For example, transientFile="t1.txt,temp.txt,t3.txt"
-        transientFileContent="test2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz")
+        transientFileContent="test2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz").
       isArray: true
       name: transientFileContent
     - description: CID image for an attached file to include within the email body.
         Multiple files are supported as a comma-separated list. (e.g. transientFile="t1.txt,temp.txt,t3.txt"
-        transientFileContent="test 2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz")
+        transientFileContent="test 2,temporary file content,third file content" transientFileCID="t1.txt@xxx.yyy,t2.txt@xxx.zzz").
       isArray: true
       name: transientFileCID
     - description: 'A comma-separated list of additional headers in the format: headerName=headerValue.
@@ -1612,7 +1612,7 @@ script:
       predefined:
       - HTML
       - Text
-    - description: Indicates whether to render the email body
+    - description: Indicates whether to render the email body.
       name: renderBody
     description: Replies to a mail using Gmail.
     name: reply-mail
@@ -1927,12 +1927,12 @@ script:
       description: Indicates whether this address has been verified and is usable
         for forwarding.
       type: String
-  dockerimage: demisto/google-api-py3:1.0.0.68841
+  dockerimage: demisto/google-api-py3:1.0.0.77314
   isfetch: true
   runonce: false
   script: |
     register_module_line('Gmail', 'start', __line__())
-    ### pack version: 1.3.13
+    ### pack version: 1.3.14
 
 
 
@@ -2991,7 +2991,7 @@ script:
         file_content = ''
         if response_body_entry_id and not args.get('response-body'):
             file_entry = demisto.getFilePath(response_body_entry_id)
-            with open(file_entry['path'], 'r') as f:
+            with open(file_entry['path']) as f:
                 file_content = str(f.read())
         response_body_plain_text = file_content if file_content else args.get('response-body')
         response_body_type = args.get('response-body-type')
@@ -3086,7 +3086,7 @@ script:
             'name': {
                 'givenName': first_name,
                 'familyName': family_name,
-                'fullName': '%s %s' % (first_name, family_name,),
+                'fullName': f'{first_name} {family_name}',
             },
             'password': password
         }
@@ -3125,7 +3125,8 @@ script:
         service = get_service(
             'gmail',
             'v1',
-            ['https://www.googleapis.com/auth/gmail.readonly'])
+            ['https://www.googleapis.com/auth/gmail.readonly'],
+            delegated_user=user_key)
         results = service.users().labels().list(userId=user_key).execute()
         labels = results.get('labels', [])
         return labels
@@ -3140,7 +3141,7 @@ script:
             raise ValueError('Must provide Immutable GoogleApps Id')
 
         roles = get_user_role(user_key, GAPPS_ID)
-        return user_roles_to_entry('User Roles of %s:' % (user_key,), roles)
+        return user_roles_to_entry(f'User Roles of {user_key}:', roles)
 
 
     def get_user_role(user_key, customer):
@@ -3333,7 +3334,7 @@ script:
 
         if max_results > 500:
             raise ValueError(
-                'maxResults must be lower than 500, got %s' % (max_results,))
+                f'maxResults must be lower than 500, got {max_results}')
         try:
             mails, q = search(user_id, subject, _from, to,
                               before, after, filename, _in, query,
@@ -3369,9 +3370,9 @@ script:
             'in': _in,
             'has': 'attachment' if has_attachments else ''
         }
-        q = ' '.join('%s:%s ' % (name, value,)
+        q = ' '.join(f'{name}:{value} '
                      for name, value in list(query_values.items()) if value != '')
-        q = ('%s %s' % (q, query,)).strip()
+        q = (f'{q} {query}').strip()
 
         command_args = {
             'userId': user_id,
@@ -3887,6 +3888,7 @@ script:
                 })
 
             return inline_attachment
+        return None
 
 
     def collect_manual_attachments():
@@ -4562,7 +4564,7 @@ script:
                 demisto.info(
                     f'skipped incident with lower date: {occurred} than fetch: {last_fetch} name: {incident.get("name")}')
 
-        demisto.info('extract {} incidents'.format(len(incidents)))
+        demisto.info(f'extract {len(incidents)} incidents')
         next_page_token = result.get('nextPageToken', '')
         if next_page_token:
             # we still have more results

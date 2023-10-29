@@ -90,36 +90,16 @@
 						"name": "helloworld-say-hello"
 					},
 					{
-						"description": "Search HelloWorld Alerts.",
-						"name": "helloworld-search-alerts"
+						"description": "Lists the example alerts as it would be fetched from the API.",
+						"name": "helloworld-alert-list"
 					},
 					{
-						"description": "Retrieve alert extra data by ID.",
-						"name": "helloworld-get-alert"
+						"description": "Example of creating a new item in the API.",
+						"name": "helloworld-alert-note-create"
 					},
 					{
-						"description": "Update the status for an alert.",
-						"name": "helloworld-update-alert-status"
-					},
-					{
-						"description": "Return IP information and reputation",
+						"description": "Return IP information and reputation.",
 						"name": "ip"
-					},
-					{
-						"description": "Returns Domain information and reputation.",
-						"name": "domain"
-					},
-					{
-						"description": "Start scan on an asset.",
-						"name": "helloworld-scan-start"
-					},
-					{
-						"description": "Retrieve scan status for one or more scan IDs.",
-						"name": "helloworld-scan-status"
-					},
-					{
-						"description": "Retrieve scan status in Context or as a File (default) for a Scan.",
-						"name": "helloworld-scan-results"
 					}
 				],
 				"description": "This is the Hello World integration for getting started.",
@@ -136,7 +116,7 @@
 		"list": null,
 		"playbook": [
 			{
-				"description": "This Playbook simulates a vulnerability scan using the \"HelloWorld\" sample integration. It's used to demonstrate how to use the GenericPolling mechanism to run jobs that take several seconds or minutes to complete. It is designed to be used as a subplaybook, but you can also use it as a standalone playbook, by providing the ${Endpoint.Hostname} input in the Context.\n\nOther inputs include the report output format (JSON context or File attached), and the Interval/Timeouts to use for polling the scan status until it's complete.",
+				"description": "Deprecated. No available replacement.",
 				"name": "HelloWorld Scan"
 			},
 			{
@@ -149,35 +129,42 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.2.23",
+	"currentVersion": "2.0.0",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.31",
+			"minVersion": "1.32.35",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "2.4.2",
+			"minVersion": "2.4.5",
 			"name": "Common Playbooks"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.12.20",
+			"minVersion": "1.12.29",
 			"name": "Common Scripts"
+		},
+		"CommonTypes": {
+			"author": "Cortex XSOAR",
+			"certification": "certified",
+			"mandatory": false,
+			"minVersion": "3.3.87",
+			"name": "Common Types"
 		}
 	},
 	"deprecated": false,
 	"description": "This is the Hello World integration for getting started.",
 	"disabledMonthly": false,
-	"downloads": 17545,
+	"downloads": 18258,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -196,7 +183,7 @@
 			"name": "HelloWorld Feed"
 		}
 	],
-	"itemVersion": "1.2.23",
+	"itemVersion": "2.0.0",
 	"keywords": [],
 	"legacy": true,
 	"name": "HelloWorld",
@@ -225,9 +212,9 @@
 		"Getting Started"
 	],
 	"toServerVersion": "",
-	"updated": "2023-09-10T20:39:12Z",
+	"updated": "2023-10-01T09:22:23Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6285754",
+	"versionInfo": "6476675",
 	"videos": []
 }

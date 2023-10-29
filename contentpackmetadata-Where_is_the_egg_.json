@@ -10,10 +10,10 @@
 	"contentItemTypes": [
 		"integration",
 		"parsingrule",
-		"modelingrule",
-		"xsiamdashboard",
+		"xsiamreport",
 		"correlationrule",
-		"xsiamreport"
+		"modelingrule",
+		"xsiamdashboard"
 	],
 	"contentItems": {
 		"automation": null,

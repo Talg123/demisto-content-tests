@@ -15,7 +15,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.9.0
-    itemVersion: 1.12.23
+    itemVersion: 1.12.38
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -23,7 +23,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.66339
+dockerimage: demisto/python3:3.10.13.78623
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -36,7 +36,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('BMCTool', 'start', __line__())
-  ### pack version: 1.12.23
+  ### pack version: 1.12.38
   from typing import AnyStr, Generic
 
 

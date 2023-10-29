@@ -179,6 +179,10 @@
 					{
 						"description": "Modifies the AD account attribute \"Password Never Expire\".",
 						"name": "ad-modify-password-never-expire"
+					},
+					{
+						"description": "Test given credentials.",
+						"name": "ad-test-credentials"
 					}
 				],
 				"description": "The Active Directory Query integration enables you to access and manage Active Directory objects (users, contacts, and computers).",
@@ -203,28 +207,28 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.6.22",
+	"currentVersion": "1.6.25",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.27",
+			"minVersion": "1.32.37",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.12.16",
+			"minVersion": "1.12.31",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.3.83",
+			"minVersion": "3.3.87",
 			"name": "Common Types"
 		},
 		"Gmail": {
@@ -245,21 +249,21 @@
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.0.20",
+			"minVersion": "1.0.22",
 			"name": "Mail Sender (New)"
 		},
 		"MicrosoftGraphMail": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.5.12",
+			"minVersion": "1.5.17",
 			"name": "Microsoft Graph Mail"
 		}
 	},
 	"deprecated": false,
 	"description": "Active Directory Query integration enables you to access and manage Active Directory objects (users, contacts, and computers).",
 	"disabledMonthly": false,
-	"downloads": 44703,
+	"downloads": 47043,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -296,7 +300,7 @@
 			"name": "Gmail Single User"
 		}
 	],
-	"itemVersion": "1.6.22",
+	"itemVersion": "1.6.25",
 	"keywords": [
 		"Active Directory"
 	],
@@ -313,7 +317,7 @@
 	"rawKeywords": null,
 	"rawTags": null,
 	"rawUseCases": null,
-	"readme": "Use the Active Directory Query content pack to access and manage Active Directory objects (users, contacts, and computers) and run AD queries.\r\n\r\n\r\n## What does this pack do?\r\n- Retrieve detailed information about user accounts in Active Directory. \r\n- Create, update, and delete users and contacts in Active Directory.\r\n- Add or remove users from groups in Active Directory.\r\n- Enable or disable a user account in Active Directory.\r\n- Based on an email address or a username of a user account in Active Directory, return the email address and/or username of the user's manager.\r\n- Investigate changes in Active Directory containers, ACLs, Schema, and objects.\r\n\r\n\r\nAs part of this pack, you will get an integration, a playbook to investigate changes in Active Directory, a playbook to access a user's manager's email address or username, 2 classifiers, and 4 scripts:\r\n- **ADGetUser**: Retrieves detailed information about a user account. \r\n- **IAMInitADUser**: Generates and sets an AD user account with a password, and enables the account. \r\n- **SendEmailToManager**: Sends an approval email to the manager of the employee with the given email allowing the manager to reply directly in the incident.\r\n- **UserEnrichAD**: Enriches a username with Active Directory data.\r\n\r\n## How does this pack work?\r\nCreate an instance of the **Active Directory Query v2** integration.\r\nThis integration can be used along with the Identity Lifecycle Management premium pack. For more information, see [Identity Lifecycle Management](https://xsoar.pan.dev/docs/reference/articles/identity-lifecycle-management) article.\r\n\r\nFor more information, see [Active Directory Query v2](https://xsoar.pan.dev/docs/reference/integrations/active-directory-query-v2)\r\n\r\n![Playbook Image](https://github.com/demisto/content/raw/master/docs/images/playbooks/Active_Directory_-_Get_User_Manager_Details.png)\r\n",
+	"readme": "Use the Active Directory Query content pack to access and manage Active Directory objects (users, contacts, and computers) and run AD queries.\n\n\n## What does this pack do?\n- Retrieve detailed information about user accounts in Active Directory. \n- Create, update, and delete users and contacts in Active Directory.\n- Add or remove users from groups in Active Directory.\n- Enable or disable a user account in Active Directory.\n- Based on an email address or a username of a user account in Active Directory, return the email address and/or username of the user's manager.\n- Investigate changes in Active Directory containers, ACLs, Schema, and objects.\n\n\nAs part of this pack, you will get an integration, a playbook to investigate changes in Active Directory, a playbook to access a user's manager's email address or username, 2 classifiers, and 4 scripts:\n- **ADGetUser**: Retrieves detailed information about a user account. \n- **IAMInitADUser**: Generates and sets an AD user account with a password, and enables the account. \n- **SendEmailToManager**: Sends an approval email to the manager of the employee with the given email allowing the manager to reply directly in the incident.\n- **UserEnrichAD**: Enriches a username with Active Directory data.\n\n## How does this pack work?\nCreate an instance of the **Active Directory Query v2** integration.\nThis integration can be used along with the Identity Lifecycle Management premium pack. For more information, see [Identity Lifecycle Management](https://xsoar.pan.dev/docs/reference/articles/identity-lifecycle-management) article.\n\nFor more information, see [Active Directory Query v2](https://xsoar.pan.dev/docs/reference/integrations/active-directory-query-v2)\n\n![Playbook Image](https://storage.googleapis.com/marketplace-dist/content/packs/Active_Directory_Query/readme_images/Active_Directory_-_Get_User_Manager_Details.png)\n",
 	"searchRank": 10,
 	"serverMaxVersion": "",
 	"serverMinVersion": "5.0.0",
@@ -322,11 +326,13 @@
 		"email": "",
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
-	"tags": [],
+	"tags": [
+		"Trending"
+	],
 	"toServerVersion": "",
-	"updated": "2023-08-24T09:27:10Z",
+	"updated": "2023-10-10T09:30:11Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6139598",
+	"versionInfo": "6560427",
 	"videos": []
 }

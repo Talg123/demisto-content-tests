@@ -1264,28 +1264,28 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "2.1.7",
+	"currentVersion": "2.1.11",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.33",
+			"minVersion": "1.32.40",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "2.4.3",
+			"minVersion": "2.4.13",
 			"name": "Common Playbooks"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.12.23",
+			"minVersion": "1.12.37",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
@@ -1299,14 +1299,14 @@
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.2.30",
+			"minVersion": "1.2.34",
 			"name": "Filters And Transformers"
 		}
 	},
 	"deprecated": false,
 	"description": "Manage Palo Alto Networks Firewall and Panorama. Use this pack to manage Prisma Access through Panorama. For more information see Panorama documentation.",
 	"disabledMonthly": false,
-	"downloads": 41020,
+	"downloads": 43088,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -1323,7 +1323,7 @@
 			"name": "Palo Alto Networks PAN-OS"
 		}
 	],
-	"itemVersion": "2.1.7",
+	"itemVersion": "2.1.11",
 	"keywords": [
 		"Panorama",
 		"Firewall",
@@ -1347,7 +1347,7 @@
 	"rawKeywords": null,
 	"rawTags": null,
 	"rawUseCases": null,
-	"readme": "PAN‑OS is the software that runs all Palo Alto Networks next-generation firewalls. \nUsing this pack, you can monitor and prevent phishing attacks by controlling the sites to which users can submit valid corporate credentials, and to enforce safe search for search engines like Google and Bing.\n\n## What does this pack do?\n- Create and manage custom security rules in Palo Alto Networks PAN-OS.\n- Create and manage address objects, address-groups, custom URL categories, URL filtering objects.\n- Use the URL Filtering category information to enrich URLs.\n- Commit configurations to Palo Alto Firewall and to Panorama, and push configurations from Panorama to Pre-Defined Device-Groups of Firewalls.\n- Upgrade the version and content of the firewall. \n- Query the following PAN-OS log types: traffic, threat, url, data-filtering, and Wildfire.\n- Manage External Dynamic Lists (EDLs).\n\nAs part of this pack, you will get several playbooks to facilitate your workflows.\n### Pack Contributors:\n\n---\n - Adam Baumeister\n - Adam Burt\n\nContributions are welcome and appreciated. For more info, visit our [Contribution Guide](https://xsoar.pan.dev/docs/contributing/contributing).",
+	"readme": "PAN‑OS is the software that runs all Palo Alto Networks next-generation firewalls. \nUsing this pack, you can monitor and prevent phishing attacks by controlling the sites to which users can submit valid corporate credentials, and to enforce safe search for search engines like Google and Bing.\n\n## What does this pack do?\n- Create and manage custom security rules in Palo Alto Networks PAN-OS.\n- Create and manage address objects, address-groups, custom URL categories, URL filtering objects.\n- Use the URL Filtering category information to enrich URLs.\n- Commit configurations to Palo Alto Firewall and to Panorama, and push configurations from Panorama to Pre-Defined Device-Groups of Firewalls.\n- Upgrade the version and content of the firewall. \n- Query the following PAN-OS log types: traffic, threat, url, data-filtering, and Wildfire.\n- Manage External Dynamic Lists (EDLs).\n\nAs part of this pack, you will get several playbooks to facilitate your workflows.\n### Pack Contributors:\n\n---\n - Adam Baumeister\n - Adam Burt\n - Johnathan Wilkes\n\nContributions are welcome and appreciated. For more info, visit our [Contribution Guide](https://xsoar.pan.dev/docs/contributing/contributing).",
 	"searchRank": 10,
 	"serverMaxVersion": "",
 	"serverMinVersion": "5.0.0",
@@ -1356,11 +1356,14 @@
 		"email": "",
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
-	"tags": [],
+	"tags": [
+		"Palo Alto Networks Products",
+		"Trending"
+	],
 	"toServerVersion": "",
-	"updated": "2023-09-14T19:27:09Z",
+	"updated": "2023-10-25T09:34:05Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6323817",
+	"versionInfo": "6699754",
 	"videos": []
 }

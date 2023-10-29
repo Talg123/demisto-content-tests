@@ -41,21 +41,21 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.1.24",
+	"currentVersion": "1.1.25",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.21",
+			"minVersion": "1.32.35",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Fetches indicators from a plain text feed.",
 	"disabledMonthly": false,
-	"downloads": 4365,
+	"downloads": 4388,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.5.0",
 	"general": [
@@ -72,7 +72,7 @@
 			"name": "Plain Text Feed"
 		}
 	],
-	"itemVersion": "1.1.24",
+	"itemVersion": "1.1.25",
 	"keywords": [],
 	"legacy": true,
 	"name": "Plain Text Feed",
@@ -96,14 +96,14 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
-		"Threat Intelligence Management",
 		"Generic Feed",
-		"TIM"
+		"TIM",
+		"Threat Intelligence Management"
 	],
 	"toServerVersion": "",
-	"updated": "2023-07-25T19:36:50Z",
+	"updated": "2023-09-26T19:27:03Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "5866730",
+	"versionInfo": "6429983",
 	"videos": []
 }

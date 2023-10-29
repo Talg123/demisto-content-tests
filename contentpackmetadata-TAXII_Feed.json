@@ -9,28 +9,17 @@
 	"certification": "certified",
 	"contentItemTypes": [
 		"integration",
-		"indicatorfield",
-		"correlationrule",
-		"xsiamreport",
-		"parsingrule",
-		"xsiamdashboard",
-		"modelingrule"
+		"indicatorfield"
 	],
 	"contentItems": {
 		"automation": null,
 		"classifier": null,
-		"correlationrule": null,
 		"dashboard": null,
 		"genericfield": null,
 		"generictype": null,
 		"incidentfield": null,
 		"incidenttype": null,
 		"indicatorfield": [
-			{
-				"description": "",
-				"name": "STIX TTP Title",
-				"type": "shortText"
-			},
 			{
 				"description": "",
 				"name": "STIX Indicator Name",
@@ -40,21 +29,14 @@
 				"description": "",
 				"name": "STIX Indicator Description",
 				"type": "longText"
+			},
+			{
+				"description": "",
+				"name": "STIX TTP Title",
+				"type": "shortText"
 			}
 		],
 		"integration": [
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
-						"description": "Gets indicators from the the feed.",
-						"name": "get-indicators"
-					}
-				],
-				"description": "Ingests indicator feeds from TAXII 1.x servers.",
-				"id": "",
-				"name": "TAXII Feed"
-			},
 			{
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
@@ -72,44 +54,45 @@
 					}
 				],
 				"description": "Ingests indicator feeds from TAXII 2.0 and 2.1 servers.",
-				"id": "",
+				"id": "TAXII 2 Feed",
 				"name": "TAXII 2 Feed"
+			},
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Gets indicators from the the feed.",
+						"name": "get-indicators"
+					}
+				],
+				"description": "Ingests indicator feeds from TAXII 1.x servers.",
+				"id": "TAXIIFeed",
+				"name": "TAXII Feed"
 			}
 		],
 		"layoutscontainer": null,
 		"list": null,
-		"modelingrule": null,
-		"parsingrule": null,
 		"playbook": null,
 		"report": null,
 		"reputation": null,
 		"widget": null,
-		"wizard": null,
-		"xsiamdashboard": null,
-		"xsiamreport": null
+		"wizard": null
 	},
-	"currentVersion": "1.1.9",
+	"currentVersion": "1.2.0",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.31.14",
+			"minVersion": "1.32.37",
 			"name": "Base"
-		},
-		"CommonTypes": {
-			"author": "Cortex XSOAR",
-			"certification": "certified",
-			"mandatory": true,
-			"minVersion": "3.2.40",
-			"name": "Common Types"
 		}
 	},
 	"deprecated": false,
 	"description": "Ingest indicator feeds from TAXII 1 and TAXII 2 servers.",
 	"disabledMonthly": false,
-	"downloads": 9224,
+	"downloads": 23610,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.5.0",
 	"general": [
@@ -130,7 +113,7 @@
 			"name": "TAXII Feed"
 		}
 	],
-	"itemVersion": "1.1.9",
+	"itemVersion": "1.2.0",
 	"keywords": [],
 	"legacy": true,
 	"name": "TAXII Feed",
@@ -154,12 +137,13 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
+		"Generic Feed",
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2023-09-05T09:27:33Z",
+	"updated": "2023-10-16T19:27:40Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "3379905",
+	"versionInfo": "6617721",
 	"videos": []
 }

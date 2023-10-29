@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.1.7
+    itemVersion: 2.1.11
     packID: PAN-OS
     packName: PAN-OS by Palo Alto Networks
     packPropagationLabels:
@@ -80,6 +80,13 @@ inputs:
   value: {}
 - description: A comma-separated list of destination zones.
   key: DestinationZone
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: If the rule, address and service are created in the "Shared" location,
+    we need to know what device-groups we can push to because it isn't possible to
+    push to the "Shared" location.
+  key: SecondaryDeviceGroup
   playbookInputQuery: null
   required: false
   value: {}
@@ -185,7 +192,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "10"
+      - "29"
     note: false
     quietmode: 0
     scriptarguments:
@@ -239,7 +246,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 540,
+          "x": 770,
           "y": 2605
         }
       }
@@ -267,7 +274,7 @@ tasks:
       {
         "position": {
           "x": 265,
-          "y": 3035
+          "y": 3120
         }
       }
   "7":
@@ -358,8 +365,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 540,
-          "y": 2770
+          "x": 560,
+          "y": 2950
         }
       }
   "11":
@@ -435,8 +442,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 990,
-          "y": 2770
+          "x": 1390,
+          "y": 2950
         }
       }
   "15":
@@ -489,8 +496,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1230,
-          "y": 300
+          "x": 520,
+          "y": 340
         }
       }
   "16":
@@ -525,8 +532,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 550,
-          "y": 500
+          "x": 680,
+          "y": 510
         }
       }
   "17":
@@ -599,8 +606,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 550,
-          "y": 650
+          "x": 680,
+          "y": 670
         }
       }
   "18":
@@ -641,8 +648,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 550,
-          "y": 845
+          "x": 680,
+          "y": 835
         }
       }
   "19":
@@ -790,7 +797,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 990,
+          "x": 1390,
           "y": 2605
         }
       }
@@ -1016,17 +1023,112 @@ tasks:
           "y": 2040
         }
       }
+  "29":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.DeviceGroup
+          operator: isEqualString
+          right:
+            value:
+              simple: shared
+      label: "yes"
+    continueonerrortype: ""
+    id: "29"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "10"
+      "yes":
+      - "30"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the device group is "shared", because in that case we
+        need to push to the actual device-groups that reference firewalls.
+      id: 93958d7c-611a-412f-8e50-52f0e98b3db7
+      iscommand: false
+      name: Is device-group "shared"?
+      type: condition
+      version: -1
+    taskid: 93958d7c-611a-412f-8e50-52f0e98b3db7
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 770,
+          "y": 2770
+        }
+      }
+  "30":
+    continueonerrortype: ""
+    id: "30"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      device-group:
+        complex:
+          root: inputs.SecondaryDeviceGroup
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Commit the PAN-OS Panorama or Firewall configuration.\nIf specified
+        as Panorama, it also pushes the policies to the specified device group in
+        the instance.
+      id: 19d7b705-1fdb-481a-8bf4-affaff21c091
+      iscommand: false
+      name: PAN-OS Commit Configuration
+      playbookId: PAN-OS Commit Configuration
+      type: playbook
+      version: -1
+    taskid: 19d7b705-1fdb-481a-8bf4-affaff21c091
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 970,
+          "y": 2950
+        }
+      }
 version: -1
 view: |-
   {
     "linkLabelsPosition": {
-      "15_4_#default#": 0.17,
-      "1_4_#default#": 0.15
+      "15_16_yes": 0.59,
+      "15_4_#default#": 0.1,
+      "18_20_#default#": 0.54,
+      "1_4_#default#": 0.1,
+      "24_11_yes": 0.54,
+      "29_10_#default#": 0.48,
+      "29_30_yes": 0.6
     },
     "paper": {
       "dimensions": {
-        "height": 3050,
-        "width": 1345,
+        "height": 3135,
+        "width": 1505,
         "x": 265,
         "y": 50
       }

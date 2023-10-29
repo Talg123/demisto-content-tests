@@ -69,7 +69,7 @@
 						"name": "gmail-search"
 					},
 					{
-						"description": "Searches the Gmail records for all Google users. (For more than 2500 accounts, use with the `Search all mailboxes - Gmail with polling` playbook)",
+						"description": "Searches the Gmail records for all Google users. (For more than 2500 accounts, use with the `Search all mailboxes - Gmail with polling` playbook).",
 						"name": "gmail-search-all-mailboxes"
 					},
 					{
@@ -190,16 +190,16 @@
 				"name": "Get Original Email - Gmail v2"
 			},
 			{
+				"description": "This playbook searches Gmail records for all Google users, designed for large companies with over 2500 Google users.",
+				"name": "Search all mailboxes - Gmail with polling"
+			},
+			{
 				"description": "This playbook searches Gmail to identify and delete emails with similar attributes to the malicious email.",
 				"name": "Search And Delete Emails - Gmail"
 			},
 			{
 				"description": "This playbook should only run as a sub-playbook for the Search-all-mailboxes - Gmail playbook, it should not run alone.",
 				"name": "Search in mailboxes Gmail (Loop) with polling"
-			},
-			{
-				"description": "This playbook searches Gmail records for all Google users, designed for large companies with over 2500 Google users.",
-				"name": "Search all mailboxes - Gmail with polling"
 			}
 		],
 		"report": null,
@@ -207,28 +207,28 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.3.13",
+	"currentVersion": "1.3.14",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.26",
+			"minVersion": "1.32.37",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.12.15",
+			"minVersion": "1.12.34",
 			"name": "Common Scripts"
 		},
 		"FiltersAndTransformers": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.2.27",
+			"minVersion": "1.2.33",
 			"name": "Filters And Transformers"
 		},
 		"Phishing": {
@@ -242,7 +242,7 @@
 	"deprecated": false,
 	"description": "Gmail API and user management (This integration replaces the Gmail functionality in the GoogleApps API and G Suite integration).",
 	"disabledMonthly": false,
-	"downloads": 10361,
+	"downloads": 10935,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -259,7 +259,7 @@
 			"name": "Gmail"
 		}
 	],
-	"itemVersion": "1.3.13",
+	"itemVersion": "1.3.14",
 	"keywords": [
 		"Google"
 	],
@@ -286,9 +286,9 @@
 	},
 	"tags": [],
 	"toServerVersion": "",
-	"updated": "2023-08-15T19:23:19Z",
+	"updated": "2023-10-18T09:23:03Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6058978",
+	"versionInfo": "6636841",
 	"videos": []
 }

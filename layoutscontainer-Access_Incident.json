@@ -292,7 +292,7 @@
 	"id": "Access",
 	"indicatorsDetails": null,
 	"indicatorsQuickView": null,
-	"itemVersion": "1.2.4",
+	"itemVersion": "1.2.5",
 	"locked": false,
 	"mobile": null,
 	"name": "Access Incident",

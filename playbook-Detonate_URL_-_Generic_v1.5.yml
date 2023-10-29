@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.8.0
-    itemVersion: 2.4.3
+    itemVersion: 2.4.13
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -487,7 +487,6 @@ tasks:
     scriptarguments:
       URL:
         complex:
-          accessor: Data
           root: inputs.URL
     separatecontext: true
     skipunavailable: true
@@ -530,7 +529,6 @@ tasks:
     scriptarguments:
       URL:
         complex:
-          accessor: Data
           root: inputs.URL
     separatecontext: true
     skipunavailable: true
@@ -572,7 +570,6 @@ tasks:
     scriptarguments:
       URL:
         complex:
-          accessor: Data
           root: inputs.URL
       interval:
         simple: "1"
@@ -618,7 +615,6 @@ tasks:
     scriptarguments:
       URL:
         complex:
-          accessor: Data
           root: inputs.URL
     separatecontext: true
     skipunavailable: true
@@ -664,7 +660,6 @@ tasks:
         simple: "60"
       url:
         complex:
-          accessor: Data
           root: inputs.URL
     separatecontext: true
     skipunavailable: true
@@ -745,7 +740,6 @@ tasks:
     scriptarguments:
       URL:
         complex:
-          accessor: Data
           root: inputs.URL
     separatecontext: true
     skipunavailable: true
@@ -787,7 +781,6 @@ tasks:
     scriptarguments:
       URL:
         complex:
-          accessor: Data
           root: inputs.URL
       interval:
         simple: "1"
@@ -836,7 +829,6 @@ tasks:
         simple: "120"
       URL:
         complex:
-          accessor: Data
           root: inputs.URL
     separatecontext: true
     skipunavailable: true
@@ -997,7 +989,6 @@ tasks:
         simple: "60"
       URL:
         complex:
-          accessor: Data
           root: inputs.URL
     separatecontext: true
     skipunavailable: true

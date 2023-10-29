@@ -21,7 +21,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.2.9
+    itemVersion: 1.2.10
     packID: UrlScan
     packName: URLScan.io
     packPropagationLabels:
@@ -43,7 +43,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.2.9
+  // pack version: 1.2.10
   var url = args.url;
   var limit = args.limitl;
   var defaultWaitTime = Number(args.wait_time_for_polling)

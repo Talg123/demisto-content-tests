@@ -23,7 +23,7 @@
 	"hidden": false,
 	"id": "incident_helloworldstatus",
 	"isReadOnly": false,
-	"itemVersion": "1.2.23",
+	"itemVersion": "2.0.0",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Hello World Status",

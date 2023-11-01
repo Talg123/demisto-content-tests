@@ -11,7 +11,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels:
     - all
-    toServerVersion: ""
+    toServerVersion: "6.11.0"
 dockerimage: demisto/python3:3.10.13.74666
 enabled: true
 engineinfo:
@@ -22,7 +22,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |+
-  """Base Script for Cortex XSOAR (aka Demisto)aabb
+  """Base Script for Cortex XSOAR (aka Demisto)aabb dsfdsfdsf
   This is an empty script with some basic structure according
   to the code conventions.
   MAKE SURE YOU REVIEW/REPLACE ALL THE COMMENTS MARKED AS "TODO"

@@ -22,7 +22,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |+
-  """Base Script for Cortex XSOAR (aka Demisto)
+  """Base Script for Cortex XSOAR (aka Demisto)aa
   This is an empty script with some basic structure according
   to the code conventions.
   MAKE SURE YOU REVIEW/REPLACE ALL THE COMMENTS MARKED AS "TODO"

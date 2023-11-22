@@ -212,6 +212,9 @@ tasks:
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
     note: false
     quietmode: 0
     separatecontext: false
@@ -233,15 +236,47 @@ tasks:
           "y": 850
         }
       }
+  "5":
+    continueonerrortype: ""
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: aaa
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      id: 326ee781-51aa-45e6-8a3b-081fb0e8bd22
+      iscommand: false
+      name: uat-restore
+      script: Print
+      type: regular
+      version: -1
+    taskid: 326ee781-51aa-45e6-8a3b-081fb0e8bd22
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 420,
+          "y": 1090
+        }
+      }
 version: -1
 view: |-
   {
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 895,
-        "width": 400,
-        "x": 430,
+        "height": 1135,
+        "width": 410,
+        "x": 420,
         "y": 50
       }
     }

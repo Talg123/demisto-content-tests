@@ -26,6 +26,8 @@ script: |2
   # line 1 TODO: ADD additional command functions that translate XSOAR inputs/outputs
 
   # line 2 TODO:
+
+  # line 4 TODO:after restore to 2
 scripttarget: 0
 subtype: python3
 tags: []

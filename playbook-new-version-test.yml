@@ -51,9 +51,6 @@ tasks:
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
-    nexttasks:
-      '#none#':
-      - "2"
     note: false
     quietmode: 0
     separatecontext: false
@@ -75,36 +72,6 @@ tasks:
           "y": 440
         }
       }
-  "2":
-    continueonerrortype: ""
-    id: "2"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "3"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: 96d04dc0-b8b9-4c33-80d5-a931011ea55c
-      iscommand: false
-      name: Untitled Task
-      type: regular
-      version: -1
-    taskid: 96d04dc0-b8b9-4c33-80d5-a931011ea55c
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 440,
-          "y": 770
-        }
-      }
   "3":
     continueonerrortype: ""
     id: "3"
@@ -117,12 +84,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: f3c6046d-7767-4502-851e-e6602700a1f5
+      id: 45c655b0-37ad-4cb8-85b5-a877bf3bfdd9
       iscommand: false
       name: Untitled Task
       type: regular
       version: -1
-    taskid: f3c6046d-7767-4502-851e-e6602700a1f5
+    taskid: 45c655b0-37ad-4cb8-85b5-a877bf3bfdd9
     timertriggers: []
     type: regular
     view: |-

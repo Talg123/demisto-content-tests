@@ -84,12 +84,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 45c655b0-37ad-4cb8-85b5-a877bf3bfdd9
+      id: f8f61b39-2600-49a6-8830-46ee0f68e4fb
       iscommand: false
       name: Untitled Task
       type: regular
       version: -1
-    taskid: 45c655b0-37ad-4cb8-85b5-a877bf3bfdd9
+    taskid: f8f61b39-2600-49a6-8830-46ee0f68e4fb
     timertriggers: []
     type: regular
     view: |-
@@ -97,6 +97,33 @@ tasks:
         "position": {
           "x": 430,
           "y": 980
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: b7c01a7a-296b-4191-8bb0-00a090d0935a
+      iscommand: false
+      name: Untitled Task
+      type: regular
+      version: -1
+    taskid: b7c01a7a-296b-4191-8bb0-00a090d0935a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 440,
+          "y": 770
         }
       }
 version: -1

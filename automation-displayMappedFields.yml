@@ -1,4 +1,4 @@
-comment: Display the mapped fields in a dynamic-section
+comment: Display the mapped fields in a dynamic-section.
 commonfields:
   id: displayMappedFields
   version: -1
@@ -6,7 +6,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.8.0
-    itemVersion: 1.12.38
+    itemVersion: 1.12.55
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -14,7 +14,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.80593
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -24,7 +24,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('displayMappedFields', 'start', __line__())
-  ### pack version: 1.12.38
+  ### pack version: 1.12.55
 
 
 
@@ -59,12 +59,14 @@ script: |
               if column.strip():
                   if i != 1:
                       html += f"<td style='font-family: Lato, Assistant, sans-serif; font-weight: 600; \
-                      font-size: 12px; text-align: left; color: #404142; \
-                      padding: 1px 0px 0px; margin: 0px 5px 0px 0px; contrast: 4.95;'>{column.strip()}</td>"
+                      font-size: 12px; text-align: left;  \
+                      padding: 1px 0px 0px; margin: 0px 5px 0px 0px; contrast: 4.95; ֿֿֿ\
+                      color: var(--xdr-on-background) ;'>{column.strip()}</td>"
                   else:
                       html += f"<td style='font-family: Lato, Assistant, sans-serif; font-weight: 600; \
-                      font-size: 12px; text-align: left; color: #707070; \
-                      padding: 1px 0px 0px; margin: 0px 5px 0px 0px; contrast: 4.95;'>{column.strip()}</td>"
+                      font-size: 12px; text-align: left; \
+                      padding: 1px 0px 0px; margin: 0px 5px 0px 0px; contrast: 4.95; \
+                      color: var(--xdr-on-background-secondary);'>{column.strip()}</td>"
           html += "</tr>"
       html += "</table>"
       return html

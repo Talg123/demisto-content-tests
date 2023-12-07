@@ -6,7 +6,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.32.50
+    itemVersion: 1.33.0
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -22,7 +22,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
-  ### pack version: 1.32.50
+  ### pack version: 1.33.0
   """Common functions script
   This script will be appended to each server script before being executed.
   Please notice that to add custom common code, add it to the CommonServerUserPython script.
@@ -6845,6 +6845,17 @@ script: |
       :type execution_metrics: ``ExecutionMetrics``
       :param execution_metrics: contains metric data about a command's execution
 
+      :type replace_existing: ``bool``
+      :param replace_existing: Replace the context value at outputs_prefix if it exists.
+              Works only if outputs_prefix is a path to a nested value i.e., contains a period.
+              For example, the "next token" result should always be overwritten. This response can be returned as follows:
+              >>> CommandResults(
+              >>>     readable_output=f'Next Token: {next_token}',
+              >>>     outputs=next_token,
+              >>>     outputs_prefix='Path.To.NextToken',
+              >>>     replace_existing=True,
+              >>> )
+
       :return: None
       :rtype: ``None``
       """
@@ -6864,8 +6875,9 @@ script: |
                    relationships=None,
                    entry_type=None,
                    content_format=None,
-                   execution_metrics=None):
-          # type: (str, object, object, list, str, object, IndicatorsTimeline, Common.Indicator, bool, bool, bool, ScheduledCommand, list, int, str, List[Any]) -> None  # noqa: E501
+                   execution_metrics=None,
+                   replace_existing=False):
+          # type: (str, object, object, list, str, object, IndicatorsTimeline, Common.Indicator, bool, bool, bool, ScheduledCommand, list, int, str, List[Any], bool) -> None  # noqa: E501
           if raw_response is None:
               raw_response = outputs
           if outputs is not None:
@@ -6907,6 +6919,7 @@ script: |
           self.scheduled_command = scheduled_command
           self.relationships = relationships
           self.execution_metrics = execution_metrics
+          self.replace_existing = replace_existing
 
           if content_format is not None and not EntryFormat.is_valid_type(content_format):
               raise TypeError('content_format {} is invalid, see CommonServerPython.EntryFormat'.format(content_format))
@@ -6953,19 +6966,23 @@ script: |
           if self.outputs is not None and self.outputs != []:
               if not self.readable_output:
                   # if markdown is not provided then create table by default
-                  if isinstance(self.outputs, dict) or isinstance(self.outputs, list):
+                  if isinstance(self.outputs, (dict, list)):
                       human_readable = tableToMarkdown('Results', self.outputs)
                   else:
                       human_readable = self.outputs   # type: ignore[assignment]
-              if self.outputs_prefix and self._outputs_key_field:
+              if self.outputs_prefix and self.replace_existing:
+                  next_token_path, _, next_token_key = self.outputs_prefix.rpartition('.')
+                  if not next_token_path:
+                      raise DemistoException('outputs_prefix must be a nested path to replace an existing key.')
+                  outputs[next_token_path + '(true)'] = {next_token_key: self.outputs}
+              elif self.outputs_prefix and self._outputs_key_field:
                   # if both prefix and key field provided then create DT key
                   formatted_outputs_key = ' && '.join(['val.{0} && val.{0} == obj.{0}'.format(key_field)
                                                        for key_field in self._outputs_key_field])
                   outputs_key = '{0}({1})'.format(self.outputs_prefix, formatted_outputs_key)
                   outputs[outputs_key] = self.outputs
               elif self.outputs_prefix:
-                  outputs_key = '{}'.format(self.outputs_prefix)
-                  outputs[outputs_key] = self.outputs
+                  outputs[str(self.outputs_prefix)] = self.outputs
               else:
                   outputs.update(self.outputs)  # type: ignore[call-overload]
 

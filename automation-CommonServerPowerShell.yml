@@ -1,5 +1,5 @@
 comment: Common code that will be merged into each PowerShell script/integration when
-  it runs
+  it runs.
 commonfields:
   id: CommonServerPowerShell
   version: -1
@@ -7,7 +7,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.32.50
+    itemVersion: 1.33.0
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -15,7 +15,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/powershell:7.1.3.22028
+dockerimage: demisto/powershell:7.4.0.80528
 engineinfo: {}
 mainengineinfo: {}
 name: CommonServerPowerShell
@@ -23,7 +23,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
-  ### pack version: 1.32.50
+  ### pack version: 1.33.0
 
 
   [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "", Scope = "", Justification = "Use of globals set by the Demisto Server")]
@@ -264,7 +264,7 @@ script: |
           if ( -not $this.IsIntegration ) {
               throw "Method not supported"
           }
-          $Incidents = $Incidents | ConvertTo-Json -Depth 6
+          $Incidents = $Incidents | ConvertTo-Json -Depth 6 -AsArray
           return $this.Results(@{Type = 1; Contents = $Incidents; ContentsFormat = "json" })
       }
 

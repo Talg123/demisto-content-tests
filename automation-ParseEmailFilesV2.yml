@@ -47,7 +47,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.38
+    itemVersion: 1.12.55
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -55,7 +55,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/parse-emails:1.0.0.78248
+dockerimage: demisto/parse-emails:1.0.0.82865
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -67,6 +67,9 @@ outputs:
   type: string
 - contextPath: Email.CC
   description: Email 'cc' addresses.
+  type: string
+- contextPath: Email.BCC
+  description: Email 'bcc' addresses.
   type: string
 - contextPath: Email.From
   description: This displays who the message is from, however, this can be easily
@@ -143,7 +146,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ParseEmailFilesV2', 'start', __line__())
-  ### pack version: 1.12.38
+  ### pack version: 1.12.55
 
 
   from parse_emails.parse_emails import EmailParser
@@ -179,6 +182,7 @@ script: |
       md += f"""* From:\t{email_data.get('From') or ""}\n"""
       md += f"""* To:\t{email_data.get('To') or ""}\n"""
       md += f"""* CC:\t{email_data.get('CC') or ""}\n"""
+      md += f"""* BCC:\t{email_data.get('BCC') or ""}\n"""
       md += f"""* Subject:\t{email_data.get('Subject') or ""}\n"""
       if email_data.get('Text'):
           text = email_data['Text'].replace('<', '[').replace('>', ']')

@@ -14,7 +14,7 @@
 	"formatScript": "",
 	"fromServerVersion": "6.2.0",
 	"id": "Report",
-	"itemVersion": "3.3.88",
+	"itemVersion": "3.3.95",
 	"layout": "STIX Report",
 	"legacyNames": [
 		"STIX Report"

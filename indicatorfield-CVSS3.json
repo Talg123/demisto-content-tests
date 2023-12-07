@@ -75,7 +75,7 @@
 	"hidden": false,
 	"id": "indicator_cvss3",
 	"isReadOnly": true,
-	"itemVersion": "3.3.88",
+	"itemVersion": "3.3.95",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "CVSS3",

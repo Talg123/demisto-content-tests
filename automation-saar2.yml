@@ -12,7 +12,7 @@ contentitemexportablefields:
     propagationLabels:
     - all
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.13.83255
+dockerimage: slack
 enabled: true
 engineinfo: {}
 mainengineinfo: {}

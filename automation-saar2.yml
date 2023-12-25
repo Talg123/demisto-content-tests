@@ -12,7 +12,7 @@ contentitemexportablefields:
     propagationLabels:
     - all
     toServerVersion: ""
-dockerimage: slack
+dockerimage: demisto/powershell:7.1.4.24032
 enabled: true
 engineinfo: {}
 mainengineinfo: {}

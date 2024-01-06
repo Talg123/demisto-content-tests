@@ -346,7 +346,8 @@ inputs:
   key: Tag
   playbookInputQuery: null
   required: false
-  value: {}
+  value:
+    simple: Blocked Indicator In Systems
 - description: |-
     This input determines whether Palo Alto Networks Panorama or Firewall Dynamic Address Groups are used.
     Specify the Dynamic Address Group tag name for IPs list handling.

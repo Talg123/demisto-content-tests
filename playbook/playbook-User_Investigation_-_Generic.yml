@@ -84,7 +84,8 @@ inputs:
   key: XDRUsernameField
   playbookInputQuery: null
   required: false
-  value: {}
+  value:
+    simple: actor_effective_username
 - description: 'The Search Time for the QRadar search query. for example:  Last 1
     days'
   key: QRadarSearchTime

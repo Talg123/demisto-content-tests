@@ -9,7 +9,7 @@ args:
   - "True"
   - "False"
 - description: 'A list of key-values to replace key for value in the following format:
-    {"old_key1":"new_key1", "old_key2":"new_key2"}'
+    {"old_key1":"new_key1", "old_key2":"new_key2"}.'
   name: replace_dict
 - auto: PREDEFINED
   defaultValue: "False"
@@ -32,7 +32,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.55
+    itemVersion: 1.13.16
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -40,7 +40,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.83255
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -50,7 +50,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ChangeContext', 'start', __line__())
-  ### pack version: 1.12.55
+  ### pack version: 1.13.16
 
 
   import json

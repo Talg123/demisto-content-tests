@@ -19,7 +19,9 @@ inputs:
   key: File
   playbookInputQuery: null
   required: false
-  value: {}
+  value:
+    complex:
+      root: File
 name: Detonate and Analyze File - Generic
 outputs:
 - contextPath: csfalconx.resource.tags

@@ -15,7 +15,7 @@ args:
   predefined:
   - csv
   - json
-comment: Uses the Demisto REST API integration to query the server audit trail logs,
+comment: Uses the Core REST API integration to query the server audit trail logs,
   and return back a CSV or JSON file.
 commonfields:
   id: ExportAuditLogsToFile
@@ -24,7 +24,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 1.12.55
+    itemVersion: 1.13.16
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -34,8 +34,8 @@ contentitemexportablefields:
     toServerVersion: ""
 dependson:
   must:
-  - demisto-api-post
-dockerimage: demisto/python3:3.10.13.74666
+  - core-api-post
+dockerimage: demisto/python3:3.10.13.83255
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -45,7 +45,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ExportAuditLogsToFile', 'start', __line__())
-  ### pack version: 1.12.55
+  ### pack version: 1.13.16
 
 
   import csv
@@ -116,8 +116,8 @@ script: |
           }
 
       args = {"uri": uri, "body": body}
-      res = demisto.executeCommand("demisto-api-post", args)
-      demisto.debug(f'demisto-api-post with {args} returned {res}')
+      res = demisto.executeCommand("core-api-post", args)
+      demisto.debug(f'core-api-post with {args} returned {res}')
       if is_error(res):
           raise DemistoException(f'error occurred when trying to retrieve the audit logs using {args=}, error: {res}')
 
@@ -135,8 +135,8 @@ script: |
           else:  # pagination for xsoar-8
               body["request_data"]["search_from"] = page_num  # type: ignore[index]
           args = {"uri": uri, "body": body}
-          res = demisto.executeCommand("demisto-api-post", args)
-          demisto.debug(f'demisto-api-post with {args} returned {res}')
+          res = demisto.executeCommand("core-api-post", args)
+          demisto.debug(f'core-api-post with {args} returned {res}')
           if is_error(res):
               raise DemistoException(f'error occurred when trying to retrieve the audit logs using {args=}, error: {res}')
           response = res[0]["Contents"]["response"]

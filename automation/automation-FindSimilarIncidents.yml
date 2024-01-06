@@ -544,5 +544,5 @@ tags:
 - dedup
 - duplicate
 - incidents
-timeout: 300ns
+timeout: 5m0s
 type: python

@@ -14,7 +14,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.3.40
+    itemVersion: 1.3.43
     packID: DemistoRESTAPI
     packName: Cortex REST API
     packPropagationLabels:
@@ -67,7 +67,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.3.40
+  // pack version: 1.3.43
   var taskStates = {
       new: '',
       inprogress: 'inprogress',
@@ -109,7 +109,7 @@ script: |
 
   function getStates(states) {
       var input_states = states.split(",");
-      if (input_states.includes('error')) {
+      if (input_states.indexOf('error') > -1) {
           input_states = input_states.concat('loopError')
       }
       var readyStates = {};
@@ -131,7 +131,7 @@ script: |
 
   var states = getStates(args.states || '');
   var inc_id = args.inc_id;
-  var res = executeCommand('demisto-api-get', {'uri': '/investigation/' + inc_id + '/workplan'});
+  var res = executeCommand('core-api-get', {'uri': '/investigation/' + inc_id + '/workplan'});
   if (isError(res[0])) {
       return res;
   }

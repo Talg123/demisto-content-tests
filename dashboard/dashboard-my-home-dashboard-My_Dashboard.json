@@ -22,7 +22,6 @@
 				"cacheVersn": 0,
 				"category": "",
 				"commitMessage": "",
-				"created": "0001-01-01T00:00:00Z",
 				"dataType": "tasks",
 				"dateRange": {
 					"fromDate": "0001-01-01T00:00:00Z",
@@ -51,7 +50,6 @@
 				"query": "assignee:\"{me}\" and (state:Waiting or state:inprogress or state:error)",
 				"shouldCommit": false,
 				"size": 10,
-				"sizeInBytes": 0,
 				"sort": [
 					{
 						"asc": true,
@@ -80,7 +78,6 @@
 				"cacheVersn": 0,
 				"category": "others",
 				"commitMessage": "",
-				"created": "0001-01-01T00:00:00Z",
 				"dataType": "messages",
 				"dateRange": {
 					"fromDate": "0001-01-01T00:00:00Z",
@@ -109,7 +106,6 @@
 				"query": "type:mention*",
 				"shouldCommit": false,
 				"size": 10,
-				"sizeInBytes": 0,
 				"toServerVersion": "",
 				"vcShouldIgnore": false,
 				"vcShouldKeepItemLegacyProdMachine": false,
@@ -131,7 +127,6 @@
 				"cacheVersn": 0,
 				"category": "",
 				"commitMessage": "",
-				"created": "0001-01-01T00:00:00Z",
 				"dataType": "incidents",
 				"dateRange": {
 					"fromDate": "0001-01-01T00:00:00Z",
@@ -175,7 +170,6 @@
 				"prevName": "",
 				"query": "-category:job and -status:archived and -status:closed and owner:\"{me}\"",
 				"shouldCommit": false,
-				"sizeInBytes": 0,
 				"toServerVersion": "",
 				"vcShouldIgnore": false,
 				"vcShouldKeepItemLegacyProdMachine": false,
@@ -197,7 +191,6 @@
 				"cacheVersn": 0,
 				"category": "",
 				"commitMessage": "",
-				"created": "0001-01-01T00:00:00Z",
 				"dataType": "incidents",
 				"dateRange": {
 					"fromDate": "0001-01-01T00:00:00Z",
@@ -241,7 +234,6 @@
 				"prevName": "",
 				"query": "-category:job and -status:archived and -status:closed and dueDate:\u003cnow and owner:\"{me}\"",
 				"shouldCommit": false,
-				"sizeInBytes": 0,
 				"toServerVersion": "",
 				"vcShouldIgnore": false,
 				"vcShouldKeepItemLegacyProdMachine": false,
@@ -263,7 +255,6 @@
 				"cacheVersn": 0,
 				"category": "",
 				"commitMessage": "",
-				"created": "0001-01-01T00:00:00Z",
 				"dataType": "incidents",
 				"dateRange": {
 					"fromDate": "2018-01-17T00:00:00+02:00",
@@ -296,7 +287,6 @@
 				"prevName": "",
 				"query": "-category:job and -status:archived and -status:closed and owner:\"{me}\"",
 				"shouldCommit": false,
-				"sizeInBytes": 0,
 				"toServerVersion": "",
 				"vcShouldIgnore": false,
 				"vcShouldKeepItemLegacyProdMachine": false,
@@ -318,7 +308,6 @@
 				"cacheVersn": 0,
 				"category": "",
 				"commitMessage": "",
-				"created": "0001-01-01T00:00:00Z",
 				"dataType": "incidents",
 				"dateRange": {
 					"fromDate": "0001-01-01T00:00:00Z",
@@ -351,7 +340,6 @@
 				"prevName": "",
 				"query": "-category:job and status:closed and owner:\"{me}\"",
 				"shouldCommit": false,
-				"sizeInBytes": 0,
 				"toServerVersion": "",
 				"vcShouldIgnore": false,
 				"vcShouldKeepItemLegacyProdMachine": false,

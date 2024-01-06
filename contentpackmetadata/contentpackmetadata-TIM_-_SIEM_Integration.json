@@ -49,6 +49,7 @@
 		"widget": null,
 		"wizard": null
 	},
+	"created": "2021-01-27T23:01:15Z",
 	"currentVersion": "1.1.2",
 	"definitionId": "",
 	"dependencies": {
@@ -63,7 +64,7 @@
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.31",
+			"minVersion": "1.32.33",
 			"name": "Base"
 		},
 		"QRadar": {
@@ -76,8 +77,7 @@
 	},
 	"deprecated": false,
 	"description": "Update your SIEM with minimal fuss! This Content Pack automates the delivery of indicators to your SIEM for correlation, with minimal configuration.",
-	"disabledMonthly": false,
-	"downloads": 3762,
+	"downloads": 4125,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.5.0",
 	"general": [
@@ -109,6 +109,7 @@
 	"itemVersion": "1.1.2",
 	"keywords": [],
 	"legacy": true,
+	"modules": [],
 	"name": "TIM - SIEM Integration",
 	"packID": "TIM_SIEM",
 	"packName": "",
@@ -136,11 +137,11 @@
 		"Getting Started"
 	],
 	"toServerVersion": "",
-	"updated": "2023-09-10T20:42:49Z",
+	"updated": "2023-09-14T09:45:00Z",
 	"useCases": [
 		"Threat Intelligence Management"
 	],
 	"version": -1,
-	"versionInfo": "6285754",
+	"versionInfo": "6319909",
 	"videos": []
 }

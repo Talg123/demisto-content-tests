@@ -23,13 +23,8 @@ inputs:
   required: false
   value:
     complex:
-      filters:
-      - - left:
-            iscontext: true
-            value:
-              simple: File.MD5
-          operator: isNotEmpty
-      root: File.MD5
+      accessor: MD5
+      root: File
       transformers:
       - operator: uniq
 - description: The file SHA256 hash to enrich.
@@ -38,13 +33,8 @@ inputs:
   required: false
   value:
     complex:
-      filters:
-      - - left:
-            iscontext: true
-            value:
-              simple: File.SHA256
-          operator: isNotEmpty
-      root: File.SHA256
+      accessor: SHA256
+      root: File
       transformers:
       - operator: uniq
 - description: The file SHA1 hash to enrich.
@@ -53,13 +43,8 @@ inputs:
   required: false
   value:
     complex:
-      filters:
-      - - left:
-            iscontext: true
-            value:
-              simple: File.SHA1
-          operator: isNotEmpty
-      root: File.SHA1
+      accessor: SHA1
+      root: File
       transformers:
       - operator: uniq
 - description: |-

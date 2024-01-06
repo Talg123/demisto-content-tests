@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 2.4.13
+    itemVersion: 2.5.2
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -326,12 +326,12 @@ tasks:
         1 = Low
         2 = Medium
         3 = High
-      id: 7082757c-758b-4cda-803e-526f85f26a68
+      id: 8ad27555-7d81-4dd4-86e5-598b2c445def
       iscommand: false
       name: Evaluate severity based on DBotScore of indicators
       type: condition
       version: -1
-    taskid: 7082757c-758b-4cda-803e-526f85f26a68
+    taskid: 8ad27555-7d81-4dd4-86e5-598b2c445def
     timertriggers: []
     type: condition
     view: |-
@@ -514,18 +514,20 @@ tasks:
         complex:
           accessor: Indicator
           root: DBotScore
+          transformers:
+          - operator: uniq
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
       description: Get the overall score for the indicator as calculated by DBot.
-      id: b894e09e-1a9a-4c62-80df-f1b53961c7c9
+      id: 5acf56ba-5b7b-4472-86e2-637756c34822
       iscommand: false
       name: Get DBotScore from XSOAR
       script: GetIndicatorDBotScoreFromCache
       type: regular
       version: -1
-    taskid: b894e09e-1a9a-4c62-80df-f1b53961c7c9
+    taskid: 5acf56ba-5b7b-4472-86e2-637756c34822
     timertriggers: []
     type: regular
     view: |-

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.4.13
+    itemVersion: 2.5.2
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -295,7 +295,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 265,
+          "x": 915,
           "y": -10
         }
       }
@@ -339,8 +339,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 265,
-          "y": 180
+          "x": 915,
+          "y": 120
         }
       }
   "2":
@@ -380,7 +380,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 510,
+          "x": 915,
           "y": 350
         }
       }
@@ -407,8 +407,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 510,
-          "y": 2340
+          "x": 915,
+          "y": 1650
         }
       }
   "4":
@@ -424,6 +424,8 @@ tasks:
       - "9"
       - "15"
       - "20"
+      - "21"
+      - "23"
     note: false
     quietmode: 0
     separatecontext: false
@@ -441,7 +443,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 510,
+          "x": 915,
           "y": 535
         }
       }
@@ -597,7 +599,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 92.5,
+          "x": 112.5,
           "y": 700
         }
       }
@@ -739,7 +741,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 92.5,
+          "x": 112.5,
           "y": 960
         }
       }
@@ -806,7 +808,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 930,
+          "x": 1320,
           "y": 700
         }
       }
@@ -818,7 +820,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "18"
+      - "19"
     note: false
     quietmode: 0
     reputationcalc: 2
@@ -865,7 +867,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 930,
+          "x": 1320,
           "y": 960
         }
       }
@@ -1109,7 +1111,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -455,
+          "x": -555,
           "y": 975
         }
       }
@@ -1287,87 +1289,6 @@ tasks:
           "y": 960
         }
       }
-  "12":
-    conditions:
-    - condition:
-      - - left:
-            iscontext: true
-            value:
-              complex:
-                filters:
-                - - ignorecase: true
-                    left:
-                      iscontext: true
-                      value:
-                        simple: Info
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: image/png
-                  - ignorecase: true
-                    left:
-                      iscontext: true
-                      value:
-                        simple: Info
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: image/jpg
-                  - ignorecase: true
-                    left:
-                      iscontext: true
-                      value:
-                        simple: Info
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: image/jpeg
-                  - ignorecase: true
-                    left:
-                      iscontext: true
-                      value:
-                        simple: Info
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: image/gif
-                root: File
-                transformers:
-                - operator: uniq
-          operator: isExists
-      label: "yes"
-    continueonerrortype: ""
-    id: "12"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "19"
-      "yes":
-      - "14"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Checks whether images were extracted from PDF files.
-      id: 53f7a7dd-1720-451f-892d-28bdc2938d12
-      iscommand: false
-      name: Were images extracted?
-      type: condition
-      version: -1
-    taskid: 53f7a7dd-1720-451f-892d-28bdc2938d12
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 1240,
-          "y": 1740
-        }
-      }
   "13":
     conditions:
     - condition:
@@ -1396,7 +1317,7 @@ tasks:
       '#default#':
       - "19"
       "yes":
-      - "12"
+      - "14"
     note: false
     quietmode: 0
     separatecontext: false
@@ -1416,8 +1337,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 930,
-          "y": 1560
+          "x": 2150,
+          "y": 960
         }
       }
   "14":
@@ -1494,8 +1415,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1480,
-          "y": 1910
+          "x": 2150,
+          "y": 1280
         }
       }
   "15":
@@ -1645,7 +1566,7 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1480,
+          "x": 1740,
           "y": 700
         }
       }
@@ -1784,133 +1705,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1480,
+          "x": 1740,
           "y": 960
-        }
-      }
-  "17":
-    continueonerrortype: ""
-    id: "17"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "13"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      EntryID:
-        complex:
-          accessor: EntryID
-          filters:
-          - - ignorecase: true
-              left:
-                iscontext: true
-                value:
-                  simple: File.Type
-              operator: isEqualString
-              right:
-                value:
-                  simple: application/pdf
-            - ignorecase: true
-              left:
-                iscontext: true
-                value:
-                  simple: File.Info
-              operator: containsString
-              right:
-                value:
-                  simple: application/pdf
-          root: File
-          transformers:
-          - operator: uniq
-      file_name:
-        simple: PDF_preview
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Gets a preview (image) of the PDF files.
-      id: 0fa1cea9-9c2e-4512-81d1-37058f817ea2
-      iscommand: true
-      name: Preview PDF files
-      script: '|||rasterize-pdf'
-      tags:
-      - PDF_Images
-      type: regular
-      version: -1
-    taskid: 0fa1cea9-9c2e-4512-81d1-37058f817ea2
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 1240,
-          "y": 1380
-        }
-      }
-  "18":
-    conditions:
-    - condition:
-      - - ignorecase: true
-          left:
-            iscontext: true
-            value:
-              complex:
-                filters:
-                - - left:
-                      iscontext: true
-                      value:
-                        simple: modules.brand
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: Rasterize
-                - - ignorecase: true
-                    left:
-                      iscontext: true
-                      value:
-                        simple: modules.state
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: active
-                root: modules
-                transformers:
-                - operator: uniq
-          operator: isExists
-      label: "yes"
-    continueonerrortype: ""
-    id: "18"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "13"
-      "yes":
-      - "17"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Checks if the Rasterize integration is enabled.
-      id: f7e70aea-197a-48b0-8e5b-1a0e4e813a15
-      iscommand: false
-      name: Is Rasterize enabled?
-      type: condition
-      version: -1
-    taskid: f7e70aea-197a-48b0-8e5b-1a0e4e813a15
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 930,
-          "y": 1200
         }
       }
   "19":
@@ -1950,8 +1746,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 510,
-          "y": 2120
+          "x": 915,
+          "y": 1470
         }
       }
   "20":
@@ -2005,7 +1801,215 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -330,
+          "x": -290,
+          "y": 700
+        }
+      }
+  "21":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: File.Info
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: image/png
+                  - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: File.Info
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: image/jpg
+                  - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: File.Info
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: image/jpeg
+                  - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: File.Info
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: image/gif
+                root: File
+                transformers:
+                - operator: uniq
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "21"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "10"
+      "yes":
+      - "13"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the uploaded file is a valid image file.
+      id: 7d2bdab4-aee1-4922-87a4-19eb4d35e264
+      iscommand: false
+      name: Is there an image file?
+      type: condition
+      version: -1
+    taskid: 7d2bdab4-aee1-4922-87a4-19eb4d35e264
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2150,
+          "y": 700
+        }
+      }
+  "22":
+    continueonerrortype: ""
+    id: "22"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "19"
+    note: false
+    quietmode: 0
+    reputationcalc: 2
+    scriptarguments:
+      entryID:
+        complex:
+          accessor: EntryID
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: File.Type
+              operator: containsString
+              right:
+                value:
+                  simple: Zip archive data
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: File.Extension
+              operator: isEqualString
+              right:
+                value:
+                  simple: docx
+          root: File
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Extracts indicators from word files (DOC, DOCX).
+      id: c6d6607d-0730-49a4-8cbd-261b527fcd1e
+      iscommand: false
+      name: Extract indicators from docx file
+      script: ExtractIndicatorsFromWordFile
+      type: regular
+      version: -1
+    taskid: c6d6607d-0730-49a4-8cbd-261b527fcd1e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 915,
+          "y": 960
+        }
+      }
+  "23":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: EntryID
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: File.Type
+                    operator: containsString
+                    right:
+                      value:
+                        simple: Zip archive data
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: File.Extension
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: docx
+                root: File
+                transformers:
+                - operator: uniq
+          operator: isExists
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "23"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "10"
+      "yes":
+      - "22"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if there is a Word file (DOC, DOCX) in context.
+      id: 912fbde6-c00b-486e-873f-da77400cacbe
+      iscommand: false
+      name: Is there a Word docx file?
+      type: condition
+      version: -1
+    taskid: 912fbde6-c00b-486e-873f-da77400cacbe
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 915,
           "y": 700
         }
       }
@@ -2013,14 +2017,15 @@ version: -1
 view: |-
   {
     "linkLabelsPosition": {
-      "12_14_yes": 0.55,
-      "13_12_yes": 0.55,
-      "15_10_#default#": 0.13,
+      "13_19_#default#": 0.14,
+      "15_10_#default#": 0.11,
       "15_16_yes": 0.38,
-      "18_13_#default#": 0.41,
-      "18_17_yes": 0.31,
       "1_10_#default#": 0.15,
-      "5_10_#default#": 0.23,
+      "1_2_yes": 0.39,
+      "21_10_#default#": 0.1,
+      "23_10_#default#": 0.14,
+      "23_22_yes": 0.43,
+      "5_10_#default#": 0.33,
       "5_6_yes": 0.36,
       "7_10_#default#": 0.15,
       "7_8_yes": 0.38,
@@ -2029,9 +2034,9 @@ view: |-
     },
     "paper": {
       "dimensions": {
-        "height": 2415,
-        "width": 2315,
-        "x": -455,
+        "height": 1725,
+        "width": 3085,
+        "x": -555,
         "y": -10
       }
     }

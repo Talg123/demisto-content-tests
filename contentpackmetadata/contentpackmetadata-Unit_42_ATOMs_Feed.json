@@ -41,21 +41,21 @@
 		"widget": null,
 		"wizard": null
 	},
-	"currentVersion": "1.0.38",
+	"currentVersion": "1.0.43",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSOAR",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.37",
+			"minVersion": "1.33.5",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Unit 42 feed of published IOCs which contains malicious indicators.",
 	"disabledMonthly": false,
-	"downloads": 21514,
+	"downloads": 23897,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.5.0",
 	"general": [
@@ -72,7 +72,7 @@
 			"name": "Unit 42 ATOMs Feed"
 		}
 	],
-	"itemVersion": "1.0.38",
+	"itemVersion": "1.0.43",
 	"keywords": [],
 	"legacy": true,
 	"name": "Unit 42 ATOMs Feed",
@@ -100,9 +100,9 @@
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2023-10-15T19:21:38Z",
+	"updated": "2023-12-19T20:25:08Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6608983",
+	"versionInfo": "7209615",
 	"videos": []
 }

@@ -7,7 +7,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.1.0
-    itemVersion: 1.2.34
+    itemVersion: 1.2.43
     packID: CommonWidgets
     packName: Common Widgets
     packPropagationLabels:
@@ -15,7 +15,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.83255
 engineinfo: {}
 mainengineinfo: {}
 name: MyToDoTasksWidget
@@ -24,7 +24,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('MyToDoTasksWidget', 'start', __line__())
-  ### pack version: 1.2.34
+  ### pack version: 1.2.43
   from dateparser import parse
 
 

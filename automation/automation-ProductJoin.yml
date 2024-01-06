@@ -9,7 +9,7 @@ args:
   name: list2
   required: true
 - defaultValue: =
-  description: Separator
+  description: Separator.
   name: join
   required: true
 comment: Returns the product of two lists, joined by a separator, as a list of strings.
@@ -20,7 +20,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.2.35
+    itemVersion: 1.2.51
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -28,7 +28,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.83255
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -38,7 +38,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ProductJoin', 'start', __line__())
-  ### pack version: 1.2.35
+  ### pack version: 1.2.51
 
 
   from itertools import product

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 2.4.13
+    itemVersion: 2.5.2
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -71,6 +71,9 @@ outputs:
 - contextPath: File.SSDeep
   description: File SSDeep.
   type: string
+- contextPath: AcquiredFile
+  description: The acquired file details.
+  type: Unknown
 starttaskid: "0"
 system: true
 tasks:

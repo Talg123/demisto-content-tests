@@ -8,7 +8,7 @@
 	"hideSearch": false,
 	"id": "Threat Intelligence Management",
 	"isCommon": true,
-	"itemVersion": "1.1.6",
+	"itemVersion": "1.1.7",
 	"layout": [
 		{
 			"forceRange": false,
@@ -726,7 +726,7 @@
 					]
 				},
 				"prevName": "",
-				"query": "expirationStatus:active or expirationStatus:\"\"",
+				"query": "(expirationStatus:active or expirationStatus:\"\")",
 				"shouldCommit": false,
 				"sizeInBytes": 0,
 				"toServerVersion": "",

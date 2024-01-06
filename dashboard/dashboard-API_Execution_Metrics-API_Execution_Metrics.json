@@ -8,7 +8,7 @@
 	"hideSearch": false,
 	"id": "API Execution Metrics",
 	"isCommon": true,
-	"itemVersion": "1.3.7",
+	"itemVersion": "1.3.8",
 	"layout": [
 		{
 			"forceRange": false,
@@ -1040,6 +1040,116 @@
 			},
 			"x": 0,
 			"y": 8
+		},
+		{
+			"forceRange": false,
+			"h": 3,
+			"i": "9e8acc20-8d3a-11ee-a736-df621984533b",
+			"id": "9e8acc20-8d3a-11ee-a736-df621984533b",
+			"reflectDimensions": true,
+			"w": 4,
+			"widget": {
+				"Cache": null,
+				"cacheVersn": 0,
+				"category": "",
+				"commitMessage": "",
+				"created": "0001-01-01T00:00:00Z",
+				"dataType": "metrics",
+				"dateRange": {
+					"fromDate": "0001-01-01T00:00:00Z",
+					"fromDateLicense": "0001-01-01T00:00:00Z",
+					"period": {
+						"by": "",
+						"byFrom": "hours",
+						"byTo": "days",
+						"field": "",
+						"fromValue": 3,
+						"toValue": 0
+					},
+					"toDate": "0001-01-01T00:00:00Z"
+				},
+				"definitionId": "",
+				"fromServerVersion": "",
+				"id": "API Call Results for Email Hippo",
+				"isPredefined": false,
+				"itemVersion": "",
+				"modified": "2022-10-30T12:01:15.237569307+02:00",
+				"name": "API Call Results for Email Hippo",
+				"packID": "",
+				"packName": "",
+				"params": {
+					"customGroupBy": [
+						null,
+						{
+							" Success": {
+								"conditions": [
+									[
+										{
+											"field": "apiResponseType",
+											"operator": "isEqualCaseString",
+											"right": "Successful",
+											"type": "string"
+										}
+									]
+								],
+								"name": " Success"
+							},
+							"General Error": {
+								"conditions": [
+									[
+										{
+											"field": "apiResponseType",
+											"operator": "isEqualCaseString",
+											"right": "GeneralError",
+											"type": "string"
+										}
+									]
+								],
+								"name": "General Error"
+							},
+							"Quota Error": {
+								"conditions": [
+									[
+										{
+											"field": "apiResponseType",
+											"operator": "isEqualCaseString",
+											"right": "QuotaError",
+											"type": "string"
+										}
+									]
+								],
+								"name": "Quota Error"
+							}
+						}
+					],
+					"groupBy": [
+						"modified(h)",
+						"apiResponseType"
+					],
+					"keys": [
+						"sum|totalAPICalls"
+					],
+					"referenceLine": {},
+					"timeFrame": "hours",
+					"valuesFormat": "abbreviated",
+					"xAxisLabel": "Time",
+					"yAxisLabel": "Request Counts"
+				},
+				"prevName": "API Call Results for Email Hippo",
+				"propagationLabels": [
+					"all"
+				],
+				"query": "type:integration and instance:\"Email Hippo_instance_1\"",
+				"shouldCommit": false,
+				"sizeInBytes": 0,
+				"toServerVersion": "",
+				"vcShouldIgnore": false,
+				"vcShouldKeepItemLegacyProdMachine": false,
+				"version": 1,
+				"widgetType": "line"
+			},
+			"x": 8,
+			"y": 9
 		}
 	],
 	"locked": false,

@@ -25,6 +25,50 @@
 				"category": "Forensics \u0026 Malware Analysis",
 				"commands": [
 					{
+						"description": "Returns a verdict regarding multiple hashes, stored in a TXT file or given as a list.",
+						"name": "wildfire-get-verdicts"
+					},
+					{
+						"description": "Returns a verdict for a hash.",
+						"name": "wildfire-get-verdict"
+					},
+					{
+						"description": "Retrieves results for a file hash using WildFire.",
+						"name": "wildfire-report"
+					},
+					{
+						"description": "Retrieves a sample.",
+						"name": "wildfire-get-sample"
+					},
+					{
+						"description": "Uploads a file to WildFire for analysis.",
+						"name": "wildfire-upload"
+					},
+					{
+						"description": "Uploads a URL of a webpage to WildFire for analysis.",
+						"name": "wildfire-upload-url"
+					},
+					{
+						"description": "Retrieve results for a file hash using WildFire.",
+						"name": "file"
+					},
+					{
+						"description": "Uploads the URL of a remote file to WildFire for analysis.",
+						"name": "wildfire-upload-file-url"
+					},
+					{
+						"description": "Get web artifacts for a URL webpage. An empty tgz will be returned, no matter what the verdict is, or even if the URL is malformed.",
+						"name": "wildfire-get-url-webartifacts"
+					}
+				],
+				"description": "Perform malware dynamic analysis.",
+				"id": "WildFire-v2",
+				"name": "Palo Alto Networks WildFire v2"
+			},
+			{
+				"category": "Forensics \u0026 Malware Analysis",
+				"commands": [
+					{
 						"description": "Retrieves results for a file hash using WildFire.",
 						"name": "internal-wildfire-get-report"
 					}
@@ -32,50 +76,6 @@
 				"description": "Generates a Palo Alto Networks WildFire PDF report. For internal use with the TIM Sample Analysis feature.",
 				"id": "WildFire-Reports",
 				"name": "Palo Alto Networks WildFire Reports"
-			},
-			{
-				"category": "Forensics \u0026 Malware Analysis",
-				"commands": [
-					{
-						"description": "Retrieves a sample.",
-						"name": "wildfire-get-sample"
-					},
-					{
-						"description": "Returns a verdict regarding multiple hashes, stored in a TXT file or given as a list.",
-						"name": "wildfire-get-verdicts"
-					},
-					{
-						"description": "Uploads the URL of a remote file to WildFire for analysis.",
-						"name": "wildfire-upload-file-url"
-					},
-					{
-						"description": "Retrieves results for a file hash using WildFire.",
-						"name": "wildfire-report"
-					},
-					{
-						"description": "Returns a verdict for a hash.",
-						"name": "wildfire-get-verdict"
-					},
-					{
-						"description": "Uploads a file to WildFire for analysis.",
-						"name": "wildfire-upload"
-					},
-					{
-						"description": "Retrieve results for a file hash using WildFire.",
-						"name": "file"
-					},
-					{
-						"description": "Get web artifacts for a URL webpage. An empty tgz will be returned, no matter what the verdict is, or even if the URL is malformed.",
-						"name": "wildfire-get-url-webartifacts"
-					},
-					{
-						"description": "Uploads a URL of a webpage to WildFire for analysis.",
-						"name": "wildfire-upload-url"
-					}
-				],
-				"description": "Perform malware dynamic analysis.",
-				"id": "WildFire-v2",
-				"name": "Palo Alto Networks WildFire v2"
 			}
 		],
 		"layoutscontainer": null,
@@ -86,32 +86,32 @@
 				"name": "WildFire - Detonate file v2"
 			},
 			{
-				"description": "Deprecated. Use Detonate File From URL - WildFire v2 instead.",
-				"name": "Detonate File From URL - WildFire"
-			},
-			{
-				"description": "Deprecated. Use WildFire - Detonate file v2 instead.",
-				"name": "WildFire - Detonate file"
-			},
-			{
 				"description": "Deprecated. Use Detonate URL - WildFire v2.2 instead.",
 				"name": "Detonate URL - WildFire-v2"
+			},
+			{
+				"description": "Detonate one or more files using the Wildfire v2 integration. This playbook returns relevant reports to the War Room and file reputations to the context data.\nThe detonation supports the following file types -\nAPK, JAR, DOC, DOCX, RTF, XLS, XLSX, PPT, PPTX, XML, PE32, PDF, DMG, PKG, RAR, 7Z.",
+				"name": "Detonate File From URL - WildFire v2"
 			},
 			{
 				"description": "Deprecated. Use Detonate URL - WildFire v2.2 instead.",
 				"name": "Detonate URL - WildFire v2.1"
 			},
 			{
-				"description": "This playbook uploads, detonates, and analyzes files for the Wildfire sandbox.\n",
-				"name": "Wildfire Detonate and Analyze File"
-			},
-			{
 				"description": "Detonate a webpage or remote file using the WildFire v2 integration. This playbook returns relevant reports to the War Room and file reputations to the context data.\nThe detonation supports the following file types:\nAPK, JAR, DOC, DOCX, RTF, OOXLS, XLSX, PPT, PPTX, XML, PE32, PDF, DMG, PKG, RAR, 7Z, JS.",
 				"name": "Detonate URL - WildFire v2.2"
 			},
 			{
-				"description": "Detonate one or more files using the Wildfire v2 integration. This playbook returns relevant reports to the War Room and file reputations to the context data.\nThe detonation supports the following file types -\nAPK, JAR, DOC, DOCX, RTF, XLS, XLSX, PPT, PPTX, XML, PE32, PDF, DMG, PKG, RAR, 7Z.",
-				"name": "Detonate File From URL - WildFire v2"
+				"description": "This playbook uploads, detonates, and analyzes files for the Wildfire sandbox.\n",
+				"name": "Wildfire Detonate and Analyze File"
+			},
+			{
+				"description": "Deprecated. Use WildFire - Detonate file v2 instead.",
+				"name": "WildFire - Detonate file"
+			},
+			{
+				"description": "Deprecated. Use Detonate File From URL - WildFire v2 instead.",
+				"name": "Detonate File From URL - WildFire"
 			}
 		],
 		"report": null,
@@ -119,6 +119,7 @@
 		"widget": null,
 		"wizard": null
 	},
+	"created": "2020-06-30T20:31:37Z",
 	"currentVersion": "2.1.39",
 	"definitionId": "",
 	"dependencies": {
@@ -146,7 +147,6 @@
 	},
 	"deprecated": false,
 	"description": "Perform malware dynamic analysis",
-	"disabledMonthly": false,
 	"downloads": 32421,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
@@ -171,6 +171,7 @@
 	"itemVersion": "2.1.39",
 	"keywords": [],
 	"legacy": true,
+	"modules": [],
 	"name": "WildFire by Palo Alto Networks",
 	"packID": "Palo_Alto_Networks_WildFire",
 	"packName": "",
@@ -196,7 +197,7 @@
 		"Palo Alto Networks Products"
 	],
 	"toServerVersion": "",
-	"updated": "2023-12-24T20:23:03Z",
+	"updated": "2023-12-24T20:25:08Z",
 	"useCases": [],
 	"version": -1,
 	"versionInfo": "7254058",

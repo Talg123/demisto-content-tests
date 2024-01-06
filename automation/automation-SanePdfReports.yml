@@ -39,7 +39,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.33.0
+    itemVersion: 1.33.10
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -47,7 +47,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/sane-pdf-reports:1.0.0.81075
+dockerimage: demisto/sane-pdf-reports:1.0.0.83846
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -57,7 +57,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('SanePdfReports', 'start', __line__())
-  ### pack version: 1.33.0
+  ### pack version: 1.33.10
 
 
 

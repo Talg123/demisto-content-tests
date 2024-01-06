@@ -39,7 +39,10 @@ inputs:
   required: false
   value:
     complex:
+      accessor: Data
       root: URL
+      transformers:
+      - operator: uniq
 name: Detonate URL - Generic v1.5
 outputs:
 - contextPath: ThreatGrid.Sample.id
@@ -1491,10 +1494,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
+      description: Detonate URL through VirusTotal (API v3) integration.
       id: 3868d472-e5f4-4714-8c58-5c8f95d6b626
       iscommand: false
-      name: Detonate URL
-      type: title
+      name: Detonate URL - VirusTotal (API v3)
+      playbookId: Detonate URL - VirusTotal (API v3)
+      type: playbook
       version: -1
     taskid: 3868d472-e5f4-4714-8c58-5c8f95d6b626
     timertriggers: []
@@ -1899,10 +1904,12 @@ tasks:
     skipunavailable: true
     task:
       brand: ""
+      description: Detonate URL through VirusTotal (API v3) integration.
       id: 3868d472-e5f4-4714-8c58-5c8f95d6b626
       iscommand: false
-      name: Detonate URL
-      type: title
+      name: Detonate URL - VirusTotal (API v3)
+      playbookId: Detonate URL - VirusTotal (API v3)
+      type: playbook
       version: -1
     taskid: 3868d472-e5f4-4714-8c58-5c8f95d6b626
     timertriggers: []

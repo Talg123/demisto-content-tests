@@ -22,11 +22,7 @@ inputs:
   key: InternalDomains
   playbookInputQuery: null
   required: false
-  value:
-    complex:
-      root: inputs.InternalDomains
-      transformers:
-      - operator: uniq
+  value: {}
 - description: The email addresses to enrich.
   key: Email
   playbookInputQuery: null
@@ -42,17 +38,7 @@ inputs:
   key: Domain
   playbookInputQuery: null
   required: false
-  value:
-    complex:
-      filters:
-      - - left:
-            iscontext: true
-            value:
-              simple: inputs.Domain
-          operator: isNotEmpty
-      root: inputs.Domain
-      transformers:
-      - operator: uniq
+  value: {}
 - description: |-
     Define if you would like to use the !email command.
     Note: This input should be used whenever there is no auto-extract enabled in the investigation flow.

@@ -21,7 +21,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.55
+    itemVersion: 1.13.16
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -29,7 +29,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.83255
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -39,7 +39,7 @@ runas: DBotWeakRole
 runonce: true
 script: |
   register_module_line('FileToBase64List', 'start', __line__())
-  ### pack version: 1.12.55
+  ### pack version: 1.13.16
 
 
 

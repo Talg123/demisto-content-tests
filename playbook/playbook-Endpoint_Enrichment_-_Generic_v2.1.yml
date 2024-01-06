@@ -47,12 +47,22 @@ inputs:
   key: IPAddress
   playbookInputQuery: null
   required: false
-  value: {}
+  value:
+    complex:
+      accessor: IPAddress
+      root: Endpoint
+      transformers:
+      - operator: uniq
 - description: The endpoint ID of the endpoint to enrich.
   key: EndpointID
   playbookInputQuery: null
   required: false
-  value: {}
+  value:
+    complex:
+      accessor: ID
+      root: Endpoint
+      transformers:
+      - operator: uniq
 name: Endpoint Enrichment - Generic v2.1
 outputs:
 - contextPath: Endpoint

@@ -44,17 +44,17 @@
 		"incidentfield": [
 			{
 				"description": "",
-				"name": "HelloWorld OnPrem",
-				"type": "shortText"
-			},
-			{
-				"description": "",
 				"name": "Hello World Type",
 				"type": "shortText"
 			},
 			{
 				"description": "",
 				"name": "Hello World ID",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "HelloWorld SaaS",
 				"type": "shortText"
 			},
 			{
@@ -79,20 +79,20 @@
 				"category": "Utilities",
 				"commands": [
 					{
-						"description": "Example of creating a new item in the API.",
-						"name": "helloworld-alert-note-create"
+						"description": "Hello command - prints hello to anyone.",
+						"name": "helloworld-say-hello"
 					},
 					{
-						"description": "Return IP information and reputation.",
-						"name": "ip"
+						"description": "Example of creating a new item in the API.",
+						"name": "helloworld-alert-note-create"
 					},
 					{
 						"description": "Lists the example alerts as it would be fetched from the API.",
 						"name": "helloworld-alert-list"
 					},
 					{
-						"description": "Hello command - prints hello to anyone.",
-						"name": "helloworld-say-hello"
+						"description": "Return IP information and reputation.",
+						"name": "ip"
 					}
 				],
 				"description": "This is the Hello World integration for getting started.",
@@ -134,6 +134,7 @@
 		"widget": null,
 		"wizard": null
 	},
+	"created": "2020-09-23T17:36:09Z",
 	"currentVersion": "3.0.3",
 	"definitionId": "",
 	"dependencies": {
@@ -168,7 +169,6 @@
 	},
 	"deprecated": false,
 	"description": "This is the Hello World integration for getting started.",
-	"disabledMonthly": false,
 	"downloads": 20535,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
@@ -191,6 +191,7 @@
 	"itemVersion": "3.0.3",
 	"keywords": [],
 	"legacy": true,
+	"modules": [],
 	"name": "HelloWorld",
 	"packID": "HelloWorld",
 	"packName": "",
@@ -213,11 +214,11 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
-		"Getting Started",
-		"TIM"
+		"TIM",
+		"Getting Started"
 	],
 	"toServerVersion": "",
-	"updated": "2023-12-25T09:37:51Z",
+	"updated": "2023-12-25T09:43:56Z",
 	"useCases": [],
 	"version": -1,
 	"versionInfo": "715151",

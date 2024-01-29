@@ -20,7 +20,7 @@ name: saar
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: "KUKUKU"
+script: FUFU
 scripttarget: 0
 subtype: python3
 tags: []

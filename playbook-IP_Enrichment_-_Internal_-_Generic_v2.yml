@@ -2,10 +2,12 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.1.13
+    itemVersion: 2.3.90
     packID: CommonPlaybooks
+    packName: Common Playbooks
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 description: |-
@@ -71,6 +73,7 @@ starttaskid: "0"
 system: true
 tasks:
   "0":
+    continueonerrortype: ""
     id: "0"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -99,6 +102,7 @@ tasks:
         }
       }
   "24":
+    continueonerrortype: ""
     id: "24"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -125,6 +129,7 @@ tasks:
         }
       }
   "26":
+    continueonerrortype: ""
     id: "26"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -162,6 +167,7 @@ tasks:
               simple: inputs.IP
           operator: isExists
       label: "yes"
+    continueonerrortype: ""
     id: "28"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -206,6 +212,7 @@ tasks:
             value:
               simple: "True"
       label: "yes"
+    continueonerrortype: ""
     id: "34"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -239,6 +246,7 @@ tasks:
       }
   "35":
     continueonerror: true
+    continueonerrortype: ""
     id: "35"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -318,6 +326,7 @@ tasks:
                 - operator: uniq
           operator: isExists
       label: "yes"
+    continueonerrortype: ""
     id: "39"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -350,6 +359,7 @@ tasks:
         }
       }
   "40":
+    continueonerrortype: ""
     id: "40"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -395,6 +405,7 @@ tasks:
         }
       }
   "41":
+    continueonerrortype: ""
     id: "41"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -424,6 +435,7 @@ tasks:
         }
       }
   "43":
+    continueonerrortype: ""
     id: "43"
     ignoreworker: false
     isautoswitchedtoquietmode: false

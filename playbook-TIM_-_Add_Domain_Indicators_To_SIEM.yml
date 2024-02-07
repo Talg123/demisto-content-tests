@@ -7,6 +7,7 @@ contentitemexportablefields:
     packName: TIM - SIEM Integration
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 description: This playbook receives indicators from its parent playbook and provides

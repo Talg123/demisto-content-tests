@@ -109,6 +109,7 @@ contentitemexportablefields:
     packName: Base
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 dockerimage: demisto/mlclustering:1.0.0.23151

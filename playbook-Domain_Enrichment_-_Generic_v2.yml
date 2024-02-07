@@ -2,16 +2,19 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.1.13
+    itemVersion: 2.3.90
     packID: CommonPlaybooks
+    packName: Common Playbooks
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 description: |-
   Enrich domains using one or more integrations.
   Domain enrichment includes:
   * Threat information
+  * Domain reputation using !domain command
 id: Domain Enrichment - Generic v2
 inputs:
 - description: The domain name to enrich.
@@ -24,6 +27,15 @@ inputs:
       root: Domain
       transformers:
       - operator: uniq
+- description: |-
+    Define if you would like to use the !url command.
+    Note: This input should be used whenever there is no auto-extract enabled in the investigation flow.
+    Possible values: True / False.
+  key: UseReputationCommand
+  playbookInputQuery: null
+  required: true
+  value:
+    simple: "False"
 name: Domain Enrichment - Generic v2
 outputs:
 - contextPath: Domain
@@ -32,10 +44,23 @@ outputs:
 - contextPath: DBotScore
   description: Indicator, Score, Type, and Vendor.
   type: unknown
+- contextPath: Domain.Name
+  description: Bad domain found.
+- contextPath: Domain.Malicious.Vendor
+  description: For malicious domains, the vendor that made the decision.
+- contextPath: DBotScore.Indicator
+  description: The indicator that was tested.
+- contextPath: DBotScore.Type
+  description: The indicator type.
+- contextPath: DBotScore.Score
+  description: The actual DBot score.
+- contextPath: DBotScore.Reliability
+  description: Reliability of the source providing the intelligence data.
 starttaskid: "0"
 system: true
 tasks:
   "0":
+    continueonerrortype: ""
     id: "0"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -59,8 +84,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 281,
-          "y": 41
+          "x": 60,
+          "y": 370
         }
       }
   "16":
@@ -72,6 +97,7 @@ tasks:
               simple: inputs.Domain
           operator: isExists
       label: "yes"
+    continueonerrortype: ""
     id: "16"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -80,8 +106,8 @@ tasks:
       '#default#':
       - "24"
       "yes":
-      - "26"
-      - "30"
+      - "33"
+      - "32"
     note: false
     quietmode: 0
     separatecontext: false
@@ -101,11 +127,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 281,
-          "y": 171
+          "x": 60,
+          "y": 530
         }
       }
   "24":
+    continueonerrortype: ""
     id: "24"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -127,111 +154,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 281,
-          "y": 765
-        }
-      }
-  "26":
-    conditions:
-    - condition:
-      - - left:
-            iscontext: true
-            value:
-              complex:
-                accessor: brand
-                filters:
-                - - ignorecase: true
-                    left:
-                      iscontext: true
-                      value:
-                        simple: modules.brand
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: VirusTotal - Private API
-                - - ignorecase: true
-                    left:
-                      iscontext: true
-                      value:
-                        simple: modules.state
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: active
-                root: modules
-          operator: isExists
-      label: "yes"
-    id: "26"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "24"
-      "yes":
-      - "28"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Checks if there is an active instance of the Virus Total Private
-        API integration enabled. enabled.
-      id: 3ab86896-10aa-45be-83cf-7dcca9b6aa92
-      iscommand: false
-      name: Is VirusTotal Private API enabled?
-      type: condition
-      version: -1
-    taskid: 3ab86896-10aa-45be-83cf-7dcca9b6aa92
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 578.5,
-          "y": 365
-        }
-      }
-  "28":
-    id: "28"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "24"
-    note: false
-    quietmode: 0
-    reputationcalc: 1
-    scriptarguments:
-      domain:
-        complex:
-          root: inputs.Domain
-          transformers:
-          - operator: uniq
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: VirusTotal - Private API
-      description: Gets a VirusTotal report for the specified domain.
-      id: a30a5504-f8f1-41cc-8dcb-bb0b2a940bc3
-      iscommand: true
-      name: Get VirusTotal report for domains
-      script: VirusTotal - Private API|||vt-private-get-domain-report
-      type: regular
-      version: -1
-    taskid: a30a5504-f8f1-41cc-8dcb-bb0b2a940bc3
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 578.5,
-          "y": 580
+          "x": 60,
+          "y": 1285
         }
       }
   "29":
+    continueonerrortype: ""
     id: "29"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -266,8 +194,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -10,
-          "y": 580
+          "x": -200,
+          "y": 1100
         }
       }
   "30":
@@ -300,6 +228,7 @@ tasks:
                 root: modules
           operator: isExists
       label: "yes"
+    continueonerrortype: ""
     id: "30"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -328,26 +257,168 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -10,
-          "y": 365
+          "x": -200,
+          "y": 855
+        }
+      }
+  "32":
+    continueonerrortype: ""
+    id: "32"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "34"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 230be3d0-b15b-446e-8e9e-5eaf8aa47c2b
+      iscommand: false
+      name: Domain Reputation
+      type: title
+      version: -1
+    taskid: 230be3d0-b15b-446e-8e9e-5eaf8aa47c2b
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 310,
+          "y": 720
+        }
+      }
+  "33":
+    continueonerrortype: ""
+    id: "33"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "30"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1dd7328d-b062-4a7c-8b80-55acc42bb92b
+      iscommand: false
+      name: Cisco Umbrella enrichment
+      type: title
+      version: -1
+    taskid: 1dd7328d-b062-4a7c-8b80-55acc42bb92b
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -200,
+          "y": 720
+        }
+      }
+  "34":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.UseReputationCommand
+          operator: isEqualString
+          right:
+            value:
+              simple: "True"
+      label: "yes"
+    continueonerrortype: ""
+    id: "34"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "24"
+      "yes":
+      - "35"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check whether to run domain reputation command.
+      id: b077e2fc-cf78-4bba-8810-9bebca2cc5f6
+      iscommand: false
+      name: Should use !domain command?
+      type: condition
+      version: -1
+    taskid: b077e2fc-cf78-4bba-8810-9bebca2cc5f6
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 310,
+          "y": 895
+        }
+      }
+  "35":
+    continueonerrortype: ""
+    id: "35"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "24"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      domain:
+        complex:
+          root: inputs.Domain
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Checks the reputation of a domain.
+      id: 1cc32acf-ef90-4392-8f3c-9aa33eaa54d9
+      iscommand: true
+      name: Check Reputation
+      script: '|||domain'
+      type: regular
+      version: -1
+    taskid: 1cc32acf-ef90-4392-8f3c-9aa33eaa54d9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 310,
+          "y": 1100
         }
       }
 version: -1
 view: |-
   {
     "linkLabelsPosition": {
-      "16_24_#default#": 0.18,
-      "26_24_#default#": 0.55,
-      "26_28_yes": 0.61,
-      "30_24_#default#": 0.57,
-      "30_29_yes": 0.58
+      "16_24_#default#": 0.13,
+      "30_24_#default#": 0.43,
+      "30_29_yes": 0.5,
+      "34_24_#default#": 0.41,
+      "34_35_yes": 0.47
     },
     "paper": {
       "dimensions": {
-        "height": 789,
-        "width": 968.5,
-        "x": -10,
-        "y": 41
+        "height": 980,
+        "width": 890,
+        "x": -200,
+        "y": 370
       }
     }
   }

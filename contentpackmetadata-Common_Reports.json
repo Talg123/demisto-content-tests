@@ -13,7 +13,6 @@
 	"contentItems": {
 		"automation": null,
 		"classifier": null,
-		"correlationrule": null,
 		"dashboard": null,
 		"genericfield": null,
 		"generictype": null,
@@ -23,8 +22,6 @@
 		"integration": null,
 		"layoutscontainer": null,
 		"list": null,
-		"modelingrule": null,
-		"parsingrule": null,
 		"playbook": null,
 		"report": [
 			{
@@ -110,11 +107,8 @@
 		],
 		"reputation": null,
 		"widget": null,
-		"wizard": null,
-		"xsiamdashboard": null,
-		"xsiamreport": null
+		"wizard": null
 	},
-	"created": "2020-11-09T20:46:54+02:00",
 	"currentVersion": "1.0.3",
 	"definitionId": "",
 	"dependencies": {
@@ -128,6 +122,7 @@
 	},
 	"deprecated": false,
 	"description": "Frequently used reports pack.",
+	"disabledMonthly": false,
 	"downloads": 2300,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
@@ -167,7 +162,7 @@
 		"Core"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-06T12:22:54+03:00",
+	"updated": "2024-01-22T21:41:47Z",
 	"useCases": [],
 	"version": -1,
 	"versionInfo": "5969979",

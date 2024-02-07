@@ -27,8 +27,10 @@
 	"name": "tags",
 	"neverSetAsRequired": false,
 	"openEnded": false,
+	"orgType": "multiSelect",
 	"ownerOnly": false,
 	"packID": "",
+	"packName": "",
 	"placeholder": "",
 	"propagationLabels": [
 		"all"

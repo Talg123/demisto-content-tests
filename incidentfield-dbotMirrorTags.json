@@ -27,8 +27,10 @@
 	"name": "dbotMirrorTags",
 	"neverSetAsRequired": false,
 	"openEnded": false,
+	"orgType": "tagsSelect",
 	"ownerOnly": false,
 	"packID": "",
+	"packName": "",
 	"placeholder": "",
 	"propagationLabels": [
 		"all"

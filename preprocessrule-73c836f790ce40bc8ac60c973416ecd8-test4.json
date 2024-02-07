@@ -2,7 +2,7 @@
 	"action": "linkAndClose",
 	"cacheVersn": 0,
 	"definitionId": "",
-	"enabled": true,
+	"enabled": false,
 	"existingEventsFilters": [
 		[
 			{

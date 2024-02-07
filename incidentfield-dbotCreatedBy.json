@@ -27,8 +27,10 @@
 	"name": "dbotCreatedBy",
 	"neverSetAsRequired": false,
 	"openEnded": false,
+	"orgType": "user",
 	"ownerOnly": false,
 	"packID": "",
+	"packName": "",
 	"placeholder": "",
 	"propagationLabels": [
 		"all"

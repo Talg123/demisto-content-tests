@@ -27,8 +27,10 @@
 	"name": "xsoarReadOnlyRoles",
 	"neverSetAsRequired": false,
 	"openEnded": false,
+	"orgType": "role",
 	"ownerOnly": false,
 	"packID": "",
+	"packName": "",
 	"placeholder": "",
 	"propagationLabels": [
 		"all"

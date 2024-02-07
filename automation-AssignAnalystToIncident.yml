@@ -44,10 +44,12 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.6.39
+    itemVersion: 1.12.15
     packID: CommonScripts
+    packName: Common Scripts
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 enabled: true
@@ -58,6 +60,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
+  // pack version: 1.12.15
   if (args.email && args.username) {
       throw 'Please provide either username or email';
   }

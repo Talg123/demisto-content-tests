@@ -104,6 +104,7 @@ contentitemexportablefields:
     packName: Base
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 dockerimage: demisto/ml:1.0.0.23334

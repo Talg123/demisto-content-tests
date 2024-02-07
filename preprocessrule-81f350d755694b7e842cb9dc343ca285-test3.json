@@ -2,7 +2,7 @@
 	"action": "linkAndClose",
 	"cacheVersn": 0,
 	"definitionId": "",
-	"enabled": true,
+	"enabled": false,
 	"existingEventsFilters": [
 		[
 			{
@@ -25,7 +25,7 @@
 	],
 	"fromServerVersion": "",
 	"id": "81f350d755694b7e842cb9dc343ca285",
-	"index": 1,
+	"index": 2,
 	"itemVersion": "",
 	"linkTo": "oldest",
 	"locked": false,

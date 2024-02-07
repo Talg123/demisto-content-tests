@@ -13,13 +13,15 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.6.39
+    itemVersion: 1.12.15
     packID: CommonScripts
+    packName: Common Scripts
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.9.7.24076
+dockerimage: demisto/python3:3.10.12.63474
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -29,6 +31,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('PopulateCriticalAssets', 'start', __line__())
+  ### pack version: 1.12.15
 
 
 

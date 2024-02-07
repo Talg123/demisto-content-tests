@@ -2,16 +2,19 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.1.13
+    itemVersion: 2.3.90
     packID: CommonPlaybooks
+    packName: Common Playbooks
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 description: |-
   Enrich email addresses.
   - Get information from Active Directory for internal addresses
   - Get the domain-squatting reputation for external addresses
+  - Email address reputation using !email command
 id: Email Address Enrichment - Generic v2.1
 inputs:
 - description: A CSV list of internal domains. The list will be used to determine
@@ -50,6 +53,15 @@ inputs:
       root: inputs.Domain
       transformers:
       - operator: uniq
+- description: |-
+    Define if you would like to use the !email command.
+    Note: This input should be used whenever there is no auto-extract enabled in the investigation flow.
+    Possible values: True / False.
+  key: UseReputationCommand
+  playbookInputQuery: null
+  required: true
+  value:
+    simple: "False"
 name: Email Address Enrichment - Generic v2.1
 outputs:
 - contextPath: Account
@@ -71,6 +83,7 @@ starttaskid: "0"
 system: true
 tasks:
   "0":
+    continueonerrortype: ""
     id: "0"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -94,11 +107,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 387.5,
+          "x": 497.5,
           "y": 50
         }
       }
   "4":
+    continueonerrortype: ""
     id: "4"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -142,6 +156,7 @@ tasks:
               simple: inputs.Email
           operator: isNotEmpty
       label: "yes"
+    continueonerrortype: ""
     id: "5"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -170,11 +185,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 387.5,
+          "x": 497.5,
           "y": 200
         }
       }
   "9":
+    continueonerrortype: ""
     id: "9"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -223,11 +239,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 387.5,
+          "x": 497.5,
           "y": 400
         }
       }
   "10":
+    continueonerrortype: ""
     id: "10"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -252,11 +269,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 672.5,
+          "x": 172.5,
           "y": 785
         }
       }
   "11":
+    continueonerrortype: ""
     id: "11"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -264,6 +282,7 @@ tasks:
     nexttasks:
       '#none#':
       - "18"
+      - "21"
     note: false
     quietmode: 0
     separatecontext: false
@@ -281,11 +300,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 100.5,
+          "x": 840.5,
           "y": 785
         }
       }
   "12":
+    continueonerrortype: ""
     id: "12"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -331,11 +351,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 672.5,
-          "y": 1195
+          "x": 172.5,
+          "y": 1175
         }
       }
   "13":
+    continueonerrortype: ""
     id: "13"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -382,11 +403,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 100.5,
+          "x": 840.5,
           "y": 580
         }
       }
   "14":
+    continueonerrortype: ""
     id: "14"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -433,11 +455,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 672.5,
+          "x": 172.5,
           "y": 580
         }
       }
   "15":
+    continueonerrortype: ""
     id: "15"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -504,11 +527,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 100.5,
-          "y": 1195
+          "x": 600.5,
+          "y": 1175
         }
       }
   "17":
+    continueonerrortype: ""
     id: "17"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -562,11 +586,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 672.5,
-          "y": 960
+          "x": 172.5,
+          "y": 940
         }
       }
   "18":
+    continueonerrortype: ""
     id: "18"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -607,11 +632,12 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 100.5,
-          "y": 960
+          "x": 600.5,
+          "y": 940
         }
       }
   "20":
+    continueonerrortype: ""
     id: "20"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -640,6 +666,88 @@ tasks:
           "y": 785
         }
       }
+  "21":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.UseReputationCommand
+          operator: isEqualString
+          right:
+            value:
+              simple: "True"
+      label: "yes"
+    continueonerrortype: ""
+    id: "21"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "4"
+      "yes":
+      - "22"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if should run email address reputation command
+      id: 047c804f-cc74-4eb3-8ea5-7776e5827088
+      iscommand: false
+      name: Should use !email command?
+      type: condition
+      version: -1
+    taskid: 047c804f-cc74-4eb3-8ea5-7776e5827088
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1080,
+          "y": 940
+        }
+      }
+  "22":
+    continueonerrortype: ""
+    id: "22"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      email:
+        complex:
+          root: inputs.Email
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Checks if an email address was compromised.
+      id: 2ac494e5-1a7e-474d-880f-1e1ab655f3ae
+      iscommand: true
+      name: Check Reputation
+      script: '|||email'
+      type: regular
+      version: -1
+    taskid: 2ac494e5-1a7e-474d-880f-1e1ab655f3ae
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1080,
+          "y": 1160
+        }
+      }
 version: -1
 view: |-
   {
@@ -655,7 +763,7 @@ view: |-
     "paper": {
       "dimensions": {
         "height": 1405,
-        "width": 1432.5,
+        "width": 1840,
         "x": -380,
         "y": 50
       }

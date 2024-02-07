@@ -26,6 +26,7 @@ contentitemexportablefields:
     packName: Base
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 deprecated: true

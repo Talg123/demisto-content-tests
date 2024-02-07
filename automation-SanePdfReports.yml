@@ -44,6 +44,7 @@ contentitemexportablefields:
     packName: Base
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 dockerimage: demisto/sane-pdf-reports:1.0.0.62999

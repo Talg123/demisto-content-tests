@@ -8,7 +8,7 @@
 	"disabled": false,
 	"enhancementScriptNames": [],
 	"excludedBrands": [],
-	"expiration": 0,
+	"expiration": 20160,
 	"file": false,
 	"fileHashesPriority": null,
 	"formatScript": "ExtractAttackPattern",

@@ -36,6 +36,7 @@ contentitemexportablefields:
     packName: Base
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 dockerimage: demisto/xsoar-tools:1.0.0.58259

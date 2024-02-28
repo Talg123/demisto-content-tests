@@ -12,10 +12,12 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.6.39
+    itemVersion: 1.12.15
     packID: CommonScripts
+    packName: Common Scripts
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 enabled: true
@@ -31,13 +33,14 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
+  // pack version: 1.12.15
   if (args.value) {
       if (Array.isArray(args.value)) {
           return args.value.length > 0 ? 'yes' : 'no';
       }
       return 'yes';
   }
-  return 'nooo';
+  return 'no';
 scripttarget: 0
 system: true
 tags:

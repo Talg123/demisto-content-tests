@@ -13,7 +13,6 @@
 	"contentItems": {
 		"automation": null,
 		"classifier": null,
-		"correlationrule": null,
 		"dashboard": null,
 		"genericfield": null,
 		"generictype": null,
@@ -23,8 +22,6 @@
 		"integration": null,
 		"layoutscontainer": null,
 		"list": null,
-		"modelingrule": null,
-		"parsingrule": null,
 		"playbook": [
 			{
 				"description": "TIM playbook - This playbook receives indicators from its parent playbook\n  and provides the indicators as inputs for the sub-playbooks that push the indicators\n  to your SIEM.",
@@ -50,11 +47,8 @@
 		"report": null,
 		"reputation": null,
 		"widget": null,
-		"wizard": null,
-		"xsiamdashboard": null,
-		"xsiamreport": null
+		"wizard": null
 	},
-	"created": "2021-01-28T01:01:15+02:00",
 	"currentVersion": "1.1.1",
 	"definitionId": "",
 	"dependencies": {
@@ -82,6 +76,7 @@
 	},
 	"deprecated": false,
 	"description": "Update your SIEM with minimal fuss! This Content Pack automates the delivery of indicators to your SIEM for correlation, with minimal configuration.",
+	"disabledMonthly": false,
 	"downloads": 2338,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.5.0",
@@ -141,7 +136,7 @@
 		"Use Case"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-06T12:23:25+03:00",
+	"updated": "2024-01-22T21:43:08Z",
 	"useCases": [
 		"Threat Intelligence Management"
 	],

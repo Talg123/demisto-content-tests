@@ -27,8 +27,10 @@
 	"name": "revoked",
 	"neverSetAsRequired": false,
 	"openEnded": false,
+	"orgType": "boolean",
 	"ownerOnly": false,
 	"packID": "",
+	"packName": "",
 	"placeholder": "",
 	"propagationLabels": [
 		"all"

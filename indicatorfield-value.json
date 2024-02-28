@@ -27,8 +27,10 @@
 	"name": "value",
 	"neverSetAsRequired": false,
 	"openEnded": false,
+	"orgType": "longText",
 	"ownerOnly": false,
 	"packID": "",
+	"packName": "",
 	"placeholder": "",
 	"propagationLabels": [
 		"all"

@@ -27,8 +27,10 @@
 	"name": "attachment",
 	"neverSetAsRequired": true,
 	"openEnded": false,
+	"orgType": "internal",
 	"ownerOnly": false,
 	"packID": "",
+	"packName": "",
 	"placeholder": "",
 	"propagationLabels": [
 		"all"

@@ -2,10 +2,12 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.1.13
+    itemVersion: 2.3.90
     packID: CommonPlaybooks
+    packName: Common Playbooks
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 description: |-
@@ -73,6 +75,7 @@ starttaskid: "0"
 system: true
 tasks:
   "0":
+    continueonerrortype: ""
     id: "0"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -116,6 +119,7 @@ tasks:
               simple: inputs.CriticalUsers
           operator: isNotEmpty
       label: "yes"
+    continueonerrortype: ""
     id: "8"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -169,6 +173,7 @@ tasks:
                 root: criticalusers
           operator: isNotEmpty
       label: "yes"
+    continueonerrortype: ""
     id: "9"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -202,6 +207,7 @@ tasks:
         }
       }
   "10":
+    continueonerrortype: ""
     id: "10"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -247,6 +253,7 @@ tasks:
                 root: criticalendpoints
           operator: isNotEmpty
       label: "yes"
+    continueonerrortype: ""
     id: "13"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -280,6 +287,7 @@ tasks:
         }
       }
   "19":
+    continueonerrortype: ""
     id: "19"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -309,6 +317,7 @@ tasks:
         }
       }
   "20":
+    continueonerrortype: ""
     id: "20"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -338,6 +347,7 @@ tasks:
         }
       }
   "21":
+    continueonerrortype: ""
     id: "21"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -367,6 +377,7 @@ tasks:
         }
       }
   "22":
+    continueonerrortype: ""
     id: "22"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -458,6 +469,7 @@ tasks:
                 root: criticalgroups
           operator: isNotEmpty
       label: "yes"
+    continueonerrortype: ""
     id: "23"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -501,6 +513,7 @@ tasks:
                 root: inputs.Account
           operator: isExists
       label: "yes"
+    continueonerrortype: ""
     id: "24"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -543,6 +556,7 @@ tasks:
                 root: inputs.Endpoint
           operator: isExists
       label: "yes"
+    continueonerrortype: ""
     id: "25"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -575,6 +589,7 @@ tasks:
         }
       }
   "26":
+    continueonerrortype: ""
     id: "26"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -628,6 +643,7 @@ tasks:
               simple: inputs.CriticalGroups
           operator: isNotEmpty
       label: "yes"
+    continueonerrortype: ""
     id: "27"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -661,6 +677,7 @@ tasks:
         }
       }
   "29":
+    continueonerrortype: ""
     id: "29"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -752,6 +769,7 @@ tasks:
                 root: criticalgroups
           operator: isNotEmpty
       label: "yes"
+    continueonerrortype: ""
     id: "30"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -784,6 +802,7 @@ tasks:
         }
       }
   "34":
+    continueonerrortype: ""
     id: "34"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -825,6 +844,7 @@ tasks:
         }
       }
   "35":
+    continueonerrortype: ""
     id: "35"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -854,6 +874,7 @@ tasks:
         }
       }
   "36":
+    continueonerrortype: ""
     id: "36"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -898,6 +919,7 @@ tasks:
               simple: inputs.CriticalEndpoints
           operator: isNotEmpty
       label: "yes"
+    continueonerrortype: ""
     id: "37"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -932,6 +954,7 @@ tasks:
         }
       }
   "39":
+    continueonerrortype: ""
     id: "39"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -973,6 +996,7 @@ tasks:
         }
       }
   "42":
+    continueonerrortype: ""
     id: "42"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -1002,6 +1026,7 @@ tasks:
         }
       }
   "43":
+    continueonerrortype: ""
     id: "43"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -1031,6 +1056,7 @@ tasks:
         }
       }
   "44":
+    continueonerrortype: ""
     id: "44"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -1060,6 +1086,7 @@ tasks:
         }
       }
   "46":
+    continueonerrortype: ""
     id: "46"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -1097,6 +1124,7 @@ tasks:
         }
       }
   "49":
+    continueonerrortype: ""
     id: "49"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -1142,6 +1170,7 @@ tasks:
         }
       }
   "50":
+    continueonerrortype: ""
     id: "50"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -1187,6 +1216,7 @@ tasks:
         }
       }
   "51":
+    continueonerrortype: ""
     id: "51"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -1238,6 +1268,7 @@ tasks:
         }
       }
   "52":
+    continueonerrortype: ""
     id: "52"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -1289,6 +1320,7 @@ tasks:
         }
       }
   "53":
+    continueonerrortype: ""
     id: "53"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -1339,6 +1371,7 @@ tasks:
         }
       }
   "54":
+    continueonerrortype: ""
     id: "54"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -1390,6 +1423,7 @@ tasks:
         }
       }
   "55":
+    continueonerrortype: ""
     id: "55"
     ignoreworker: false
     isautoswitchedtoquietmode: false

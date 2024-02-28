@@ -2,10 +2,12 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 3.1.2
+    itemVersion: 3.1.6
     packID: Phishing
+    packName: Phishing
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 description: Calculates a severity according to the verdict coming from the CheckEmailAuthenticity
@@ -31,6 +33,7 @@ starttaskid: "0"
 system: true
 tasks:
   "0":
+    continueonerrortype: ""
     id: "0"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -59,6 +62,7 @@ tasks:
         }
       }
   "10":
+    continueonerrortype: ""
     id: "10"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -93,6 +97,7 @@ tasks:
               simple: inputs.EmailAuthenticityCheck
           operator: isExists
       label: "yes"
+    continueonerrortype: ""
     id: "23"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -127,6 +132,7 @@ tasks:
         }
       }
   "24":
+    continueonerrortype: ""
     id: "24"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -229,6 +235,7 @@ tasks:
                 root: inputs.EmailAuthenticityCheck
           operator: isExists
       label: Pass
+    continueonerrortype: ""
     id: "25"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -266,6 +273,7 @@ tasks:
         }
       }
   "27":
+    continueonerrortype: ""
     id: "27"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -303,6 +311,7 @@ tasks:
         }
       }
   "28":
+    continueonerrortype: ""
     id: "28"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -340,6 +349,7 @@ tasks:
         }
       }
   "29":
+    continueonerrortype: ""
     id: "29"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -377,6 +387,7 @@ tasks:
         }
       }
   "30":
+    continueonerrortype: ""
     id: "30"
     ignoreworker: false
     isautoswitchedtoquietmode: false

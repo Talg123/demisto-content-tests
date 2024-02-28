@@ -2,10 +2,12 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 2.1.13
+    itemVersion: 2.3.90
     packID: CommonPlaybooks
+    packName: Common Playbooks
     packPropagationLabels:
     - all
+    prevname: ""
     propagationLabels: []
     toServerVersion: ""
 description: |-
@@ -101,6 +103,7 @@ starttaskid: "0"
 system: true
 tasks:
   "0":
+    continueonerrortype: ""
     id: "0"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -133,6 +136,7 @@ tasks:
         }
       }
   "4":
+    continueonerrortype: ""
     id: "4"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -168,6 +172,7 @@ tasks:
         }
       }
   "5":
+    continueonerrortype: ""
     id: "5"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -203,6 +208,7 @@ tasks:
         }
       }
   "6":
+    continueonerrortype: ""
     id: "6"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -238,6 +244,7 @@ tasks:
         }
       }
   "10":
+    continueonerrortype: ""
     id: "10"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -264,6 +271,7 @@ tasks:
         }
       }
   "11":
+    continueonerrortype: ""
     id: "11"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -512,6 +520,7 @@ tasks:
                 root: Severities
           operator: isExists
       label: Low
+    continueonerrortype: ""
     id: "15"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -551,6 +560,7 @@ tasks:
         }
       }
   "16":
+    continueonerrortype: ""
     id: "16"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -592,6 +602,7 @@ tasks:
         }
       }
   "18":
+    continueonerrortype: ""
     id: "18"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -656,6 +667,7 @@ tasks:
         }
       }
   "19":
+    continueonerrortype: ""
     id: "19"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -697,6 +709,7 @@ tasks:
         }
       }
   "24":
+    continueonerrortype: ""
     id: "24"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -738,6 +751,7 @@ tasks:
         }
       }
   "25":
+    continueonerrortype: ""
     id: "25"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -773,6 +787,7 @@ tasks:
         }
       }
   "26":
+    continueonerrortype: ""
     id: "26"
     ignoreworker: false
     isautoswitchedtoquietmode: false
@@ -818,6 +833,7 @@ tasks:
               simple: inputs.MicrosoftHeadersSeverityCheck
           operator: isNotEmpty
       label: "yes"
+    continueonerrortype: ""
     id: "27"
     ignoreworker: false
     isautoswitchedtoquietmode: false

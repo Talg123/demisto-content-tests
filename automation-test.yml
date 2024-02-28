@@ -8,6 +8,7 @@ contentitemexportablefields:
     itemVersion: ""
     packID: ""
     packName: ""
+    prevname: ""
     propagationLabels:
     - all
     toServerVersion: ""

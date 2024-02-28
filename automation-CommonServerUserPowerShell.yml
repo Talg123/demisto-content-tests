@@ -12,6 +12,8 @@ contentitemexportablefields:
     fromServerVersion: 5.5.0
     itemVersion: ""
     packID: ""
+    packName: ""
+    prevname: ""
     propagationLabels:
     - all
     toServerVersion: ""

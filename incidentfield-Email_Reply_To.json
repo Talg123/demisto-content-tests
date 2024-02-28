@@ -38,7 +38,7 @@
 	"packPropagationLabels": [
 		"all"
 	],
-	"placeholder": "",
+	"placeholder": "test",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

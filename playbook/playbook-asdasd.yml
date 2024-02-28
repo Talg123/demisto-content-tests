@@ -69,7 +69,7 @@ tasks:
       {
         "position": {
           "x": 450,
-          "y": 260
+          "y": 480
         }
       }
 version: -1
@@ -78,7 +78,7 @@ view: |-
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 305,
+        "height": 525,
         "width": 380,
         "x": 450,
         "y": 50

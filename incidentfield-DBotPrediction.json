@@ -15,7 +15,7 @@
 	"content": true,
 	"defaultRows": null,
 	"definitionId": "",
-	"description": "The phishing sub-type verdict that was predicted by the machine-learning model.",
+	"description": "The phishing sub-type verdict that was predicted by the machine-learning model. adasdas",
 	"editForm": true,
 	"fieldCalcScript": "",
 	"fromServerVersion": "5.0.0",

@@ -1,0 +1,200 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Playbook that looks to see if a service ID exists and chooses to start
+  a Remediation Confirmation Scan.
+id: Cortex ASM - Detect Service
+inputs: []
+name: Cortex ASM - Detect Service
+outputs: []
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "43"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: a84d8c8c-5937-4da3-86aa-bf8c30e4adc7
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: a84d8c8c-5937-4da3-86aa-bf8c30e4adc7
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 540,
+          "y": -210
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 4b9d0bb7-dd62-4ef4-8d94-7b18f53e7e11
+      iscommand: false
+      name: Complete
+      type: title
+      version: -1
+    taskid: 4b9d0bb7-dd62-4ef4-8d94-7b18f53e7e11
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 550,
+          "y": 390
+        }
+      }
+  "10":
+    continueonerrortype: ""
+    id: "10"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 4656b3de-e239-4651-8cd3-734e37a83017
+      iscommand: false
+      name: Non-Service Based Alert
+      type: title
+      version: -1
+    taskid: 4656b3de-e239-4651-8cd3-734e37a83017
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 810,
+          "y": 190
+        }
+      }
+  "43":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: asmserviceid
+                root: alert
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "43"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "10"
+      "yes":
+      - "44"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Conditional task to check for an existing ASM service ID. The Remediation
+        Confirmation Scan can only be used to scan existing service IDs found by Cortex
+        Xpanse.
+      id: bb84f3c8-ee66-4569-89df-e1066a0d0b86
+      iscommand: false
+      name: Is there a ASM service ID?
+      type: condition
+      version: -1
+    taskid: bb84f3c8-ee66-4569-89df-e1066a0d0b86
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 540,
+          "y": -60
+        }
+      }
+  "44":
+    continueonerrortype: ""
+    id: "44"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 84ce4c7f-8ad9-4ca5-81a8-b585ed855d70
+      iscommand: false
+      name: Cortex ASM - Remediation Confirmation Scan
+      playbookId: Cortex ASM - Remediation Confirmation Scan
+      type: playbook
+      version: -1
+    taskid: 84ce4c7f-8ad9-4ca5-81a8-b585ed855d70
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 290,
+          "y": 190
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "43_44_yes": 0.64
+    },
+    "paper": {
+      "dimensions": {
+        "height": 665,
+        "width": 900,
+        "x": 290,
+        "y": -210
+      }
+    }
+  }

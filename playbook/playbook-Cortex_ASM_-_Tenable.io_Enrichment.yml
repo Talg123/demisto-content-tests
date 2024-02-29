@@ -1,0 +1,818 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Given the IP address this playbook enriches Tenable.io information relevant
+  to ASM alerts.
+id: Cortex ASM - Tenable.io Enrichment
+inputs:
+- description: ""
+  key: ""
+  playbookInputQuery:
+    daterange:
+      fromdate: "0001-01-01T00:00:00Z"
+      fromdatelicenseval: "0001-01-01T00:00:00Z"
+      period:
+        by: ""
+        byfrom: ""
+        byto: ""
+        field: ""
+        fromvalue: null
+        tovalue: null
+      todate: "0001-01-01T00:00:00Z"
+    query: ""
+    queryEntity: indicators
+    results: null
+    runFromLastJobTime: true
+  required: false
+  value: {}
+- description: IP addresses to enrich.
+  key: IPAddress
+  playbookInputQuery: null
+  required: true
+  value:
+    complex:
+      accessor: remoteip
+      root: alert
+      transformers:
+      - operator: uniq
+name: Cortex ASM - Tenable.io Enrichment
+outputs:
+- contextPath: AWS.EC2.Instances
+  description: AWS EC2 information.
+  type: unknown
+- contextPath: AWS.EC2.SecurityGroups
+  description: AWS Security group information.
+  type: unknown
+- contextPath: AWS.IAM.Users
+  description: AWS IAM information.
+  type: unknown
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "11"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 6395a66d-a0ac-4c07-8324-2335ae7029f7
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 6395a66d-a0ac-4c07-8324-2335ae7029f7
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 560,
+          "y": -880
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: f2d28f63-f0cf-497e-8598-3e0008ad8616
+      iscommand: false
+      name: |
+        Done
+      type: title
+      version: -1
+    taskid: f2d28f63-f0cf-497e-8598-3e0008ad8616
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 120,
+          "y": 1140
+        }
+      }
+  "11":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: modules.brand
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: Tenable.io
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: modules.state
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: active
+                root: modules
+          operator: isExists
+          right:
+            value: {}
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.IPAddress
+          operator: isExists
+      label: "yes"
+    continueonerrortype: ""
+    id: "11"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "27"
+      "yes":
+      - "12"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines if the Tenable.io integration instance is configured
+        and Input values are defined to pull enrichment data.
+      id: 0f91d545-fe90-4b59-8943-5f24a675c341
+      iscommand: false
+      name: Is Tenable.io enabled and is Input value defined?
+      type: condition
+      version: -1
+    taskid: 0f91d545-fe90-4b59-8943-5f24a675c341
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 560,
+          "y": -740
+        }
+      }
+  "12":
+    continueonerrortype: ""
+    id: "12"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "13"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      ip:
+        complex:
+          root: inputs.IPAddress
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves details for the specified asset to include custom attributes.
+      id: dd57b1e8-5a14-4426-8512-575b56aa5fe5
+      iscommand: true
+      name: Lookup asset information by IP
+      script: '|||tenable-io-get-asset-details'
+      type: regular
+      version: -1
+    taskid: dd57b1e8-5a14-4426-8512-575b56aa5fe5
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 560,
+          "y": -500
+        }
+      }
+  "13":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: AssetDetails
+                root: TenableIO
+          operator: isExists
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "13"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "27"
+      "yes":
+      - "26"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check whether the last command returned Tenable.io asset information
+        or not.
+      id: 7ef293a4-98f1-4044-8faf-03a62f105d98
+      iscommand: false
+      name: Was an asset found?
+      type: condition
+      version: -1
+    taskid: 7ef293a4-98f1-4044-8faf-03a62f105d98
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 560,
+          "y": -310
+        }
+      }
+  "14":
+    continueonerrortype: ""
+    id: "14"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "15"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      text:
+        complex:
+          accessor: AssetDetails
+          root: TenableIO
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: commands.local.cmd.extract.indicators
+      id: 5f6aec55-359b-48db-8163-b6d54511d2f4
+      iscommand: true
+      name: Extract indicators
+      script: Builtin|||extractIndicators
+      type: regular
+      version: -1
+    taskid: 5f6aec55-359b-48db-8163-b6d54511d2f4
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1270,
+          "y": 425
+        }
+      }
+  "15":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Email
+                root: ExtractedIndicators
+          operator: isExists
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "15"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "2"
+      "yes":
+      - "17"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check whether the last command extracted an email address or not.
+      id: b50ddd91-131f-4313-8587-d5c2e6fe374a
+      iscommand: false
+      name: Was an email found?
+      type: condition
+      version: -1
+    taskid: b50ddd91-131f-4313-8587-d5c2e6fe374a
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1270,
+          "y": 600
+        }
+      }
+  "16":
+    continueonerrortype: ""
+    id: "16"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmserviceowner
+      keys:
+        simple: name,email,source,timestamp
+      val1:
+        simple: n/a
+      val2:
+        complex:
+          accessor: Email
+          root: ExtractedIndicators
+      val3:
+        simple: Tenable.io
+      val4:
+        complex:
+          root: TimeNowUnix
+          transformers:
+          - operator: TimeStampToDate
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 5f874b24-9866-4276-827b-482ad9bda603
+      iscommand: false
+      name: Set service owner grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 5f874b24-9866-4276-827b-482ad9bda603
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1460,
+          "y": 930
+        }
+      }
+  "17":
+    continueonerrortype: ""
+    id: "17"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "16"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |
+        Retrieves the current date and time.
+      id: 6ed6af27-c120-42b6-803f-e064b69a26d3
+      iscommand: false
+      name: Get current time
+      script: GetTime
+      type: regular
+      version: -1
+    taskid: 6ed6af27-c120-42b6-803f-e064b69a26d3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1460,
+          "y": 770
+        }
+      }
+  "19":
+    continueonerrortype: ""
+    id: "19"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "14"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 8a0828de-d7ad-4e43-812f-b232aa3a28f2
+      iscommand: false
+      name: Service Owner
+      type: title
+      version: -1
+    taskid: 8a0828de-d7ad-4e43-812f-b232aa3a28f2
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1270,
+          "y": 280
+        }
+      }
+  "20":
+    continueonerrortype: ""
+    id: "20"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "19"
+      - "21"
+      - "23"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 9508fdb5-a929-42aa-8c86-d3ecb42da92b
+      iscommand: false
+      name: Set Field
+      type: title
+      version: -1
+    taskid: 9508fdb5-a929-42aa-8c86-d3ecb42da92b
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 560,
+          "y": 115
+        }
+      }
+  "21":
+    continueonerrortype: ""
+    id: "21"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "22"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: dd9fc021-ef0e-4c45-8b05-b97c7ffe6ae0
+      iscommand: false
+      name: System IDs
+      type: title
+      version: -1
+    taskid: dd9fc021-ef0e-4c45-8b05-b97c7ffe6ae0
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 430,
+          "y": 280
+        }
+      }
+  "22":
+    continueonerrortype: ""
+    id: "22"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: TENABLE-ASSET-ID
+      val2:
+        complex:
+          accessor: id
+          root: TenableIO.AssetDetails
+      val3:
+        complex:
+          accessor: id
+          root: TenableIO.AssetDetails
+          transformers:
+          - args:
+              prefix:
+                value:
+                  simple: https://cloud.tenable.com/tio/app.html#/assets-uw/hosts-assets/details/
+              suffix:
+                value:
+                  simple: /findings?
+            operator: concat
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 77cd9de1-4064-4174-89a0-0abccac470d9
+      iscommand: false
+      name: Set system IDs grid field (Asset_id)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 77cd9de1-4064-4174-89a0-0abccac470d9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 430,
+          "y": 425
+        }
+      }
+  "23":
+    continueonerrortype: ""
+    id: "23"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "25"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 798b0e60-7afe-46cb-8962-885a56ebe811
+      iscommand: false
+      name: Tags
+      type: title
+      version: -1
+    taskid: 798b0e60-7afe-46cb-8962-885a56ebe811
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 850,
+          "y": 280
+        }
+      }
+  "24":
+    continueonerrortype: ""
+    id: "24"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmtags
+      keys:
+        simple: key,value,source
+      val1:
+        complex:
+          accessor: tag_key
+          root: TenableIO.AssetDetails.tags
+      val2:
+        complex:
+          accessor: tag_value
+          root: TenableIO.AssetDetails.tags
+      val3:
+        simple: Tenable.io
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: cdf162a8-b4d2-4fb8-858e-c153bef32826
+      iscommand: false
+      name: Set tags grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: cdf162a8-b4d2-4fb8-858e-c153bef32826
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 850,
+          "y": 730
+        }
+      }
+  "25":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: tag_key
+                root: TenableIO.AssetDetails.tags
+          operator: isExists
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "25"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "2"
+      "yes":
+      - "24"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check whether the last command returned Tenable.io asset with one
+        or more tags.
+      id: 93aafad2-28d9-49e6-82a4-58a3882cab31
+      iscommand: false
+      name: Was a tag present?
+      type: condition
+      version: -1
+    taskid: 93aafad2-28d9-49e6-82a4-58a3882cab31
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 850,
+          "y": 425
+        }
+      }
+  "26":
+    continueonerrortype: ""
+    id: "26"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "20"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmenrichmentstatus
+      keys:
+        simple: source,record_exists,timestamp
+      val1:
+        simple: Tenable.io
+      val2:
+        simple: "true"
+      val3:
+        simple: TIMESTAMP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format. For example:
+        `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
+      id: 85cbe1ca-ffde-40c0-899f-d5f6103d1c99
+      iscommand: false
+      name: Set ASM enrichment status to true
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 85cbe1ca-ffde-40c0-899f-d5f6103d1c99
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 560,
+          "y": -60
+        }
+      }
+  "27":
+    continueonerrortype: ""
+    id: "27"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmenrichmentstatus
+      keys:
+        simple: source,record_exists,timestamp
+      val1:
+        simple: Tenable.io
+      val2:
+        simple: "false"
+      val3:
+        simple: TIMESTAMP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format. For example:
+        `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
+      id: e1bdcc91-0fbc-4503-8b56-4a957f4c678e
+      iscommand: false
+      name: Set ASM enrichment status to false
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: e1bdcc91-0fbc-4503-8b56-4a957f4c678e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 120,
+          "y": -60
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "13_26_yes": 0.58,
+      "15_2_#default#": 0.2,
+      "25_2_#default#": 0.34
+    },
+    "paper": {
+      "dimensions": {
+        "height": 2085,
+        "width": 1720,
+        "x": 120,
+        "y": -880
+      }
+    }
+  }

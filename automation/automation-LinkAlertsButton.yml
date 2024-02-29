@@ -1,0 +1,57 @@
+args:
+- description: Alert ID to link to, or a comma separated list of related Alert IDs.
+  name: linkedIncidentIDs
+  required: true
+- auto: PREDEFINED
+  description: Action to perform - Link or Unlink Alerts
+  name: action
+  predefined:
+  - link
+  - unlink
+  required: true
+comment: |
+  Alert action button script to link or unlink Alerts from an Alert
+commonfields:
+  id: LinkAlertsButton
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    itemVersion: 1.12.20
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+dockerimage: demisto/python3:3.10.12.63474
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: LinkAlertsButton
+pswd: ""
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('LinkAlertsButton', 'start', __line__())
+  ### pack version: 1.12.20
+
+
+
+
+  action = demisto.getArg('action')
+  if action not in ['link', 'unlink']:
+      action = 'link'
+
+  demisto.results(demisto.executeCommand("linkIncidents", {"linkedIncidentIDs": demisto.getArg("linkedIncidentIDs"),
+                                                           "action": action}))
+
+  register_module_line('LinkAlertsButton', 'end', __line__())
+scripttarget: 0
+subtype: python3
+system: true
+tags:
+- incident-action-button
+type: python

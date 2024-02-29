@@ -1,0 +1,268 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+deprecated: true
+description: Deprecated. No available replacement. Identifies IPv4 Address associated
+  with Alert and creates a new Indicator.
+id: Cortex ASM - Extract IP Indicator
+inputs:
+- description: The formatted name of the alert
+  key: AlertName
+  playbookInputQuery: null
+  required: false
+  value: {}
+name: Cortex ASM - Extract IP Indicator
+outputs:
+- contextPath: ExtractedIndicators
+  description: outputs.extractindicators
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 76b4301c-0852-4b72-8f49-9375f3c544a9
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 76b4301c-0852-4b72-8f49-9375f3c544a9
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 50
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      text:
+        complex:
+          root: inputs.AlertName
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Extract all indicators according to server indicators configuration
+      id: 492d881f-b7eb-4409-85d7-1abbbff20501
+      iscommand: true
+      name: Extract Indicators From Alert
+      script: Builtin|||extractIndicators
+      tags:
+      - ASM
+      type: regular
+      version: -1
+    taskid: 492d881f-b7eb-4409-85d7-1abbbff20501
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 230
+        }
+      }
+  "3":
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      tags:
+        simple: ASM - Reported
+      type:
+        simple: IP
+      value:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: ExtractedIndicators.IP
+              operator: isNotEmpty
+          root: ExtractedIndicators.IP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Change the properties of an indicator
+      id: d4c03595-5978-4ecc-8986-2a6a06cd0723
+      iscommand: true
+      name: Create New Indicator
+      script: Builtin|||createNewIndicator
+      type: regular
+      version: -1
+    taskid: d4c03595-5978-4ecc-8986-2a6a06cd0723
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 660
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      "no":
+      - "6"
+      "yes":
+      - "3"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        complex:
+          accessor: IP
+          root: ExtractedIndicators
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if a given value exists in the context. Will return 'no'
+        for empty empty arrays. To be used mostly with DQ and selectors.
+      id: 1b8d038f-9ccf-4557-8b0c-422addc34435
+      iscommand: false
+      name: IP Indicator Found
+      script: Exists
+      type: condition
+      version: -1
+    taskid: 1b8d038f-9ccf-4557-8b0c-422addc34435
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 450
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "6"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      alertId:
+        complex:
+          accessor: id
+          root: alert
+      id:
+        complex:
+          accessor: ID
+          root: CreatedIndicator
+      value:
+        complex:
+          accessor: Value
+          root: CreatedIndicator
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Associate an indicator to a given alert, you can find the indicator
+        to connect either by it's value or it's id
+      id: 05f468be-6651-4acb-84cf-91663bab2440
+      iscommand: true
+      name: Associate IP Indicator To Alert
+      script: Builtin|||associateIndicatorToAlert
+      type: regular
+      version: -1
+    taskid: 05f468be-6651-4acb-84cf-91663bab2440
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 870
+        }
+      }
+  "6":
+    continueonerrortype: ""
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 64754ddc-ed83-47c6-8646-a6402cf9ac98
+      iscommand: false
+      name: Complete
+      type: title
+      version: -1
+    taskid: 64754ddc-ed83-47c6-8646-a6402cf9ac98
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 1060
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 1075,
+        "width": 380,
+        "x": 50,
+        "y": 50
+      }
+    }
+  }

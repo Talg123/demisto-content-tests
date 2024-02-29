@@ -1,0 +1,325 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.8.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: This playbook is used to send email notifications to service owners to
+  notify them of their internet exposures.
+id: Cortex ASM - Email Notification
+inputs:
+- description: Subject of the notification (email or ticket) sent to the potential
+    service owner.
+  key: OwnerNotificationSubject
+  playbookInputQuery: null
+  required: true
+  value: {}
+- description: Body of the notification (email or ticket) sent to the potential service
+    owner.
+  key: OwnerNotificationBody
+  playbookInputQuery: null
+  required: true
+  value: {}
+name: Cortex ASM - Email Notification
+outputs: []
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "6"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 18a8542a-f6ca-474e-82bb-cd023bdf2a69
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 18a8542a-f6ca-474e-82bb-cd023bdf2a69
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e28fdfca-d524-4853-8dc3-285981f0050f
+      iscommand: false
+      name: Complete
+      type: title
+      version: -1
+    taskid: e28fdfca-d524-4853-8dc3-285981f0050f
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 845
+        }
+      }
+  "6":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: 'Enter email addresses to notify:'
+        options: []
+        optionsarg: []
+        placeholder: ""
+        readonly: false
+        required: true
+        tooltip: Add multiple addresses separated by commas
+        type: shortText
+      sender: Your SOC team
+      title: Select Owners to Notify
+      totalanswers: 0
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body:
+        simple: Select owners to notify
+      cc: null
+      format: ""
+      methods: []
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: false
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "10"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines who to send notification emails to based on analyst
+        input.
+      id: 974858cf-71c1-4bbe-8154-e9fa94c427ed
+      iscommand: false
+      name: Select owners to notify
+      type: collection
+      version: -1
+    taskid: 974858cf-71c1-4bbe-8154-e9fa94c427ed
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 180
+        }
+      }
+  "7":
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "8"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      htmlBody:
+        complex:
+          root: inputs.OwnerNotificationBody
+          transformers:
+          - args:
+              prefix: {}
+              suffix:
+                iscontext: true
+                value:
+                  simple: RemediationGuidance
+            operator: concat
+      subject:
+        complex:
+          root: inputs.OwnerNotificationSubject
+      to:
+        complex:
+          accessor: "0"
+          root: Select Owners to Notify.Answers
+          transformers:
+          - args:
+              delimiter:
+                value:
+                  simple: ','
+            operator: split
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Send an email to the service owner with alert information.
+      id: a0ec4aaa-ca30-461d-8feb-741e708290b3
+      iscommand: true
+      name: Send email
+      script: '|||send-mail'
+      type: regular
+      version: -1
+    taskid: a0ec4aaa-ca30-461d-8feb-741e708290b3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 510
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmnotification
+      keys:
+        simple: type,value,url,timestamp
+      val1:
+        simple: Email
+      val2:
+        complex:
+          accessor: "0"
+          root: Select Owners to Notify.Answers
+      val3:
+        simple: n/a
+      val4:
+        simple: TIMESTAMP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 4e9012d7-a782-4bfe-8ef7-5586c6750413
+      iscommand: false
+      name: Set notification grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 4e9012d7-a782-4bfe-8ef7-5586c6750413
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 680
+        }
+      }
+  "10":
+    continueonerrortype: ""
+    id: "10"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 0
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "7"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      IssueTypeID:
+        complex:
+          accessor: asmattacksurfaceruleid
+          root: alert
+          transformers:
+          - args:
+              chars:
+                value:
+                  simple: '[\"]]'
+            operator: StripChars
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      description: This playbook pulls remediation guidance off of a list based on
+        ASM RuleID to be used in service owner notifications (email or ticketing system).
+      id: 94765791-4991-43fc-8124-034969a8e874
+      iscommand: false
+      name: Cortex ASM - Remediation Guidance
+      playbookId: Cortex ASM - Remediation Guidance
+      type: playbook
+      version: -1
+    taskid: 94765791-4991-43fc-8124-034969a8e874
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 340
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 860,
+        "width": 380,
+        "x": 450,
+        "y": 50
+      }
+    }
+  }

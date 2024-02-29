@@ -1,0 +1,1483 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Given the IP address, this playbook enriches Azure information relevant
+  to ASM alerts.
+id: Cortex ASM - Azure Enrichment
+inputs:
+- description: IP address of the service.
+  key: RemoteIP
+  playbookInputQuery: null
+  required: false
+  value:
+    complex:
+      accessor: remoteip
+      root: inputs
+name: Cortex ASM - Azure Enrichment
+outputs: []
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "27"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 79c46dc1-83cd-4b64-88ef-6590277c47a4
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 79c46dc1-83cd-4b64-88ef-6590277c47a4
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": -320
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
+      - "4"
+      - "7"
+      - "25"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 66d30a2f-d147-4958-8db2-cfa089a987f1
+      iscommand: false
+      name: Set Fields
+      type: title
+      version: -1
+    taskid: 66d30a2f-d147-4958-8db2-cfa089a987f1
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": -30
+        }
+      }
+  "3":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: MSGraphUser
+          operator: isNotEmpty
+          right:
+            value: {}
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: Account
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "42"
+      "yes":
+      - "9"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines if there is IAM information to set in the service owner
+        field.
+      id: e3e5ab41-5102-43e9-85ea-5abe74952b05
+      iscommand: false
+      name: Is there IAM information?
+      type: condition
+      version: -1
+    taskid: e3e5ab41-5102-43e9-85ea-5abe74952b05
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -440,
+          "y": 160
+        }
+      }
+  "4":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Compute
+                root: Azure
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      "yes":
+      - "11"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines if there is Azure Compute information to set in the
+        system ID fields.
+      id: 6e21c468-ee46-437d-8112-8adfacbb89cc
+      iscommand: false
+      name: Is there Azure compute information?
+      type: condition
+      version: -1
+    taskid: 6e21c468-ee46-437d-8112-8adfacbb89cc
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": 160
+        }
+      }
+  "7":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Network
+                root: Azure
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "43"
+      "yes":
+      - "18"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines if there is Azure network information to set in the
+        ASM Private IP field.
+      id: 976f55e5-df4c-4b7f-8542-1b4ad25e1c07
+      iscommand: false
+      name: Is there Azure network information?
+      type: condition
+      version: -1
+    taskid: 976f55e5-df4c-4b7f-8542-1b4ad25e1c07
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1390,
+          "y": 160
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "39"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmserviceowner
+      keys:
+        simple: name,email,source,timestamp
+      val1:
+        complex:
+          accessor: DisplayName
+          root: Account
+      val2:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: Account.Email.Address
+              operator: isEmpty
+            - left:
+                iscontext: true
+                value:
+                  simple: Account.Email.Address
+              operator: isNotEmpty
+          root: Account
+          transformers:
+          - args:
+              field:
+                value:
+                  simple: Email
+            operator: getField
+          - args:
+              field:
+                value:
+                  simple: Address
+            operator: getField
+          - args:
+              applyIfEmpty: {}
+              defaultValue:
+                value:
+                  simple: n/a
+            operator: SetIfEmpty
+      val3:
+        simple: Azure
+      val4:
+        complex:
+          root: TimeNowUnix
+          transformers:
+          - operator: TimeStampToDate
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Sets the potential Azure service owner to the grid field for the
+        ASM service owner object.
+      id: 89b265d3-9e9b-456c-893c-73d228d63246
+      iscommand: false
+      name: Set service owner grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 89b265d3-9e9b-456c-893c-73d228d63246
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -440,
+          "y": 540
+        }
+      }
+  "9":
+    continueonerrortype: ""
+    id: "9"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "8"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 83ce6f7c-ff17-4774-875a-52fa0910c647
+      iscommand: false
+      name: Service Owner
+      type: title
+      version: -1
+    taskid: 83ce6f7c-ff17-4774-875a-52fa0910c647
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -440,
+          "y": 395
+        }
+      }
+  "11":
+    continueonerrortype: ""
+    id: "11"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "42"
+      - "49"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e992ddab-6231-42ce-87d1-ae74623f27b6
+      iscommand: false
+      name: System IDs
+      type: title
+      version: -1
+    taskid: e992ddab-6231-42ce-87d1-ae74623f27b6
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": 395
+        }
+      }
+  "12":
+    continueonerrortype: ""
+    id: "12"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "13"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: ASSET-SG
+      val2:
+        complex:
+          accessor: id
+          root: Azure.Network.Interfaces.NetworkSecurityGroup
+          transformers:
+          - args:
+              from:
+                value:
+                  simple: networkSecurityGroups/
+            operator: substringFrom
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Sets Azure NSG information to the grid field for the ASM system
+        IDs object.
+      id: e5173157-b9e1-48c5-8ae6-782b9de30f90
+      iscommand: false
+      name: Set system IDs grid field (NSG)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: e5173157-b9e1-48c5-8ae6-782b9de30f90
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": 750
+        }
+      }
+  "13":
+    continueonerrortype: ""
+    id: "13"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "15"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: ASSET-RG
+      val2:
+        complex:
+          accessor: ResourceGroup
+          root: Azure.Compute
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Sets Azure resource group information to the grid field for the
+        ASM system IDs object. The variable name "CLOUD-RG" is chosen because multiple
+        CSPs have a concept of a resource group including Alibaba, IBM Cloud, and
+        Azure.
+      id: 7543ac2f-1458-455c-8c8d-adc4525b289c
+      iscommand: false
+      name: Set system IDs grid field (Resource Group)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 7543ac2f-1458-455c-8c8d-adc4525b289c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": 950
+        }
+      }
+  "15":
+    continueonerrortype: ""
+    id: "15"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "16"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: ASSET-NIC
+      val2:
+        complex:
+          accessor: id
+          root: Azure.Compute.NetworkInterfaces
+          transformers:
+          - args:
+              from:
+                value:
+                  simple: networkInterfaces/
+            operator: substringFrom
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Sets Azure NIC information to the grid field for the ASM system
+        IDs object. The variable name "ASSET-NIC" is chosen because it can used for
+        more than just compute resources in all cloud providers.
+      id: ea1f8375-0f45-4ef4-849f-036d1a86acc3
+      iscommand: false
+      name: Set system IDs grid field (NIC)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: ea1f8375-0f45-4ef4-849f-036d1a86acc3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": 1120
+        }
+      }
+  "16":
+    continueonerrortype: ""
+    id: "16"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "23"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: ASSET-ID
+      val2:
+        complex:
+          accessor: ID
+          root: Azure.Compute
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Sets the Azure Compute instance ID to the grid field for the ASM
+        system IDs object.
+      id: 5d2f3ccf-fadb-47a3-8530-89c315f4f59b
+      iscommand: false
+      name: Set system IDs grid field (ID)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 5d2f3ccf-fadb-47a3-8530-89c315f4f59b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": 1290
+        }
+      }
+  "17":
+    continueonerrortype: ""
+    id: "17"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "30"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmprivateip
+      keys:
+        simple: ip,source
+      val1:
+        complex:
+          accessor: PrivateIPAddress
+          root: Azure.Network.Interfaces.IPConfigurations
+      val2:
+        simple: Azure
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Sets the private IP to the grid field for the ASM private IP object.
+      id: 309433ff-fb41-4749-817b-3b00e8611c3a
+      iscommand: false
+      name: Set private IP grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 309433ff-fb41-4749-817b-3b00e8611c3a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1390,
+          "y": 540
+        }
+      }
+  "18":
+    continueonerrortype: ""
+    id: "18"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "17"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d814798a-e708-43da-89f3-c645cfc4a1fa
+      iscommand: false
+      name: Private IP
+      type: title
+      version: -1
+    taskid: d814798a-e708-43da-89f3-c645cfc4a1fa
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1390,
+          "y": 405
+        }
+      }
+  "19":
+    continueonerrortype: ""
+    id: "19"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "20"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: a49a783c-ccd1-4bea-8eac-c39a4e4fd35b
+      iscommand: false
+      name: Cloud
+      type: title
+      version: -1
+    taskid: a49a783c-ccd1-4bea-8eac-c39a4e4fd35b
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 395
+        }
+      }
+  "20":
+    continueonerrortype: ""
+    id: "20"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "31"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmcloud
+      keys:
+        simple: provider,organization,project,region,other
+      val1:
+        simple: Azure
+      val2:
+        complex:
+          accessor: id
+          root: Azure.Compute.NetworkInterfaces
+          transformers:
+          - args:
+              from:
+                value:
+                  simple: subscriptions/
+              to:
+                value:
+                  simple: /resourceGroups
+            operator: ExtractInbetween
+      val3:
+        complex:
+          accessor: ResourceGroup
+          root: Azure.Compute
+      val4:
+        complex:
+          accessor: Location
+          root: Azure.Compute
+      val5:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Sets Azure subscription, resource group, and location information
+        to the grid field for the ASM cloud object.
+      id: 31cb6cfa-4bbd-436d-84db-d5a3a3b69d15
+      iscommand: false
+      name: Set cloud grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 31cb6cfa-4bbd-436d-84db-d5a3a3b69d15
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 530
+        }
+      }
+  "23":
+    continueonerrortype: ""
+    id: "23"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "38"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: ASSET-NAME
+      val2:
+        complex:
+          accessor: Name
+          root: Azure.Compute
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Sets the Azure Compute instance name to the grid field for the
+        ASM system IDs object.
+      id: 67d79bba-dcbc-49a8-8da0-6e7a13f04fd5
+      iscommand: false
+      name: Set system IDs grid field (Compute Name)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 67d79bba-dcbc-49a8-8da0-6e7a13f04fd5
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": 1460
+        }
+      }
+  "25":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Compute
+                root: Azure
+          operator: isNotEmpty
+          right:
+            value: {}
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Network
+                root: Azure
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "25"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "43"
+      "yes":
+      - "19"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines if there is Azure Compute information to set in the
+        Cloud ASM fields.
+      id: a7f0ecc0-021b-454c-82d4-0a73ec26cab8
+      iscommand: false
+      name: Is there Azure compute information?
+      type: condition
+      version: -1
+    taskid: a7f0ecc0-021b-454c-82d4-0a73ec26cab8
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 160
+        }
+      }
+  "27":
+    continueonerrortype: ""
+    id: "27"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      AzureIP:
+        complex:
+          root: inputs.RemoteIP
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      id: ef002e06-2b52-4ec4-859a-1d7f6a7c3687
+      iscommand: false
+      name: Azure - Enrichment
+      playbookName: Azure - Enrichment
+      type: playbook
+      version: -1
+    taskid: ef002e06-2b52-4ec4-859a-1d7f6a7c3687
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": -190
+        }
+      }
+  "30":
+    continueonerrortype: ""
+    id: "30"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "33"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: asm_enrichment_flag_azure
+      value:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 80f97ea7-bda1-4f0f-8125-362deb9df757
+      iscommand: false
+      name: Set true flag for completed enrichment
+      script: Set
+      type: regular
+      version: -1
+    taskid: 80f97ea7-bda1-4f0f-8125-362deb9df757
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1390,
+          "y": 705
+        }
+      }
+  "31":
+    continueonerrortype: ""
+    id: "31"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "34"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: asm_enrichment_flag_azure
+      value:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 3fdb5d2b-7155-41b1-8e03-7ccc7b074e66
+      iscommand: false
+      name: Set true flag for completed enrichment
+      script: Set
+      type: regular
+      version: -1
+    taskid: 3fdb5d2b-7155-41b1-8e03-7ccc7b074e66
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 705
+        }
+      }
+  "32":
+    continueonerrortype: ""
+    id: "32"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "44"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d1848d0d-f47a-4673-81ba-ff94c1e8c3be
+      iscommand: false
+      name: System IDs - End
+      type: title
+      version: -1
+    taskid: d1848d0d-f47a-4673-81ba-ff94c1e8c3be
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": 1830
+        }
+      }
+  "33":
+    continueonerrortype: ""
+    id: "33"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "44"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d923e65f-dc06-4f29-8874-d15dc2e61853
+      iscommand: false
+      name: Private IP - End
+      type: title
+      version: -1
+    taskid: d923e65f-dc06-4f29-8874-d15dc2e61853
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1390,
+          "y": 1010
+        }
+      }
+  "34":
+    continueonerrortype: ""
+    id: "34"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "44"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 8f40d739-e969-4bef-876d-c5d68f9da5d9
+      iscommand: false
+      name: Cloud - End
+      type: title
+      version: -1
+    taskid: 8f40d739-e969-4bef-876d-c5d68f9da5d9
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 1010
+        }
+      }
+  "38":
+    continueonerrortype: ""
+    id: "38"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "32"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: asm_enrichment_flag_azure
+      value:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 98268422-97a6-4e63-8f41-5cf8284ad23a
+      iscommand: false
+      name: Set true flag for completed enrichment
+      script: Set
+      type: regular
+      version: -1
+    taskid: 98268422-97a6-4e63-8f41-5cf8284ad23a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": 1605
+        }
+      }
+  "39":
+    continueonerrortype: ""
+    id: "39"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "40"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: asm_enrichment_flag_azure
+      value:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: cb7a78a7-a734-434e-87fd-a24338a849c7
+      iscommand: false
+      name: Set true flag for completed enrichment
+      script: Set
+      type: regular
+      version: -1
+    taskid: cb7a78a7-a734-434e-87fd-a24338a849c7
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -440,
+          "y": 705
+        }
+      }
+  "40":
+    continueonerrortype: ""
+    id: "40"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "44"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 50127bfa-9e28-4ba8-8eb6-292ce3a7af9e
+      iscommand: false
+      name: Service Owner - End
+      type: title
+      version: -1
+    taskid: 50127bfa-9e28-4ba8-8eb6-292ce3a7af9e
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -440,
+          "y": 1425
+        }
+      }
+  "42":
+    continueonerrortype: ""
+    id: "42"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "32"
+      - "40"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: asm_enrichment_flag_azure
+      value:
+        simple: "false"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 6d443e20-8649-4b3c-8b50-9c93ef957415
+      iscommand: false
+      name: Set false flag for completed enrichment
+      script: Set
+      type: regular
+      version: -1
+    taskid: 6d443e20-8649-4b3c-8b50-9c93ef957415
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -170,
+          "y": 870
+        }
+      }
+  "43":
+    continueonerrortype: ""
+    id: "43"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "34"
+      - "33"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: asm_enrichment_flag_azure
+      value:
+        simple: "false"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: d584124a-d7db-49b3-8b89-b1135acb53bd
+      iscommand: false
+      name: Set false flag for completed enrichment
+      script: Set
+      type: regular
+      version: -1
+    taskid: d584124a-d7db-49b3-8b89-b1135acb53bd
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1060,
+          "y": 830
+        }
+      }
+  "44":
+    continueonerrortype: ""
+    id: "44"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "47"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: cf95b872-6626-49a7-8026-0371cfc6682f
+      iscommand: false
+      name: Closing Steps
+      type: title
+      version: -1
+    taskid: cf95b872-6626-49a7-8026-0371cfc6682f
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1197.5,
+          "y": 1990
+        }
+      }
+  "45":
+    continueonerrortype: ""
+    id: "45"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 4544d821-dbb9-48a1-8370-26a5d1b82190
+      iscommand: false
+      name: Complete
+      type: title
+      version: -1
+    taskid: 4544d821-dbb9-48a1-8370-26a5d1b82190
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1207.5,
+          "y": 2580
+        }
+      }
+  "46":
+    continueonerrortype: ""
+    id: "46"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "45"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmenrichmentstatus
+      keys:
+        simple: source,record_exists,timestamp
+      val1:
+        simple: Azure
+      val2:
+        simple: "true"
+      val3:
+        simple: TIMESTAMP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format. For example:
+        `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
+      id: 90396ac0-8c3e-46dd-8563-a10b21dc5467
+      iscommand: false
+      name: Set ASM enrichment status to true
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 90396ac0-8c3e-46dd-8563-a10b21dc5467
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1442.5,
+          "y": 2360
+        }
+      }
+  "47":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: asm_enrichment_flag_azure
+          operator: containsGeneral
+          right:
+            value:
+              simple: "true"
+      label: "yes"
+    continueonerrortype: ""
+    id: "47"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "48"
+      "yes":
+      - "46"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if enrichment was performed by checking for a value of true
+        in the relevant flag variable.
+      id: 63f36cc7-cc83-460d-825a-459d691f14fc
+      iscommand: false
+      name: Was enrichment performed?
+      type: condition
+      version: -1
+    taskid: 63f36cc7-cc83-460d-825a-459d691f14fc
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1197.5,
+          "y": 2140
+        }
+      }
+  "48":
+    continueonerrortype: ""
+    id: "48"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "45"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmenrichmentstatus
+      keys:
+        simple: source,record_exists,timestamp
+      val1:
+        simple: Azure
+      val2:
+        simple: "false"
+      val3:
+        simple: TIMESTAMP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format. For example:
+        `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
+      id: c4b4588d-9f63-4515-8bc1-0334d0933f35
+      iscommand: false
+      name: Set ASM enrichment status to false
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: c4b4588d-9f63-4515-8bc1-0334d0933f35
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 990,
+          "y": 2360
+        }
+      }
+  "49":
+    continueonerrortype: ""
+    id: "49"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "12"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: ASSET-TYPE
+      val2:
+        simple: Azure Compute
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Sets the type of cloud asset to the grid field for the ASM system
+        IDs object.
+      id: e99d5f19-41a5-40e1-8416-2815e27609f4
+      iscommand: false
+      name: Set system IDs grid field (type)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: e99d5f19-41a5-40e1-8416-2815e27609f4
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": 580
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "25_19_yes": 0.6,
+      "3_9_yes": 0.5,
+      "4_11_yes": 0.43,
+      "7_18_yes": 0.5
+    },
+    "paper": {
+      "dimensions": {
+        "height": 2965,
+        "width": 2262.5,
+        "x": -440,
+        "y": -320
+      }
+    }
+  }

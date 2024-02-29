@@ -1,0 +1,481 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: This playbook contains all the cloud provider sub playbooks for remediation
+id: Cortex ASM - Remediation
+inputs: []
+name: Cortex ASM - Remediation
+outputs: []
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d1735507-de4e-495b-8480-d5706b9c0bbd
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: d1735507-de4e-495b-8480-d5706b9c0bbd
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "3":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: provider
+                root: alert.asmcloud
+          operator: containsGeneral
+          right:
+            value:
+              simple: AWS
+      label: AWS
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: provider
+                root: alert.asmcloud
+          operator: containsGeneral
+          right:
+            value:
+              simple: GCP
+      label: GCP
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: provider
+                root: alert.asmcloud
+          operator: containsGeneral
+          right:
+            value:
+              simple: Azure
+      label: Azure
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: asmattacksurfaceruleid
+                root: alert
+                transformers:
+                - args:
+                    chars:
+                      value:
+                        simple: '[\"]'
+                  operator: StripChars
+          operator: isEqualString
+          right:
+            value:
+              simple: UnclaimedS3Bucket
+      label: Unclaimed S3 Bucket
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "4"
+      AWS:
+      - "8"
+      Azure:
+      - "6"
+      GCP:
+      - "9"
+      Unclaimed S3 Bucket:
+      - "7"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines which cloud provider the service is in order to direct
+        to the correct enrichment.
+      id: 1e668467-bde2-483b-8523-b8409d9eaff8
+      iscommand: false
+      name: What provider is this service?
+      type: condition
+      version: -1
+    taskid: 1e668467-bde2-483b-8523-b8409d9eaff8
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 235
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: ed351bc8-42f2-4168-8623-e0573f6911e5
+      iscommand: false
+      name: Completed
+      type: title
+      version: -1
+    taskid: ed351bc8-42f2-4168-8623-e0573f6911e5
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 790
+        }
+      }
+  "6":
+    continueonerrortype: ""
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      AzureSecurityGroup:
+        complex:
+          accessor: id
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: alert.asmsystemids.type
+              operator: isEqualString
+              right:
+                value:
+                  simple: ASSET-SG
+          root: alert.asmsystemids
+      AzureVMPrivateIP:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: alert.asmprivateip.source
+              operator: isEqualString
+              right:
+                value:
+                  simple: Azure
+          root: alert.asmprivateip
+          transformers:
+          - args:
+              field:
+                value:
+                  simple: IP
+            operator: getField
+      RemotePort:
+        complex:
+          accessor: remoteport
+          root: alert
+      RemoteProtocol:
+        complex:
+          accessor: protocol
+          root: alert
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: |-
+        This playbook adds new Azure Network Security Groups (NSG) rules to NSGs attached to a NIC. The new rules will give access only to a private IP address range and block traffic that's exposed to the public internet ([using the private IP of the VM as stated in Azure documentation](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)). For example, if RDP is exposed to the public internet, this playbook adds new firewall rules that only allows traffic from private IP address and blocks the rest of the RDP traffic.
+
+        Conditions and limitations:
+        - Limited to one resource group.
+        - 200 Azure rules viewed at once to find the offending rule.
+        - 2 priorities lower than the offending rule priority must be available.
+        - Adds rules to NSGs associated to NICs.
+      id: f0cba2e4-b4de-450d-806a-3145e1ce4999
+      iscommand: false
+      name: Azure - Network Security Group Remediation
+      playbookName: Azure - Network Security Group Remediation
+      type: playbook
+      version: -1
+    taskid: f0cba2e4-b4de-450d-806a-3145e1ce4999
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 1100,
+          "y": 450
+        }
+      }
+  "7":
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      S3BucketName:
+        complex:
+          accessor: id
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: alert.asmsystemids.type
+              operator: isEqualString
+              right:
+                value:
+                  simple: S3-BucketName
+          root: alert.asmsystemids
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: The playbook will create the unclaimed S3 bucket.
+      id: 67959d21-de62-43ad-814b-a2bf61b5a280
+      iscommand: false
+      name: AWS - Unclaimed S3 Bucket Remediation
+      playbookName: AWS - Unclaimed S3 Bucket Remediation
+      type: playbook
+      version: -1
+    taskid: 67959d21-de62-43ad-814b-a2bf61b5a280
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": -200,
+          "y": 460
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      InstanceID:
+        complex:
+          accessor: id
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: alert.asmsystemids.type
+              operator: isEqualString
+              right:
+                value:
+                  simple: ASSET-ID
+          root: alert.asmsystemids
+      Port:
+        complex:
+          accessor: remoteport
+          root: alert
+      Protocol:
+        complex:
+          accessor: protocol
+          root: alert
+          transformers:
+          - operator: toLowerCase
+      PublicIP:
+        complex:
+          accessor: remoteip
+          root: alert
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: This playbook takes in some information about an EC2 instance (ID
+        and public_ip) and with provided port and protocol, determines what security
+        groups on the primary interface of an EC2 instance are over-permissive. It
+        uses an automation to determine what interface on an EC2 instance has an over-permissive
+        security group on, determine which security groups have over-permissive rules
+        and to replace them with a copy of the security group that has only the over-permissive
+        portion removed. Over-permissive is defined as sensitive ports (SSH, RDP,
+        etc) being exposed to the internet via IPv4.
+      id: 409f127a-6417-41a9-8c53-e35dbfc32f53
+      iscommand: false
+      name: AWS - Security Group Remediation v2
+      playbookName: AWS - Security Group Remediation v2
+      type: playbook
+      version: -1
+    taskid: 409f127a-6417-41a9-8c53-e35dbfc32f53
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 230,
+          "y": 470
+        }
+      }
+  "9":
+    continueonerrortype: ""
+    id: "9"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 0
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      GcpInstance:
+        complex:
+          accessor: id
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: alert.asmsystemids.type
+              operator: isEqualString
+              right:
+                value:
+                  simple: ASSET-NAME
+          root: alert.asmsystemids
+      GcpNetwork:
+        complex:
+          accessor: id
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: alert.asmsystemids.type
+              operator: isEqualString
+              right:
+                value:
+                  simple: ASSET-VIRTUAL-NET
+          root: alert.asmsystemids
+      GcpProject:
+        complex:
+          accessor: project
+          root: alert.asmcloud
+          transformers:
+          - operator: FirstArrayElement
+      GcpZone:
+        complex:
+          accessor: id
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: alert.asmsystemids.type
+              operator: isEqualString
+              right:
+                value:
+                  simple: ASSET-ZONE
+          root: alert.asmsystemids
+      RemotePort:
+        complex:
+          accessor: remoteport
+          root: alert
+      RemoteProtocol:
+        complex:
+          accessor: protocol
+          root: alert
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      id: d7ea937a-8db4-4b32-87d9-7f02b626c16d
+      iscommand: false
+      name: GCP - Firewall Remediation
+      playbookName: GCP - Firewall Remediation
+      type: playbook
+      version: -1
+    taskid: d7ea937a-8db4-4b32-87d9-7f02b626c16d
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 680,
+          "y": 470
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 805,
+        "width": 1680,
+        "x": -200,
+        "y": 50
+      }
+    }
+  }

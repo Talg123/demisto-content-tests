@@ -1,0 +1,353 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+deprecated: true
+description: Deprecated. No available replacement.
+id: Cortex ASM - SNMP Check
+inputs:
+- description: Remote IP address in an incident/alert.
+  key: RemoteIP
+  playbookInputQuery: null
+  required: true
+  value: {}
+name: Cortex ASM - SNMP Check
+outputs:
+- contextPath: ScanResult
+  description: The result of the scan (if done).
+- contextPath: ScanDone
+  description: Whether a scan was actually performed (based on sub-types).
+  type: unknown
+- contextPath: SnmpDetection
+  description: This returns if SNMP port is responsive.
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 5794b725-dccc-44ae-8b44-90c6ff9b134d
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 5794b725-dccc-44ae-8b44-90c6ff9b134d
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: ScanDone
+      value:
+        simple: "True"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets ScanDone to True to be passed back to the parent playbook
+        to notify that an SNMP check was attempted.
+      id: e2604c0a-f845-4280-8496-0812e9374195
+      iscommand: false
+      name: Scan done
+      script: Set
+      type: regular
+      version: -1
+    taskid: e2604c0a-f845-4280-8496-0812e9374195
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 220
+        }
+      }
+  "3":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: enabled
+                root: SnmpDetection
+          operator: isEqualString
+          right:
+            value:
+              simple: "True"
+      label: Enabled
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: enabled
+                root: SnmpDetection
+          operator: isEqualString
+          right:
+            value:
+              simple: "False"
+      label: Disabled
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "6"
+      Disabled:
+      - "5"
+      Enabled:
+      - "4"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks the results of the scan to determine the outcome to pass
+        back to the parent playbook.
+      id: 7e5df086-8be1-471b-8ccf-297f2c912519
+      iscommand: false
+      name: What is the result of the scan?
+      type: condition
+      version: -1
+    taskid: 7e5df086-8be1-471b-8ccf-297f2c912519
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 600
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "7"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: ScanResult
+      value:
+        simple: "True"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets ScanResult to True when the result of SNMP check identifies
+        if SNMP is enabled. This value is passed back to the parent playbook to provide
+        the results of the SNMP check.
+      id: e254ebb5-2453-4619-804b-b68e21f55099
+      iscommand: false
+      name: Enabled scan result
+      script: Set
+      type: regular
+      version: -1
+    taskid: e254ebb5-2453-4619-804b-b68e21f55099
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 845
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "7"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: ScanResult
+      value:
+        simple: "False"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets ScanResult to False when the result of SNMP check identifies
+        if SNMP is disabled. This value is passed back to the parent playbook to provide
+        the results of the SNMP check.
+      id: fc5a09db-6158-431d-806b-23a1a7147496
+      iscommand: false
+      name: Disabled scan result
+      script: Set
+      type: regular
+      version: -1
+    taskid: fc5a09db-6158-431d-806b-23a1a7147496
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -50,
+          "y": 845
+        }
+      }
+  "6":
+    continueonerrortype: ""
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "7"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: ScanResult
+      value:
+        simple: Undetermined
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets ScanResult to Undetermined when the result of SNMP check identifies
+        that SNMP is not determined to be enabled or disabled.
+      id: 17bb2da5-baed-43a6-8f88-251950e50cd1
+      iscommand: false
+      name: Undetermined scan result
+      script: Set
+      type: regular
+      version: -1
+    taskid: 17bb2da5-baed-43a6-8f88-251950e50cd1
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 930,
+          "y": 845
+        }
+      }
+  "7":
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 18db5415-5437-41dc-8bfe-5d7e7e8268f2
+      iscommand: false
+      name: Complete
+      type: title
+      version: -1
+    taskid: 18db5415-5437-41dc-8bfe-5d7e7e8268f2
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 1050
+        }
+      }
+  "9":
+    continueonerrortype: ""
+    id: "9"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      ip_address:
+        complex:
+          root: inputs.RemoteIP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks to see if SNMP is enabled on the IP address provided.
+      id: 541ef037-7e6b-43ad-8e78-b88b46401735
+      iscommand: false
+      name: SNMP check
+      script: SnmpDetection
+      type: regular
+      version: -1
+    taskid: 541ef037-7e6b-43ad-8e78-b88b46401735
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 420
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 1065,
+        "width": 1360,
+        "x": -50,
+        "y": 50
+      }
+    }
+  }

@@ -1,0 +1,275 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.8.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: This playbook is used to create ServiceNow tickets directed toward service
+  owners to notify them of their internet exposures.
+id: Cortex ASM - ServiceNow Notification
+inputs:
+- description: Body of the notification (email or ticket) sent to the potential service
+    owner.
+  key: OwnerNotificationBody
+  playbookInputQuery: null
+  required: true
+  value: {}
+name: Cortex ASM - ServiceNow Notification
+outputs: []
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "6"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 18a8542a-f6ca-474e-82bb-cd023bdf2a69
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 18a8542a-f6ca-474e-82bb-cd023bdf2a69
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e28fdfca-d524-4853-8dc3-285981f0050f
+      iscommand: false
+      name: Complete
+      type: title
+      version: -1
+    taskid: e28fdfca-d524-4853-8dc3-285981f0050f
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 720
+        }
+      }
+  "6":
+    continueonerrortype: ""
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "7"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      IssueTypeID:
+        complex:
+          accessor: asmattacksurfaceruleid
+          root: alert
+          transformers:
+          - args:
+              chars:
+                value:
+                  simple: '[\"]'
+            operator: StripChars
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      description: This playbook pulls remediation guidance off of a list based on
+        ASM RuleID to be used in service owner notifications (email or ticketing system).
+      id: 7618b987-b315-448e-8b57-a97192a973e7
+      iscommand: false
+      name: Cortex ASM - Remediation Guidance
+      playbookId: Cortex ASM - Remediation Guidance
+      type: playbook
+      version: -1
+    taskid: 7618b987-b315-448e-8b57-a97192a973e7
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 190
+        }
+      }
+  "7":
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "8"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      description:
+        complex:
+          root: inputs.OwnerNotificationBody
+          transformers:
+          - args:
+              prefix: {}
+              suffix:
+                value:
+                  simple: ${RemediationGuidance}
+            operator: concat
+          - args:
+              limit: {}
+              replaceWith: {}
+              toReplace:
+                value:
+                  simple: <br>
+            operator: replace
+      extend-context:
+        simple: 'ServiceNowDomain=.={"url": val.result.sys_domain.link.split(''api/now'')[0]}'
+      short_description:
+        complex:
+          accessor: name
+          root: alert
+          transformers:
+          - args:
+              prefix:
+                value:
+                  simple: 'Cortex ASM Alert: '
+              suffix: {}
+            operator: concat
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ServiceNow v2
+      description: Creates new ServiceNow ticket.
+      id: df24c45a-e372-42d5-8d7f-2db7f1950429
+      iscommand: true
+      name: Create ServiceNow alert
+      script: ServiceNow v2|||servicenow-create-ticket
+      type: regular
+      version: -1
+    taskid: df24c45a-e372-42d5-8d7f-2db7f1950429
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 370
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmnotification
+      keys:
+        simple: type,value,url,timestamp
+      val1:
+        simple: ServiceNow
+      val2:
+        complex:
+          accessor: ID
+          root: ServiceNow.Ticket
+      val3:
+        complex:
+          accessor: url
+          root: ServiceNowDomain
+          transformers:
+          - args:
+              prefix: {}
+              suffix:
+                value:
+                  simple: alert.do?sysparm_query=number=
+            operator: concat
+          - args:
+              prefix: {}
+              suffix:
+                iscontext: true
+                value:
+                  simple: ServiceNow.Ticket.Number
+            operator: concat
+      val4:
+        complex:
+          accessor: CreatedOn
+          root: ServiceNow.Ticket
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 75531f68-ebd5-4f9d-855f-d739e502ef20
+      iscommand: false
+      name: Set notification grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 75531f68-ebd5-4f9d-855f-d739e502ef20
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 550
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 735,
+        "width": 380,
+        "x": 450,
+        "y": 50
+      }
+    }
+  }

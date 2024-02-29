@@ -1,0 +1,76 @@
+args:
+- description: The incident type for which to return incident field names.
+  name: incident_type
+  required: true
+- auto: PREDEFINED
+  defaultValue: "false"
+  description: Whether to shorten the incident field names. If "true", will cause
+    output to use shortened field names. The default value is "false".
+  name: short_names
+  predefined:
+  - "true"
+  - "false"
+- auto: PREDEFINED
+  defaultValue: "false"
+  description: Whether to only return non-system fields. If "true", will only output
+    non-system fields. The default value is "false".
+  name: exclude_system
+  predefined:
+  - "true"
+  - "false"
+- auto: PREDEFINED
+  defaultValue: "false"
+  description: Whether to only include fields that are explicitly associated to the
+    incident type. If "true", only fields which are explicitly associated to the incident
+    type will be included (i.e., excludes fields for which the "associate to any"
+    checkbox is selected). The default value is "false".
+  name: explicit_only
+  predefined:
+  - "true"
+  - "false"
+- auto: PREDEFINED
+  defaultValue: "true"
+  description: Pretty-prints the output.
+  name: pprint
+  predefined:
+  - "true"
+  - "false"
+comment: Returns the incident field names associated to the specified incident type.
+commonfields:
+  id: GetFieldsByIncidentType
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    itemVersion: 1.12.20
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+dependson:
+  must:
+  - '|||demisto-api-get'
+deprecated: true
+dockerimage: demisto/python3:3.10.12.63474
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: GetFieldsByIncidentType
+pswd: ""
+runas: DBotWeakRole
+runonce: false
+script: |-
+  register_module_line('GetFieldsByIncidentType', 'start', __line__())
+
+  return_results(demisto.executeCommand('GetFieldsByAlertType', demisto.args()))
+
+  register_module_line('GetFieldsByIncidentType', 'end', __line__())
+scripttarget: 0
+subtype: python3
+system: true
+tags: []
+type: python

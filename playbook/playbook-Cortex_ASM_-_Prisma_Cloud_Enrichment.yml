@@ -1,0 +1,775 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.8.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Given the IP address this playbook enriches information from Prisma Cloud.
+id: Cortex ASM - Prisma Cloud Enrichment
+inputs:
+- description: IP address of service.
+  key: remoteIP
+  playbookInputQuery: null
+  required: true
+  value:
+    complex:
+      accessor: remoteip
+      root: alert
+- description: Cloud service provider.
+  key: cloudProvider
+  playbookInputQuery: null
+  required: false
+  value: {}
+name: Cortex ASM - Prisma Cloud Enrichment
+outputs: []
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1b0c5f5c-3921-4914-8b08-6359e3e81e03
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 1b0c5f5c-3921-4914-8b08-6359e3e81e03
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 160
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      CloudProvider:
+        complex:
+          root: inputs.cloudProvider
+      PublicIPAddress:
+        complex:
+          root: inputs.remoteIP
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      id: 91810d09-5547-4519-8860-5d5821854b80
+      iscommand: false
+      name: Prisma Cloud - Find Public Cloud Resource by Public IP v2
+      playbookName: Prisma Cloud - Find Public Cloud Resource by Public IP v2
+      type: playbook
+      version: -1
+    taskid: 91810d09-5547-4519-8860-5d5821854b80
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 300
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
+      - "7"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: edff10b3-44be-460b-8b89-20a618efba1d
+      iscommand: false
+      name: Set field
+      type: title
+      version: -1
+    taskid: edff10b3-44be-460b-8b89-20a618efba1d
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 470
+        }
+      }
+  "3":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Attribution
+                root: PrismaCloud
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "13"
+      "yes":
+      - "4"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines if there is instance information obtained from Prisma
+        Cloud.
+      id: 42839e98-8b83-4aa6-8a34-2c1d6b02974b
+      iscommand: false
+      name: Is there instance information?
+      type: condition
+      version: -1
+    taskid: 42839e98-8b83-4aa6-8a34-2c1d6b02974b
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -30,
+          "y": 650
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: ba4c079a-4b83-4bb4-8186-f1302aeebc87
+      iscommand: false
+      name: System IDs
+      type: title
+      version: -1
+    taskid: ba4c079a-4b83-4bb4-8186-f1302aeebc87
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 200,
+          "y": 850
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "10"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: PRISMACLOUD-INSTANCE-ID
+      val2:
+        complex:
+          accessor: rrn
+          root: PrismaCloud.Attribution
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Example of command:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 6964364a-c14d-44c6-874e-4ce53e597914
+      iscommand: false
+      name: Set system IDs grid field (instance ID)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 6964364a-c14d-44c6-874e-4ce53e597914
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 200,
+          "y": 990
+        }
+      }
+  "7":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: tags
+                root: PrismaCloud.Config.data
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "13"
+      "yes":
+      - "8"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines if there is tag information obtained from Prisma Cloud.
+      id: 42188e35-cbd1-41e3-88c1-4b263f7d8e68
+      iscommand: false
+      name: Are there tags information?
+      type: condition
+      version: -1
+    taskid: 42188e35-cbd1-41e3-88c1-4b263f7d8e68
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 860,
+          "y": 650
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "15"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 07698068-143d-49b8-8111-1ade9bf0df2a
+      iscommand: false
+      name: Tags
+      type: title
+      version: -1
+    taskid: 07698068-143d-49b8-8111-1ade9bf0df2a
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1240,
+          "y": 870
+        }
+      }
+  "9":
+    continueonerrortype: ""
+    id: "9"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "10"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmtags
+      keys:
+        simple: key,value,source
+      val1:
+        complex:
+          accessor: tags
+          root: PrismaCloud.Config.data
+          transformers:
+          - args:
+              expression:
+                value:
+                  simple: keys(@)
+            operator: jmespath
+      val2:
+        complex:
+          accessor: tags
+          root: PrismaCloud.Config.data
+          transformers:
+          - args:
+              expression:
+                value:
+                  simple: values(@)
+            operator: jmespath
+      val3:
+        simple: PrismaCloud
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Example of command:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: e7510731-1927-41f8-8a6f-54cc43f56fc8
+      iscommand: false
+      name: Set tags grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: e7510731-1927-41f8-8a6f-54cc43f56fc8
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 980,
+          "y": 1210
+        }
+      }
+  "10":
+    continueonerrortype: ""
+    id: "10"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "13"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: asm_fields_set_for_prisma
+      value:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 5fe243c8-be52-44aa-86b1-f69a39446c33
+      iscommand: false
+      name: Set true flag for completed enrichment
+      script: Set
+      type: regular
+      version: -1
+    taskid: 5fe243c8-be52-44aa-86b1-f69a39446c33
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 500,
+          "y": 1390
+        }
+      }
+  "11":
+    continueonerrortype: ""
+    id: "11"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 75a3efdb-3fe1-4af3-806d-b1982c1200d1
+      iscommand: false
+      name: Complete
+      type: title
+      version: -1
+    taskid: 75a3efdb-3fe1-4af3-806d-b1982c1200d1
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 500,
+          "y": 2040
+        }
+      }
+  "12":
+    continueonerrortype: ""
+    id: "12"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "11"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmenrichmentstatus
+      keys:
+        simple: source,record_exists,timestamp
+      val1:
+        simple: Prisma Cloud
+      val2:
+        simple: "true"
+      val3:
+        simple: TIMESTAMP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format. For example:
+        `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
+      id: d013c103-5faa-483d-8340-a8bf8c23cefb
+      iscommand: false
+      name: Set ASM enrichment status to true
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: d013c103-5faa-483d-8340-a8bf8c23cefb
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 290,
+          "y": 1840
+        }
+      }
+  "13":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: asm_fields_set_for_prisma
+          operator: isTrue
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "13"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "14"
+      "yes":
+      - "12"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if enrichment was performed by checking for a value of true
+        in the relevant flag variable.
+      id: 98c133ff-04dd-4061-89ad-74274d88fb99
+      iscommand: false
+      name: Was enrichment performed?
+      type: condition
+      version: -1
+    taskid: 98c133ff-04dd-4061-89ad-74274d88fb99
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 500,
+          "y": 1610
+        }
+      }
+  "14":
+    continueonerrortype: ""
+    id: "14"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "11"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmenrichmentstatus
+      keys:
+        simple: source,record_exists,timestamp
+      val1:
+        simple: Prisma Cloud
+      val2:
+        simple: "false"
+      val3:
+        simple: TIMESTAMP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format. For example:
+        `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
+      id: 88110f67-c0ca-4033-86c1-cef0634eb4d6
+      iscommand: false
+      name: Set ASM enrichment status to false
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 88110f67-c0ca-4033-86c1-cef0634eb4d6
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 710,
+          "y": 1840
+        }
+      }
+  "15":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.cloudProvider
+          operator: inList
+          right:
+            value:
+              simple: AWS,Amazon Web Services,Amazon
+      label: AWS
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.cloudProvider
+          operator: inList
+          right:
+            value:
+              simple: Azure,Microsoft Azure
+      label: Azure
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.cloudProvider
+          operator: inList
+          right:
+            value:
+              simple: GCP,Google Cloud Platform,Google
+      label: GCP
+    continueonerrortype: ""
+    id: "15"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "13"
+      AWS:
+      - "16"
+      Azure:
+      - "9"
+      GCP:
+      - "17"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Branch based on Cloud Provider
+      id: d5126e14-294a-4c02-8f41-6182bb041cc5
+      iscommand: false
+      name: What Cloud Provider?
+      type: condition
+      version: -1
+    taskid: d5126e14-294a-4c02-8f41-6182bb041cc5
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1240,
+          "y": 1000
+        }
+      }
+  "16":
+    continueonerrortype: ""
+    id: "16"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "10"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmtags
+      keys:
+        simple: key,value,source
+      val1:
+        complex:
+          accessor: key
+          root: PrismaCloud.Config.data.tags
+      val2:
+        complex:
+          accessor: value
+          root: PrismaCloud.Config.data.tags
+      val3:
+        simple: PrismaCloud
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Example of command:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 25944d35-d446-47fe-84be-b282a9121908
+      iscommand: false
+      name: Set tags grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 25944d35-d446-47fe-84be-b282a9121908
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1380,
+          "y": 1210
+        }
+      }
+  "17":
+    continueonerrortype: ""
+    id: "17"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "10"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmtags
+      keys:
+        simple: key,value,source
+      val1:
+        complex:
+          accessor: items
+          root: PrismaCloud.Config.data.tags
+      val2:
+        simple: ' '
+      val3:
+        simple: PrismaCloud
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Example of command:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: f13478ac-13de-4b2f-87ca-e70b5a99438e
+      iscommand: false
+      name: Set tags grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: f13478ac-13de-4b2f-87ca-e70b5a99438e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1790,
+          "y": 1210
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "15_13_#default#": 0.47,
+      "3_13_#default#": 0.2,
+      "7_13_#default#": 0.22
+    },
+    "paper": {
+      "dimensions": {
+        "height": 1945,
+        "width": 2200,
+        "x": -30,
+        "y": 160
+      }
+    }
+  }

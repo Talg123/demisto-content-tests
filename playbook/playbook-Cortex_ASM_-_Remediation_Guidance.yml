@@ -1,0 +1,334 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: This playbook pulls remediation guidance off of a list based on ASM RuleID
+  to be used in service owner notifications (email or ticketing system).
+id: Cortex ASM - Remediation Guidance
+inputs:
+- description: Attack surface management issue rule ID.
+  key: IssueTypeID
+  playbookInputQuery: null
+  required: true
+  value:
+    complex:
+      accessor: asmattacksurfaceruleid
+      root: alert
+name: Cortex ASM - Remediation Guidance
+outputs:
+- contextPath: RemediationGuidance
+  description: Remediation guidance to be sent to the service owner via notification
+    (email or ticketing system).
+  type: unknown
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "6"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: c048592f-3edc-4540-8ca4-410163f33534
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: c048592f-3edc-4540-8ca4-410163f33534
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": -130
+        }
+      }
+  "1":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: temp
+      value:
+        complex:
+          accessor: RemediationGuidance
+          root: lists
+          transformers:
+          - operator: ParseJSON
+          - args:
+              equalTo:
+                iscontext: true
+                value:
+                  simple: inputs.IssueTypeID
+              field:
+                value:
+                  simple: issueTypeId
+              getField:
+                value:
+                  simple: remediationGuidance
+              stringify: {}
+            operator: WhereFieldEquals
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets temporary context based on list and ASM RuleID matching (continues
+        on errors in case the list isn't there or renamed).
+      id: f97d9b9b-f8a8-4a03-8c79-45905245b61f
+      iscommand: false
+      name: Set guidance in context
+      script: Set
+      type: regular
+      version: -1
+    taskid: f97d9b9b-f8a8-4a03-8c79-45905245b61f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 170
+        }
+      }
+  "2":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: temp
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "3"
+      "yes":
+      - "4"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if guidance information was pulled from the list.
+      id: 9985fb4c-84ef-442c-8ebe-c78f91dc1712
+      iscommand: false
+      name: Was remediation information obtained?
+      type: condition
+      version: -1
+    taskid: 9985fb4c-84ef-442c-8ebe-c78f91dc1712
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 330
+        }
+      }
+  "3":
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: RemediationGuidance
+      value:
+        simple: Get in touch with your Infosec team to define proper remediation access.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set default value for remediation guidance to be passed back to
+        the parent playbook.
+      id: fcdbfcbe-3e7b-42bd-841c-d39cdb54c044
+      iscommand: false
+      name: Set default guidance
+      script: Set
+      type: regular
+      version: -1
+    taskid: fcdbfcbe-3e7b-42bd-841c-d39cdb54c044
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 870,
+          "y": 520
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: RemediationGuidance
+      value:
+        complex:
+          root: temp
+          transformers:
+          - args:
+              prefix:
+                value:
+                  simple: 'Remediation guidance: '
+              suffix:
+                value:
+                  simple: |2-
+
+
+                    Get in touch with your Infosec team to define proper remediation access.
+            operator: concat
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Append information to remediation guidance to be passed back to
+        the parent playbook.
+      id: d4ad7c4d-c0e9-4dfd-8d2f-8d5f050dfcd2
+      iscommand: false
+      name: Update guidance
+      script: Set
+      type: regular
+      version: -1
+    taskid: d4ad7c4d-c0e9-4dfd-8d2f-8d5f050dfcd2
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 520
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: ac8f15e8-467f-4fc0-8212-2892353a0ed7
+      iscommand: false
+      name: Complete
+      type: title
+      version: -1
+    taskid: ac8f15e8-467f-4fc0-8212-2892353a0ed7
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 730
+        }
+      }
+  "6":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: lists.RemediationGuidance
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "3"
+      "yes":
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if a remediation guidance list exists.
+      id: 97271bf4-765c-463a-89ba-285d01c62408
+      iscommand: false
+      name: Does remediation guidance list exist?
+      type: condition
+      version: -1
+    taskid: 97271bf4-765c-463a-89ba-285d01c62408
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 0
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 925,
+        "width": 800,
+        "x": 450,
+        "y": -130
+      }
+    }
+  }

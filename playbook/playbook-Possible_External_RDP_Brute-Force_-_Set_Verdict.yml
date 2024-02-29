@@ -1,0 +1,575 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.8.0
+    itemVersion: 2.0.12
+    packID: Core
+    packName: Core - Investigation and Response
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: "This playbook creating an array called \"Suspicious Elements\", which
+  is used to count potential security threats. The following elements can be added
+  to the array:\n\n- \"IP Reputation\" - Dbot Score is 2-3 \n- \"Source geolocation\"
+  - RDP Connection made from rare geo-location \n-  Related to campaign - IP address
+  is related to campaign, based on TIM module\n-  Hunting results - the hunt for indicators
+  related to the source IP and the related campaign returned results\n-  XDR Alert
+  search - XDR Alerts that related to the same username and endpoint, and to the MITRE
+  tactics that comes after \"Credential Access\", were found.\n\nThe array will then
+  be outputted and its size will be compared to a final threshold. If the size is
+  greater than or equal to the threshold, the investigation's final verdict will be
+  deemed a \"True Positive.\""
+id: Possible External RDP Brute-Force - Set Verdict
+inputs:
+- description: Number of XDR alerts that are related to the same user or endpoint.
+  key: RelatedAlerts
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: Campaign related to the external IP.
+  key: RelatedCampaign
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: Determine whether hunting results exist. The input value should be
+    true or false.
+  key: HuntResults
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: ' determine whether the RDP connection has made RDP Connection made
+    from rare geo-location. the input value should be true or false.'
+  key: UnusualGeoLocation
+  playbookInputQuery: null
+  required: false
+  value: {}
+- description: The external IP reputation.
+  key: IpReputation
+  playbookInputQuery: null
+  required: false
+  value: {}
+name: Possible External RDP Brute-Force - Set Verdict
+outputs:
+- contextPath: Suspicious_Elements
+  description: Array that contains all the suspicious elements.
+  type: unknown
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
+      - "4"
+      - "1"
+      - "2"
+      - "10"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 446f9247-e57a-430f-8aeb-02d0e5f53cae
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 446f9247-e57a-430f-8aeb-02d0e5f53cae
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "1":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.RelatedCampaign
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "9"
+      "yes":
+      - "8"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if a related campaign exists.
+      id: 56055fa9-a5d2-4c5a-8f16-fa9f84262480
+      iscommand: false
+      name: Related to specific campaign?
+      type: condition
+      version: -1
+    taskid: 56055fa9-a5d2-4c5a-8f16-fa9f84262480
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 30,
+          "y": 190
+        }
+      }
+  "2":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.HuntResults
+          operator: isEqualString
+          right:
+            value:
+              simple: "true"
+      label: "yes"
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "9"
+      "yes":
+      - "7"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if hunting results exist.
+      id: f92cdec9-e639-463f-8b27-90e97920209e
+      iscommand: false
+      name: Has Hunting Results?
+      type: condition
+      version: -1
+    taskid: f92cdec9-e639-463f-8b27-90e97920209e
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 190
+        }
+      }
+  "3":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.RelatedAlerts
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "9"
+      "yes":
+      - "6"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if XDR related alerts exist.
+      id: d82ac18e-cec4-486a-8fca-9e877d3a1e37
+      iscommand: false
+      name: Has related alerts?
+      type: condition
+      version: -1
+    taskid: d82ac18e-cec4-486a-8fca-9e877d3a1e37
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 880,
+          "y": 190
+        }
+      }
+  "4":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.UnusualGeoLocation
+          operator: isEqualString
+          right:
+            value:
+              simple: "false"
+      label: "yes"
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "9"
+      "yes":
+      - "5"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if the connection was made from an unusual country.
+      id: 58c51221-40de-486f-8f63-ed71ce50ab4b
+      iscommand: false
+      name: Connection from unusual country?
+      type: condition
+      version: -1
+    taskid: 58c51221-40de-486f-8f63-ed71ce50ab4b
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1300,
+          "y": 190
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    fieldMapping:
+    - incidentfield: Source Geolocation
+      output:
+        simple: Connection from unusual country
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Suspicious_Elements
+      value:
+        simple: Unusual Country
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 5408731d-6b13-46de-8490-f196f1890360
+      iscommand: false
+      name: Set unusual country
+      script: Set
+      type: regular
+      version: -1
+    taskid: 5408731d-6b13-46de-8490-f196f1890360
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1300,
+          "y": 350
+        }
+      }
+  "6":
+    continueonerrortype: ""
+    fieldMapping:
+    - incidentfield: XDR Alert Search Results
+      output:
+        complex:
+          root: inputs.RelatedAlerts
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Suspicious_Elements
+      value:
+        simple: Related Alerts
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 00bcc57e-7e18-4bab-8356-a1ef5348e646
+      iscommand: false
+      name: Set related alerts
+      script: Set
+      type: regular
+      version: -1
+    taskid: 00bcc57e-7e18-4bab-8356-a1ef5348e646
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 880,
+          "y": 350
+        }
+      }
+  "7":
+    continueonerrortype: ""
+    fieldMapping:
+    - incidentfield: Hunt Results Count
+      output:
+        simple: Has campaign hunt results
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Suspicious_Elements
+      value:
+        simple: Hunting Results
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 0e017a52-2083-4c77-8f32-542c271a1761
+      iscommand: false
+      name: Set hunting results
+      script: Set
+      type: regular
+      version: -1
+    taskid: 0e017a52-2083-4c77-8f32-542c271a1761
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 350
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    fieldMapping:
+    - incidentfield: Part of Campaign
+      output:
+        complex:
+          root: inputs.RelatedCampaign
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Suspicious_Elements
+      value:
+        simple: Related Campaign
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 0cfadcf4-e302-4714-8cdf-c22fe1640354
+      iscommand: false
+      name: Set campaign
+      script: Set
+      type: regular
+      version: -1
+    taskid: 0cfadcf4-e302-4714-8cdf-c22fe1640354
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 30,
+          "y": 350
+        }
+      }
+  "9":
+    continueonerrortype: ""
+    id: "9"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d18b4c9c-408b-4155-8a49-c07e400508b3
+      iscommand: false
+      name: Done
+      type: title
+      version: -1
+    taskid: d18b4c9c-408b-4155-8a49-c07e400508b3
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 520
+        }
+      }
+  "10":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.IpReputation
+          operator: greaterThanOrEqual
+          right:
+            value:
+              simple: "2"
+      label: "yes"
+    continueonerrortype: ""
+    id: "10"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "9"
+      "yes":
+      - "11"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if the IP reputation is suspicious or higher.
+      id: 8e87df54-e1ee-4dcb-8911-0da0077e8b65
+      iscommand: false
+      name: IP Reputation is suspicious?
+      type: condition
+      version: -1
+    taskid: 8e87df54-e1ee-4dcb-8911-0da0077e8b65
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -390,
+          "y": 190
+        }
+      }
+  "11":
+    continueonerrortype: ""
+    id: "11"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Suspicious_Elements
+      value:
+        simple: IP Reputation
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 2820bf44-fc60-4781-84ef-fe725a1b3628
+      iscommand: false
+      name: Set IP Reputation
+      script: Set
+      type: regular
+      version: -1
+    taskid: 2820bf44-fc60-4781-84ef-fe725a1b3628
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -390,
+          "y": 350
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "10_9_#default#": 0.28,
+      "3_9_#default#": 0.19,
+      "4_9_#default#": 0.2
+    },
+    "paper": {
+      "dimensions": {
+        "height": 535,
+        "width": 2070,
+        "x": -390,
+        "y": 50
+      }
+    }
+  }

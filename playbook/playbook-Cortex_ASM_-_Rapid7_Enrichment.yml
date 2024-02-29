@@ -1,0 +1,1262 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.8.0
+    itemVersion: 1.6.33
+    packID: CortexAttackSurfaceManagement
+    packName: Cortex Attack Surface Management
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    toServerVersion: ""
+description: Given the IP address this playbook enriches Rapid7 InsightVM (Nexpose)
+  information relevant to ASM alerts.
+id: Cortex ASM - Rapid7 Enrichment
+inputs:
+- description: IP addresses to enrich.
+  key: IPAddress
+  playbookInputQuery: null
+  required: true
+  value:
+    complex:
+      accessor: remoteip
+      root: alert
+      transformers:
+      - operator: uniq
+name: Cortex ASM - Rapid7 Enrichment
+outputs: []
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "14"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 7d472bd1-6811-4fdb-82f3-e5e7e2dcd11f
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 7d472bd1-6811-4fdb-82f3-e5e7e2dcd11f
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 460,
+          "y": -220
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "8"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      IP:
+        complex:
+          root: inputs.IPAddress
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Given an IP address, this playbook searches Rapid7 Nexpose assets
+        for an asset with the associated IP address to retrieve asset information
+        and proceeds to return all associated tags with it.
+      id: 966415f1-9310-4bd3-880e-c390f129dced
+      iscommand: false
+      name: Rapid7 - Nexpose - Enrichment
+      playbookName: Rapid7 - Nexpose - Enrichment
+      type: playbook
+      version: -1
+    taskid: 966415f1-9310-4bd3-880e-c390f129dced
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 1190,
+          "y": 210
+        }
+      }
+  "5":
+    continueonerrortype: ""
+    id: "5"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmserviceowner
+      keys:
+        simple: name,email,source,timestamp
+      val1:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: Nexpose.AssetTag.Type
+              operator: isEqualString
+              right:
+                value:
+                  simple: owner
+          root: Nexpose.AssetTag
+          transformers:
+          - args:
+              field:
+                value:
+                  simple: Name
+            operator: getField
+      val2:
+        simple: n/a
+      val3:
+        simple: Rapid7
+      val4:
+        complex:
+          root: TimeNowUnix
+          transformers:
+          - operator: TimeStampToDate
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: abb4d008-90e1-4533-8efd-5257157007f9
+      iscommand: false
+      name: Set service owner grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: abb4d008-90e1-4533-8efd-5257157007f9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1190,
+          "y": 1125
+        }
+      }
+  "6":
+    continueonerrortype: ""
+    id: "6"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |
+        Retrieves the current date and time.
+      id: f0736024-e9ae-4636-81f9-e236ee7711a9
+      iscommand: false
+      name: Get current time
+      script: GetTime
+      type: regular
+      version: -1
+    taskid: f0736024-e9ae-4636-81f9-e236ee7711a9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1190,
+          "y": 965
+        }
+      }
+  "7":
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "6"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: a3d73bec-f111-4220-8cf6-3b07630eb820
+      iscommand: false
+      name: Service Owner
+      type: title
+      version: -1
+    taskid: a3d73bec-f111-4220-8cf6-3b07630eb820
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1190,
+          "y": 815
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "20"
+      - "21"
+      - "22"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 3e049cd1-cc09-4b82-82e8-4fe91e0ffc3e
+      iscommand: false
+      name: Set Field
+      type: title
+      version: -1
+    taskid: 3e049cd1-cc09-4b82-82e8-4fe91e0ffc3e
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1190,
+          "y": 420
+        }
+      }
+  "9":
+    continueonerrortype: ""
+    id: "9"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "24"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: a726d380-5143-44c7-8b76-c6771e5d7dc1
+      iscommand: false
+      name: System IDs
+      type: title
+      version: -1
+    taskid: a726d380-5143-44c7-8b76-c6771e5d7dc1
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1630,
+          "y": 815
+        }
+      }
+  "10":
+    continueonerrortype: ""
+    id: "10"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "25"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: RAPID7-ASSET-OS
+      val2:
+        complex:
+          accessor: OperatingSystem
+          root: Nexpose.Asset
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 6b3821ad-893f-4ca6-802c-f23b8df096cc
+      iscommand: false
+      name: Set system IDs grid field (OS)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 6b3821ad-893f-4ca6-802c-f23b8df096cc
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1860,
+          "y": 1100
+        }
+      }
+  "11":
+    continueonerrortype: ""
+    id: "11"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "23"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 67352dd6-ef71-4a54-80cb-977f3558fae7
+      iscommand: false
+      name: Tags
+      type: title
+      version: -1
+    taskid: 67352dd6-ef71-4a54-80cb-977f3558fae7
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 815
+        }
+      }
+  "14":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: modules.brand
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: Rapid7 Nexpose
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: modules.state
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: active
+                root: modules
+          operator: isExists
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "14"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "34"
+      "yes":
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines if the "Rapid7 Nexpose" integration instance is enabled
+        in order to find assets and asset tags.
+      id: dcf271b7-2cab-47a4-847f-bc8b29e74d04
+      iscommand: false
+      name: Is Rapid7 Nexpose enabled?
+      type: condition
+      version: -1
+    taskid: dcf271b7-2cab-47a4-847f-bc8b29e74d04
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 460,
+          "y": -80
+        }
+      }
+  "17":
+    continueonerrortype: ""
+    id: "17"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "28"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: RAPID7-ASSET-SITE
+      val2:
+        complex:
+          accessor: Site
+          root: Nexpose.Asset
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 2d9ae398-2ba5-45a4-8156-e17fcfd57200
+      iscommand: false
+      name: Set system IDs grid field (asset site)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 2d9ae398-2ba5-45a4-8156-e17fcfd57200
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1880,
+          "y": 1790
+        }
+      }
+  "18":
+    continueonerrortype: ""
+    id: "18"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "26"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: RAPID7-ASSET-NAME
+      val2:
+        complex:
+          accessor: Name
+          root: Nexpose.Asset
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 3975707a-25b0-4947-8e4b-2a24fdf03d0e
+      iscommand: false
+      name: Set system IDs grid field (asset name)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 3975707a-25b0-4947-8e4b-2a24fdf03d0e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1870,
+          "y": 1440
+        }
+      }
+  "20":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Asset
+                root: Nexpose
+          operator: isExists
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "20"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "34"
+      "yes":
+      - "9"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the Nexpose Asset object exists.
+      id: 37207fdb-9cf1-4a8c-8bf5-40e362924e5e
+      iscommand: false
+      name: Was there an asset from Rapid7?
+      type: condition
+      version: -1
+    taskid: 37207fdb-9cf1-4a8c-8bf5-40e362924e5e
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1630,
+          "y": 570
+        }
+      }
+  "21":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: Nexpose.AssetTag.Type
+                    operator: isNotEqualString
+                    right:
+                      value:
+                        simple: owner
+                root: Nexpose.AssetTag
+          operator: isExists
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "21"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "34"
+      "yes":
+      - "11"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the Nexpose AssetTag object exists.
+      id: 28649c97-42fb-4b20-8b4c-986742b531ea
+      iscommand: false
+      name: Was there asset tags from Rapid7?
+      type: condition
+      version: -1
+    taskid: 28649c97-42fb-4b20-8b4c-986742b531ea
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 570
+        }
+      }
+  "22":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: Nexpose.AssetTag.Type
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: owner
+                root: Nexpose.AssetTag
+          operator: isExists
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "22"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "34"
+      "yes":
+      - "7"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the Nexpose AssetTag object exists with an "owner" tag.
+      id: 9f24e0b8-bacc-4149-84fc-fccf8007589c
+      iscommand: false
+      name: Was there an owner asset tag from Rapid7?
+      type: condition
+      version: -1
+    taskid: 9f24e0b8-bacc-4149-84fc-fccf8007589c
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1190,
+          "y": 570
+        }
+      }
+  "23":
+    continueonerrortype: ""
+    id: "23"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmtags
+      keys:
+        simple: key,value,source
+      val1:
+        complex:
+          accessor: Type
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: Nexpose.AssetTag.Type
+              operator: isNotEqualString
+              right:
+                value:
+                  simple: owner
+          root: Nexpose.AssetTag
+      val2:
+        complex:
+          accessor: Name
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: Nexpose.AssetTag.Type
+              operator: isNotEqualString
+              right:
+                value:
+                  simple: owner
+          root: Nexpose.AssetTag
+      val3:
+        simple: Rapid7
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 34e400ea-f74f-4a56-8084-6a5a8a647470
+      iscommand: false
+      name: Set tags grid field
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 34e400ea-f74f-4a56-8084-6a5a8a647470
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 750,
+          "y": 965
+        }
+      }
+  "24":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Nexpose.Asset.OperatingSystem
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "24"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "25"
+      "yes":
+      - "10"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the Operating Service is set in the Nexpose Asset object.
+      id: 61dc46f3-0652-412f-80ab-f631160737b7
+      iscommand: false
+      name: Is an OS value set for asset?
+      type: condition
+      version: -1
+    taskid: 61dc46f3-0652-412f-80ab-f631160737b7
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1630,
+          "y": 925
+        }
+      }
+  "25":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Name
+                root: Nexpose.Asset
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "25"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "26"
+      "yes":
+      - "18"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the Name is set in the Nexpose Asset object.
+      id: 99503cae-a47f-4763-8394-b35694603cf6
+      iscommand: false
+      name: Is a name value set for asset?
+      type: condition
+      version: -1
+    taskid: 99503cae-a47f-4763-8394-b35694603cf6
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1630,
+          "y": 1270
+        }
+      }
+  "26":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Site
+                root: Nexpose.Asset
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "26"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "28"
+      "yes":
+      - "17"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the Site is set in the Nexpose Asset object.
+      id: f7edd466-7baf-4d7a-883a-adfb4ef171ef
+      iscommand: false
+      name: Is a site value set for asset?
+      type: condition
+      version: -1
+    taskid: f7edd466-7baf-4d7a-883a-adfb4ef171ef
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1630,
+          "y": 1615
+        }
+      }
+  "27":
+    continueonerrortype: ""
+    id: "27"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmsystemids
+      keys:
+        simple: type,id,link
+      val1:
+        simple: RAPID7-ASSET-ID
+      val2:
+        complex:
+          accessor: AssetId
+          root: Nexpose.Asset
+      val3:
+        simple: n/a
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
+        `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
+      id: 1ab733c9-9298-4e95-8ad5-0aaa4b8aba6b
+      iscommand: false
+      name: Set system IDs grid field (asset ID)
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 1ab733c9-9298-4e95-8ad5-0aaa4b8aba6b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1880,
+          "y": 2130
+        }
+      }
+  "28":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: AssetId
+                root: Nexpose.Asset
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "28"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      "yes":
+      - "27"
+      - "29"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the Site is set in the Nexpose Asset object.
+      id: 7269a845-38ca-4f84-889a-d01950e1ac62
+      iscommand: false
+      name: Is a ID value set for asset?
+      type: condition
+      version: -1
+    taskid: 7269a845-38ca-4f84-889a-d01950e1ac62
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1630,
+          "y": 1960
+        }
+      }
+  "29":
+    continueonerrortype: ""
+    id: "29"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "32"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: asm_enrichment_status_rapid7
+      value:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 7674db05-9eeb-4549-8026-37be6155249b
+      iscommand: false
+      name: Set flag for enrichment status to true
+      script: Set
+      type: regular
+      version: -1
+    taskid: 7674db05-9eeb-4549-8026-37be6155249b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1190,
+          "y": 2320
+        }
+      }
+  "32":
+    continueonerrortype: ""
+    id: "32"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "37"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e04594f7-9909-41d4-865f-c6c4f90dba9c
+      iscommand: false
+      name: Closing Steps
+      type: title
+      version: -1
+    taskid: e04594f7-9909-41d4-865f-c6c4f90dba9c
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 390,
+          "y": 2540
+        }
+      }
+  "34":
+    continueonerrortype: ""
+    id: "34"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "32"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: asm_enrichment_status_rapid7
+      value:
+        simple: "false"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: e5f83d98-4b11-45c0-80e3-8e01cc8d24f9
+      iscommand: false
+      name: Set flag for enrichment status to false
+      script: Set
+      type: regular
+      version: -1
+    taskid: e5f83d98-4b11-45c0-80e3-8e01cc8d24f9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 390,
+          "y": 2100
+        }
+      }
+  "35":
+    continueonerrortype: ""
+    id: "35"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 36c7532f-cad6-4e8c-88b6-bb9b90d4b84a
+      iscommand: false
+      name: Complete
+      type: title
+      version: -1
+    taskid: 36c7532f-cad6-4e8c-88b6-bb9b90d4b84a
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 387.5,
+          "y": 3130
+        }
+      }
+  "36":
+    continueonerrortype: ""
+    id: "36"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "35"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmenrichmentstatus
+      keys:
+        simple: source,record_exists,timestamp
+      val1:
+        simple: Rapid7
+      val2:
+        simple: "true"
+      val3:
+        simple: TIMESTAMP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format. For example:
+        `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
+      id: 15a36b89-e65b-475b-829d-64730f3087dc
+      iscommand: false
+      name: Set ASM enrichment status to true
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 15a36b89-e65b-475b-829d-64730f3087dc
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 622.5,
+          "y": 2910
+        }
+      }
+  "37":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: asm_enrichment_status_rapid7
+          operator: containsGeneral
+          right:
+            value:
+              simple: "true"
+      label: "yes"
+    continueonerrortype: ""
+    id: "37"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "38"
+      "yes":
+      - "36"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if enrichment was performed by checking for a value of true
+        in the relevant flag variable.
+      id: 97673ffc-e9af-47df-8a21-d993d9051031
+      iscommand: false
+      name: Was enrichment performed?
+      type: condition
+      version: -1
+    taskid: 97673ffc-e9af-47df-8a21-d993d9051031
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 390,
+          "y": 2690
+        }
+      }
+  "38":
+    continueonerrortype: ""
+    id: "38"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "35"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      gridfield:
+        simple: asmenrichmentstatus
+      keys:
+        simple: source,record_exists,timestamp
+      val1:
+        simple: Rapid7
+      val2:
+        simple: "false"
+      val3:
+        simple: TIMESTAMP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: |-
+        Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format. For example:
+        `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
+      id: 797f1c9c-8bbc-494a-8fb8-998881c9aa99
+      iscommand: false
+      name: Set ASM enrichment status to false
+      script: GridFieldSetup
+      type: regular
+      version: -1
+    taskid: 797f1c9c-8bbc-494a-8fb8-998881c9aa99
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 170,
+          "y": 2910
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "14_1_yes": 0.46,
+      "20_34_#default#": 0.1,
+      "20_9_yes": 0.46,
+      "21_11_yes": 0.54,
+      "21_34_#default#": 0.1,
+      "22_34_#default#": 0.1,
+      "22_7_yes": 0.47,
+      "24_10_yes": 0.6,
+      "25_18_yes": 0.55,
+      "28_29_yes": 0.32
+    },
+    "paper": {
+      "dimensions": {
+        "height": 3415,
+        "width": 2090,
+        "x": 170,
+        "y": -220
+      }
+    }
+  }

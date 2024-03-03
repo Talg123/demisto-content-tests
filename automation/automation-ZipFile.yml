@@ -16,7 +16,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.20
+    itemVersion: 1.14.3
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -29,6 +29,8 @@ enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: ZipFile
+nativeimage:
+- "8.6"
 outputs:
 - contextPath: ZipFile.ZippedFile
   description: The zipped file
@@ -69,7 +71,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ZipFile', 'start', __line__())
-  ### pack version: 1.12.20
+  ### pack version: 1.14.3
 
 
 

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -68,7 +68,7 @@ tasks:
     note: false
     quietmode: 0
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       id: b971d934-f80f-4986-8217-dabc32a749d1
@@ -446,8 +446,6 @@ tasks:
         simple: Quarantine
       HostContainment:
         simple: "True"
-      IAMUserDomain:
-        simple: '@demisto.com'
       UserContainment:
         simple: "False"
     separatecontext: false
@@ -605,7 +603,7 @@ tasks:
       '#default#':
       - "21"
       "yes":
-      - "29"
+      - "44"
     note: false
     quietmode: 0
     separatecontext: false
@@ -626,55 +624,6 @@ tasks:
         "position": {
           "x": -520,
           "y": 1200
-        }
-      }
-  "29":
-    continueonerrortype: ""
-    id: "29"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 100
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "21"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      File:
-        complex:
-          root: File
-      Interval:
-        simple: "1"
-      Timeout:
-        simple: "15"
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: |-
-        Detonate one or more files using the Wildfire integration. This playbook
-        returns relevant reports to the Alerts War Room and file reputations to the context data.
-        The detonation supports the following file types -
-        APK, JAR, DOC, DOCX, RTF, XLS, XLSX, PPT, PPTX, OOXML, PE32, PE, PDF, DMG, PKG, RAR, 7Z, JS, ELF, HTA, LNK, VBS, PS1, PERL, PYTHON, SHELL.
-      id: b9596e34-c1d6-4838-8c25-bfd9657f6e6f
-      iscommand: false
-      name: WildFire - Detonate file
-      playbookId: WildFire - Detonate file
-      type: playbook
-      version: -1
-    taskid: b9596e34-c1d6-4838-8c25-bfd9657f6e6f
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": -740,
-          "y": 1390
         }
       }
   "30":
@@ -1173,6 +1122,59 @@ tasks:
         "position": {
           "x": 130,
           "y": 1880
+        }
+      }
+  "44":
+    continueonerrortype: ""
+    id: "44"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 0
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "21"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      File:
+        complex:
+          root: inputs.detonateRansomFile
+          transformers:
+          - operator: uniq
+      Interval:
+        simple: "1"
+      Timeout:
+        simple: "8"
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: |-
+        Detonate one or more files using the Wildfire v2 integration. This playbook
+        returns relevant reports to the War Room and file reputations to the context data.
+        The detonation supports the following file types -
+        APK, JAR, DOC, DOCX, RTF, XLS, XLSX, PPT, PPTX, OOXML, PE32, PE, PDF, DMG, PKG, RAR, 7Z, JS, ELF, HTA, LNK, VBS, PS1, PERL, PYTHON, SHELL.
+
+        Note: Base64 encoded files are currently not supported.
+      id: 2ba16adb-1683-409a-81be-59ed83cb7bbc
+      iscommand: false
+      name: WildFire - Detonate file v2
+      playbookId: WildFire - Detonate file v2
+      type: playbook
+      version: -1
+    taskid: 2ba16adb-1683-409a-81be-59ed83cb7bbc
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": -770,
+          "y": 1400
         }
       }
 version: -1

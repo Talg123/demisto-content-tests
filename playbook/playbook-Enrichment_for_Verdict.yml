@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.4.2
+    itemVersion: 2.6.15
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -11,7 +11,7 @@ contentitemexportablefields:
     propagationLabels: []
     toServerVersion: ""
 description: This playbook checks prior alert closing reasons and performs enrichment
-  and prevalence checks on different IOC types. It then  returns the information needed
+  and prevalence checks on different IOC types. It then returns the information needed
   to establish the alert's verdict.
 id: Enrichment for Verdict
 inputs:
@@ -371,43 +371,6 @@ tasks:
           "y": 60
         }
       }
-  "14":
-    continueonerror: true
-    continueonerrortype: ""
-    id: "14"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "42"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      sha256:
-        complex:
-          root: inputs.FileSHA256
-    separatecontext: false
-    skipunavailable: true
-    task:
-      brand: ""
-      description: Retrieves results for a file hash using WildFire.
-      id: 23d5414c-6989-467d-8f25-135e5cc83841
-      iscommand: true
-      name: Get WildFire report
-      script: '|||wildfire-report'
-      type: regular
-      version: -1
-    taskid: 23d5414c-6989-467d-8f25-135e5cc83841
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 2310,
-          "y": 1130
-        }
-      }
   "15":
     continueonerrortype: ""
     id: "15"
@@ -496,7 +459,7 @@ tasks:
       '#default#':
       - "29"
       "yes":
-      - "14"
+      - "54"
     note: false
     quietmode: 0
     separatecontext: false
@@ -526,6 +489,15 @@ tasks:
             iscontext: true
             value:
               complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: inputs.FileSHA256
+                    operator: stringHasLength
+                    right:
+                      value:
+                        simple: "64"
                 root: inputs.FileSHA256
           operator: isNotEmpty
           right:
@@ -937,16 +909,7 @@ tasks:
       key:
         simple: FileVerdict
       value:
-        complex:
-          accessor: VerdictDescription
-          root: WildFire.Verdicts
-          transformers:
-          - args:
-              applyIfEmpty: {}
-              defaultValue:
-                value:
-                  simple: Suspicious
-            operator: SetIfEmpty
+        simple: Suspicious
     separatecontext: false
     skipunavailable: false
     task:
@@ -964,8 +927,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2310,
-          "y": 1450
+          "x": 2320,
+          "y": 1190
         }
       }
   "31":
@@ -1197,42 +1160,6 @@ tasks:
         "position": {
           "x": 3440,
           "y": 910
-        }
-      }
-  "42":
-    continueonerrortype: ""
-    id: "42"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "29"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      hash:
-        complex:
-          root: inputs.FileSHA256
-    separatecontext: false
-    skipunavailable: true
-    task:
-      brand: ""
-      description: Returns a verdict for a hash.
-      id: 765d45fd-edfa-4084-8e93-ee9b3687c228
-      iscommand: true
-      name: Get WildFire verdict
-      script: '|||wildfire-get-verdict'
-      type: regular
-      version: -1
-    taskid: 765d45fd-edfa-4084-8e93-ee9b3687c228
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 2310,
-          "y": 1290
         }
       }
   "43":
@@ -1587,6 +1514,43 @@ tasks:
         "position": {
           "x": 1530,
           "y": -110
+        }
+      }
+  "54":
+    continueonerrortype: ""
+    id: "54"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "25"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: FileVerdict
+      value:
+        simple: Benign
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set the SuspectedVerdict key in context to Suspicious File.
+      id: 22852879-29ee-4b24-8286-57c1d6f5f3ef
+      iscommand: false
+      name: Set file verdict benign
+      script: Set
+      type: regular
+      version: -1
+    taskid: 22852879-29ee-4b24-8286-57c1d6f5f3ef
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1880,
+          "y": 1190
         }
       }
 version: -1

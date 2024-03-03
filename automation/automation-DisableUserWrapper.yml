@@ -19,7 +19,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 1.12.20
+    itemVersion: 1.14.3
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -27,10 +27,12 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.86272
 engineinfo: {}
 mainengineinfo: {}
 name: DisableUserWrapper
+nativeimage:
+- "8.6"
 outputs:
 - contextPath: IdentityIQ.AccountDisable.active
   description: Indicates the status of account (should be false after request is successfully
@@ -78,7 +80,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('DisableUserWrapper', 'start', __line__())
-  ### pack version: 1.12.20
+  ### pack version: 1.14.3
 
 
 

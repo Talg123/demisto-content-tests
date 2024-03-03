@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.4.2
+    itemVersion: 2.6.15
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -49,6 +49,12 @@ outputs:
 - contextPath: XDRFileSigners
   description: XDR file signers.
   type: unknown
+- contextPath: WildFire.Report
+  description: WildFire report details.
+  type: unknown
+- contextPath: WildFire.Verdicts
+  description: WildFire verdict.
+  type: unknown
 starttaskid: "0"
 system: true
 tasks:
@@ -63,6 +69,7 @@ tasks:
       - "7"
       - "4"
       - "18"
+      - "25"
     note: false
     quietmode: 0
     separatecontext: false
@@ -156,7 +163,7 @@ tasks:
         complex:
           root: inputs.FileSHA256
     separatecontext: false
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: Retrieve results for a file hash using WildFire.
@@ -883,6 +890,110 @@ tasks:
           "y": -120
         }
       }
+  "25":
+    continueonerrortype: ""
+    id: "25"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "27"
+      - "28"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 825810e7-b8fb-4347-894b-51dae87fcb7f
+      iscommand: false
+      name: WildFire
+      type: title
+      version: -1
+    taskid: 825810e7-b8fb-4347-894b-51dae87fcb7f
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -2950,
+          "y": -440
+        }
+      }
+  "27":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "27"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      sha256:
+        complex:
+          root: inputs.FileSHA256
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Retrieves results for a file hash using WildFire.
+      id: 7bcc68bb-ba26-4690-8535-395ec5fbb28f
+      iscommand: true
+      name: Get WildFire report
+      script: '|||wildfire-report'
+      type: regular
+      version: -1
+    taskid: 7bcc68bb-ba26-4690-8535-395ec5fbb28f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -2730,
+          "y": 90
+        }
+      }
+  "28":
+    continueonerrortype: ""
+    id: "28"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      hash:
+        complex:
+          root: inputs.FileSHA256
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Returns a verdict for a hash.
+      id: e91fa96b-14ce-40a2-8ba6-2607ee95ea47
+      iscommand: true
+      name: Get WildFire verdict
+      script: '|||wildfire-get-verdict'
+      type: regular
+      version: -1
+    taskid: e91fa96b-14ce-40a2-8ba6-2607ee95ea47
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -3170,
+          "y": 90
+        }
+      }
 version: -1
 view: |-
   {
@@ -899,8 +1010,8 @@ view: |-
     "paper": {
       "dimensions": {
         "height": 1195,
-        "width": 3540,
-        "x": -2280,
+        "width": 4430,
+        "x": -3170,
         "y": -600
       }
     }

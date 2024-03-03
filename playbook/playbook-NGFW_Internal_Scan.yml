@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -31,6 +31,45 @@ description: |
   * Manual block indicators
   * Manual file quarantine
 id: NGFW Internal Scan
+inputSections:
+- description: Alert management settings and data, including escalation processes,
+    and user engagements.
+  inputs:
+  - AutoCloseAlert
+  name: Alert Management
+- description: Investigation settings and data, including any deep dive alert investigation
+    and verdict determination.
+  inputs:
+  - scannerIP
+  name: Investigation
+- description: Remediation settings and data, including containment, eradication,
+    and recovery.
+  inputs:
+  - AutoContainment
+  - HostAutoContainment
+  name: Remediation
+- description: Ticket management settings and data.
+  inputs:
+  - ShouldOpenTicket
+  - serviceNowShortDescription
+  - serviceNowImpact
+  - serviceNowUrgency
+  - serviceNowSeverity
+  - serviceNowTicketType
+  - serviceNowCategory
+  - serviceNowAssignmentGroup
+  - ZendeskPriority
+  - ZendeskRequester
+  - ZendeskStatus
+  - ZendeskSubject
+  - ZendeskTags
+  - ZendeskType
+  - ZendeskAssigne
+  - ZendeskCollaborators
+  - description
+  - addCommentPerEndpoint
+  - CommentToAdd
+  name: Ticket Management
 inputs:
 - description: The scanner IP address
   key: scannerIP
@@ -169,6 +208,10 @@ inputs:
   value:
     simple: '${alert.name}. Alert ID: ${alert.id}'
 name: NGFW Internal Scan
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs: []
 outputs: []
 starttaskid: "0"
 system: true
@@ -249,52 +292,6 @@ tasks:
           "y": 180
         }
       }
-  "6":
-    continueonerrortype: ""
-    id: "6"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 100
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "8"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      Endpoint_ip:
-        complex:
-          root: inputs.scannerIP
-          transformers:
-          - operator: uniq
-    separatecontext: true
-    skipunavailable: false
-    task:
-      brand: ""
-      description: "This playbook uses the generic command !endpoint to retrieve details
-        on a specific endpoint.\nThis command currently supports the following integrations:\n-
-        Palo Alto Networks Cortex XDR - Investigation and Response.\n- CrowdStrike
-        Falcon. "
-      id: 3b1f62bc-537c-469a-89a7-ee93d9235e5b
-      iscommand: false
-      name: Get endpoint details - Generic
-      playbookId: Get endpoint details - Generic
-      type: playbook
-      version: -1
-    taskid: 3b1f62bc-537c-469a-89a7-ee93d9235e5b
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 670,
-          "y": 180
-        }
-      }
   "7":
     continueonerrortype: ""
     id: "7"
@@ -304,7 +301,7 @@ tasks:
     nexttasks:
       '#none#':
       - "1"
-      - "6"
+      - "28"
     note: false
     quietmode: 0
     separatecontext: false
@@ -770,8 +767,6 @@ tasks:
       attackerRemoteIP:
         complex:
           root: inputs.scannerIP
-      timeRange:
-        simple: 24 hours ago
     separatecontext: false
     skipunavailable: false
     task:
@@ -978,6 +973,61 @@ tasks:
           "y": 1170
         }
       }
+  "28":
+    continueonerrortype: ""
+    id: "28"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "8"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      IPAddress:
+        complex:
+          root: inputs.scannerIP
+          transformers:
+          - operator: uniq
+      UseReputationCommand:
+        simple: "False"
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Enrich an endpoint by hostname using one or more integrations.
+        Supported integrations:
+        - Active Directory Query v2
+        - McAfee ePO v2
+        - VMware Carbon Black EDR v2
+        - Cylance Protect v2
+        - CrowdStrike Falcon
+        - ExtraHop Reveal(x)
+        - Cortex XDR / Core (endpoint enrichment, reputation and risk)
+        - Endpoint reputation using !endpoint command
+      id: 42116819-eaab-4919-830d-3d86bcfb2bb5
+      iscommand: false
+      name: Endpoint Enrichment - Generic v2.1
+      playbookId: Endpoint Enrichment - Generic v2.1
+      type: playbook
+      version: -1
+    taskid: 42116819-eaab-4919-830d-3d86bcfb2bb5
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 680,
+          "y": 180
+        }
+      }
 version: -1
 view: |-
   {
@@ -988,7 +1038,7 @@ view: |-
     "paper": {
       "dimensions": {
         "height": 2695,
-        "width": 1250,
+        "width": 1260,
         "x": -200,
         "y": -140
       }

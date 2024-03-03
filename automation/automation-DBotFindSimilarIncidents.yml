@@ -4,15 +4,18 @@ args:
   name: incidentId
 - auto: PREDEFINED
   description: 'Comma-separated list of incident text fields to take into account
-    when computing similarity. For example: commandline, URL'
+    when computing similarity. For example: commandline, URL. Note: In order to calculate
+    similarity, fields must consist of a minimum of 2 letters.'
   name: similarTextField
 - auto: PREDEFINED
   description: 'Comma-separated list of incident categorical fields to take into account
-    whe computing similarity. For example: IP, URL'
+    whe computing similarity. For example: IP, URL. Note: In order to calculate similarity,
+    fields must consist of a minimum of 2 letters.'
   name: similarCategoricalField
 - auto: PREDEFINED
   description: 'Comma-separated list of incident JSON fields to take into account
-    whe computing similarity. For example: CustomFields'
+    whe computing similarity. For example: CustomFields. Note: In order to calculate
+    similarity, fields must consist of a minimum of 2 letters.'
   name: similarJsonField
 - auto: PREDEFINED
   description: Comma-separated list of additional incident fields to display, but
@@ -99,7 +102,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.32.31
+    itemVersion: 1.33.37
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -108,7 +111,7 @@ contentitemexportablefields:
     propagationLabels: []
     toServerVersion: ""
 deprecated: true
-dockerimage: demisto/ml:1.0.0.23334
+dockerimage: demisto/ml:1.0.0.88591
 enabled: true
 engineinfo: {}
 mainengineinfo: {}

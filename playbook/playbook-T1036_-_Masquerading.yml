@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -55,6 +55,49 @@ description: |-
 
   [Possible Microsoft process masquerading](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR-Analytics-Alert-Reference/Possible-Microsoft-process-masquerading)
 id: T1036 - Masquerading
+inputSections:
+- description: Alert management settings and data, including escalation processes,
+    and user engagements.
+  inputs:
+  - AutoCloseAlert
+  name: Alert Management
+- description: Enrichment settings and data, including assets and indicators enrichment
+    using third-party enrichers.
+  inputs:
+  - FileSHA256
+  - FilePath
+  - IP
+  name: Enrichment
+- description: Remediation settings and data, including containment, eradication,
+    and recovery.
+  inputs:
+  - AutoContainment
+  - AutoEradication
+  - FileRemediation
+  - AutoRecovery
+  name: Remediation
+- description: Ticket management settings and data.
+  inputs:
+  - ShouldOpenTicket
+  - serviceNowShortDescription
+  - serviceNowImpact
+  - serviceNowUrgency
+  - serviceNowSeverity
+  - serviceNowTicketType
+  - serviceNowCategory
+  - serviceNowAssignmentGroup
+  - ZendeskPriority
+  - ZendeskRequester
+  - ZendeskStatus
+  - ZendeskSubject
+  - ZendeskTags
+  - ZendeskType
+  - ZendeskAssigne
+  - ZendeskCollaborators
+  - description
+  - addCommentPerEndpoint
+  - CommentToAdd
+  name: Ticket Management
 inputs:
 - description: Should be either 'Quarantine' or 'Delete'.
   key: FileRemediation
@@ -228,6 +271,10 @@ inputs:
   value:
     simple: '${alert.name}. Alert ID: ${alert.id}'
 name: T1036 - Masquerading
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs: []
 outputs: []
 starttaskid: "0"
 system: true
@@ -1401,8 +1448,6 @@ tasks:
         complex:
           accessor: agentid
           root: alert
-      timeRange:
-        simple: 2 hours ago
     separatecontext: true
     skipunavailable: false
     task:

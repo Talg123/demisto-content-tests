@@ -24,24 +24,24 @@
 				"category": "Utilities",
 				"commands": [
 					{
-						"description": "Converts the contents of a URL to an image file or a PDF file.",
-						"name": "rasterize"
+						"description": "Converts a PDF file to an image file.",
+						"name": "rasterize-pdf"
 					},
 					{
-						"description": "Converts the body of an email to an image file or a PDF file.",
-						"name": "rasterize-email"
+						"description": "Converts an HTML file to an image file or a PDF file.",
+						"name": "rasterize-html"
 					},
 					{
 						"description": "Converts an image file to a PDF file.",
 						"name": "rasterize-image"
 					},
 					{
-						"description": "Converts a PDF file to an image file.",
-						"name": "rasterize-pdf"
+						"description": "Converts the contents of a URL to an image file or a PDF file.",
+						"name": "rasterize"
 					},
 					{
-						"description": "Converts an html file to an image file or a PDF file.",
-						"name": "rasterize-html"
+						"description": "Converts the body of an email to an image file or a PDF file.",
+						"name": "rasterize-email"
 					}
 				],
 				"description": "Converts URLs, PDF files, and emails to an image file or PDF file.",
@@ -58,20 +58,20 @@
 		"wizard": null
 	},
 	"created": "2020-06-30T20:27:10Z",
-	"currentVersion": "1.2.25",
+	"currentVersion": "2.0.0",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.30",
+			"minVersion": "1.33.26",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Converts URLs, PDF files, and emails to an image file or PDF file.",
-	"downloads": 44212,
+	"downloads": 51432,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -79,6 +79,7 @@
 		"generalFieldFree",
 		"generalFieldSupportIncluded"
 	],
+	"hybrid": false,
 	"id": "rasterize",
 	"installMessage": "",
 	"integrations": [
@@ -87,7 +88,7 @@
 			"name": "Rasterize"
 		}
 	],
-	"itemVersion": "1.2.25",
+	"itemVersion": "2.0.0",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -112,11 +113,13 @@
 		"email": "",
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
-	"tags": [],
+	"tags": [
+		"Data Source"
+	],
 	"toServerVersion": "",
-	"updated": "2023-09-04T09:31:23Z",
+	"updated": "2024-02-11T10:22:14Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6230967",
+	"versionInfo": "819156",
 	"videos": []
 }

@@ -29,7 +29,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.20
+    itemVersion: 1.14.3
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -37,10 +37,12 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.86272
 engineinfo: {}
 mainengineinfo: {}
 name: IsInternalDomainName
+nativeimage:
+- "8.6"
 outputs:
 - contextPath: IsInternalDomain.DomainToTest
   description: The subdomain that was checked to see if it is part of the specified
@@ -59,7 +61,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('IsInternalDomainName', 'start', __line__())
-  ### pack version: 1.12.20
+  ### pack version: 1.14.3
   """
   Script to check if a domain or a sub domain is part of a given domain
   """

@@ -99,7 +99,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.2.22
+    itemVersion: 3.0.7
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:
@@ -134,10 +134,13 @@ script:
     name: helloworld-get-indicators
   dockerimage: demisto/python3:3.10.12.63474
   feed: true
+  nativeimage:
+  - "8.3"
+  - "8.4"
   runonce: false
   script: |
     register_module_line('HelloWorld Feed', 'start', __line__())
-    ### pack version: 1.2.22
+    ### pack version: 3.0.7
 
 
     """HelloWorld Feed Integration for Cortex XSIAM (aka Demisto)

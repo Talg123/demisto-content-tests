@@ -1,8 +1,8 @@
 contentitemexportablefields:
   contentitemfields:
     definitionid: ""
-    fromServerVersion: 6.9.0
-    itemVersion: 1.6.33
+    fromServerVersion: 6.10.0
+    itemVersion: 1.7.29
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -34,6 +34,13 @@ inputs:
       Description: ${alert.details}
       <br><br>
 
+- description: The ticket type used by ticketing systems. The default is "incident"
+    because ticketing systems such as ServiceNow and Cherwell use it as default.
+  key: NotificationTicketType
+  playbookInputQuery: null
+  required: true
+  value:
+    simple: alert
 - description: Subject of the notification (email or ticket) sent to the service owner
     after remediation.
   key: RemediationNotificationSubject
@@ -95,8 +102,13 @@ inputs:
   key: JiraProjectKey
   playbookInputQuery: null
   required: true
-  value:
-    simple: XPANSE
+  value: {}
+- description: If assuming roles for AWS, this is the name of the role to assume (should
+    be the same for all organizations).
+  key: AWSAssumeRoleName
+  playbookInputQuery: null
+  required: false
+  value: {}
 name: Cortex ASM - ASM Alert
 outputs: []
 starttaskid: "0"
@@ -117,18 +129,18 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 5f74e3d4-a98b-4425-85ba-056b32a8c96b
+      id: 79a7c8e5-9a6b-426f-8ed3-21ff1fe9124e
       iscommand: false
       name: ""
       version: -1
-    taskid: 5f74e3d4-a98b-4425-85ba-056b32a8c96b
+    taskid: 79a7c8e5-9a6b-426f-8ed3-21ff1fe9124e
     timertriggers: []
     type: start
     view: |-
       {
         "position": {
           "x": 70,
-          "y": -1400
+          "y": -1780
         }
       }
   "4":
@@ -143,12 +155,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: d8b21011-93d6-4b5c-82fa-bfa5b7bad044
+      id: 548459c6-a71d-49ac-8910-fa07334e477c
       iscommand: false
       name: Complete
       type: title
       version: -1
-    taskid: d8b21011-93d6-4b5c-82fa-bfa5b7bad044
+    taskid: 548459c6-a71d-49ac-8910-fa07334e477c
     timertriggers: []
     type: title
     view: |-
@@ -166,26 +178,26 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "171"
+      - "180"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: 9c94a65b-ec31-4f84-8e53-238c0ba400e5
+      id: 205caac4-7e93-4b53-8028-4798bd309ad4
       iscommand: false
       name: Triage and Qualifier Stage
       type: title
       version: -1
-    taskid: 9c94a65b-ec31-4f84-8e53-238c0ba400e5
+    taskid: 205caac4-7e93-4b53-8028-4798bd309ad4
     timertriggers: []
     type: title
     view: |-
       {
         "position": {
           "x": 70,
-          "y": -1270
+          "y": -1640
         }
       }
   "6":
@@ -203,19 +215,19 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 0d81d9c5-0219-481c-8528-92313b69ea7f
+      id: 8cdc4fa7-9865-4a60-8254-a3fe2c1face9
       iscommand: false
       name: Enrichment Stage
       type: title
       version: -1
-    taskid: 0d81d9c5-0219-481c-8528-92313b69ea7f
+    taskid: 8cdc4fa7-9865-4a60-8254-a3fe2c1face9
     timertriggers: []
     type: title
     view: |-
       {
         "position": {
           "x": 70,
-          "y": -790
+          "y": -1000
         }
       }
   "8":
@@ -233,12 +245,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: e5e7b4c5-0f88-4bd3-88ce-bc09a3a38210
+      id: 952a8f66-7583-43da-8753-657b3f1425e2
       iscommand: false
       name: Decision Stage
       type: title
       version: -1
-    taskid: e5e7b4c5-0f88-4bd3-88ce-bc09a3a38210
+    taskid: 952a8f66-7583-43da-8753-657b3f1425e2
     timertriggers: []
     type: title
     view: |-
@@ -256,19 +268,19 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "158"
+      - "179"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: a071ba68-f8dd-4b1e-8c26-715bcca10db8
+      id: b78597f7-5761-4cd4-8a0b-f648f78192a7
       iscommand: false
       name: Notification Stage
       type: title
       version: -1
-    taskid: a071ba68-f8dd-4b1e-8c26-715bcca10db8
+    taskid: b78597f7-5761-4cd4-8a0b-f648f78192a7
     timertriggers: []
     type: title
     view: |-
@@ -293,13 +305,13 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      description: Send an email
-      id: fb2870a4-dd48-414b-8ac2-78bba34fac94
+      description: Send an email.
+      id: 1c823068-38b4-47b9-8aef-f70adbaf768d
       iscommand: false
       name: Validation Stage
       type: title
       version: -1
-    taskid: fb2870a4-dd48-414b-8ac2-78bba34fac94
+    taskid: 1c823068-38b4-47b9-8aef-f70adbaf768d
     timertriggers: []
     type: title
     view: |-
@@ -324,12 +336,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: ac0cb11e-8dd0-4077-8c7e-573a63a23dc5
+      id: a1e55a91-099f-4100-829c-5d1caea841b3
       iscommand: false
       name: Remediation Stage
       type: title
       version: -1
-    taskid: ac0cb11e-8dd0-4077-8c7e-573a63a23dc5
+    taskid: a1e55a91-099f-4100-829c-5d1caea841b3
     timertriggers: []
     type: title
     view: |-
@@ -347,19 +359,19 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "93"
+      - "177"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: c0dc3a7c-5b0c-4057-87db-51092d522a9a
+      id: 3d818954-51ff-4ae6-87bb-1951dd4c56c6
       iscommand: false
       name: Summarization Stage
       type: title
       version: -1
-    taskid: c0dc3a7c-5b0c-4057-87db-51092d522a9a
+    taskid: 3d818954-51ff-4ae6-87bb-1951dd4c56c6
     timertriggers: []
     type: title
     view: |-
@@ -413,12 +425,12 @@ tasks:
       brand: ""
       description: Determines if service was still observable and also if automated
         remediation was done.
-      id: 818dc0c5-4b28-42bd-81c5-09d85cf07d1f
+      id: 078c10a4-ae07-4e7e-8aeb-d593bef0a521
       iscommand: false
       name: Service exposure still observable?
       type: condition
       version: -1
-    taskid: 818dc0c5-4b28-42bd-81c5-09d85cf07d1f
+    taskid: 078c10a4-ae07-4e7e-8aeb-d593bef0a521
     timertriggers: []
     type: condition
     view: |-
@@ -485,12 +497,12 @@ tasks:
       brand: ""
       description: Determines if alert should be closed or kept open for auto-closure
         based on analyst input.
-      id: cb99f386-4096-4789-8579-7e53fcb9d0df
+      id: 0c54afdb-6281-4862-8f93-2c9108347625
       iscommand: false
       name: What to do if Remediation Confirmation Scan is inconclusive?
       type: collection
       version: -1
-    taskid: cb99f386-4096-4789-8579-7e53fcb9d0df
+    taskid: 0c54afdb-6281-4862-8f93-2c9108347625
     timertriggers: []
     type: collection
     view: |-
@@ -598,12 +610,12 @@ tasks:
       brand: ""
       description: Determines the next action (remediation or ticket) based on the
         previous data collection task.
-      id: b676cc13-4dac-48aa-8221-0b52451cf9d4
+      id: 1c7b6823-28e7-4618-8ab0-5ef8da8b63fc
       iscommand: false
       name: What was data collection task response?
       type: condition
       version: -1
-    taskid: b676cc13-4dac-48aa-8221-0b52451cf9d4
+    taskid: 1c7b6823-28e7-4618-8ab0-5ef8da8b63fc
     timertriggers: []
     type: condition
     view: |-
@@ -667,12 +679,12 @@ tasks:
       brand: ""
       description: Determines if manual remediation (by service owner or otherwise)
         was completed via analyst input.
-      id: 7165c67a-9081-4cc6-8a6b-7719f190e23d
+      id: 363d6454-984f-4e75-8e39-fce60e8a7aa5
       iscommand: false
       name: Verify service exposure resolved by service owner
       type: collection
       version: -1
-    taskid: 7165c67a-9081-4cc6-8a6b-7719f190e23d
+    taskid: 363d6454-984f-4e75-8e39-fce60e8a7aa5
     timertriggers: []
     type: collection
     view: |-
@@ -690,19 +702,19 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "159"
+      - "176"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: 5ca2243e-cf3d-4826-8225-669e58e56a12
+      id: d4b249ba-f931-4211-86ec-fed38bd28f2c
       iscommand: false
       name: Notification Stage
       type: title
       version: -1
-    taskid: 5ca2243e-cf3d-4826-8225-669e58e56a12
+    taskid: d4b249ba-f931-4211-86ec-fed38bd28f2c
     timertriggers: []
     type: title
     view: |-
@@ -727,12 +739,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 9bd4de64-7f73-4ba3-8b3c-8ec10cecdb0b
+      id: 2a74ea33-e35a-4e91-89ad-b4a454295dfc
       iscommand: false
       name: Remediation Stage
       type: title
       version: -1
-    taskid: 9bd4de64-7f73-4ba3-8b3c-8ec10cecdb0b
+    taskid: 2a74ea33-e35a-4e91-89ad-b4a454295dfc
     timertriggers: []
     type: title
     view: |-
@@ -775,13 +787,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: c7ff010a-538b-4c51-8526-166c161f5b41
+      id: 5a25a6a7-fd0f-42ba-8aee-499d94ad8d4c
       iscommand: false
       name: Set remediation grid field
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: c7ff010a-538b-4c51-8526-166c161f5b41
+    taskid: 5a25a6a7-fd0f-42ba-8aee-499d94ad8d4c
     timertriggers: []
     type: regular
     view: |-
@@ -838,12 +850,12 @@ tasks:
       brand: ""
       description: Determines if "manual remediation" was selected on main data collection
         task.
-      id: e52a6e9a-0ca3-44ce-8b03-148f0f052d7c
+      id: a7f0052c-3310-433c-8a1d-b68b6d53ce1c
       iscommand: false
       name: Manual remediation selected?
       type: condition
       version: -1
-    taskid: e52a6e9a-0ca3-44ce-8b03-148f0f052d7c
+    taskid: a7f0052c-3310-433c-8a1d-b68b6d53ce1c
     timertriggers: []
     type: condition
     view: |-
@@ -895,13 +907,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: 54f1f028-be62-4e71-8e5e-94b00d27bc8f
+      id: 400a5d2c-27fe-4cee-833a-a3d9951384f2
       iscommand: false
       name: Set remediation grid field
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 54f1f028-be62-4e71-8e5e-94b00d27bc8f
+    taskid: 400a5d2c-27fe-4cee-833a-a3d9951384f2
     timertriggers: []
     type: regular
     view: |-
@@ -965,13 +977,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
         `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
-      id: 392b206a-2ce0-4df7-8ea8-5de259a2c9dc
+      id: 3029317d-a0aa-47bd-8667-a14c4704b52d
       iscommand: false
       name: Set alert summary grid field
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 392b206a-2ce0-4df7-8ea8-5de259a2c9dc
+    taskid: 3029317d-a0aa-47bd-8667-a14c4704b52d
     timertriggers: []
     type: regular
     view: |-
@@ -1018,13 +1030,13 @@ tasks:
       brand: ""
       description: Playbook that looks at what ASM sub-type the alert is and directs
         it to different pre/post mitigation scans (such as NMAP).
-      id: 61952b89-0ee9-4d72-8e9a-85320b67134c
+      id: df2185f7-5dea-4431-8a00-1dff0d6b2d4d
       iscommand: false
       name: Cortex ASM - Detect Service
       playbookId: Cortex ASM - Detect Service
       type: playbook
       version: -1
-    taskid: 61952b89-0ee9-4d72-8e9a-85320b67134c
+    taskid: df2185f7-5dea-4431-8a00-1dff0d6b2d4d
     timertriggers: []
     type: playbook
     view: |-
@@ -1087,12 +1099,12 @@ tasks:
       brand: ""
       description: Determines if manual remediation (by service owner or otherwise)
         was completed via analyst input.
-      id: 37e5dd13-953f-442c-840f-c82be8227d2c
+      id: f80b1685-d83c-4d3f-8219-8176c830ac92
       iscommand: false
       name: Complete manual remediation
       type: collection
       version: -1
-    taskid: 37e5dd13-953f-442c-840f-c82be8227d2c
+    taskid: f80b1685-d83c-4d3f-8219-8176c830ac92
     timertriggers: []
     type: collection
     view: |-
@@ -1102,143 +1114,48 @@ tasks:
           "y": 2230
         }
       }
-  "93":
-    continueonerrortype: ""
-    id: "93"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "81"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      alert_details:
-        complex:
-          accessor: details
-          root: alert
-      alert_id:
-        complex:
-          accessor: id
-          root: alert
-      alert_name:
-        complex:
-          accessor: name
-          root: alert
-      alert_severityStr:
-        complex:
-          accessor: severityStr
-          root: alert
-      asm_asset_id:
-        complex:
-          accessor: asmassetid
-          root: alert
-      asm_cloud:
-        complex:
-          accessor: asmcloud
-          root: alert
-      asm_data_collection:
-        complex:
-          accessor: asmdatacollection
-          root: alert
-      asm_notification:
-        complex:
-          accessor: asmnotification
-          root: alert
-      asm_private_ip:
-        complex:
-          accessor: asmprivateip
-          root: alert
-      asm_related:
-        complex:
-          accessor: asmrelated
-          root: alert
-      asm_remediation:
-        complex:
-          accessor: asmremediation
-          root: alert
-      asm_remediation_path_rule:
-        complex:
-          accessor: asmremediationpathrule
-          root: alert
-      asm_service_detection:
-        complex:
-          accessor: asmservicedetection
-          root: alert
-      asm_service_id:
-        complex:
-          accessor: asmserviceid
-          root: alert
-      asm_service_owner:
-        complex:
-          accessor: asmserviceowner
-          root: alert
-      asm_system_ids:
-        complex:
-          accessor: asmsystemids
-          root: alert
-      asm_tags:
-        complex:
-          accessor: asmtags
-          root: alert
-      report_type:
-        simple: summary
-      retry-count:
-        simple: "1"
-      retry-interval:
-        simple: "30"
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Generate an ASM Alert Summary report.
-      id: 0a9a40fd-49de-4c82-8dd8-0a06843aecdd
-      iscommand: false
-      name: GenerateSummaryReport - Summary
-      script: GenerateASMReport
-      type: regular
-      version: -1
-    taskid: 0a9a40fd-49de-4c82-8dd8-0a06843aecdd
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 70,
-          "y": 3980
-        }
-      }
   "97":
     continueonerrortype: ""
     id: "97"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
     nexttasks:
       '#none#':
       - "125"
     note: false
     quietmode: 0
+    scriptarguments:
+      AWSAssumeRoleName:
+        simple: ${inputs.AWSAssumeRoleName}
+      RemoteIP:
+        complex:
+          accessor: remoteip
+          root: alert
     separatecontext: true
     skipunavailable: false
     task:
       brand: ""
       description: Used as a container folder for all enrichments of ASM alerts.
-      id: a77560dd-fd29-4480-8067-e1e6bd9faa5e
+      id: 71dcd381-9a60-4115-88fb-e1513cbb913b
       iscommand: false
       name: Cortex ASM - Enrichment
       playbookId: Cortex ASM - Enrichment
       type: playbook
       version: -1
-    taskid: a77560dd-fd29-4480-8067-e1e6bd9faa5e
+    taskid: 71dcd381-9a60-4115-88fb-e1513cbb913b
     timertriggers: []
     type: playbook
     view: |-
       {
         "position": {
           "x": 70,
-          "y": -660
+          "y": -870
         }
       }
   "103":
@@ -1273,13 +1190,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: 4d8fca4a-2d3b-454b-8d0f-aca40712c9da
+      id: 9cd375bf-e85e-45fd-8fa4-ee8ef8bf3d10
       iscommand: false
       name: Set remediation grid field
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 4d8fca4a-2d3b-454b-8d0f-aca40712c9da
+    taskid: 9cd375bf-e85e-45fd-8fa4-ee8ef8bf3d10
     timertriggers: []
     type: regular
     view: |-
@@ -1380,12 +1297,12 @@ tasks:
     task:
       brand: ""
       description: Determines if the alert will be closed or kept open.
-      id: 022a3ead-e521-4e29-8c1e-3f3969041aab
+      id: 75485187-2003-44f4-8476-54d27fac1cf7
       iscommand: false
       name: Close or keep open?
       type: condition
       version: -1
-    taskid: 022a3ead-e521-4e29-8c1e-3f3969041aab
+    taskid: 75485187-2003-44f4-8476-54d27fac1cf7
     timertriggers: []
     type: condition
     view: |-
@@ -1416,13 +1333,13 @@ tasks:
     task:
       brand: Builtin
       description: Close the current alert because auto-close was selected.
-      id: 286c6bf2-6631-4ff5-829e-402e4dad06f0
+      id: faa2ac25-d58c-4d2b-8ad8-8ae1e27ec1c3
       iscommand: true
       name: Close alert (close now)
       script: Builtin|||closeInvestigation
       type: regular
       version: -1
-    taskid: 286c6bf2-6631-4ff5-829e-402e4dad06f0
+    taskid: faa2ac25-d58c-4d2b-8ad8-8ae1e27ec1c3
     timertriggers: []
     type: regular
     view: |-
@@ -1455,13 +1372,13 @@ tasks:
       brand: Builtin
       description: Close the current alert because Automated Remediation path was
         selected.
-      id: fa115b90-0879-44b2-89d9-563af80c467c
+      id: 3484098d-2bfe-4d6c-8fc6-07c1cb7ad591
       iscommand: true
       name: Close alert (remediated automatically)
       script: Builtin|||closeInvestigation
       type: regular
       version: -1
-    taskid: fa115b90-0879-44b2-89d9-563af80c467c
+    taskid: 3484098d-2bfe-4d6c-8fc6-07c1cb7ad591
     timertriggers: []
     type: regular
     view: |-
@@ -1502,13 +1419,13 @@ tasks:
     task:
       brand: Builtin
       description: Close the current alert because auto-close was selected.
-      id: f7dc6da9-017e-490a-8963-cdee6b81a0d2
+      id: f9691189-aae2-4973-89b1-45d513d7b4b1
       iscommand: true
       name: Close alert (close now) with rule match
       script: Builtin|||closeInvestigation
       type: regular
       version: -1
-    taskid: f7dc6da9-017e-490a-8963-cdee6b81a0d2
+    taskid: f9691189-aae2-4973-89b1-45d513d7b4b1
     timertriggers: []
     type: regular
     view: |-
@@ -1550,13 +1467,13 @@ tasks:
       brand: Builtin
       description: Close the current alert because Automated Remediation path was
         selected.
-      id: d77e73aa-8d8b-4b74-8149-8a7a3074aaa2
+      id: 0d6b5b4a-6676-4565-83c3-263bbb709ccd
       iscommand: true
       name: Close alert (remediated automatically) with rule match
       script: Builtin|||closeInvestigation
       type: regular
       version: -1
-    taskid: d77e73aa-8d8b-4b74-8149-8a7a3074aaa2
+    taskid: 0d6b5b4a-6676-4565-83c3-263bbb709ccd
     timertriggers: []
     type: regular
     view: |-
@@ -1594,13 +1511,13 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: af17322e-fdb3-4997-87b3-22b5bfb62627
+      id: bbcc2ebf-4475-4f87-8692-4b6960536228
       iscommand: false
       name: Cortex ASM - Remediation Path Rules
       playbookId: Cortex ASM - Remediation Path Rules
       type: playbook
       version: -1
-    taskid: af17322e-fdb3-4997-87b3-22b5bfb62627
+    taskid: bbcc2ebf-4475-4f87-8692-4b6960536228
     timertriggers: []
     type: playbook
     view: |-
@@ -1618,133 +1535,26 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "123"
+      - "175"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: 38612ed4-9e45-487f-8197-c29ff4a6b1b8
+      id: abef44ae-926e-466b-8030-33c6078e12f4
       iscommand: false
       name: Analysis Stage
       type: title
       version: -1
-    taskid: 38612ed4-9e45-487f-8197-c29ff4a6b1b8
+    taskid: abef44ae-926e-466b-8030-33c6078e12f4
     timertriggers: []
     type: title
     view: |-
       {
         "position": {
           "x": 70,
-          "y": -335
-        }
-      }
-  "123":
-    continueonerrortype: ""
-    id: "123"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "126"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      alert_details:
-        complex:
-          accessor: details
-          root: alert
-      alert_id:
-        complex:
-          accessor: id
-          root: alert
-      alert_name:
-        complex:
-          accessor: name
-          root: alert
-      alert_severityStr:
-        complex:
-          accessor: severityStr
-          root: alert
-      asm_asset_id:
-        complex:
-          accessor: asmassetid
-          root: alert
-      asm_cloud:
-        complex:
-          accessor: asmcloud
-          root: alert
-      asm_data_collection:
-        complex:
-          accessor: asmdatacollection
-          root: alert
-      asm_notification:
-        complex:
-          accessor: asmnotification
-          root: alert
-      asm_private_ip:
-        complex:
-          accessor: asmprivateip
-          root: alert
-      asm_related:
-        complex:
-          accessor: asmrelated
-          root: alert
-      asm_remediation:
-        complex:
-          accessor: asmremediation
-          root: alert
-      asm_remediation_path_rule:
-        complex:
-          accessor: asmremediationpathrule
-          root: alert
-      asm_service_detection:
-        complex:
-          accessor: asmservicedetection
-          root: alert
-      asm_service_id:
-        complex:
-          accessor: asmserviceid
-          root: alert
-      asm_service_owner:
-        complex:
-          accessor: asmserviceowner
-          root: alert
-      asm_system_ids:
-        complex:
-          accessor: asmsystemids
-          root: alert
-      asm_tags:
-        complex:
-          accessor: asmtags
-          root: alert
-      report_type:
-        simple: analysis
-      retry-count:
-        simple: "1"
-      retry-interval:
-        simple: "30"
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Generate an ASM Alert Summary report.
-      id: f0961cac-382a-4132-826c-221a31f9c399
-      iscommand: false
-      name: GenerateSummaryReport - Analysis
-      script: GenerateASMReport
-      type: regular
-      version: -1
-    taskid: f0961cac-382a-4132-826c-221a31f9c399
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 70,
-          "y": -200
+          "y": -535
         }
       }
   "124":
@@ -1774,20 +1584,20 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: 53703150-25d1-4be1-835a-aa734d3f8aa9
+      id: 7697188d-a525-43a6-8f5f-02d63024d1f0
       iscommand: false
       name: Set playbook stage grid field (triage)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 53703150-25d1-4be1-835a-aa734d3f8aa9
+    taskid: 7697188d-a525-43a6-8f5f-02d63024d1f0
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": 70,
-          "y": -960
+          "y": -1170
         }
       }
   "125":
@@ -1817,20 +1627,20 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: df13515c-2392-457d-82b1-b258d763ddb0
+      id: 73acc4cd-f162-4da9-8e80-bb677b24c0fa
       iscommand: false
       name: Set playbook stage grid field (enrichment)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: df13515c-2392-457d-82b1-b258d763ddb0
+    taskid: 73acc4cd-f162-4da9-8e80-bb677b24c0fa
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": 70,
-          "y": -495
+          "y": -705
         }
       }
   "126":
@@ -1860,13 +1670,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: da4035eb-9c45-42e1-8b0d-eb1beb90162c
+      id: e00a985a-489a-449d-805d-929b07974977
       iscommand: false
       name: Set playbook stage grid field (analysis)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: da4035eb-9c45-42e1-8b0d-eb1beb90162c
+    taskid: e00a985a-489a-449d-805d-929b07974977
     timertriggers: []
     type: regular
     view: |-
@@ -1903,13 +1713,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: 2ce7d3ac-037c-435a-861e-ac7c4b8ced75
+      id: daacfc48-eb95-4aa6-8b43-92ad68d6b62c
       iscommand: false
       name: Set playbook stage grid field (decision)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 2ce7d3ac-037c-435a-861e-ac7c4b8ced75
+    taskid: daacfc48-eb95-4aa6-8b43-92ad68d6b62c
     timertriggers: []
     type: regular
     view: |-
@@ -1946,13 +1756,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: 8fc5f50c-6e63-4f3c-8f03-ad76858a5bf5
+      id: fd339520-4a29-4412-8675-9a7ffb073f0c
       iscommand: false
       name: Set playbook stage grid field (decision)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 8fc5f50c-6e63-4f3c-8f03-ad76858a5bf5
+    taskid: fd339520-4a29-4412-8675-9a7ffb073f0c
     timertriggers: []
     type: regular
     view: |-
@@ -1989,13 +1799,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: ec56d4d3-4300-44dd-8957-2c0640083e60
+      id: 569e4b63-d599-4604-8c97-7c7200c53c59
       iscommand: false
       name: Set playbook stage grid field (decision)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: ec56d4d3-4300-44dd-8957-2c0640083e60
+    taskid: 569e4b63-d599-4604-8c97-7c7200c53c59
     timertriggers: []
     type: regular
     view: |-
@@ -2032,13 +1842,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: c4188137-abdc-4b2c-88c0-8316bf2497b6
+      id: 33010b40-f580-4f68-8ee7-95208f3b4b5e
       iscommand: false
       name: Set playbook stage grid field (decision)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: c4188137-abdc-4b2c-88c0-8316bf2497b6
+    taskid: 33010b40-f580-4f68-8ee7-95208f3b4b5e
     timertriggers: []
     type: regular
     view: |-
@@ -2075,13 +1885,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: a349116c-5449-4126-8446-39d00e264815
+      id: d0336db6-38a5-4c68-8e16-39fba3c1c026
       iscommand: false
       name: Set playbook stage grid field (remediation)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: a349116c-5449-4126-8446-39d00e264815
+    taskid: d0336db6-38a5-4c68-8e16-39fba3c1c026
     timertriggers: []
     type: regular
     view: |-
@@ -2118,13 +1928,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: a25729fa-3d59-4c90-883d-f7db1542f40a
+      id: a25d63b0-fffe-4304-8357-d10c0f1a5f34
       iscommand: false
       name: Set playbook stage grid field (notification)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: a25729fa-3d59-4c90-883d-f7db1542f40a
+    taskid: a25d63b0-fffe-4304-8357-d10c0f1a5f34
     timertriggers: []
     type: regular
     view: |-
@@ -2161,13 +1971,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: 889ce0c5-7074-4de2-85c6-d20a5692ec02
+      id: b89b04c5-a0d2-4ada-85e8-fb84fd8c0174
       iscommand: false
       name: Set playbook stage grid field (validation)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 889ce0c5-7074-4de2-85c6-d20a5692ec02
+    taskid: b89b04c5-a0d2-4ada-85e8-fb84fd8c0174
     timertriggers: []
     type: regular
     view: |-
@@ -2204,13 +2014,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: 15091cc5-e845-4199-852c-5a3efe22b013
+      id: ea15fff7-a44e-4f31-8e63-54f069aafdec
       iscommand: false
       name: Set playbook stage grid field (summarization)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 15091cc5-e845-4199-852c-5a3efe22b013
+    taskid: ea15fff7-a44e-4f31-8e63-54f069aafdec
     timertriggers: []
     type: regular
     view: |-
@@ -2235,12 +2045,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 3377b622-c50e-4291-8d98-596fd94f7aac
+      id: 5fc53955-e98a-4b57-82dc-185bb48a79bb
       iscommand: false
       name: continue
       type: title
       version: -1
-    taskid: 3377b622-c50e-4291-8d98-596fd94f7aac
+    taskid: 5fc53955-e98a-4b57-82dc-185bb48a79bb
     timertriggers: []
     type: title
     view: |-
@@ -2272,13 +2082,13 @@ tasks:
     task:
       brand: Builtin
       description: Close the current alert because the service is no longer observed.
-      id: 15c3d3b8-c30f-4eed-81b7-6c8b63cb11c7
+      id: 3759b6d2-40aa-4639-8de0-d7a5768f0f78
       iscommand: true
       name: Close alert (accepted risk)
       script: Builtin|||closeInvestigation
       type: regular
       version: -1
-    taskid: 15c3d3b8-c30f-4eed-81b7-6c8b63cb11c7
+    taskid: 3759b6d2-40aa-4639-8de0-d7a5768f0f78
     timertriggers: []
     type: regular
     view: |-
@@ -2415,12 +2225,12 @@ tasks:
       brand: ""
       description: Checks if the system IDs, folders, and projects are present in
         the accepted risk lists.
-      id: 498b02e9-c216-483b-8fb0-f375ff9f45d0
+      id: df8b6de0-ebf2-4344-808f-773d0a40298c
       iscommand: false
       name: Are there any matches from accepted risk lists?
       type: condition
       version: -1
-    taskid: 498b02e9-c216-483b-8fb0-f375ff9f45d0
+    taskid: df8b6de0-ebf2-4344-808f-773d0a40298c
     timertriggers: []
     type: condition
     view: |-
@@ -2513,12 +2323,12 @@ tasks:
       brand: ""
       description: Determines what the remediation action is (direct action or data
         collection task).
-      id: 93018e08-34f3-48a6-8e62-2fd6a2b9122a
+      id: 4766c871-f8c3-4896-8a95-02019ce271fd
       iscommand: false
       name: What is the remediation action?
       type: condition
       version: -1
-    taskid: 93018e08-34f3-48a6-8e62-2fd6a2b9122a
+    taskid: 4766c871-f8c3-4896-8a95-02019ce271fd
     timertriggers: []
     type: condition
     view: |-
@@ -2543,12 +2353,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: d8033440-ad22-42db-8b46-2a3746edb2c7
+      id: 0bcc9690-5c1b-4eb9-88de-d991f31820f1
       iscommand: false
       name: Automated Remediation
       type: title
       version: -1
-    taskid: d8033440-ad22-42db-8b46-2a3746edb2c7
+    taskid: 0bcc9690-5c1b-4eb9-88de-d991f31820f1
     timertriggers: []
     type: title
     view: |-
@@ -2573,12 +2383,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: a7200b67-7995-492a-8e56-740fe7693581
+      id: a4b94f6b-2c42-4a0e-8dfc-210138a74131
       iscommand: false
       name: Manual Remediation
       type: title
       version: -1
-    taskid: a7200b67-7995-492a-8e56-740fe7693581
+    taskid: a4b94f6b-2c42-4a0e-8dfc-210138a74131
     timertriggers: []
     type: title
     view: |-
@@ -2586,51 +2396,6 @@ tasks:
         "position": {
           "x": -270,
           "y": 1050
-        }
-      }
-  "154":
-    continueonerrortype: ""
-    id: "154"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 100
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "134"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      JiraProjectKey:
-        complex:
-          root: inputs.JiraProjectKey
-      OwnerNotificationBody:
-        complex:
-          root: inputs.OwnerNotificationBody
-    separatecontext: true
-    skipunavailable: false
-    task:
-      brand: ""
-      description: This playbook is used to direct Jira tickets to service owners
-        to notify them of their internet exposures.
-      id: 01661a90-d299-4a94-8545-2c29245b3aaa
-      iscommand: false
-      name: Cortex ASM - Jira Notification
-      playbookId: Cortex ASM - Jira Notification
-      type: playbook
-      version: -1
-    taskid: 01661a90-d299-4a94-8545-2c29245b3aaa
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 370,
-          "y": 1760
         }
       }
   "156":
@@ -2641,19 +2406,19 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "154"
+      - "178"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: e6407346-0b25-49ef-808c-210070e356c3
+      id: 3d527f85-362a-4c68-8380-316a62e1924f
       iscommand: false
       name: Notification Stage
       type: title
       version: -1
-    taskid: e6407346-0b25-49ef-808c-210070e356c3
+    taskid: 3d527f85-362a-4c68-8380-316a62e1924f
     timertriggers: []
     type: title
     view: |-
@@ -2690,13 +2455,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: fc927b90-0fc6-40d3-8f08-c53e6ea4961b
+      id: ee8d767a-885a-444c-8465-7c0382db096d
       iscommand: false
       name: Set playbook stage grid field (decision)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: fc927b90-0fc6-40d3-8f08-c53e6ea4961b
+    taskid: ee8d767a-885a-444c-8465-7c0382db096d
     timertriggers: []
     type: regular
     view: |-
@@ -2704,93 +2469,6 @@ tasks:
         "position": {
           "x": 370,
           "y": 1175
-        }
-      }
-  "158":
-    continueonerrortype: ""
-    id: "158"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 100
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "134"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      OwnerNotificationBody:
-        complex:
-          root: inputs.OwnerNotificationBody
-    separatecontext: true
-    skipunavailable: false
-    task:
-      brand: ""
-      description: This playbook is used to direct ServiceNow tickets to service owners
-        to notify them of their internet exposures.
-      id: 945cf396-8f46-4b7a-8c7f-3a90dbfd1af1
-      iscommand: false
-      name: Cortex ASM - ServiceNow Notification
-      playbookId: Cortex ASM - ServiceNow Notification
-      type: playbook
-      version: -1
-    taskid: 945cf396-8f46-4b7a-8c7f-3a90dbfd1af1
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 800,
-          "y": 1700
-        }
-      }
-  "159":
-    continueonerrortype: ""
-    id: "159"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 0
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "134"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      OwnerNotificationBody:
-        complex:
-          root: inputs.OwnerNotificationBody
-      OwnerNotificationSubject:
-        complex:
-          root: inputs.OwnerNotificationSubject
-    separatecontext: true
-    skipunavailable: false
-    task:
-      brand: ""
-      description: This playbook is used to send email notifications to service owners
-        to notify them of their internet exposures.
-      id: a0fd44d7-b931-452b-83d2-4894b2cae813
-      iscommand: false
-      name: Cortex ASM - Email Notification
-      playbookId: Cortex ASM - Email Notification
-      type: playbook
-      version: -1
-    taskid: a0fd44d7-b931-452b-83d2-4894b2cae813
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 1220,
-          "y": 1635
         }
       }
   "161":
@@ -2808,12 +2486,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 9dc364d1-ce5f-4e1f-8bb6-0106976c4b43
+      id: f12b3c1f-6c94-4918-807a-e758e467373b
       iscommand: false
       name: Jira Ticket
       type: title
       version: -1
-    taskid: 9dc364d1-ce5f-4e1f-8bb6-0106976c4b43
+    taskid: f12b3c1f-6c94-4918-807a-e758e467373b
     timertriggers: []
     type: title
     view: |-
@@ -2838,12 +2516,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 3cb0f4fe-dc9b-4a2d-8673-961d856bd846
+      id: bcef69e4-70a6-497d-8373-e29789f4c2e1
       iscommand: false
       name: ServiceNow Ticket
       type: title
       version: -1
-    taskid: 3cb0f4fe-dc9b-4a2d-8673-961d856bd846
+    taskid: bcef69e4-70a6-497d-8373-e29789f4c2e1
     timertriggers: []
     type: title
     view: |-
@@ -2868,12 +2546,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: e1226618-4fba-46d7-8df3-812766ac1bcc
+      id: 2313dded-570c-4388-8dd7-0de43fbbf80c
       iscommand: false
       name: Email Notification
       type: title
       version: -1
-    taskid: e1226618-4fba-46d7-8df3-812766ac1bcc
+    taskid: 2313dded-570c-4388-8dd7-0de43fbbf80c
     timertriggers: []
     type: title
     view: |-
@@ -2914,13 +2592,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: 694a0e4c-78bf-48e0-83da-27bd08d3a597
+      id: 83b8f6d3-b38f-4c08-884c-0a8f684e3b39
       iscommand: false
       name: Set remediation grid field
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 694a0e4c-78bf-48e0-83da-27bd08d3a597
+    taskid: 83b8f6d3-b38f-4c08-884c-0a8f684e3b39
     timertriggers: []
     type: regular
     view: |-
@@ -2969,12 +2647,12 @@ tasks:
     task:
       brand: ""
       description: Verifies if we have emails for service owners.
-      id: 9766e878-ca17-4ede-8edc-d52a85f50572
+      id: ec8df44c-301c-4a09-84ba-5c8855f89129
       iscommand: false
       name: Are there service owners with emails?
       type: condition
       version: -1
-    taskid: 9766e878-ca17-4ede-8edc-d52a85f50572
+    taskid: ec8df44c-301c-4a09-84ba-5c8855f89129
     timertriggers: []
     type: condition
     view: |-
@@ -3021,13 +2699,13 @@ tasks:
       brand: ""
       description: Send an email to service owners regarding the status of the automated
         remediation action that was taken.
-      id: 65ff4507-e0b4-45cf-8eb7-093c23437b3d
+      id: e9e352cd-b065-465f-899b-190f21c9ce72
       iscommand: true
       name: Send remediation notification email to service owners
       script: '|||send-mail'
       type: regular
       version: -1
-    taskid: 65ff4507-e0b4-45cf-8eb7-093c23437b3d
+    taskid: e9e352cd-b065-465f-899b-190f21c9ce72
     timertriggers: []
     type: regular
     view: |-
@@ -3043,24 +2721,32 @@ tasks:
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
     nexttasks:
       '#none#':
       - "164"
     note: false
     quietmode: 0
+    scriptarguments:
+      AWSAssumeRoleName:
+        simple: ${inputs.AWSAssumeRoleName}
     separatecontext: true
     skipunavailable: false
     task:
       brand: ""
-      description: This playbook contains all the cloud provider sub-playbooks for
+      description: This playbook contains all the cloud provider sub playbooks for
         remediation.
-      id: 5ed915a6-10ec-457e-82e1-e43fce2fbd20
+      id: 7d17750d-0e91-4915-887a-43ddbbfbe339
       iscommand: false
       name: Cortex ASM - Remediation
       playbookId: Cortex ASM - Remediation
       type: playbook
       version: -1
-    taskid: 5ed915a6-10ec-457e-82e1-e43fce2fbd20
+    taskid: 7d17750d-0e91-4915-887a-43ddbbfbe339
     timertriggers: []
     type: playbook
     view: |-
@@ -3097,13 +2783,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: b8c22c39-7ffa-45cd-820a-ecf45a7c404d
+      id: e28aa7c4-0b2f-4e12-8041-731c10074f0b
       iscommand: false
       name: Set playbook stage grid field (remediation)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: b8c22c39-7ffa-45cd-820a-ecf45a7c404d
+    taskid: e28aa7c4-0b2f-4e12-8041-731c10074f0b
     timertriggers: []
     type: regular
     view: |-
@@ -3140,13 +2826,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: 5d8aa595-66bd-4d5b-8f7f-9f8904a95359
+      id: ee06492a-abbb-4981-8851-732e9045e95b
       iscommand: false
       name: Set playbook stage grid field (notification)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 5d8aa595-66bd-4d5b-8f7f-9f8904a95359
+    taskid: ee06492a-abbb-4981-8851-732e9045e95b
     timertriggers: []
     type: regular
     view: |-
@@ -3213,20 +2899,447 @@ tasks:
     task:
       brand: Builtin
       description: Clear ASM grid fields in case the playbook is rerun.
-      id: fe9fb336-9093-4cd5-8858-7e026f3a049c
+      id: a44a0f99-00de-4901-8cd8-85bc94ed366a
       iscommand: true
       name: Initialize grid fields
       script: Builtin|||setAlert
       type: regular
       version: -1
-    taskid: fe9fb336-9093-4cd5-8858-7e026f3a049c
+    taskid: a44a0f99-00de-4901-8cd8-85bc94ed366a
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": 70,
-          "y": -1130
+          "y": -1340
+        }
+      }
+  "172":
+    continueonerrortype: ""
+    id: "172"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "126"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      alert_details:
+        complex:
+          accessor: details
+          root: alert
+      alert_id:
+        complex:
+          accessor: id
+          root: alert
+      alert_name:
+        complex:
+          accessor: name
+          root: alert
+      alert_severityStr:
+        complex:
+          accessor: severityStr
+          root: alert
+      asm_asset_id:
+        complex:
+          accessor: asmassetid
+          root: alert
+      asm_cloud:
+        complex:
+          accessor: asmcloud
+          root: alert
+      asm_data_collection:
+        complex:
+          accessor: asmdatacollection
+          root: alert
+      asm_notification:
+        complex:
+          accessor: asmnotification
+          root: alert
+      asm_private_ip:
+        complex:
+          accessor: asmprivateip
+          root: alert
+      asm_related:
+        complex:
+          accessor: asmrelated
+          root: alert
+      asm_remediation:
+        complex:
+          accessor: asmremediation
+          root: alert
+      asm_remediation_guidance:
+        complex:
+          root: RemediationGuidance
+      asm_remediation_path_rule:
+        complex:
+          accessor: asmremediationpathrule
+          root: alert
+      asm_service_detection:
+        complex:
+          accessor: asmservicedetection
+          root: alert
+      asm_service_id:
+        complex:
+          accessor: asmserviceid
+          root: alert
+      asm_service_owner:
+        complex:
+          accessor: asmserviceowner
+          root: alert
+      asm_system_ids:
+        complex:
+          accessor: asmsystemids
+          root: alert
+      asm_tags:
+        complex:
+          accessor: asmtags
+          root: alert
+      report_type:
+        simple: analysis
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Generate an ASM Alert Summary report.
+      id: aae9af2f-62f1-49cf-8987-9bbc9912fab4
+      iscommand: false
+      name: GenerateSummaryReport - Analysis
+      script: GenerateASMReport
+      type: regular
+      version: -1
+    taskid: aae9af2f-62f1-49cf-8987-9bbc9912fab4
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 70,
+          "y": -220
+        }
+      }
+  "175":
+    continueonerrortype: ""
+    id: "175"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "172"
+    note: false
+    quietmode: 0
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1c18b32d-27ea-4d7d-8387-d96f9b6422af
+      iscommand: false
+      name: Cortex ASM - Remediation Guidance
+      playbookId: Cortex ASM - Remediation Guidance
+      type: playbook
+      version: -1
+    taskid: 1c18b32d-27ea-4d7d-8387-d96f9b6422af
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 70,
+          "y": -380
+        }
+      }
+  "176":
+    continueonerrortype: ""
+    id: "176"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "134"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      OwnerNotificationBody:
+        complex:
+          root: inputs.OwnerNotificationBody
+      OwnerNotificationSubject:
+        complex:
+          root: inputs.OwnerNotificationSubject
+      RemediationGuidance:
+        complex:
+          root: RemediationGuidance
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      description: This playbook is used to send email notifications to service owners
+        to notify them of their internet exposures.
+      id: a68a7331-0bff-40c2-8231-c42822b96c12
+      iscommand: false
+      name: Cortex ASM - Email Notification
+      playbookId: Cortex ASM - Email Notification
+      type: playbook
+      version: -1
+    taskid: a68a7331-0bff-40c2-8231-c42822b96c12
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 1220,
+          "y": 1635
+        }
+      }
+  "177":
+    continueonerrortype: ""
+    id: "177"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "81"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      alert_details:
+        complex:
+          accessor: details
+          root: alert
+      alert_id:
+        complex:
+          accessor: id
+          root: alert
+      alert_name:
+        complex:
+          accessor: name
+          root: alert
+      alert_severityStr:
+        complex:
+          accessor: severityStr
+          root: alert
+      asm_asset_id:
+        complex:
+          accessor: asmassetid
+          root: alert
+      asm_cloud:
+        complex:
+          accessor: asmcloud
+          root: alert
+      asm_data_collection:
+        complex:
+          accessor: asmdatacollection
+          root: alert
+      asm_notification:
+        complex:
+          accessor: asmnotification
+          root: alert
+      asm_private_ip:
+        complex:
+          accessor: asmprivateip
+          root: alert
+      asm_related:
+        complex:
+          accessor: asmrelated
+          root: alert
+      asm_remediation:
+        complex:
+          accessor: asmremediation
+          root: alert
+      asm_remediation_guidance:
+        complex:
+          root: RemediationGuidance
+      asm_remediation_path_rule:
+        complex:
+          accessor: asmremediationpathrule
+          root: alert
+      asm_service_detection:
+        complex:
+          accessor: asmservicedetection
+          root: alert
+      asm_service_id:
+        complex:
+          accessor: asmserviceid
+          root: alert
+      asm_service_owner:
+        complex:
+          accessor: asmserviceowner
+          root: alert
+      asm_system_ids:
+        complex:
+          accessor: asmsystemids
+          root: alert
+      asm_tags:
+        complex:
+          accessor: asmtags
+          root: alert
+      report_type:
+        simple: summary
+      retry-count:
+        simple: "1"
+      retry-interval:
+        simple: "30"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Generate an ASM Alert Summary report.
+      id: c5ee8b3b-80c8-4e66-8d23-fed4fe1714d7
+      iscommand: false
+      name: GenerateSummaryReport - Summary
+      script: GenerateASMReport
+      type: regular
+      version: -1
+    taskid: c5ee8b3b-80c8-4e66-8d23-fed4fe1714d7
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 70,
+          "y": 3980
+        }
+      }
+  "178":
+    continueonerrortype: ""
+    id: "178"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "134"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      JiraProjectKey:
+        complex:
+          root: inputs.JiraProjectKey
+      OwnerNotificationBody:
+        complex:
+          root: inputs.OwnerNotificationBody
+      RemediationGuidance:
+        complex:
+          root: RemediationGuidance
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 38b28acb-6ef9-4c39-88a9-f396fd067a70
+      iscommand: false
+      name: Cortex ASM - Jira Notification
+      playbookId: Cortex ASM - Jira Notification
+      type: playbook
+      version: -1
+    taskid: 38b28acb-6ef9-4c39-88a9-f396fd067a70
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 370,
+          "y": 1780
+        }
+      }
+  "179":
+    continueonerrortype: ""
+    id: "179"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "134"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      NotificationTicketType:
+        complex:
+          root: inputs.NotificationTicketType
+      OwnerNotificationBody:
+        complex:
+          root: inputs.OwnerNotificationBody
+      RemediationGuidance:
+        complex:
+          root: RemediationGuidance
+    separatecontext: true
+    skipunavailable: false
+    task:
+      brand: ""
+      id: a9ddad5d-48a5-408c-8ffa-0befe07917c4
+      iscommand: false
+      name: Cortex ASM - ServiceNow Notification
+      playbookId: Cortex ASM - ServiceNow Notification
+      type: playbook
+      version: -1
+    taskid: a9ddad5d-48a5-408c-8ffa-0befe07917c4
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 800,
+          "y": 1755
+        }
+      }
+  "180":
+    continueonerrortype: ""
+    id: "180"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "171"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      all:
+        simple: "yes"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Delete field from context.
+
+        This automation runs using the default Limited User role, unless you explicitly change the permissions.
+        For more information, see the section about permissions here:
+        https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.12/Cortex-XSOAR-Administrator-Guide/Automations
+      id: 21d391e7-543a-4bd0-8b0b-bc56ac517439
+      iscommand: false
+      name: Delete context
+      script: DeleteContext
+      type: regular
+      version: -1
+    taskid: 21d391e7-543a-4bd0-8b0b-bc56ac517439
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 70,
+          "y": -1500
         }
       }
 version: -1
@@ -3245,10 +3358,10 @@ view: |-
     },
     "paper": {
       "dimensions": {
-        "height": 6725,
+        "height": 7105,
         "width": 2710,
         "x": -1110,
-        "y": -1400
+        "y": -1780
       }
     }
   }

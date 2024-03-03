@@ -23,7 +23,7 @@
 	"id": "incident_hostos",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.0.27",
+	"itemVersion": "1.0.32",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Host OS",
@@ -37,7 +37,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Host OS",
 	"propagationLabels": [
 		"all"
 	],
@@ -45,7 +45,14 @@
 	"runScriptAfterUpdate": false,
 	"script": "",
 	"selectValues": null,
-	"selectValuesMap": null,
+	"selectValuesMap": {
+		"AGENT_OS_ANDROID": "Android",
+		"AGENT_OS_IOS": "iOS",
+		"AGENT_OS_LINUX": "Linux",
+		"AGENT_OS_MAC": "macOS",
+		"AGENT_OS_WINDOWS": "Windows",
+		"NO_HOST": "N/A"
+	},
 	"sla": 0,
 	"system": false,
 	"systemAssociatedTypes": null,

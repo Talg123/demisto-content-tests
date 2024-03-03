@@ -23,7 +23,7 @@
 	"id": "incident_asmassetid",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.6.33",
+	"itemVersion": "1.7.29",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "ASM - Asset ID",
@@ -37,7 +37,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "ASM - Asset ID",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

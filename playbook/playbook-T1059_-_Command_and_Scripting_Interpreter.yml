@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -36,6 +36,41 @@ description: "This playbook handles command and scripting interpreter alerts bas
   Automatically isolates the endpoint\n\nIt then continues with the following eradication
   actions:\n\n* process termination"
 id: T1059 - Command and Scripting Interpreter
+inputSections:
+- description: Alert management settings and data, including escalation processes,
+    and user engagements.
+  inputs:
+  - ShouldCloseAutomatically
+  name: Alert Management
+- description: Remediation settings and data, including containment, eradication,
+    and recovery.
+  inputs:
+  - AutoContainment
+  - FileRemediation
+  - AutoRestoreEndpoint
+  name: Remediation
+- description: Ticket management settings and data.
+  inputs:
+  - ShouldOpenTicket
+  - serviceNowShortDescription
+  - serviceNowImpact
+  - serviceNowUrgency
+  - serviceNowSeverity
+  - serviceNowTicketType
+  - serviceNowCategory
+  - serviceNowAssignmentGroup
+  - ZendeskPriority
+  - ZendeskRequester
+  - ZendeskStatus
+  - ZendeskSubject
+  - ZendeskTags
+  - ZendeskType
+  - ZendeskAssigne
+  - ZendeskCollaborators
+  - description
+  - addCommentPerEndpoint
+  - CommentToAdd
+  name: Ticket Management
 inputs:
 - description: Whether to close the alert automatically or manually, after an analyst's
     review.
@@ -169,6 +204,10 @@ inputs:
   value:
     simple: '${alert.name}. Alert ID: ${alert.id}'
 name: T1059 - Command and Scripting Interpreter
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs: []
 outputs: []
 starttaskid: "0"
 system: true
@@ -941,8 +980,6 @@ tasks:
         complex:
           accessor: agentid
           root: alert
-      timeRange:
-        simple: 2 hours ago
     separatecontext: true
     skipunavailable: false
     task:

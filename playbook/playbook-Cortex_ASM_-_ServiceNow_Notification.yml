@@ -1,8 +1,8 @@
 contentitemexportablefields:
   contentitemfields:
     definitionid: ""
-    fromServerVersion: 6.8.0
-    itemVersion: 1.6.33
+    fromServerVersion: 6.9.0
+    itemVersion: 1.7.29
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -20,6 +20,17 @@ inputs:
   playbookInputQuery: null
   required: true
   value: {}
+- description: The ticket type used by ticketing systems. The default is "incident"
+    because ticketing systems such as ServiceNow and Cherwell use it as default.
+  key: NotificationTicketType
+  playbookInputQuery: null
+  required: true
+  value: {}
+- description: Remediation Guidance of the Attack Surface Rule.
+  key: RemediationGuidance
+  playbookInputQuery: null
+  required: true
+  value: {}
 name: Cortex ASM - ServiceNow Notification
 outputs: []
 starttaskid: "0"
@@ -33,7 +44,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "6"
+      - "7"
     note: false
     quietmode: 0
     separatecontext: false
@@ -78,56 +89,7 @@ tasks:
       {
         "position": {
           "x": 450,
-          "y": 720
-        }
-      }
-  "6":
-    continueonerrortype: ""
-    id: "6"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 100
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "7"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      IssueTypeID:
-        complex:
-          accessor: asmattacksurfaceruleid
-          root: alert
-          transformers:
-          - args:
-              chars:
-                value:
-                  simple: '[\"]'
-            operator: StripChars
-    separatecontext: true
-    skipunavailable: false
-    task:
-      brand: ""
-      description: This playbook pulls remediation guidance off of a list based on
-        ASM RuleID to be used in service owner notifications (email or ticketing system).
-      id: 7618b987-b315-448e-8b57-a97192a973e7
-      iscommand: false
-      name: Cortex ASM - Remediation Guidance
-      playbookId: Cortex ASM - Remediation Guidance
-      type: playbook
-      version: -1
-    taskid: 7618b987-b315-448e-8b57-a97192a973e7
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 450,
-          "y": 190
+          "y": 580
         }
       }
   "7":
@@ -149,8 +111,9 @@ tasks:
           - args:
               prefix: {}
               suffix:
+                iscontext: true
                 value:
-                  simple: ${RemediationGuidance}
+                  simple: inputs.RemediationGuidance
             operator: concat
           - args:
               limit: {}
@@ -172,25 +135,28 @@ tasks:
                   simple: 'Cortex ASM Alert: '
               suffix: {}
             operator: concat
+      ticket_type:
+        complex:
+          root: inputs.NotificationTicketType
     separatecontext: false
     skipunavailable: false
     task:
       brand: ServiceNow v2
       description: Creates new ServiceNow ticket.
-      id: df24c45a-e372-42d5-8d7f-2db7f1950429
+      id: 2d40f244-f863-4313-8ba2-c526f39d0fa1
       iscommand: true
       name: Create ServiceNow alert
       script: ServiceNow v2|||servicenow-create-ticket
       type: regular
       version: -1
-    taskid: df24c45a-e372-42d5-8d7f-2db7f1950429
+    taskid: 2d40f244-f863-4313-8ba2-c526f39d0fa1
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": 450,
-          "y": 370
+          "y": 210
         }
       }
   "8":
@@ -257,7 +223,7 @@ tasks:
       {
         "position": {
           "x": 450,
-          "y": 550
+          "y": 400
         }
       }
 version: -1
@@ -266,7 +232,7 @@ view: |-
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 735,
+        "height": 595,
         "width": 380,
         "x": 450,
         "y": 50

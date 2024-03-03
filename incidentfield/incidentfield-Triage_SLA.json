@@ -23,7 +23,7 @@
 	"id": "incident_triagesla",
 	"ipVersion": "",
 	"isReadOnly": true,
-	"itemVersion": "3.3.85",
+	"itemVersion": "3.4.2",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Triage SLA",
@@ -37,7 +37,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Triage SLA",
 	"propagationLabels": [
 		"all"
 	],
@@ -53,7 +53,7 @@
 	"threshold": 72,
 	"toServerVersion": "",
 	"type": "timer",
-	"unmapped": false,
+	"unmapped": true,
 	"unsearchable": true,
 	"useAsKpi": false,
 	"validatedError": "",

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -43,6 +43,51 @@ description: "This playbook handles ransomware alerts based on the Cortex XDR Tr
   Technique T1486](https://attack.mitre.org/techniques/T1486/)\n\n[CISA Ransomware
   Guide](https://www.cisa.gov/stopransomware/ransomware-guide)"
 id: Ransomware Response
+inputSections:
+- description: Alert management settings and data, including escalation processes,
+    and user engagements.
+  inputs:
+  - ShouldCloseAutomatically
+  - FileSHA256
+  - FilePath
+  - IP
+  name: Alert Management
+- description: Investigation settings and data, including any deep dive alert investigation
+    and verdict determination.
+  inputs:
+  - RunAdvancedAnalysis
+  name: Investigation
+- description: Remediation settings and data, including containment, eradication,
+    and recovery.
+  inputs:
+  - earlyRemediation
+  - AutoContainment
+  - AutoEradication
+  - isolateRemoteAttacker
+  - isolateSimilarEndpoints
+  name: Remediation
+- description: Ticket management settings and data.
+  inputs:
+  - ShouldOpenTicket
+  - serviceNowShortDescription
+  - serviceNowImpact
+  - serviceNowUrgency
+  - serviceNowSeverity
+  - serviceNowTicketType
+  - serviceNowCategory
+  - serviceNowAssignmentGroup
+  - ZendeskPriority
+  - ZendeskRequester
+  - ZendeskStatus
+  - ZendeskSubject
+  - ZendeskTags
+  - ZendeskType
+  - ZendeskAssigne
+  - ZendeskCollaborators
+  - description
+  - addCommentPerEndpoint
+  - CommentToAdd
+  name: Ticket Management
 inputs:
 - description: Whether to execute the early remediation phase.
   key: earlyRemediation
@@ -222,6 +267,10 @@ inputs:
   value:
     simple: '${alert.name}. Alert ID: ${alert.id}'
 name: Ransomware Response
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs: []
 outputs: []
 starttaskid: "0"
 system: true
@@ -607,8 +656,6 @@ tasks:
         simple: Delete
       HostContainment:
         simple: "True"
-      IAMUserDomain:
-        simple: '@demisto.com'
       UserContainment:
         simple: "True"
       UserVerification:
@@ -1352,8 +1399,6 @@ tasks:
         complex:
           accessor: agentid
           root: alert
-      timeRange:
-        simple: 2 hours ago
     separatecontext: false
     skipunavailable: false
     task:

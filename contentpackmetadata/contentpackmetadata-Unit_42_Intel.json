@@ -42,20 +42,20 @@
 		"wizard": null
 	},
 	"created": "2021-11-21T21:21:02Z",
-	"currentVersion": "1.0.13",
+	"currentVersion": "1.0.22",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.31",
+			"minVersion": "1.33.27",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Use the Unit 42 Intel pack to enrich your Threat Intel Library with Palo Alto Networks threat intelligence.",
-	"downloads": 8573,
+	"downloads": 13130,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "6.5.0",
 	"general": [
@@ -63,6 +63,7 @@
 		"generalFieldFree",
 		"generalFieldSupportIncluded"
 	],
+	"hybrid": false,
 	"id": "Unit42Intel",
 	"installMessage": "",
 	"integrations": [
@@ -71,7 +72,7 @@
 			"name": "Unit 42 Intel Objects Feed"
 		}
 	],
-	"itemVersion": "1.0.13",
+	"itemVersion": "1.0.22",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -97,12 +98,13 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
+		"Data Source",
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2023-09-06T19:19:15Z",
+	"updated": "2024-02-13T20:24:17Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6253250",
+	"versionInfo": "825773",
 	"videos": []
 }

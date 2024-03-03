@@ -12,7 +12,7 @@
 		}
 	],
 	"associatedToAll": true,
-	"associatedTypes": [],
+	"associatedTypes": null,
 	"autoCompleteTags": null,
 	"breachScript": "",
 	"cacheVersn": 0,
@@ -32,7 +32,7 @@
 	"id": "incident_originalalertid",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "3.3.85",
+	"itemVersion": "3.4.2",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Original Alert ID",
@@ -46,7 +46,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Original Alert ID",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

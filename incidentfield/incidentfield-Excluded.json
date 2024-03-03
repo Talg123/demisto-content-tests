@@ -23,7 +23,7 @@
 	"id": "incident_excluded",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.0.27",
+	"itemVersion": "1.0.32",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Excluded",
@@ -37,7 +37,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Excluded",
 	"propagationLabels": [
 		"all"
 	],
@@ -45,7 +45,10 @@
 	"runScriptAfterUpdate": false,
 	"script": "",
 	"selectValues": null,
-	"selectValuesMap": null,
+	"selectValuesMap": {
+		"FALSE": "No",
+		"TRUE": "Yes"
+	},
 	"sla": 0,
 	"system": false,
 	"systemAssociatedTypes": null,

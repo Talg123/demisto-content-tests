@@ -1,0 +1,30 @@
+commonfields:
+  id: HelloWorldParsingRule
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 8.4.0
+    itemVersion: 3.0.7
+    packID: HelloWorld
+    packName: HelloWorld
+    packPropagationLabels:
+    - all
+    prevname: ""
+    toServerVersion: ""
+externalitemdata: |
+  fromversion: 8.4.0
+  id: HelloWorldParsingRule
+  name: HelloWorld Parsing Rule
+  tags: []
+  rules: >2-
+
+    [INGEST:vendor="hello", product="world", target_dataset="hello_world_raw", no_hit = keep]
+
+    alter _time = created_time;
+  samples: ''
+filetype: yml
+packid: HelloWorld
+packname: HelloWorld
+packversion: 3.0.7
+subtype: parsingrule

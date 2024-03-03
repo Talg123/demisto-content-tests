@@ -294,9 +294,7 @@
 	"packID": "",
 	"packName": "",
 	"paperSize": "A4",
-	"propagationLabels": [
-		"all"
-	],
+	"propagationLabels": [],
 	"recipients": null,
 	"recurrent": false,
 	"reportType": "",

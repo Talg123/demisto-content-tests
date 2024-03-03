@@ -28,7 +28,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.2.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -46,6 +46,132 @@ name: Cortex Core - IR
 script:
   commands:
   - arguments:
+    - description: A date in the format 2019-12-31T23:59:00. Only incidents that were
+        created on or before the specified date/time will be retrieved.
+      name: lte_creation_time
+    - description: A date in the format 2019-12-31T23:59:00. Only incidents that were
+        created on or after the specified date/time will be retrieved.
+      name: gte_creation_time
+    - description: Filters returned incidents that were created on or before the specified
+        date/time, in the format 2019-12-31T23:59:00.
+      name: lte_modification_time
+    - description: Filters returned incidents that were modified on or after the specified
+        date/time, in the format 2019-12-31T23:59:00.
+      name: gte_modification_time
+    - description: An array or CSV string of incident IDs.
+      isArray: true
+      name: incident_id_list
+    - description: Filters returned incidents that were created on or after the specified
+        date/time range, for example, 1 month, 2 days, 1 hour, and so on.
+      name: since_creation_time
+    - description: Filters returned incidents that were modified on or after the specified
+        date/time range, for example, 1 month, 2 days, 1 hour, and so on.
+      name: since_modification_time
+    - auto: PREDEFINED
+      description: Sorts returned incidents by the date/time that the incident was
+        last modified ("asc" - ascending, "desc" - descending).
+      name: sort_by_modification_time
+      predefined:
+      - asc
+      - desc
+    - auto: PREDEFINED
+      description: Sorts returned incidents by the date/time that the incident was
+        created ("asc" - ascending, "desc" - descending).
+      name: sort_by_creation_time
+      predefined:
+      - asc
+      - desc
+    - defaultValue: "0"
+      description: Page number (for pagination). The default is 0 (the first page).
+      name: page
+    - defaultValue: "100"
+      description: Maximum number of incidents to return per page. The default and
+        maximum is 100.
+      name: limit
+    - description: 'Filters only incidents in the specified status. The options are:
+        new, under_investigation, resolved_known_issue, resolved_false_positive, resolved_true_positive
+        resolved_security_testing, resolved_other, resolved_auto.'
+      name: status
+    - auto: PREDEFINED
+      description: 'Whether the incident is starred (Boolean value: true or false).'
+      name: starred
+      predefined:
+      - "true"
+      - "false"
+    - defaultValue: 3 days
+      description: Starred fetch window timestamp (<number> <time unit>, e.g., 12
+        hours, 7 days).
+      name: starred_incidents_fetch_window
+    description: |-
+      Returns a list of incidents, which you can filter by a list of incident IDs (max. 100), the time the incident was last modified, and the time the incident was created.
+      If you pass multiple filtering arguments, they will be concatenated using the AND condition. The OR condition is not supported.
+    name: core-get-incidents
+    outputs:
+    - contextPath: Core.Incident.incident_id
+      description: Unique ID assigned to each returned incident.
+      type: String
+    - contextPath: Core.Incident.manual_severity
+      description: Incident severity assigned by the user. This does not affect the
+        calculated severity. Can be "low", "medium", "high".
+      type: String
+    - contextPath: Core.Incident.manual_description
+      description: Incident description provided by the user.
+      type: String
+    - contextPath: Core.Incident.assigned_user_mail
+      description: Email address of the assigned user.
+      type: String
+    - contextPath: Core.Incident.high_severity_alert_count
+      description: Number of alerts with the severity HIGH.
+      type: String
+    - contextPath: Core.Incident.host_count
+      description: Number of hosts involved in the incident.
+      type: number
+    - contextPath: Core.Incident.xdr_url
+      description: A link to the incident view on Cortex XDR.
+      type: String
+    - contextPath: Core.Incident.assigned_user_pretty_name
+      description: Full name of the user assigned to the incident.
+      type: String
+    - contextPath: Core.Incident.alert_count
+      description: Total number of alerts in the incident.
+      type: number
+    - contextPath: Core.Incident.med_severity_alert_count
+      description: Number of alerts with the severity MEDIUM.
+      type: number
+    - contextPath: Core.Incident.user_count
+      description: Number of users involved in the incident.
+      type: number
+    - contextPath: Core.Incident.severity
+      description: |-
+        Calculated severity of the incident. Valid values are:
+        "low","medium","high".
+      type: String
+    - contextPath: Core.Incident.low_severity_alert_count
+      description: Number of alerts with the severity LOW.
+      type: String
+    - contextPath: Core.Incident.status
+      description: |
+        Current status of the incident. Valid values are: "new","under_investigation","resolved_known_issue","resolved_duplicate","resolved_false_positive","resolved_true_positive","resolved_security_testing" or "resolved_other".
+      type: String
+    - contextPath: Core.Incident.description
+      description: Dynamic calculated description of the incident.
+      type: String
+    - contextPath: Core.Incident.resolve_comment
+      description: Comments entered by the user when the incident was resolved.
+      type: String
+    - contextPath: Core.Incident.notes
+      description: Comments entered by the user regarding the incident.
+      type: String
+    - contextPath: Core.Incident.creation_time
+      description: Date and time the incident was created on Cortex XDR.
+      type: date
+    - contextPath: Core.Incident.detection_time
+      description: Date and time that the first alert occurred in the incident.
+      type: date
+    - contextPath: Core.Incident.modification_time
+      description: Date and time that the incident was last modified.
+      type: date
+  - arguments:
     - description: Links the response action to the triggered incident.
       name: incident_id
     - description: Interval in seconds between each poll.
@@ -53,7 +179,7 @@ script:
     - description: Polling timeout in seconds.
       name: timeout_in_seconds
     - deprecated: true
-      description: For polling use
+      description: For polling use.
       isArray: true
       name: action_id
     - description: The endpoint ID (string) to isolate. Retrieve the string from the
@@ -92,7 +218,7 @@ script:
       - "true"
       - "false"
     - deprecated: true
-      description: For polling use
+      description: For polling use.
       isArray: true
       name: action_id
     - description: Interval in seconds between each poll.
@@ -112,17 +238,22 @@ script:
       isArray: true
       name: endpoint_id_list
     - description: "A comma-separated list of distribution package names or installation
-        package names. \nExample: dist_name1,dist_name2"
+        package names. \nExample: dist_name1,dist_name2."
       isArray: true
       name: dist_name
     - description: |-
-        A comma-separated list of IP addresses.
-        Example: 8.8.8.8,1.1.1.1
+        A comma-separated list of private IP addresses.
+        Example: 10.1.1.1,192.168.1.1.
       isArray: true
       name: ip_list
     - description: |-
+        A comma-separated list of public IP addresses that correlate to the last IPv4 address from which the Cortex XDR agent connected (know as `Last Origin IP`).
+        Example: 8.8.8.8,1.1.1.1.
+      isArray: true
+      name: public_ip_list
+    - description: |-
         The group name to which the agent belongs.
-        Example: group_name1,group_name2
+        Example: group_name1,group_name2.
       isArray: true
       name: group_name
     - auto: PREDEFINED
@@ -137,7 +268,7 @@ script:
       - android
     - description: |-
         A comma-separated list of alias names.
-        Examples: alias_name1,alias_name2
+        Examples: alias_name1,alias_name2.
       isArray: true
       name: alias_name
     - auto: PREDEFINED
@@ -148,7 +279,7 @@ script:
       - unisolated
     - description: |-
         Hostname
-        Example: hostname1,hostname2
+        Example: hostname1,hostname2.
       isArray: true
       name: hostname
     - description: |-
@@ -156,28 +287,28 @@ script:
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: first_seen_gte
     - description: |-
         All the agents that were first seen before {first_seen_lte}.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: first_seen_lte
     - description: |-
         All the agents that were last seen before {last_seen_gte}.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: last_seen_gte
     - description: |-
         All the agents that were last seen before {last_seen_lte}.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: last_seen_lte
     - defaultValue: "0"
       description: Page number (for pagination). The default is 0 (the first page).
@@ -320,12 +451,12 @@ script:
       name: endpoint_id_list
     - description: |-
         A comma-separated list of distribution package names or installation package names to use as a filter.
-        Example: dist_name1,dist_name2
+        Example: dist_name1,dist_name2.
       isArray: true
       name: dist_name
     - description: |-
         A comma-separated list of IP addresses to use as a filter.
-        Example: 8.8.8.8,1.1.1.1
+        Example: 8.8.8.8,1.1.1.1.
       isArray: true
       name: ip_list
     - description: A comma-separated list of group names to which the agent belongs
@@ -343,7 +474,7 @@ script:
       - android
     - description: |-
         A comma-separated list of alias names to use as a filter.
-        Examples: alias_name1,alias_name2
+        Examples: alias_name1,alias_name2.
       isArray: true
       name: alias_name
     - auto: PREDEFINED
@@ -361,28 +492,28 @@ script:
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: first_seen_gte
     - description: |-
         All the agents that were first seen before {first_seen_lte} to use as a filter.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: first_seen_lte
     - description: |-
         All the agents that were last seen after {last_seen_gte} to use as a filter.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: last_seen_gte
     - description: |-
         All the agents that were last seen before {last_seen_lte} to use as a filter.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: last_seen_lte
     - description: The usernames to use as a filter. Accepts a single user, or comma-separated
         list of usernames.
@@ -428,7 +559,7 @@ script:
       name: name
       required: true
     - auto: PREDEFINED
-      description: "String, valid values are:\n• windows \n• linux\n• macos \n• android"
+      description: "String, valid values are:\n• windows \n• linux\n• macos \n• android."
       name: platform
       predefined:
       - windows
@@ -440,7 +571,7 @@ script:
       description: |-
         A string representing the type of package to create.
         standalone - An installation for a new agent
-        upgrade - An upgrade of an agent from ESM
+        upgrade - An upgrade of an agent from ESM.
       name: package_type
       predefined:
       - standalone
@@ -489,7 +620,7 @@ script:
         • deb - For Linux
         • pkg - For Mac
         • x86 - For Windows
-        • x64 - For Windows
+        • x64 - For Windows.
       name: package_type
       predefined:
       - upgrade
@@ -555,7 +686,7 @@ script:
     - description: The audit log subtype.
       name: sub_type
     - auto: PREDEFINED
-      description: Result type
+      description: Result type.
       name: result
       predefined:
       - SUCCESS
@@ -566,14 +697,14 @@ script:
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: timestamp_gte
     - description: |-
         Return logs when the timestamp is before the 'log_time_after'.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: timestamp_lte
     - defaultValue: "0"
       description: Page number (for pagination). The default is 0 (the first page).
@@ -714,7 +845,7 @@ script:
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: timestamp_gte
     - description: |-
         Return logs for which the timestamp is before the 'timestamp_lte'.
@@ -722,7 +853,7 @@ script:
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: timestamp_lte
     - defaultValue: "0"
       description: Page number (for pagination). The default is 0 (the first page).
@@ -823,10 +954,10 @@ script:
     name: core-blocklist-files
     outputs:
     - contextPath: Core.blocklist.added_hashes
-      description: Added fileHash to blocklist
+      description: Added fileHash to blocklist.
       type: Number
     - contextPath: Core.blocklist.excluded_hashes
-      description: Added fileHash to blocklist
+      description: Added fileHash to blocklist.
       type: Number
   - arguments:
     - description: Links the response action to the triggered incident.
@@ -851,10 +982,10 @@ script:
     name: core-allowlist-files
     outputs:
     - contextPath: Core.allowlist.added_hashes
-      description: Added fileHash to allowlist
+      description: Added fileHash to allowlist.
       type: Number
     - contextPath: Core.allowlist.excluded_hashes
-      description: Added fileHash to allowlist
+      description: Added fileHash to allowlist.
       type: Number
   - arguments:
     - description: Links the response action to the triggered incident.
@@ -871,7 +1002,7 @@ script:
       name: file_hash
       required: true
     - deprecated: true
-      description: For polling use
+      description: For polling use.
       isArray: true
       name: action_id
     - description: Interval in seconds between each poll.
@@ -906,7 +1037,7 @@ script:
         the quarantined file you defined.
       name: endpoint_id
     - deprecated: true
-      description: For polling use
+      description: For polling use.
       isArray: true
       name: action_id
     - description: Interval in seconds between each poll.
@@ -1278,7 +1409,7 @@ script:
       isArray: true
       name: generic_file_path
     - deprecated: true
-      description: For polling use
+      description: For polling use.
       isArray: true
       name: action_id
     - description: Interval in seconds between each poll.
@@ -1440,7 +1571,7 @@ script:
       name: script_uid
       required: true
     - description: Dictionary contains the parameter name as key and its value for
-        this execution as the value. For example, {"param1":"param1_value","param2":"param2_value"}
+        this execution as the value. For example, {"param1":"param1_value","param2":"param2_value"}.
       name: parameters
     - defaultValue: "600"
       description: The timeout in seconds for this execution.
@@ -1467,7 +1598,7 @@ script:
       name: snippet_code
       required: true
     - deprecated: true
-      description: For polling use
+      description: For polling use.
       isArray: true
       name: action_id
     - description: Interval in seconds between each poll.
@@ -1615,7 +1746,7 @@ script:
       description: The SSDeep hash of the file.
       type: String
     - contextPath: File.EntryID
-      description: EntryID of the file
+      description: EntryID of the file.
       type: String
     - contextPath: File.Info
       description: Information about the file.
@@ -1643,7 +1774,7 @@ script:
       description: The timeout in seconds for this execution.
       name: timeout
     - deprecated: true
-      description: For polling use
+      description: For polling use.
       isArray: true
       name: action_id
     - description: Interval in seconds between each poll.
@@ -1678,7 +1809,7 @@ script:
       description: The timeout in seconds for this execution.
       name: timeout
     - deprecated: true
-      description: For polling use
+      description: For polling use.
       isArray: true
       name: action_id
     - description: Interval in seconds between each poll.
@@ -1713,7 +1844,7 @@ script:
       description: The timeout in seconds for this execution.
       name: timeout
     - deprecated: true
-      description: For polling use
+      description: For polling use.
       isArray: true
       name: action_id
     - description: Interval in seconds between each poll.
@@ -1747,7 +1878,7 @@ script:
       description: The timeout in seconds for this execution.
       name: timeout
     - deprecated: true
-      description: For polling use
+      description: For polling use.
       isArray: true
       name: action_id
     - description: Interval in seconds between each poll.
@@ -1813,7 +1944,7 @@ script:
       - "0"
       - "1"
       required: true
-    - description: String that represents the reason of the report
+    - description: String that represents the reason of the report.
       name: reason
       required: true
     - description: User’s email address.
@@ -1843,7 +1974,7 @@ script:
     name: core-remove-allowlist-files
     outputs:
     - contextPath: Core.allowlist.removed_hashes
-      description: Removed file hash
+      description: Removed file hash.
       type: Number
   - arguments:
     - description: Links the response action to the incident that triggered it.
@@ -1859,20 +1990,20 @@ script:
     name: core-remove-blocklist-files
     outputs:
     - contextPath: Core.blocklist.removed_hashes
-      description: Removed fileHash from blocklist
+      description: Removed fileHash from blocklist.
       type: Number
   - arguments:
     - description: Name of the exclusion.
       name: name
       required: true
-    - description: 'Filter object for the exclusion. example: {"filter":{"AND":[{"SEARCH_FIELD":"alert_category","SEARCH_TYPE":"NEQ","SEARCH_VALUE":"Phishing"}]}}'
+    - description: 'Filter object for the exclusion. example: {"filter":{"AND":[{"SEARCH_FIELD":"alert_category","SEARCH_TYPE":"NEQ","SEARCH_VALUE":"Phishing"}]}}.'
       name: filterObject
       required: true
     - description: String that represents additional information regarding the action.
       name: comment
     - auto: PREDEFINED
       defaultValue: ENABLED
-      description: Status of exclusion. default value = ENABLED
+      description: Status of exclusion. default value = ENABLED.
       name: status
       predefined:
       - ENABLED
@@ -1881,22 +2012,22 @@ script:
     name: core-add-exclusion
     outputs:
     - contextPath: Core.exclusion.rule_id
-      description: Added exclusion rule id
+      description: Added exclusion rule id.
       type: Number
   - arguments:
-    - description: The desired alert_exclusion_id to be removed
+    - description: The desired alert_exclusion_id to be removed.
       name: alert_exclusion_id
       required: true
     description: Delete an alert exclusion rule based on rule ID.
     name: core-delete-exclusion
     outputs:
     - contextPath: Core.deletedExclusion.rule_id
-      description: Deleted exclusion rule id
+      description: Deleted exclusion rule id.
       type: Number
   - arguments:
     - description: Links the response action to the tenant that triggered it.
       name: tenant_ID
-    - description: 'Filter object for the exclusion. Example: {"filter":{"AND":[{"SEARCH_FIELD":"alert_category","SEARCH_TYPE":"NEQ","SEARCH_VALUE":"Phishing"}]}}'
+    - description: 'Filter object for the exclusion. Example: {"filter":{"AND":[{"SEARCH_FIELD":"alert_category","SEARCH_TYPE":"NEQ","SEARCH_VALUE":"Phishing"}]}}.'
       name: filterObject
     - defaultValue: "20"
       description: Limit for the response. You will get the first "limit" exclusions.
@@ -1967,6 +2098,14 @@ script:
       isArray: true
       name: alert_ids
       required: true
+    - auto: PREDEFINED
+      defaultValue: "true"
+      description: Whether to return only a subset of the alert fields. Filtering
+        the fields can reduce response size for large alerts.
+      name: filter_alert_fields
+      predefined:
+      - "true"
+      - "false"
     description: Returns information about each alert ID.
     name: core-get-cloud-original-alerts
     outputs:
@@ -2116,6 +2255,14 @@ script:
       isArray: true
       name: alert_ids
       required: true
+    - auto: PREDEFINED
+      defaultValue: "true"
+      description: Whether to return only a subset of the alert fields. Filtering
+        the fields can reduce response size for large alerts.
+      name: filter_alert_fields
+      predefined:
+      - "true"
+      - "false"
     description: Returns dynamic analysis of each alert ID.
     name: core-get-dynamic-analysis
     outputs:
@@ -2649,17 +2796,17 @@ script:
       isArray: true
       name: endpoint_id_list
     - description: "A comma-separated list of distribution package names or installation
-        package names. \nExample: dist_name1,dist_name2"
+        package names. \nExample: dist_name1,dist_name2."
       isArray: true
       name: dist_name
     - description: |-
         A comma-separated list of IP addresses.
-        Example: 8.8.8.8,1.1.1.1
+        Example: 8.8.8.8,1.1.1.1.
       isArray: true
       name: ip_list
     - description: |-
         A comma-separated list of group name to which the agent belongs.
-        Example: group_name1,group_name2
+        Example: group_name1,group_name2.
       isArray: true
       name: group_name
     - auto: PREDEFINED
@@ -2673,7 +2820,7 @@ script:
       - android
     - description: |-
         A comma-separated list of alias names.
-        Examples: alias_name1,alias_name2
+        Examples: alias_name1,alias_name2.
       isArray: true
       name: alias_name
     - auto: PREDEFINED
@@ -2684,7 +2831,7 @@ script:
       - unisolated
     - description: |-
         A comma-separated list of hostnames.
-        Example: hostname1,hostname2
+        Example: hostname1,hostname2.
       isArray: true
       name: hostname
     - description: |-
@@ -2692,28 +2839,28 @@ script:
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: first_seen_gte
     - description: |-
         All the agents that were first seen before {first_seen_lte}.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: first_seen_lte
     - description: |-
         All the agents that were last seen before {last_seen_gte}.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: last_seen_gte
     - description: |-
         All the agents that were last seen before {last_seen_lte}.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: last_seen_lte
     - auto: PREDEFINED
       description: The status of the endpoint to filter.
@@ -2738,17 +2885,17 @@ script:
       isArray: true
       name: endpoint_id_list
     - description: "A comma-separated list of distribution package names or installation
-        package names. \nExample: dist_name1,dist_name2"
+        package names. \nExample: dist_name1,dist_name2."
       isArray: true
       name: dist_name
     - description: |-
         A comma-separated list of IP addresses.
-        Example: 8.8.8.8,1.1.1.1
+        Example: 8.8.8.8,1.1.1.1.
       isArray: true
       name: ip_list
     - description: |-
         A comma-separated list of group names to which the agent belongs.
-        Example: group_name1,group_name2
+        Example: group_name1,group_name2.
       isArray: true
       name: group_name
     - auto: PREDEFINED
@@ -2762,7 +2909,7 @@ script:
       - android
     - description: |-
         A comma-separated list of alias names.
-        Examples: alias_name1,alias_name2
+        Examples: alias_name1,alias_name2.
       isArray: true
       name: alias_name
     - auto: PREDEFINED
@@ -2773,7 +2920,7 @@ script:
       - unisolated
     - description: |-
         A comma-separated list of hostnames.
-        Example: hostname1,hostname2
+        Example: hostname1,hostname2.
       isArray: true
       name: hostname
     - description: |-
@@ -2781,28 +2928,28 @@ script:
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: first_seen_gte
     - description: |-
         All the agents that were first seen before {first_seen_lte}.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: first_seen_lte
     - description: |-
         All the agents that were last seen before {last_seen_gte}.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: last_seen_gte
     - description: |-
         All the agents that were last seen before {last_seen_lte}.
         Supported values:
         1579039377301 (time in milliseconds)
         "3 days" (relative date)
-        "2019-10-21T23:45:00" (date)
+        "2019-10-21T23:45:00" (date).
       name: last_seen_lte
     - auto: PREDEFINED
       description: The status of the endpoint to filter.
@@ -2849,7 +2996,7 @@ script:
       name: user_id
     - defaultValue: "50"
       description: Limit the number of users that will appear in the list. (limit
-        should be used when no specific host is requested)
+        should be used when no specific host is requested).
       name: limit
     description: Retrieve the risk score of a specific user or list of users with
       the highest risk score in the environment along with the reason affecting each
@@ -2937,7 +3084,7 @@ script:
       description: Name of the user group as it appears in the management console.
       type: String
     - contextPath: Core.UserGroup.insert_time
-      description: Timestamp of when the user group was created
+      description: Timestamp of when the user group was created.
       type: Number
     - contextPath: Core.UserGroup.update_time
       description: Timestamp of when the user group was last updated.
@@ -2949,62 +3096,14 @@ script:
     - contextPath: Core.UserGroup.source
       description: Type of user group.
       type: String
-  - arguments:
-    - description: A comma-separated list of one or more role names in your environment
-        for which you want detailed information.
-      name: role_names
-      required: true
-    description: Retrieve information about one or more roles created in your environment.
-    name: core-list-roles
-    outputs:
-    - contextPath: Core.Role.pretty_name
-      description: Name of the role as it appears in the management console.
-      type: String
-    - contextPath: Core.Role.permissions
-      description: List of permissions associated with this role.
-      type: array
-    - contextPath: Core.Role.insert_time
-      description: Timestamp of when the role was created.
-      type: Number
-    - contextPath: Core.Role.update_time
-      description: Timestamp of when the role was last updated.
-      type: Number
-    - contextPath: Core.Role.created_by
-      description: Email of the user who created the role.
-      type: String
-    - contextPath: Core.Role.description
-      description: Description of the role, if available.
-      type: String
-    - contextPath: Core.Role.groups
-      description: Group names associated with the role.
-      type: array
-    - contextPath: Core.Role.users
-      description: Email address of users associated with the role.
-      type: array
-  - arguments:
-    - description: A comma-separated list of one or more user emails of users you
-        want to add to a role.
-      isArray: true
-      name: user_emails
-      required: true
-    - description: Name of the role you want to add a user to.
-      name: role_name
-      required: true
-    description: Add one or more users to a role.
-    name: core-set-user-role
-  - arguments:
-    - description: A comma-separated list of one or more user emails of users you
-        want to remove from a role.
-      isArray: true
-      name: user_emails
-      required: true
-    description: Remove one or more users from a role.
-    name: core-remove-user-role
-  dockerimage: demisto/python3:3.10.12.68300
+  dockerimage: demisto/python3:3.10.13.85667
+  nativeimage:
+  - "8.3"
+  - "8.4"
   runonce: false
   script: |
     register_module_line('Cortex Core - IR', 'start', __line__())
-    ### pack version: 2.0.12
+    ### pack version: 3.0.20
 
 
 
@@ -3029,6 +3128,7 @@ script:
         'Duplicate': 'resolved_duplicate',
         'False Positive': 'resolved_false_positive',
         'Resolved': 'resolved_true_positive',
+        'Resolved - Security Testing': 'resolved_security_testing',
     }
 
     XDR_RESOLVED_STATUS_TO_XSOAR = {
@@ -3036,7 +3136,7 @@ script:
         'resolved_duplicate': 'Duplicate',
         'resolved_false_positive': 'False Positive',
         'resolved_true_positive': 'Resolved',
-        'resolved_security_testing': 'Other',
+        'resolved_security_testing': 'Resolved - Security Testing',
         'resolved_other': 'Other',
         'resolved_auto': 'Resolved'
     }
@@ -3161,10 +3261,141 @@ script:
             super().__init__(base_url=base_url, headers=headers, proxy=proxy, verify=verify)
             self.timeout = timeout
 
+        def get_incidents(self, incident_id_list=None, lte_modification_time=None, gte_modification_time=None,
+                          lte_creation_time=None, gte_creation_time=None, status=None, starred=None,
+                          starred_incidents_fetch_window=None, sort_by_modification_time=None, sort_by_creation_time=None,
+                          page_number=0, limit=100, gte_creation_time_milliseconds=0):
+            """
+            Filters and returns incidents
+
+            :param incident_id_list: List of incident ids - must be list
+            :param lte_modification_time: string of time format "2019-12-31T23:59:00"
+            :param gte_modification_time: string of time format "2019-12-31T23:59:00"
+            :param lte_creation_time: string of time format "2019-12-31T23:59:00"
+            :param gte_creation_time: string of time format "2019-12-31T23:59:00"
+            :param starred_incidents_fetch_window: string of time format "2019-12-31T23:59:00"
+            :param starred: True if the incident is starred, else False
+            :param status: string of status
+            :param sort_by_modification_time: optional - enum (asc,desc)
+            :param sort_by_creation_time: optional - enum (asc,desc)
+            :param page_number: page number
+            :param limit: maximum number of incidents to return per page
+            :param gte_creation_time_milliseconds: greater than time in milliseconds
+            :return:
+            """
+            search_from = page_number * limit
+            search_to = search_from + limit
+
+            request_data = {
+                'search_from': search_from,
+                'search_to': search_to,
+            }
+
+            if sort_by_creation_time and sort_by_modification_time:
+                raise ValueError('Should be provide either sort_by_creation_time or '
+                                 'sort_by_modification_time. Can\'t provide both')
+            if sort_by_creation_time:
+                request_data['sort'] = {
+                    'field': 'creation_time',
+                    'keyword': sort_by_creation_time
+                }
+            elif sort_by_modification_time:
+                request_data['sort'] = {
+                    'field': 'modification_time',
+                    'keyword': sort_by_modification_time
+                }
+
+            filters = []
+            if incident_id_list is not None and len(incident_id_list) > 0:
+                filters.append({
+                    'field': 'incident_id_list',
+                    'operator': 'in',
+                    'value': incident_id_list
+                })
+
+            if status:
+                filters.append({
+                    'field': 'status',
+                    'operator': 'eq',
+                    'value': status
+                })
+
+            if starred and starred_incidents_fetch_window:
+                filters.append({
+                    'field': 'starred',
+                    'operator': 'eq',
+                    'value': True
+                })
+                filters.append({
+                    'field': 'creation_time',
+                    'operator': 'gte',
+                    'value': starred_incidents_fetch_window
+                })
+                if demisto.command() == 'fetch-incidents':
+                    if len(filters) > 0:
+                        request_data['filters'] = filters
+                    incidents = self.handle_fetch_starred_incidents(limit, page_number, request_data)
+                    return incidents
+
+            else:
+                if lte_creation_time:
+                    filters.append({
+                        'field': 'creation_time',
+                        'operator': 'lte',
+                        'value': date_to_timestamp(lte_creation_time, TIME_FORMAT)
+                    })
+
+                if gte_creation_time:
+                    filters.append({
+                        'field': 'creation_time',
+                        'operator': 'gte',
+                        'value': date_to_timestamp(gte_creation_time, TIME_FORMAT)
+                    })
+
+                if lte_modification_time:
+                    filters.append({
+                        'field': 'modification_time',
+                        'operator': 'lte',
+                        'value': date_to_timestamp(lte_modification_time, TIME_FORMAT)
+                    })
+
+                if gte_modification_time:
+                    filters.append({
+                        'field': 'modification_time',
+                        'operator': 'gte',
+                        'value': date_to_timestamp(gte_modification_time, TIME_FORMAT)
+                    })
+
+                if gte_creation_time_milliseconds > 0:
+                    filters.append({
+                        'field': 'creation_time',
+                        'operator': 'gte',
+                        'value': gte_creation_time_milliseconds
+                    })
+
+            if len(filters) > 0:
+                request_data['filters'] = filters
+
+            res = self._http_request(
+                method='POST',
+                url_suffix='/incidents/get_incidents/',
+                json_data={'request_data': request_data},
+                headers=self._headers,
+                timeout=self.timeout
+            )
+            incidents = res.get('reply', {}).get('incidents', [])
+
+            return incidents
+
+        def handle_fetch_starred_incidents(self, limit: int, page_number: int, request_data: Dict[Any, Any]) -> List[Any]:
+            """Called from get_incidents if the command is fetch-incidents. Implement in child classes."""
+            return []
+
         def get_endpoints(self,
                           endpoint_id_list=None,
                           dist_name=None,
                           ip_list=None,
+                          public_ip_list=None,
                           group_name=None,
                           platform=None,
                           alias_name=None,
@@ -3194,7 +3425,7 @@ script:
                 status=status, username=username, endpoint_id_list=endpoint_id_list, dist_name=dist_name,
                 ip_list=ip_list, group_name=group_name, platform=platform, alias_name=alias_name, isolate=isolate,
                 hostname=hostname, first_seen_gte=first_seen_gte, first_seen_lte=first_seen_lte,
-                last_seen_gte=last_seen_gte, last_seen_lte=last_seen_lte
+                last_seen_gte=last_seen_gte, last_seen_lte=last_seen_lte, public_ip_list=public_ip_list
             )
 
             if search_from:
@@ -4419,10 +4650,9 @@ script:
         if command_decision_field not in args:
             # create new command run
             command_results = command_function(client, args)
-            if isinstance(command_results, CommandResults):
-                outputs = [command_results.raw_response] if command_results.raw_response else []
-            else:
-                outputs = [c.raw_response for c in command_results]
+            outputs = command_results.raw_response
+            if outputs and not isinstance(outputs, list):
+                outputs = [outputs]
             command_decision_values = [o.get(command_decision_field) for o in outputs] if outputs else []  # type: ignore
             if outputs and command_decision_values:
                 polling_args = {
@@ -4822,6 +5052,7 @@ script:
         endpoint_id_list = argToList(args.get('endpoint_id_list'))
         dist_name = argToList(args.get('dist_name'))
         ip_list = argToList(args.get('ip_list'))
+        public_ip_list = argToList(args.get('public_ip_list'))
         group_name = argToList(args.get('group_name'))
         platform = argToList(args.get('platform'))
         alias_name = argToList(args.get('alias_name'))
@@ -4858,6 +5089,7 @@ script:
             endpoint_id_list=endpoint_id_list,
             dist_name=dist_name,
             ip_list=ip_list,
+            public_ip_list=public_ip_list,
             group_name=group_name,
             platform=platform,
             alias_name=alias_name,
@@ -5060,65 +5292,72 @@ script:
         )
 
 
-    def run_script_kill_process_command(client: CoreClient, args: Dict) -> List[CommandResults]:
+    def run_script_kill_process_command(client: CoreClient, args: Dict) -> CommandResults:
         endpoint_ids = argToList(args.get('endpoint_ids'))
         incident_id = arg_to_number(args.get('incident_id'))
         timeout = arg_to_number(args.get('timeout', 600)) or 600
         processes_names = argToList(args.get('process_name'))
-        all_processes_response = []
+        replies = []
+
         for process_name in processes_names:
             parameters = {'process_name': process_name}
             response = client.run_script('fd0a544a99a9421222b4f57a11839481', endpoint_ids, parameters, timeout, incident_id)
             reply = response.get('reply')
-            all_processes_response.append(CommandResults(
-                readable_output=tableToMarkdown(f'Run Script Kill Process on {process_name}', reply),
-                outputs_prefix=f'{args.get("integration_context_brand", "CoreApiModule")}.ScriptRun',
-                outputs_key_field='action_id',
-                outputs=reply,
-                raw_response=reply,
-            ))
+            replies.append(reply)
 
-        return all_processes_response
+        command_result = CommandResults(
+            readable_output=tableToMarkdown("Run Script Kill Process Results", replies),
+            outputs_prefix=f'{args.get("integration_context_brand", "CoreApiModule")}.ScriptRun',
+            outputs_key_field='action_id',
+            outputs=replies,
+            raw_response=replies,
+        )
+
+        return command_result
 
 
-    def run_script_file_exists_command(client: CoreClient, args: Dict) -> List[CommandResults]:
+    def run_script_file_exists_command(client: CoreClient, args: Dict) -> CommandResults:
         endpoint_ids = argToList(args.get('endpoint_ids'))
         incident_id = arg_to_number(args.get('incident_id'))
         timeout = arg_to_number(args.get('timeout', 600)) or 600
         file_paths = argToList(args.get('file_path'))
-        all_files_response = []
+        replies = []
         for file_path in file_paths:
             parameters = {'path': file_path}
             response = client.run_script('414763381b5bfb7b05796c9fe690df46', endpoint_ids, parameters, timeout, incident_id)
             reply = response.get('reply')
-            all_files_response.append(CommandResults(
-                readable_output=tableToMarkdown(f'Run Script File Exists on {file_path}', reply),
-                outputs_prefix=f'{args.get("integration_context_brand", "CoreApiModule")}.ScriptRun',
-                outputs_key_field='action_id',
-                outputs=reply,
-                raw_response=reply,
-            ))
-        return all_files_response
+            replies.append(reply)
+
+        command_result = CommandResults(
+            readable_output=tableToMarkdown(f'Run Script File Exists on {",".join(file_paths)}', replies),
+            outputs_prefix=f'{args.get("integration_context_brand", "CoreApiModule")}.ScriptRun',
+            outputs_key_field='action_id',
+            outputs=replies,
+            raw_response=replies,
+        )
+        return command_result
 
 
-    def run_script_delete_file_command(client: CoreClient, args: Dict) -> List[CommandResults]:
+    def run_script_delete_file_command(client: CoreClient, args: Dict) -> CommandResults:
         endpoint_ids = argToList(args.get('endpoint_ids'))
         incident_id = arg_to_number(args.get('incident_id'))
         timeout = arg_to_number(args.get('timeout', 600)) or 600
         file_paths = argToList(args.get('file_path'))
-        all_files_response = []
+        replies = []
         for file_path in file_paths:
             parameters = {'file_path': file_path}
             response = client.run_script('548023b6e4a01ec51a495ba6e5d2a15d', endpoint_ids, parameters, timeout, incident_id)
             reply = response.get('reply')
-            all_files_response.append(CommandResults(
-                readable_output=tableToMarkdown(f'Run Script Delete File on {file_path}', reply),
-                outputs_prefix=f'{args.get("integration_context_brand", "CoreApiModule")}.ScriptRun',
-                outputs_key_field='action_id',
-                outputs=reply,
-                raw_response=reply,
-            ))
-        return all_files_response
+            replies.append(reply)
+
+        command_result = CommandResults(
+            readable_output=tableToMarkdown(f'Run Script Delete File on {",".join(file_paths)}', replies),
+            outputs_prefix=f'{args.get("integration_context_brand", "CoreApiModule")}.ScriptRun',
+            outputs_key_field='action_id',
+            outputs=replies,
+            raw_response=replies,
+        )
+        return command_result
 
 
     def quarantine_files_command(client, args):
@@ -5477,13 +5716,20 @@ script:
 
         file_artifacts = incident.get('file_artifacts', [])
         for file in file_artifacts:
+            file_sha = file.get('file_sha256')
             file_details = {
                 'Name': file.get('file_name'),
-                'SHA256': file.get('file_sha256'),
+                'SHA256': file_sha,
             }
             remove_nulls_from_dictionary(file_details)
+            is_malicious = file.get("is_malicious")
+
             if file_details:
                 file_context.append(file_details)
+                if file_sha:
+                    relevant_processes = filter(lambda p: p.get("SHA256") == file_sha, process_context)
+                    for process in relevant_processes:
+                        process["is_malicious"] = is_malicious
 
         return file_context, process_context, domain_context, ip_context
 
@@ -5723,18 +5969,23 @@ script:
 
 
     def handle_outgoing_issue_closure(remote_args):
+        incident_id = remote_args.remote_incident_id
+        demisto.debug(f"handle_outgoing_issue_closure {incident_id=}")
         update_args = remote_args.delta
         current_remote_status = remote_args.data.get('status') if remote_args.data else None
+        close_reason = update_args.get('close_reason') or update_args.get('closeReason')
+        demisto.debug(f'{current_remote_status=} {remote_args.data=} {remote_args.inc_status=} {close_reason=}')
         # force closing remote incident only if:
         #   The XSOAR incident is closed
         #   and the remote incident isn't already closed
         if remote_args.inc_status == 2 and \
-           current_remote_status not in XDR_RESOLVED_STATUS_TO_XSOAR:
+           current_remote_status not in XDR_RESOLVED_STATUS_TO_XSOAR and close_reason:
 
             if close_notes := update_args.get('closeNotes'):
+                demisto.debug(f"handle_outgoing_issue_closure {incident_id=} {close_notes=}")
                 update_args['resolve_comment'] = close_notes
-            update_args['status'] = XSOAR_RESOLVED_STATUS_TO_XDR.get(update_args.get('closeReason', 'Other'))
-            demisto.debug(f"Closing Remote incident with status {update_args['status']}")
+            update_args['status'] = XSOAR_RESOLVED_STATUS_TO_XDR.get(close_reason, 'Other')
+            demisto.debug(f"handle_outgoing_issue_closure Closing Remote incident {incident_id=} with status {update_args['status']}")
 
 
     def get_update_args(remote_args):
@@ -6067,21 +6318,25 @@ script:
         )
 
 
-    def get_script_execution_status_command(client: CoreClient, args: Dict) -> List[CommandResults]:
+    def get_script_execution_status_command(client: CoreClient, args: Dict) -> CommandResults:
         action_ids = argToList(args.get('action_id', ''))
-        command_results = []
+        replies = []
+        raw_responses = []
         for action_id in action_ids:
             response = client.get_script_execution_status(action_id)
             reply = response.get('reply')
             reply['action_id'] = int(action_id)
-            command_results.append(CommandResults(
-                readable_output=tableToMarkdown(f'Script Execution Status - {action_id}', reply),
-                outputs_prefix=f'{args.get("integration_context_brand", "CoreApiModule")}.ScriptStatus',
-                outputs_key_field='action_id',
-                outputs=reply,
-                raw_response=response,
-            ))
-        return command_results
+            replies.append(reply)
+            raw_responses.append(response)
+
+        command_result = CommandResults(
+            readable_output=tableToMarkdown(f'Script Execution Status - {",".join(str(i) for i in action_ids)}', replies),
+            outputs_prefix=f'{args.get("integration_context_brand", "CoreApiModule")}.ScriptStatus',
+            outputs_key_field='action_id',
+            outputs=replies,
+            raw_response=raw_responses,
+        )
+        return command_result
 
 
     def parse_get_script_execution_results(results: List[Dict]) -> List[Dict]:
@@ -6212,31 +6467,33 @@ script:
                     continue
 
 
-    def filter_general_fields(alert: dict) -> dict:
+    def filter_general_fields(alert: dict, filter_fields: bool = True) -> dict:
         """filter only relevant general fields from a given alert.
 
         Args:
           alert (dict): The alert to filter
+          filter_fields (bool): Whether to return a subset of the fields.
 
         Returns:
           dict: The filtered alert
         """
 
-        updated_alert = {}
-        updated_event = {}
-        for field in ALERT_GENERAL_FIELDS:
-            if field in alert:
-                updated_alert[field] = alert.get(field)
-
-        event = alert.get('raw_abioc', {}).get('event', {})
-        if not event:
-            return_warning('No XDR cloud analytics event.')
+        if filter_fields:
+            result = {k: v for k, v in alert.items() if k in ALERT_GENERAL_FIELDS}
         else:
-            for field in ALERT_EVENT_GENERAL_FIELDS:
-                if field in event:
-                    updated_event[field] = event.get(field)
-            updated_alert['event'] = updated_event
-        return updated_alert
+            result = alert
+
+        if not (event := alert.get('raw_abioc', {}).get('event', {})):
+            return_warning('No XDR cloud analytics event.')
+            return result
+
+        if filter_fields:
+            updated_event = {k: v for k, v in event.items() if k in ALERT_EVENT_GENERAL_FIELDS}
+        else:
+            updated_event = event
+
+        result['event'] = updated_event
+        return result
 
 
     def filter_vendor_fields(alert: dict):
@@ -6268,7 +6525,11 @@ script:
         raw_response = client.get_original_alerts(alert_id_list)
         reply = copy.deepcopy(raw_response)
         alerts = reply.get('alerts', [])
+        processed_alerts = []
         filtered_alerts = []
+
+        filter_fields_argument = argToBoolean(args.get('filter_alert_fields', True))  # default, for BC, is True.
+
         for alert in alerts:
             # decode raw_response
             try:
@@ -6280,18 +6541,24 @@ script:
                 demisto.debug("encountered the following while decoding dictionary values, skipping")
                 demisto.debug(e)
                 continue
-            # remove original_alert_json field and add its content to alert.
-            alert.update(
-                alert.pop('original_alert_json', None))
-            updated_alert = filter_general_fields(alert)
-            if 'event' in updated_alert:
-                filter_vendor_fields(updated_alert)
-            filtered_alerts.append(updated_alert)
+
+            # Remove original_alert_json field and add its content to the alert body.
+            alert.update(alert.pop('original_alert_json', {}))
+
+            # Process the alert (with without filetring fields)
+            processed_alerts.append(filter_general_fields(alert, filter_fields=False))
+
+            # Create a filtered version (used either for output when filter_fields is False, or for readable output)
+            filtered_alert = filter_general_fields(alert, filter_fields=True)
+            filter_vendor_fields(filtered_alert)  # changes in-place
+
+            filtered_alerts.append(filtered_alert)
 
         return CommandResults(
             outputs_prefix=f'{args.get("integration_context_brand", "CoreApiModule")}.OriginalAlert',
             outputs_key_field='internal_id',
-            outputs=filtered_alerts,
+            outputs=filtered_alerts if filter_fields_argument else processed_alerts,
+            readable_output=tableToMarkdown("Alerts", t=filtered_alerts),  # Filtered are always used for readable output
             raw_response=raw_response,
         )
 
@@ -6434,7 +6701,7 @@ script:
                 demisto.debug("encountered the following while decoding dictionary values, skipping")
                 demisto.debug(e)
             # remove original_alert_json field and add its content to alert.
-            alert.update(alert.pop('original_alert_json', None))
+            alert.update(alert.pop('original_alert_json', {}))
             if demisto.get(alert, 'messageData.dynamicAnalysis'):
                 filtered_alerts.append(demisto.get(alert, 'messageData.dynamicAnalysis'))
         if not filtered_alerts:
@@ -6455,6 +6722,7 @@ script:
         endpoint_id_list: Optional[List] = None,
         dist_name: Optional[List] = None,
         ip_list: Optional[List] = None,
+        public_ip_list: Optional[List] = None,
         group_name: Optional[List] = None,
         platform: Optional[List] = None,
         alias_name: Optional[List] = None,
@@ -6501,6 +6769,13 @@ script:
                 'field': 'ip_list',
                 'operator': 'in',
                 'value': ip_list
+            })
+
+        if public_ip_list:
+            filters.append({
+                'field': 'public_ip_list',
+                'operator': 'in',
+                'value': public_ip_list
             })
 
         if group_name:
@@ -6941,6 +7216,104 @@ script:
             outputs_prefix=f'{args.get("integration_context_brand", "CoreApiModule")}.{outputs_prefix}',
             outputs_key_field='id',
             outputs=outputs,
+        )
+
+
+    def get_incidents_command(client, args):
+        """
+        Retrieve a list of incidents from XDR, filtered by some filters.
+        """
+
+        # sometimes incident id can be passed as integer from the playbook
+        incident_id_list = args.get('incident_id_list')
+        if isinstance(incident_id_list, int):
+            incident_id_list = str(incident_id_list)
+
+        incident_id_list = argToList(incident_id_list)
+        # make sure all the ids passed are strings and not integers
+        for index, id_ in enumerate(incident_id_list):
+            if isinstance(id_, int | float):
+                incident_id_list[index] = str(id_)
+
+        lte_modification_time = args.get('lte_modification_time')
+        gte_modification_time = args.get('gte_modification_time')
+        since_modification_time = args.get('since_modification_time')
+
+        if since_modification_time and gte_modification_time:
+            raise ValueError('Can\'t set both since_modification_time and lte_modification_time')
+        if since_modification_time:
+            gte_modification_time, _ = parse_date_range(since_modification_time, TIME_FORMAT)
+
+        lte_creation_time = args.get('lte_creation_time')
+        gte_creation_time = args.get('gte_creation_time')
+        since_creation_time = args.get('since_creation_time')
+
+        if since_creation_time and gte_creation_time:
+            raise ValueError('Can\'t set both since_creation_time and lte_creation_time')
+        if since_creation_time:
+            gte_creation_time, _ = parse_date_range(since_creation_time, TIME_FORMAT)
+
+        statuses = argToList(args.get('status', ''))
+
+        starred = args.get('starred')
+        starred_incidents_fetch_window = args.get('starred_incidents_fetch_window', '3 days')
+        starred_incidents_fetch_window, _ = parse_date_range(starred_incidents_fetch_window, to_timestamp=True)
+
+        sort_by_modification_time = args.get('sort_by_modification_time')
+        sort_by_creation_time = args.get('sort_by_creation_time')
+
+        page = int(args.get('page', 0))
+        limit = int(args.get('limit', 100))
+
+        # If no filters were given, return a meaningful error message
+        if not incident_id_list and (not lte_modification_time and not gte_modification_time and not since_modification_time
+                                     and not lte_creation_time and not gte_creation_time and not since_creation_time
+                                     and not statuses and not starred):
+            raise ValueError("Specify a query for the incidents.\nFor example:"
+                             " since_creation_time=\"1 year\" sort_by_creation_time=\"desc\" limit=10")
+
+        if statuses:
+            raw_incidents = []
+
+            for status in statuses:
+                raw_incidents += client.get_incidents(
+                    incident_id_list=incident_id_list,
+                    lte_modification_time=lte_modification_time,
+                    gte_modification_time=gte_modification_time,
+                    lte_creation_time=lte_creation_time,
+                    gte_creation_time=gte_creation_time,
+                    sort_by_creation_time=sort_by_creation_time,
+                    sort_by_modification_time=sort_by_modification_time,
+                    page_number=page,
+                    limit=limit,
+                    status=status,
+                    starred=starred,
+                    starred_incidents_fetch_window=starred_incidents_fetch_window,
+                )
+
+            if len(raw_incidents) > limit:
+                raw_incidents = raw_incidents[:limit]
+        else:
+            raw_incidents = client.get_incidents(
+                incident_id_list=incident_id_list,
+                lte_modification_time=lte_modification_time,
+                gte_modification_time=gte_modification_time,
+                lte_creation_time=lte_creation_time,
+                gte_creation_time=gte_creation_time,
+                sort_by_creation_time=sort_by_creation_time,
+                sort_by_modification_time=sort_by_modification_time,
+                page_number=page,
+                limit=limit,
+                starred=starred,
+                starred_incidents_fetch_window=starred_incidents_fetch_window,
+            )
+
+        return (
+            tableToMarkdown('Incidents', raw_incidents),
+            {
+                f'{args.get("integration_context_brand", "CoreApiModule")}.Incident(val.incident_id==obj.incident_id)': raw_incidents
+            },
+            raw_incidents
         )
 
     register_module_line('CoreIRApiModule', 'end', __line__(), wrapper=1)
@@ -7405,11 +7778,8 @@ script:
             elif command == 'core-list-user-groups':
                 return_results(list_user_groups_command(client, args))
 
-            elif command == 'core-list-roles':
-                return_results(list_roles_command(client, args))
-
-            elif command in ('core-set-user-role', 'core-remove-user-role'):
-                return_results(change_user_role_command(client, args))
+            elif command == 'core-get-incidents':
+                return_outputs(*get_incidents_command(client, args))
 
             elif command in PREVALENCE_COMMANDS:
                 return_results(handle_prevalence_command(client, command, args))

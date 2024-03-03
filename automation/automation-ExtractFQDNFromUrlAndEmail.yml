@@ -11,7 +11,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.20
+    itemVersion: 1.14.3
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -24,12 +24,14 @@ enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: ExtractFQDNFromUrlAndEmail
+nativeimage:
+- "8.6"
 pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ExtractFQDNFromUrlAndEmail', 'start', __line__())
-  ### pack version: 1.12.20
+  ### pack version: 1.14.3
 
 
   from tld import get_tld

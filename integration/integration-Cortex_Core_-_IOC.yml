@@ -38,7 +38,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -61,7 +61,7 @@ script:
       defaultValue: "false"
       description: |-
         For first sync, set to true.
-        (do NOT run this twice!)
+        (do NOT run this twice!).
       name: firstTime
       predefined:
       - "true"
@@ -70,7 +70,7 @@ script:
     name: core-iocs-sync
   - arguments:
     - description: IOCs to push. leave empty to push all recently modified IOCs.the
-        indicators
+        indicators.
       isArray: true
       name: indicator
     description: Push modified IOCs to Cortex.
@@ -100,11 +100,11 @@ script:
       required: true
     description: Disables IOCs in the Cortex server.
     name: core-iocs-disable
-  dockerimage: demisto/google-cloud-storage:1.0.0.25839
+  dockerimage: demisto/google-cloud-storage:1.0.0.78223
   runonce: false
   script: |
     register_module_line('Cortex Core - IOC', 'start', __line__())
-    ### pack version: 2.0.12
+    ### pack version: 3.0.20
 
 
 

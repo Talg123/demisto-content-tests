@@ -1,12 +1,14 @@
 args:
-- description: IPv4 address to filter.
+- description: A comma-separated list of IPv4/IPv6 addresses to check.
+  isArray: true
   name: left
   required: true
-- description: Comma-separated list of IPv4 ranges in CIDR notation against which
-    to match.
+- description: A comma-separated list of IPv4/IPv6 ranges in CIDR notation against
+    which to match.
+  isArray: true
   name: right
   required: true
-comment: Checks whether an IPv4 address is not contained in one or more comma-delimited
+comment: Checks whether an IPv4 or IPv6 address is not contained in one or more comma-delimited
   CIDR ranges.
 commonfields:
   id: IsNotInCidrRanges
@@ -15,7 +17,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.2.29
+    itemVersion: 1.2.62
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -23,7 +25,6 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/netutils:1.0.0.24101
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -31,34 +32,13 @@ name: IsNotInCidrRanges
 pswd: ""
 runas: DBotWeakRole
 runonce: false
-script: |
-  register_module_line('IsNotInCidrRanges', 'start', __line__())
-  ### pack version: 1.2.29
-
-
-
-  from netaddr import IPAddress, IPNetwork
-
-
-  def main():
-      ip_address = demisto.args()['left']
-      cidr_range_list = argToList(demisto.args()['right'])
-
-      for cidr in cidr_range_list:
-          if IPAddress(ip_address) in IPNetwork(cidr):
-              demisto.results(False)
-              return
-
-      demisto.results(True)
-
-
-  if __name__ == "__builtin__" or __name__ == "builtins":
-      main()
-
-  register_module_line('IsNotInCidrRanges', 'end', __line__())
+script: |-
+  // pack version: 1.2.62
+  var res = executeCommand("IsInCidrRanges", args);
+  res = Array.isArray(res) ? res : [res];
+  return res.map(val => val.Contents == "True" ? "False" : "True");
 scripttarget: 0
-subtype: python3
 system: true
 tags:
 - filter
-type: python
+type: javascript

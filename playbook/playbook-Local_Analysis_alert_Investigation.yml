@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -48,6 +48,56 @@ description: |-
 
   [Malware Protection Flow](https://docs-cortex.paloaltonetworks.com/r/Cortex-XSIAM/Cortex-XSIAM-Administrator-Guide/File-Analysis-and-Protection-Flow)
 id: Local Analysis alert Investigation
+inputSections:
+- description: Alert management settings and data, including escalation processes,
+    and user engagements.
+  inputs:
+  - AutoCloseAlert
+  - ShouldManualReviewFP
+  name: Alert Management
+- description: Enrichment settings and data, including assets and indicators enrichment
+    using third-party enrichers.
+  inputs:
+  - Query
+  - SHA256
+  - Path
+  name: Enrichment
+- description: Investigation settings and data, including any deep dive alert investigation
+    and verdict determination.
+  inputs:
+  - GraywareAsMalware
+  - ShouldRescanBenign
+  name: Investigation
+- description: Remediation settings and data, including containment, eradication,
+    and recovery.
+  inputs:
+  - AutoEradication
+  - AutoContainment
+  - FileRemediation
+  - AutoRecovery
+  name: Remediation
+- description: Ticket management settings and data.
+  inputs:
+  - ShouldOpenTicket
+  - serviceNowShortDescription
+  - serviceNowImpact
+  - serviceNowUrgency
+  - serviceNowSeverity
+  - serviceNowTicketType
+  - serviceNowCategory
+  - serviceNowAssignmentGroup
+  - ZendeskPriority
+  - ZendeskRequester
+  - ZendeskStatus
+  - ZendeskSubject
+  - ZendeskTags
+  - ZendeskType
+  - ZendeskAssigne
+  - ZendeskCollaborators
+  - description
+  - addCommentPerEndpoint
+  - CommentToAdd
+  name: Ticket Management
 inputs:
 - description: 'Whether to treat Grayware verdict as Malware. '
   key: GraywareAsMalware
@@ -158,7 +208,7 @@ inputs:
           else:
             value:
               simple: ${alert= '(initiatorsha256:"' + val.initiatorsha256 + '" or
-                hostip:"' + val.hostip + '") ' + 'and sourceBrand:"' + val.sourceBrand
+                agentid:"' + val.agentid + '") ' + 'and sourceBrand:"' + val.sourceBrand
                 + '" and name:"' + val.name + '"'}
           equals: {}
           lhs:
@@ -172,8 +222,8 @@ inputs:
           rhsB: {}
           then:
             value:
-              simple: ${alert= '(filesha256:"' + val.filesha256 + '" or hostip:"'
-                + val.hostip + '") ' + 'and sourceBrand:"' + val.sourceBrand + '"
+              simple: ${alert= '(filesha256:"' + val.filesha256 + '" or agentid:"'
+                + val.agentid + '") ' + 'and sourceBrand:"' + val.sourceBrand + '"
                 and name:"' + val.name + '"'}
         operator: If-Then-Else
 - description: Whether to open a ticket automatically in a ticketing system. (True/False).
@@ -181,7 +231,7 @@ inputs:
   playbookInputQuery: null
   required: false
   value:
-    simple: "True"
+    simple: "False"
 - description: A short description of the ticket.
   key: serviceNowShortDescription
   playbookInputQuery: null
@@ -283,6 +333,10 @@ inputs:
   value:
     simple: '${alert.name}. Alert ID: ${alert.id}'
 name: Local Analysis alert Investigation
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs: []
 outputs: []
 starttaskid: "0"
 system: true
@@ -328,14 +382,6 @@ tasks:
           right:
             value:
               simple: Suspicious
-        - left:
-            iscontext: true
-            value:
-              simple: FileVerdict
-          operator: isEqualString
-          right:
-            value:
-              simple: Malicious
       - - ignorecase: true
           left:
             iscontext: true
@@ -470,26 +516,25 @@ tasks:
           right:
             value:
               simple: "0"
-        - left:
+      label: Benign
+    - condition:
+      - - left:
             iscontext: true
             value:
-              complex:
-                root: inputs.GraywareAsMalware
+              simple: WildFire.Verdicts.Verdict
+          operator: isEqualString
+          right:
+            value:
+              simple: "2"
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.GraywareAsMalware
           operator: isEqualString
           right:
             value:
               simple: "False"
-      - - ignorecase: true
-          left:
-            iscontext: true
-            value:
-              complex:
-                root: inputs.ShouldRescanBenign
-          operator: isEqualString
-          right:
-            value:
-              simple: "True"
-      label: Benign
+      label: Greyware
     continueonerrortype: ""
     id: "14"
     ignoreworker: false
@@ -499,7 +544,9 @@ tasks:
       '#default#':
       - "39"
       Benign:
-      - "77"
+      - "85"
+      Greyware:
+      - "86"
     note: false
     quietmode: 0
     separatecontext: false
@@ -519,7 +566,7 @@ tasks:
       {
         "position": {
           "x": 900,
-          "y": 875
+          "y": 825
         }
       }
   "33":
@@ -678,7 +725,7 @@ tasks:
       {
         "position": {
           "x": 900,
-          "y": 2910
+          "y": 2800
         }
       }
   "44":
@@ -722,7 +769,7 @@ tasks:
       {
         "position": {
           "x": 900,
-          "y": 2670
+          "y": 2560
         }
       }
   "45":
@@ -800,7 +847,7 @@ tasks:
       {
         "position": {
           "x": 900,
-          "y": 3410
+          "y": 3300
         }
       }
   "47":
@@ -846,7 +893,7 @@ tasks:
       {
         "position": {
           "x": 900,
-          "y": 3750
+          "y": 3640
         }
       }
   "48":
@@ -877,7 +924,7 @@ tasks:
       {
         "position": {
           "x": 1270,
-          "y": 3920
+          "y": 3810
         }
       }
   "50":
@@ -907,7 +954,7 @@ tasks:
       {
         "position": {
           "x": 900,
-          "y": 3255
+          "y": 3145
         }
       }
   "51":
@@ -933,8 +980,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 430,
-          "y": 4290
+          "x": 40,
+          "y": 4170
         }
       }
   "54":
@@ -1140,8 +1187,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1280,
-          "y": 1720
+          "x": 1340,
+          "y": 1590
         }
       }
   "60":
@@ -1179,8 +1226,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1280,
-          "y": 1880
+          "x": 1340,
+          "y": 1750
         }
       }
   "61":
@@ -1375,8 +1422,6 @@ tasks:
         complex:
           accessor: agentid
           root: alert
-      timeRange:
-        simple: 2 hours ago
     separatecontext: false
     skipunavailable: false
     task:
@@ -1400,7 +1445,7 @@ tasks:
       {
         "position": {
           "x": 900,
-          "y": 2500
+          "y": 2390
         }
       }
   "64":
@@ -1535,7 +1580,7 @@ tasks:
       {
         "position": {
           "x": 1300,
-          "y": 3050
+          "y": 2940
         }
       }
   "65":
@@ -1674,7 +1719,7 @@ tasks:
       {
         "position": {
           "x": 1370,
-          "y": 3580
+          "y": 3470
         }
       }
   "67":
@@ -1734,8 +1779,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 430,
-          "y": 2500
+          "x": 40,
+          "y": 2390
         }
       }
   "68":
@@ -1771,8 +1816,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1280,
-          "y": 2040
+          "x": 1340,
+          "y": 1910
         }
       }
   "69":
@@ -1855,8 +1900,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1280,
-          "y": 2200
+          "x": 1340,
+          "y": 2070
         }
       }
   "70":
@@ -1902,7 +1947,7 @@ tasks:
       {
         "position": {
           "x": 1760,
-          "y": 3050
+          "y": 2940
         }
       }
   "71":
@@ -2019,7 +2064,7 @@ tasks:
       {
         "position": {
           "x": 1760,
-          "y": 2910
+          "y": 2800
         }
       }
   "77":
@@ -2054,8 +2099,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1280,
-          "y": 1280
+          "x": 1340,
+          "y": 1150
         }
       }
   "78":
@@ -2071,6 +2116,15 @@ tasks:
           right:
             value:
               simple: Success
+        - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: inputs.ShouldRescanBenign
+          operator: isEqualString
+          right:
+            value:
+              simple: "True"
       label: "no"
     continueonerrortype: ""
     id: "78"
@@ -2100,8 +2154,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1280,
-          "y": 1480
+          "x": 1340,
+          "y": 1350
         }
       }
   "79":
@@ -2355,6 +2409,66 @@ tasks:
         "position": {
           "x": 1140,
           "y": -480
+        }
+      }
+  "85":
+    continueonerrortype: ""
+    id: "85"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "77"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d5e7fd85-67c3-44c5-8f35-f08f3727a564
+      iscommand: false
+      name: Benign
+      type: title
+      version: -1
+    taskid: d5e7fd85-67c3-44c5-8f35-f08f3727a564
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1560,
+          "y": 1010
+        }
+      }
+  "86":
+    continueonerrortype: ""
+    id: "86"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "77"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 4457cf9c-89af-450f-8fe6-c211a98c3eca
+      iscommand: false
+      name: Greyware
+      type: title
+      version: -1
+    taskid: 4457cf9c-89af-450f-8fe6-c211a98c3eca
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1110,
+          "y": 1010
         }
       }
 version: -1

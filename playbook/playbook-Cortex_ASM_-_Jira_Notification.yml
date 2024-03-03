@@ -1,8 +1,8 @@
 contentitemexportablefields:
   contentitemfields:
     definitionid: ""
-    fromServerVersion: 6.8.0
-    itemVersion: 1.6.33
+    fromServerVersion: 6.9.0
+    itemVersion: 1.7.29
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -23,9 +23,13 @@ inputs:
 - description: The Jira project key to associate with the issue.
   key: JiraProjectKey
   playbookInputQuery: null
+  required: false
+  value: {}
+- description: Remediation Guidance of the Attack Surface Rule.
+  key: RemediationGuidance
+  playbookInputQuery: null
   required: true
-  value:
-    simple: XPANSE
+  value: {}
 name: Cortex ASM - Jira Notification
 outputs: []
 starttaskid: "0"
@@ -39,74 +43,25 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "1"
+      - "7"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: 18a8542a-f6ca-474e-82bb-cd023bdf2a69
+      id: af645ade-de93-4220-8b4d-2fd0f93b0fe3
       iscommand: false
       name: ""
       version: -1
-    taskid: 18a8542a-f6ca-474e-82bb-cd023bdf2a69
+    taskid: af645ade-de93-4220-8b4d-2fd0f93b0fe3
     timertriggers: []
     type: start
     view: |-
       {
         "position": {
           "x": 450,
-          "y": 50
-        }
-      }
-  "1":
-    continueonerrortype: ""
-    id: "1"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    loop:
-      exitCondition: ""
-      iscommand: false
-      max: 100
-      wait: 1
-    nexttasks:
-      '#none#':
-      - "6"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      IssueTypeID:
-        complex:
-          accessor: asmattacksurfaceruleid
-          root: alert
-          transformers:
-          - args:
-              chars:
-                value:
-                  simple: '[\"]'
-            operator: StripChars
-    separatecontext: true
-    skipunavailable: false
-    task:
-      brand: ""
-      description: This playbook pulls remediation guidance off of a list based on
-        ASM RuleID to be used in service owner notifications (email or ticketing system).
-      id: f25546a1-47be-4b79-803e-013a06424a83
-      iscommand: false
-      name: Cortex ASM - Remediation Guidance
-      playbookId: Cortex ASM - Remediation Guidance
-      type: playbook
-      version: -1
-    taskid: f25546a1-47be-4b79-803e-013a06424a83
-    timertriggers: []
-    type: playbook
-    view: |-
-      {
-        "position": {
-          "x": 450,
-          "y": 180
+          "y": -260
         }
       }
   "2":
@@ -160,20 +115,20 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. For example:
         `!GridFieldSetup keys=ip,src val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" gridfiled="gridfield"`
-      id: 6e358c93-d64a-421a-8191-780a655d3739
+      id: 439be49e-ef74-43c7-85f5-116775b1f5d4
       iscommand: false
       name: Set notification grid field
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 6e358c93-d64a-421a-8191-780a655d3739
+    taskid: 439be49e-ef74-43c7-85f5-116775b1f5d4
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": 450,
-          "y": 530
+          "y": 400
         }
       }
   "5":
@@ -188,19 +143,19 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: e28fdfca-d524-4853-8dc3-285981f0050f
+      id: a05fbee9-f55d-4f40-8de4-7e703f0607d9
       iscommand: false
       name: Complete
       type: title
       version: -1
-    taskid: e28fdfca-d524-4853-8dc3-285981f0050f
+    taskid: a05fbee9-f55d-4f40-8de4-7e703f0607d9
     timertriggers: []
     type: title
     view: |-
       {
         "position": {
           "x": 450,
-          "y": 690
+          "y": 580
         }
       }
   "6":
@@ -224,7 +179,7 @@ tasks:
               suffix:
                 iscontext: true
                 value:
-                  simple: ${RemediationGuidance}
+                  simple: inputs.RemediationGuidance
             operator: concat
           - args:
               limit: {}
@@ -250,9 +205,10 @@ tasks:
                 value:
                   simple: Low,Medium,High,Critical
             operator: MapValuesTransformer
+      project_key:
+        simple: ${inputs.JiraProjectKey}${Please insert Jira Project Key.Answers.0}
       projectKey:
-        complex:
-          root: inputs.JiraProjectKey
+        simple: ${inputs.JiraProjectKey}${Please insert Jira Project Key.Answers.0}
       summary:
         complex:
           accessor: name
@@ -269,20 +225,130 @@ tasks:
     task:
       brand: ""
       description: Creates a new issue in Jira.
-      id: 7c511059-67eb-4f35-82ca-a27f2b2ad513
+      id: b199902c-b7a6-442f-8d29-68e778079712
       iscommand: true
       name: Create Jira ticket
       script: '|||jira-create-issue'
       type: regular
       version: -1
-    taskid: 7c511059-67eb-4f35-82ca-a27f2b2ad513
+    taskid: b199902c-b7a6-442f-8d29-68e778079712
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": 450,
-          "y": 350
+          "y": 230
+        }
+      }
+  "7":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.JiraProjectKey
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "8"
+      "yes":
+      - "6"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines if a Jira project key has been provided or not.
+      id: 7a4f2026-ef32-4866-844b-65c8e7a64c07
+      iscommand: false
+      name: Is Jira project key set?
+      type: condition
+      version: -1
+    taskid: 7a4f2026-ef32-4866-844b-65c8e7a64c07
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": -120
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: 'Please type in Jira project key:'
+        options: []
+        optionsarg: []
+        placeholder: ""
+        readonly: false
+        required: true
+        tooltip: Add a single Jira project key that the Jira ticket will be created
+          in.
+        type: shortText
+      sender: Your SOC team
+      title: Please insert Jira Project Key
+      totalanswers: 0
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body:
+        simple: Select owners to notify
+      cc: null
+      format: ""
+      methods: []
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "6"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Determines who to send notification emails to based on analyst
+        input.
+      id: 8310b832-eff8-4d36-8256-fd00a8aad548
+      iscommand: false
+      name: Provide Jira project key
+      type: collection
+      version: -1
+    taskid: 8310b832-eff8-4d36-8256-fd00a8aad548
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 700,
+          "y": 60
         }
       }
 version: -1
@@ -291,10 +357,10 @@ view: |-
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 705,
-        "width": 380,
+        "height": 905,
+        "width": 630,
         "x": 450,
-        "y": 50
+        "y": -260
       }
     }
   }

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.4.2
+    itemVersion: 2.6.15
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -205,8 +205,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 800,
-          "y": 1330
+          "x": 680,
+          "y": 1520
         }
       }
   "3":
@@ -329,7 +329,7 @@ tasks:
       {
         "position": {
           "x": 230,
-          "y": 1160
+          "y": 1350
         }
       }
   "24":
@@ -549,7 +549,7 @@ tasks:
       wait: 1
     nexttasks:
       '#none#':
-      - "11"
+      - "30"
     note: false
     quietmode: 0
     scriptarguments:
@@ -635,7 +635,7 @@ tasks:
       RuleDirection:
         simple: outbound
       RuleName:
-        simple: XSOAR - Block Indicators playbook - ${incident.id}
+        simple: XSOAR - Block Indicators playbook - ${alert.id}
       SHA256:
         complex:
           filters:
@@ -739,6 +739,47 @@ tasks:
           "y": 760
         }
       }
+  "30":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: IndicatorsToBlock
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "30"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "2"
+      "yes":
+      - "11"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if there are any indicators that are blocked.
+      id: 0a63acdb-6497-4f96-8318-5231aefde427
+      iscommand: false
+      name: Are there any indicators that are blocked?
+      type: condition
+      version: -1
+    taskid: 0a63acdb-6497-4f96-8318-5231aefde427
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 230,
+          "y": 1160
+        }
+      }
 version: -1
 view: |-
   {
@@ -746,13 +787,15 @@ view: |-
       "24_1_yes": 0.44,
       "24_28_#default#": 0.24,
       "26_28_#default#": 0.29,
+      "30_11_yes": 0.52,
+      "30_2_#default#": 0.38,
       "3_25_yes": 0.43,
       "3_2_#default#": 0.12
     },
     "paper": {
       "dimensions": {
-        "height": 1585,
-        "width": 1190,
+        "height": 1775,
+        "width": 1070,
         "x": -10,
         "y": -190
       }

@@ -93,7 +93,7 @@
 	"id": "incident_asmcloud",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.6.33",
+	"itemVersion": "1.7.29",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "ASM - Cloud",
@@ -107,7 +107,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "ASM - Cloud",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

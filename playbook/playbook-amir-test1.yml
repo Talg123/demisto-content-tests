@@ -1,0 +1,117 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: ""
+    propagationLabels:
+    - all
+    toServerVersion: ""
+id: 6d918d05-0b01-4e91-89d1-c2d5ecedb5a8
+inputs: []
+name: amir-test1
+outputs: []
+quiet: true
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 3c2f0f2e-f590-4302-84b9-8d4a58c1889e
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: 3c2f0f2e-f590-4302-84b9-8d4a58c1889e
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 234176e7-32bd-4127-8660-9ec6ff3f0881
+      iscommand: false
+      name: "123"
+      type: regular
+      version: -1
+    taskid: 234176e7-32bd-4127-8660-9ec6ff3f0881
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 440,
+          "y": 290
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: bb8dffda-6ffa-4622-8343-6fca6147434a
+      iscommand: false
+      name: "456"
+      type: regular
+      version: -1
+    taskid: bb8dffda-6ffa-4622-8343-6fca6147434a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 540
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 585,
+        "width": 390,
+        "x": 440,
+        "y": 50
+      }
+    }
+  }

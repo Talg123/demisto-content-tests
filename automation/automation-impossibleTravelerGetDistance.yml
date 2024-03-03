@@ -16,7 +16,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -29,6 +29,9 @@ enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: impossibleTravelerGetDistance
+nativeimage:
+- "8.3"
+- "8.4"
 outputs:
 - contextPath: GeoEvents
   description: The calculated events for each input
@@ -37,7 +40,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('impossibleTravelerGetDistance', 'start', __line__())
-  ### pack version: 2.0.12
+  ### pack version: 3.0.20
 
 
   import itertools

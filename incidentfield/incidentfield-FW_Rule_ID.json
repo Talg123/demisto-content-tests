@@ -23,7 +23,7 @@
 	"id": "incident_fwruleid",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.0.27",
+	"itemVersion": "1.0.32",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "FW Rule ID",
@@ -37,7 +37,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "FW Rule ID",
 	"propagationLabels": [
 		"all"
 	],
@@ -53,7 +53,7 @@
 	"threshold": 72,
 	"toServerVersion": "",
 	"type": "multiSelect",
-	"unmapped": false,
+	"unmapped": true,
 	"unsearchable": true,
 	"useAsKpi": false,
 	"validatedError": "",

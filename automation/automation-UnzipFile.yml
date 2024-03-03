@@ -28,7 +28,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.20
+    itemVersion: 1.14.3
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -36,11 +36,13 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/unzip:1.0.0.61858
+dockerimage: demisto/unzip:1.0.0.86000
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: UnzipFile
+nativeimage:
+- "8.6"
 outputs:
 - contextPath: ExtractedFiles
   description: A list of file names that were extracted from the ZIP file.
@@ -50,7 +52,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('UnzipFile', 'start', __line__())
-  ### pack version: 1.12.20
+  ### pack version: 1.14.3
 
 
 

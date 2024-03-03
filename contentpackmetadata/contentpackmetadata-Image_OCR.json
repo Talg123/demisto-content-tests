@@ -24,12 +24,12 @@
 				"category": "Utilities",
 				"commands": [
 					{
-						"description": "Lists supported languages for which the integration can extract text.",
-						"name": "image-ocr-list-languages"
-					},
-					{
 						"description": "Extracts text from an image.",
 						"name": "image-ocr-extract-text"
+					},
+					{
+						"description": "Lists supported languages for which the integration can extract text.",
+						"name": "image-ocr-list-languages"
 					}
 				],
 				"description": "Extracts text from images.",
@@ -46,20 +46,20 @@
 		"wizard": null
 	},
 	"created": "2020-11-09T18:51:01Z",
-	"currentVersion": "1.1.18",
+	"currentVersion": "1.1.27",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.24",
+			"minVersion": "1.33.26",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Extracts text from images.",
-	"downloads": 16098,
+	"downloads": 22945,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -67,6 +67,7 @@
 		"generalFieldFree",
 		"generalFieldSupportIncluded"
 	],
+	"hybrid": false,
 	"id": "ImageOCR",
 	"installMessage": "",
 	"integrations": [
@@ -75,7 +76,7 @@
 			"name": "Image OCR"
 		}
 	],
-	"itemVersion": "1.1.18",
+	"itemVersion": "1.1.27",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -100,11 +101,13 @@
 		"email": "",
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
-	"tags": [],
+	"tags": [
+		"Data Source"
+	],
 	"toServerVersion": "",
-	"updated": "2023-08-06T09:27:12Z",
+	"updated": "2024-02-11T10:22:48Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "5969979",
+	"versionInfo": "819156",
 	"videos": []
 }

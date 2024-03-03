@@ -57,7 +57,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 1.12.20
+    itemVersion: 1.14.3
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -65,17 +65,19 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.86272
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: SetWithTemplate
+nativeimage:
+- "8.6"
 pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('SetWithTemplate', 'start', __line__())
-  ### pack version: 1.12.20
+  ### pack version: 1.14.3
 
 
   from typing import Any, Callable, Dict, Optional, Tuple

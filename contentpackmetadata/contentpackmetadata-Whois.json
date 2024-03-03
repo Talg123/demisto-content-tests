@@ -26,15 +26,15 @@
 				"commands": [
 					{
 						"description": "Provides data enrichment for domains.",
-						"name": "whois"
-					},
-					{
-						"description": "Provides data enrichment for domains.",
 						"name": "domain"
 					},
 					{
 						"description": "Provides data enrichment for ips.",
 						"name": "ip"
+					},
+					{
+						"description": "Provides data enrichment for domains using free resources. Availability of those services may be limited.",
+						"name": "whois"
 					}
 				],
 				"description": "Provides data enrichment for domains.",
@@ -46,16 +46,16 @@
 		"list": null,
 		"playbook": [
 			{
-				"description": "This playbook compares the domain creation time against a provided time value such as one month ago. The period can be configured within the playbook inputs MinimumAgeOfDomainMonths or MinimumAgeOfDomainHours. The playbook calculates the timestamp for the relevant period and compares it to the domain creation time value provided by Whois. The domains are outputted accordingly if they were created before or after the compared time, respectively.",
-				"name": "TIM - Process Domain Age With Whois"
-			},
-			{
 				"description": "This playbook compares the domain registrant against the Cortex XSIAM list of approved registrants provided in the inputs. A registrant is the company or entity that owns the domain.",
 				"name": "TIM - Process Domain Registrant With Whois"
 			},
 			{
 				"description": "This playbook uses several sub playbooks to process and tag indicators based on the results of the Whois tool.",
 				"name": "TIM - Process Domains With Whois"
+			},
+			{
+				"description": "This playbook compares the domain creation time against a provided time value such as one month ago. The period can be configured within the playbook inputs MinimumAgeOfDomainMonths or MinimumAgeOfDomainHours. The playbook calculates the timestamp for the relevant period and compares it to the domain creation time value provided by Whois. The domains are outputted accordingly if they were created before or after the compared time, respectively.",
+				"name": "TIM - Process Domain Age With Whois"
 			}
 		],
 		"report": null,
@@ -64,21 +64,21 @@
 		"wizard": null
 	},
 	"created": "2020-07-26T20:02:55Z",
-	"currentVersion": "1.5.1",
+	"currentVersion": "1.5.9",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.28",
+			"minVersion": "1.33.28",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.12.18",
+			"minVersion": "1.13.38",
 			"name": "Common Scripts"
 		},
 		"DomainTools": {
@@ -92,13 +92,13 @@
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.0.21",
+			"minVersion": "1.0.22",
 			"name": "JsonWhoIs"
 		}
 	},
 	"deprecated": false,
 	"description": "This Content Pack helps you run Whois commands as playbook tasks or real-time actions within Cortex XSIAM to obtain valuable domain metadata.",
-	"downloads": 25998,
+	"downloads": 32176,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -106,6 +106,7 @@
 		"generalFieldFree",
 		"generalFieldSupportIncluded"
 	],
+	"hybrid": false,
 	"id": "Whois",
 	"installMessage": "",
 	"integrations": [
@@ -122,7 +123,7 @@
 			"name": "DomainTools"
 		}
 	],
-	"itemVersion": "1.5.1",
+	"itemVersion": "1.5.9",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -138,7 +139,7 @@
 	"rawKeywords": null,
 	"rawTags": null,
 	"rawUseCases": null,
-	"readme": "Whois is a powerful open source tool and protocol for querying details about a domain. Domain details that can be obtained include the domain registrant that owns the domain name, the registrar or service provider who registered the domain, the domain creation date and other metadata related to that domain.\n\nThis Whois content pack contains the Cortex XSIAM and Whois integration that executes the Whois command against the provided domains to provide relevant metadata for the domains. The ‘TIM - Process Domains With Whois’ playbook which accepts domain indicators provided by TIM feeds, contains two subplaybooks that perform tests on domains such as checking the domain registrant or domain age according to user specified inputs, and tagging the domain indicators accordingly.\n\n##### What does this pack do?\nThe Integration included in this pack helps you run the Whois command for domains which provides valuable context and data on domains.\nThe playbooks included in this pack help you save time and automate repetitive tasks associated with investigating data related to Whois enrichment for domains such as:\nAutomating the process of getting domain registrant information and verifying if the registrant is part of the user’s approved list.\nAutomating the process of checking the domain registration age according to the predefined minimum age provided by the user.\n\n##### Troubleshooting\n\n###### `ip` command timeout\nThe ***ip*** command can timeout when there are excessive calls to the whois service, which rate limits these calls.\nIn that case, the default behavior is to try 3 times, with a 120 second wait between retries.\nYou can use the following arguments to mitigate this:\n  - *rate_limit_retry_count* - Default: 3 times.\n  - *rate_limit_wait_seconds* - Default: 120 seconds.\n  - *rate_limit_errors_suppressed* - Default: False.\n\n\n\nFor more information, visit our  [Cortex XSIAM Developer Docs](https://xsoar.pan.dev/docs/reference/playbooks/tim---process-domains-with-whois)\n\n![TIM - Process Domains With Whois](https://raw.githubusercontent.com/demisto/content/master/Packs/Whois/doc_files/TIM_-_Process_Domains_With_Whois.png)",
+	"readme": "Whois is a powerful open source tool and protocol for querying details about a domain. Domain details that can be obtained include the domain registrant that owns the domain name, the registrar or service provider who registered the domain, the domain creation date and other metadata related to that domain.\n\nThis Whois content pack contains the Cortex XSIAM and Whois integration that executes the Whois command against the provided domains to provide relevant metadata for the domains. The ‘TIM - Process Domains With Whois’ playbook which accepts domain indicators provided by TIM feeds, contains two subplaybooks that perform tests on domains such as checking the domain registrant or domain age according to user specified inputs, and tagging the domain indicators accordingly.\n\n##### What does this pack do?\nThe Integration included in this pack helps you run the Whois command for domains which provides valuable context and data on domains.\nThe playbooks included in this pack help you save time and automate repetitive tasks associated with investigating data related to Whois enrichment for domains such as:\nAutomating the process of getting domain registrant information and verifying if the registrant is part of the user’s approved list.\nAutomating the process of checking the domain registration age according to the predefined minimum age provided by the user.\n\n##### Troubleshooting\n\n###### `ip` command timeout\nThe ***ip*** command can timeout when there are excessive calls to the whois service, which rate limits these calls.\nIn that case, the default behavior is to try 3 times, with a 120 second wait between retries.\nYou can use the following arguments to mitigate this:\n  - *rate_limit_retry_count* - Default: 3 times.\n  - *rate_limit_wait_seconds* - Default: 120 seconds.\n  - *rate_limit_errors_suppressed* - Default: False.\n\n\n\nFor more information, visit our  [Cortex XSIAM Developer Docs](https://xsoar.pan.dev/docs/reference/playbooks/tim---process-domains-with-whois)\n\n![TIM - Process Domains With Whois](api/marketplace/file?name=content/packs/Whois/readme_images/TIM_-_Process_Domains_With_Whois.png)",
 	"searchRank": 10,
 	"serverMaxVersion": "",
 	"serverMinVersion": "5.0.0",
@@ -148,15 +149,16 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
+		"Free Enricher",
 		"Getting Started",
 		"Plug \u0026 Enrich",
-		"Free Enricher",
+		"Data Source",
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-30T09:20:58Z",
+	"updated": "2024-02-14T10:22:22Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "6190939",
+	"versionInfo": "827009",
 	"videos": []
 }

@@ -12,7 +12,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.5.0
-    itemVersion: 1.1.22
+    itemVersion: 1.1.29
     packID: FeedMitreAttackv2
     packName: MITRE ATT&CK
     packPropagationLabels:
@@ -21,11 +21,14 @@ contentitemexportablefields:
     propagationLabels: []
     toServerVersion: ""
 deprecated: true
-dockerimage: demisto/python3:3.10.12.66339
+dockerimage: demisto/python3:3.10.13.83255
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: MITREIndicatorsByOpenIncidentsV2
+nativeimage:
+- "8.3"
+- "8.4"
 pswd: ""
 runas: DBotWeakRole
 runonce: false

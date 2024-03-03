@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -24,6 +24,50 @@ description: "This playbook handles impossible traveler alerts.\n\nAn Impossible
   is being executed, which includes:\n\n* Auto block indicators \n\n\n**External Resources:**\n\n[Impossible
   traveler alert](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR-Analytics-Alert-Reference/Impossible-traveler-SSO)"
 id: Impossible Traveler Response
+inputSections:
+- description: Alert management settings and data, including escalation processes,
+    and user engagements.
+  inputs:
+  - domain
+  - username
+  - ContactUserManager
+  name: Alert Management
+- description: Investigation settings and data, including any deep dive alert investigation
+    and verdict determination.
+  inputs:
+  - WhitelistedIPs
+  - AllowlistCIDR
+  - MaxMilesPerHourAllowed
+  name: Investigation
+- description: Remediation settings and data, including containment, eradication,
+    and recovery.
+  inputs:
+  - preInvestigationContainment
+  - AutoContainment
+  - AbuseIPDBThreshold
+  name: Remediation
+- description: Ticket management settings and data.
+  inputs:
+  - ShouldOpenTicket
+  - serviceNowShortDescription
+  - serviceNowImpact
+  - serviceNowUrgency
+  - serviceNowSeverity
+  - serviceNowTicketType
+  - serviceNowCategory
+  - serviceNowAssignmentGroup
+  - ZendeskPriority
+  - ZendeskRequester
+  - ZendeskStatus
+  - ZendeskSubject
+  - ZendeskTags
+  - ZendeskType
+  - ZendeskAssigne
+  - ZendeskCollaborators
+  - description
+  - addCommentPerEndpoint
+  - CommentToAdd
+  name: Ticket Management
 inputs:
 - description: The maximum miles per hour that is considered reasonable. If the geographical
     distance and difference in time between logins is greater than this value, the
@@ -193,6 +237,31 @@ inputs:
   value:
     simple: '${alert.name}. Alert ID: ${alert.id}'
 name: Impossible Traveler Response
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs:
+  - Account.Email.Address
+  - DBotScore
+  - Account.ID
+  - Account.Username
+  - Account.Email
+  - Account.Type
+  - Account.Groups
+  - Account
+  - Account.DisplayName
+  - Account.Manager
+  - DBotScore.Indicator
+  - DBotScore.Type
+  - DBotScore.Vendor
+  - DBotScore.Score
+  - IP
+  - Endpoint
+  - Endpoint.Hostname
+  - Endpoint.OS
+  - Endpoint.IP
+  - Endpoint.MAC
+  - Endpoint.Domain
 outputs:
 - contextPath: Account.Email.Address
   description: The email address object associated with the Account.
@@ -282,7 +351,7 @@ tasks:
       {
         "position": {
           "x": -30,
-          "y": -10
+          "y": -50
         }
       }
   "32":
@@ -344,7 +413,7 @@ tasks:
       {
         "position": {
           "x": -30,
-          "y": 120
+          "y": 80
         }
       }
   "51":
@@ -877,7 +946,7 @@ tasks:
       {
         "position": {
           "x": -30,
-          "y": 400
+          "y": 390
         }
       }
   "110":
@@ -958,7 +1027,7 @@ tasks:
       {
         "position": {
           "x": -30,
-          "y": 240
+          "y": 220
         }
       }
   "112":
@@ -1175,8 +1244,6 @@ tasks:
         simple: Quarantine
       HostAutoContainment:
         simple: "False"
-      IAMUserDomain:
-        simple: '@demisto.com'
       IP:
         complex:
           root: ImpossibleTravelerIPs
@@ -1243,8 +1310,6 @@ tasks:
         simple: Quarantine
       HostAutoContainment:
         simple: "False"
-      IAMUserDomain:
-        simple: '@demisto.com'
       IP:
         complex:
           filters:
@@ -1534,10 +1599,10 @@ view: |-
     },
     "paper": {
       "dimensions": {
-        "height": 4105,
+        "height": 4145,
         "width": 1490,
         "x": -310,
-        "y": -10
+        "y": -50
       }
     }
   }

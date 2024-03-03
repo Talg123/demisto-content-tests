@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.9.0
-    itemVersion: 1.6.33
+    itemVersion: 1.7.29
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -54,11 +54,11 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: af5b9b79-6e1c-47ee-87a5-a14d72aa7393
+      id: f53e0e04-0bde-4421-81c2-3408fbb0ad52
       iscommand: false
       name: ""
       version: -1
-    taskid: af5b9b79-6e1c-47ee-87a5-a14d72aa7393
+    taskid: f53e0e04-0bde-4421-81c2-3408fbb0ad52
     timertriggers: []
     type: start
     view: |-
@@ -98,13 +98,13 @@ tasks:
     task:
       brand: ""
       description: Returns list of remediation path rules.
-      id: 07e2fd95-eece-4e79-8d09-aee7994dddc3
+      id: 0207b014-5eb8-4ef5-8f8c-c614cd144f9a
       iscommand: true
       name: List remediation path rules
       script: '|||asm-list-remediation-rule'
       type: regular
       version: -1
-    taskid: 07e2fd95-eece-4e79-8d09-aee7994dddc3
+    taskid: 0207b014-5eb8-4ef5-8f8c-c614cd144f9a
     timertriggers: []
     type: regular
     view: |-
@@ -142,12 +142,12 @@ tasks:
     task:
       brand: ""
       description: Determines if there was a result from the previous command to continue.
-      id: 3830cd0d-f379-46a5-85b0-2bdaa0d1cc91
+      id: 6665e4f1-2958-4a7e-85f8-95111f0a8024
       iscommand: false
       name: Was there a result?
       type: condition
       version: -1
-    taskid: 3830cd0d-f379-46a5-85b0-2bdaa0d1cc91
+    taskid: 6665e4f1-2958-4a7e-85f8-95111f0a8024
     timertriggers: []
     type: condition
     view: |-
@@ -210,13 +210,13 @@ tasks:
         If multiple rules match, it will return the most recently created rule. This
         assumes that the rules passed in are filtered to correlate with the alert's
         attack surface rule.
-      id: 6d3a0638-8a11-4e76-813f-adde68849033
+      id: f2a13bb9-2de5-46b3-8b11-f37790e5e7aa
       iscommand: false
       name: Evaluate remediation path rules
       script: RemediationPathRuleEvaluation
       type: regular
       version: -1
-    taskid: 6d3a0638-8a11-4e76-813f-adde68849033
+    taskid: f2a13bb9-2de5-46b3-8b11-f37790e5e7aa
     timertriggers: []
     type: regular
     view: |-
@@ -238,12 +238,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: cb5ababa-3084-45bb-8789-7374934cd0ea
+      id: 475baaab-5fc4-404b-83a3-12d3d7ab2fcf
       iscommand: false
       name: Complete
       type: title
       version: -1
-    taskid: cb5ababa-3084-45bb-8789-7374934cd0ea
+    taskid: 475baaab-5fc4-404b-83a3-12d3d7ab2fcf
     timertriggers: []
     type: title
     view: |-
@@ -281,7 +281,7 @@ tasks:
           operator: inList
           right:
             value:
-              simple: AWS,GCP,Azure
+              simple: AWS,GCP,Azure,On Prem
       - - left:
             iscontext: true
             value:
@@ -367,12 +367,12 @@ tasks:
     task:
       brand: ""
       description: Determines if the alert meets the criteria for automated remediation.
-      id: 0888d536-debd-4502-86cc-e3cb3757c556
+      id: d46de1a3-299d-4a2b-8a5d-541d684b5183
       iscommand: false
       name: Meets automated remediation requirements?
       type: condition
       version: -1
-    taskid: 0888d536-debd-4502-86cc-e3cb3757c556
+    taskid: d46de1a3-299d-4a2b-8a5d-541d684b5183
     timertriggers: []
     type: condition
     view: |-
@@ -429,12 +429,12 @@ tasks:
       brand: ""
       description: Determines if the "Cortex Attack Surface Management" integration
         instance is configured to pull Remediation Path Rules.
-      id: 960047cb-8a2f-4d88-8336-6c92bf6b7d24
+      id: ee07dc79-0d84-44b7-855e-c22a0c02245f
       iscommand: false
       name: Is Cortex ASM enabled?
       type: condition
       version: -1
-    taskid: 960047cb-8a2f-4d88-8336-6c92bf6b7d24
+    taskid: ee07dc79-0d84-44b7-855e-c22a0c02245f
     timertriggers: []
     type: condition
     view: |-
@@ -491,12 +491,12 @@ tasks:
       brand: ""
       description: Determines if the "ServiceNow v2" integration instance is enabled
         in order to send ServiceNow tickets as notifications.
-      id: e4f03664-c6c4-437a-8266-28ee80c11507
+      id: dc8ed22e-42a4-4f17-865d-748a6497b01f
       iscommand: false
       name: Is ServiceNow v2 enabled?
       type: condition
       version: -1
-    taskid: e4f03664-c6c4-437a-8266-28ee80c11507
+    taskid: dc8ed22e-42a4-4f17-865d-748a6497b01f
     timertriggers: []
     type: condition
     view: |-
@@ -527,13 +527,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 836a543a-a6cc-41d9-8e47-89bcdbafe710
+      id: 61f1db44-72bc-4ac5-820c-e9cd290ac79c
       iscommand: false
       name: Set ServiceNowv2Enabled to true
       script: Set
       type: regular
       version: -1
-    taskid: 836a543a-a6cc-41d9-8e47-89bcdbafe710
+    taskid: 61f1db44-72bc-4ac5-820c-e9cd290ac79c
     timertriggers: []
     type: regular
     view: |-
@@ -564,13 +564,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 76a40965-face-4ed9-86cc-129a42aad45e
+      id: e9b92d4e-6ad9-42ad-8664-73071081b9e0
       iscommand: false
       name: Set ServiceNowv2Enabled to false
       script: Set
       type: regular
       version: -1
-    taskid: 76a40965-face-4ed9-86cc-129a42aad45e
+    taskid: e9b92d4e-6ad9-42ad-8664-73071081b9e0
     timertriggers: []
     type: regular
     view: |-
@@ -601,13 +601,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 2555114a-9e49-42ce-82fa-c9fd2763e646
+      id: 3c333ac9-103f-4df3-877c-ef08a0b2ce2c
       iscommand: false
       name: Set AutoRemediationRequirements to true
       script: Set
       type: regular
       version: -1
-    taskid: 2555114a-9e49-42ce-82fa-c9fd2763e646
+    taskid: 3c333ac9-103f-4df3-877c-ef08a0b2ce2c
     timertriggers: []
     type: regular
     view: |-
@@ -638,13 +638,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 5068a47f-0c7b-4ae3-844b-6ef5a94a045d
+      id: 98f3fdfd-a9a7-43ea-8fc1-d10bf21bb126
       iscommand: false
       name: Set AutoRemediationRequirements to false
       script: Set
       type: regular
       version: -1
-    taskid: 5068a47f-0c7b-4ae3-844b-6ef5a94a045d
+    taskid: 98f3fdfd-a9a7-43ea-8fc1-d10bf21bb126
     timertriggers: []
     type: regular
     view: |-
@@ -685,12 +685,12 @@ tasks:
       brand: ""
       description: Determines if a matching remediation path rule was found based
         on population of the "ASM - Remediation Path Rule" field.
-      id: 32bf9ebb-243b-4c6e-83af-cc4bc8db057f
+      id: 29f89903-4450-4edb-89a8-4dcb7eefb484
       iscommand: false
       name: Was there a match?
       type: condition
       version: -1
-    taskid: 32bf9ebb-243b-4c6e-83af-cc4bc8db057f
+    taskid: 29f89903-4450-4edb-89a8-4dcb7eefb484
     timertriggers: []
     type: condition
     view: |-
@@ -813,12 +813,12 @@ tasks:
       brand: ""
       description: Determines what is returned to the parent playbook based on contents
         of "ASM - Remediation Path Rule" field and other requirements.
-      id: 4a743e3a-5c29-4af9-819c-14ac39639fd5
+      id: 1c420f97-4985-4bba-8cee-d8ed51cce2ff
       iscommand: false
       name: What is the action of the matched rule?
       type: condition
       version: -1
-    taskid: 4a743e3a-5c29-4af9-819c-14ac39639fd5
+    taskid: 1c420f97-4985-4bba-8cee-d8ed51cce2ff
     timertriggers: []
     type: condition
     view: |-
@@ -849,13 +849,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 01529421-34f9-4056-8065-a69d942ffd18
+      id: 68e6d8ee-e670-4beb-8dce-9e34b64f585f
       iscommand: false
       name: Return AR
       script: Set
       type: regular
       version: -1
-    taskid: 01529421-34f9-4056-8065-a69d942ffd18
+    taskid: 68e6d8ee-e670-4beb-8dce-9e34b64f585f
     timertriggers: []
     type: regular
     view: |-
@@ -886,13 +886,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 21b279e3-669e-4e1b-8420-da58c3238cc6
+      id: 09502b4c-8588-4a1b-8530-f854e6c995e2
       iscommand: false
       name: Return SNOW
       script: Set
       type: regular
       version: -1
-    taskid: 21b279e3-669e-4e1b-8420-da58c3238cc6
+    taskid: 09502b4c-8588-4a1b-8530-f854e6c995e2
     timertriggers: []
     type: regular
     view: |-
@@ -923,13 +923,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 087a98b6-c839-40e1-8e27-56c27418df5e
+      id: 3fda1c2d-d726-4835-8540-1c2aa16f474a
       iscommand: false
       name: Return Email
       script: Set
       type: regular
       version: -1
-    taskid: 087a98b6-c839-40e1-8e27-56c27418df5e
+    taskid: 3fda1c2d-d726-4835-8540-1c2aa16f474a
     timertriggers: []
     type: regular
     view: |-
@@ -960,13 +960,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 97aadeaa-3ba1-491e-87a0-17f6b82f70e9
+      id: c7a1c4d2-0e40-44ac-8d66-5361aeb0c4ad
       iscommand: false
       name: Return Manual
       script: Set
       type: regular
       version: -1
-    taskid: 97aadeaa-3ba1-491e-87a0-17f6b82f70e9
+    taskid: c7a1c4d2-0e40-44ac-8d66-5361aeb0c4ad
     timertriggers: []
     type: regular
     view: |-
@@ -993,13 +993,13 @@ tasks:
       brand: ""
       description: |
         Retrieves the current date and time.
-      id: 86321d8c-3eb9-45cd-831d-09691bfce8a7
+      id: 2f03729d-b3a7-4a6c-8f85-71b5f6f15ef5
       iscommand: false
       name: Get current time
       script: GetTime
       type: regular
       version: -1
-    taskid: 86321d8c-3eb9-45cd-831d-09691bfce8a7
+    taskid: 2f03729d-b3a7-4a6c-8f85-71b5f6f15ef5
     timertriggers: []
     type: regular
     view: |-
@@ -1033,13 +1033,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 35d2826f-a35c-41eb-8d5d-c7bfa0b81626
+      id: 26734940-913f-4bd8-8652-a63e5068f0d1
       iscommand: false
       name: Set timestamp
       script: Set
       type: regular
       version: -1
-    taskid: 35d2826f-a35c-41eb-8d5d-c7bfa0b81626
+    taskid: 26734940-913f-4bd8-8652-a63e5068f0d1
     timertriggers: []
     type: regular
     view: |-
@@ -1064,12 +1064,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 097da85c-45fa-4e2b-84e5-368beb16cec2
+      id: dabc7f51-0ced-4b11-8b38-165e5b9077b5
       iscommand: false
       name: Also True
       type: title
       version: -1
-    taskid: 097da85c-45fa-4e2b-84e5-368beb16cec2
+    taskid: dabc7f51-0ced-4b11-8b38-165e5b9077b5
     timertriggers: []
     type: title
     view: |-
@@ -1102,13 +1102,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: b817fe28-0f00-48c0-8d6e-0af03edb8cc0
+      id: 717271bd-270f-4db9-86c4-22aa8a9535a0
       iscommand: false
       name: Set remediationoptions context (AR ports)
       script: Set
       type: regular
       version: -1
-    taskid: b817fe28-0f00-48c0-8d6e-0af03edb8cc0
+    taskid: 717271bd-270f-4db9-86c4-22aa8a9535a0
     timertriggers: []
     type: regular
     view: |-
@@ -1141,13 +1141,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: be80b5e7-0b4b-4b85-8486-dafd343855a1
+      id: 74551098-9d92-446b-8eb2-30301c0196d4
       iscommand: false
       name: Set remediationoptions context (AR S3)
       script: Set
       type: regular
       version: -1
-    taskid: be80b5e7-0b4b-4b85-8486-dafd343855a1
+    taskid: 74551098-9d92-446b-8eb2-30301c0196d4
     timertriggers: []
     type: regular
     view: |-
@@ -1173,12 +1173,12 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 32a508b4-3cc7-46a6-8e15-b3d9108db013
+      id: a78048a8-0b1d-4f50-81d1-ec9a638828fb
       iscommand: false
       name: Notification Check
       type: title
       version: -1
-    taskid: 32a508b4-3cc7-46a6-8e15-b3d9108db013
+    taskid: a78048a8-0b1d-4f50-81d1-ec9a638828fb
     timertriggers: []
     type: title
     view: |-
@@ -1211,13 +1211,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: a7b10b4e-1a4f-4cee-8fc3-aea16a006449
+      id: 581af6af-fb23-49b8-84d0-b55c3917143b
       iscommand: false
       name: Set remediationoptions context (SNOW)
       script: Set
       type: regular
       version: -1
-    taskid: a7b10b4e-1a4f-4cee-8fc3-aea16a006449
+    taskid: 581af6af-fb23-49b8-84d0-b55c3917143b
     timertriggers: []
     type: regular
     view: |-
@@ -1248,13 +1248,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 5356e643-7a44-4b67-878d-6377595eb6a2
+      id: c9fcfadd-d65c-403c-85b7-3fe6c92ebe26
       iscommand: false
       name: Set JiraEnabled to true
       script: Set
       type: regular
       version: -1
-    taskid: 5356e643-7a44-4b67-878d-6377595eb6a2
+    taskid: c9fcfadd-d65c-403c-85b7-3fe6c92ebe26
     timertriggers: []
     type: regular
     view: |-
@@ -1285,13 +1285,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: c937dc23-73f0-4964-8325-0004bfbf8ecd
+      id: 7805e705-95f5-418c-88fb-84fccde4e45d
       iscommand: false
       name: Set JiraEnabled to false
       script: Set
       type: regular
       version: -1
-    taskid: c937dc23-73f0-4964-8325-0004bfbf8ecd
+    taskid: 7805e705-95f5-418c-88fb-84fccde4e45d
     timertriggers: []
     type: regular
     view: |-
@@ -1324,13 +1324,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 392a9211-a605-4c7e-83f8-27f093623cf0
+      id: 82db1979-3555-498d-8483-c3c12bc9fec3
       iscommand: false
       name: Set remediationoptions context (Jira)
       script: Set
       type: regular
       version: -1
-    taskid: 392a9211-a605-4c7e-83f8-27f093623cf0
+    taskid: 82db1979-3555-498d-8483-c3c12bc9fec3
     timertriggers: []
     type: regular
     view: |-
@@ -1363,13 +1363,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 4f35b4ce-0428-4af4-8d4e-2a8fcb1f9fea
+      id: d3342595-7841-4e8d-829c-2b5fb00d8bbd
       iscommand: false
       name: Set remediationoptions context (Email)
       script: Set
       type: regular
       version: -1
-    taskid: 4f35b4ce-0428-4af4-8d4e-2a8fcb1f9fea
+    taskid: d3342595-7841-4e8d-829c-2b5fb00d8bbd
     timertriggers: []
     type: regular
     view: |-
@@ -1402,13 +1402,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: 4dcbb616-f83a-4d61-8056-7ba418e8b95a
+      id: 8ef9ae63-6742-4910-8cad-82b870a3b035
       iscommand: false
       name: Set remediationoptions context (Manual)
       script: Set
       type: regular
       version: -1
-    taskid: 4dcbb616-f83a-4d61-8056-7ba418e8b95a
+    taskid: 8ef9ae63-6742-4910-8cad-82b870a3b035
     timertriggers: []
     type: regular
     view: |-
@@ -1483,12 +1483,12 @@ tasks:
       description: Determines the next action (remediation or ticket) based on user
         input. Options are based on if ServiceNowV2 integration is set up and/or the
         alert meets the requirement for automated remediation.
-      id: 227dc293-12ef-4563-82b4-9fa95aa1afdb
+      id: 3dae14eb-59a7-478d-85ac-a8ef1de6e844
       iscommand: false
       name: Select remediation action (dynamic)
       type: collection
       version: -1
-    taskid: 227dc293-12ef-4563-82b4-9fa95aa1afdb
+    taskid: 3dae14eb-59a7-478d-85ac-a8ef1de6e844
     timertriggers: []
     type: collection
     view: |-
@@ -1537,13 +1537,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field.  This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well.  Instead of a value you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: fa234e99-d4c6-4001-8f5e-2823223a2967
+      id: 6e6043e3-9638-4940-8c37-e862b439ee6a
       iscommand: false
       name: Set data collection grid field
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: fa234e99-d4c6-4001-8f5e-2823223a2967
+    taskid: 6e6043e3-9638-4940-8c37-e862b439ee6a
     timertriggers: []
     type: regular
     view: |-
@@ -1580,13 +1580,13 @@ tasks:
       description: |-
         Automation used to more easily populate a grid field. This is necessary when you want to assign certain values as static or if you have context paths that you will assign to different values as well. Instead of a value, you can enter `TIMESTAMP` to get the current timestamp in ISO format.  Example of the command:
         `!GridFieldSetup keys=ip,src,timestamp val1=${AWS.EC2.Instances.NetworkInterfaces.PrivateIpAddress} val2="AWS" val3="TIMESTAMP" gridfiled="gridfield"`
-      id: 1017060a-6021-46dc-8102-3d4f8c928057
+      id: e44336e3-305e-4d96-8731-f5aef3c67e7a
       iscommand: false
       name: Set playbook stage grid field (decision)
       script: GridFieldSetup
       type: regular
       version: -1
-    taskid: 1017060a-6021-46dc-8102-3d4f8c928057
+    taskid: e44336e3-305e-4d96-8731-f5aef3c67e7a
     timertriggers: []
     type: regular
     view: |-
@@ -1617,13 +1617,13 @@ tasks:
     task:
       brand: ""
       description: Set a value in context under the key you entered.
-      id: ab88b522-132d-437b-8063-1e01d10c6813
+      id: c35cce8e-1c8e-4432-831c-65df7e04b004
       iscommand: false
       name: Return Jira
       script: Set
       type: regular
       version: -1
-    taskid: ab88b522-132d-437b-8063-1e01d10c6813
+    taskid: c35cce8e-1c8e-4432-831c-65df7e04b004
     timertriggers: []
     type: regular
     view: |-
@@ -1688,12 +1688,12 @@ tasks:
       brand: ""
       description: Determines if the "Atlassian Jira v2" or "Atlassian Jira v3" integration
         instance is enabled in order to send Jira tickets as notifications.
-      id: f9f0243b-c7ab-4660-8a56-90ba71d2f610
+      id: fdfbace2-fb0b-48b1-895f-6d17a21b55a1
       iscommand: false
       name: Is Atlassian Jira v2 or v3 enabled?
       type: condition
       version: -1
-    taskid: f9f0243b-c7ab-4660-8a56-90ba71d2f610
+    taskid: fdfbace2-fb0b-48b1-895f-6d17a21b55a1
     timertriggers: []
     type: condition
     view: |-
@@ -1730,13 +1730,13 @@ tasks:
       brand: ""
       description: Playbook that populates remediation objectives field used to display
         the remediation actions to the end user
-      id: 451f8d00-c956-4875-8569-df42207d1b6d
+      id: e8c04311-35a4-4a38-832d-b9d29bc149a3
       iscommand: false
       name: Cortex ASM - Remediation Objectives
       playbookId: Cortex ASM - Remediation Objectives
       type: playbook
       version: -1
-    taskid: 451f8d00-c956-4875-8569-df42207d1b6d
+    taskid: e8c04311-35a4-4a38-832d-b9d29bc149a3
     timertriggers: []
     type: playbook
     view: |-

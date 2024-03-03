@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -47,6 +47,50 @@ description: |-
 
   [Port Scan](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR-Analytics-Alert-Reference/Port-Scan)
 id: NGFW Scan
+inputSections:
+- description: Alert management settings and data, including escalation processes,
+    and user engagements.
+  inputs:
+  - SOCEmailAddress
+  - AutoCloseAlert
+  name: Alert Management
+- description: Investigation settings and data, including any deep dive alert investigation
+    and verdict determination.
+  inputs:
+  - scannerIP
+  name: Investigation
+- description: Remediation settings and data, including containment, eradication,
+    and recovery.
+  inputs:
+  - blockKnownScanner
+  - reportIPAddress
+  - AutoContainment
+  - UserVerification
+  - HostAutoContainment
+  - AutoRecovery
+  name: Remediation
+- description: Ticket management settings and data.
+  inputs:
+  - ShouldOpenTicket
+  - serviceNowShortDescription
+  - serviceNowImpact
+  - serviceNowUrgency
+  - serviceNowSeverity
+  - serviceNowTicketType
+  - serviceNowCategory
+  - serviceNowAssignmentGroup
+  - ZendeskPriority
+  - ZendeskRequester
+  - ZendeskStatus
+  - ZendeskSubject
+  - ZendeskTags
+  - ZendeskType
+  - ZendeskAssigne
+  - ZendeskCollaborators
+  - description
+  - addCommentPerEndpoint
+  - CommentToAdd
+  name: Ticket Management
 inputs:
 - description: The scanner IP address.
   key: scannerIP
@@ -209,7 +253,19 @@ inputs:
   required: false
   value:
     simple: '${alert.name}. Alert ID: ${alert.id}'
+- description: |-
+    Possible values: True/False.  Default: True.
+    Whether to provide user verification for blocking IP addresses.
+  key: UserVerification
+  playbookInputQuery: null
+  required: false
+  value:
+    simple: "True"
 name: NGFW Scan
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs: []
 outputs: []
 starttaskid: "0"
 system: true
@@ -312,7 +368,7 @@ tasks:
       {
         "position": {
           "x": 20,
-          "y": 3190
+          "y": 3180
         }
       }
   "10":
@@ -424,9 +480,9 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "43"
+      - "46"
       "yes":
-      - "19"
+      - "61"
     note: false
     quietmode: 0
     separatecontext: false
@@ -493,8 +549,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1000,
-          "y": 1860
+          "x": 1250,
+          "y": 2010
         }
       }
   "23":
@@ -518,6 +574,8 @@ tasks:
         simple: "No"
       CustomBlockRule:
         simple: "True"
+      Folder:
+        simple: Shared
       IP:
         complex:
           root: inputs.scannerIP
@@ -526,16 +584,17 @@ tasks:
       RuleDirection:
         simple: outbound
       RuleName:
-        simple: XSOAR - Block IP playbook - ${incident.id}
+        simple: XSOAR - Block IP playbook - ${alert.id}
       UserVerification:
-        simple: "True"
+        complex:
+          root: inputs.UserVerification
     separatecontext: true
     skipunavailable: false
     task:
       brand: ""
       description: "This playbook blocks malicious IP addresses using all integrations
         that are enabled. The direction of the traffic that will be blocked is determined
-        by the Cortex XSIAM user (and set by default to outgoing)\nNote the following:\n-
+        by the XSOAR user (and set by default to outgoing)\nNote the following:\n-
         \ some of those integrations require specific parameters to run, which are
         based on the playbook inputs. Also, certain integrations use FW rules or appended
         network objects.\n- Note that the appended network objects should be specified
@@ -545,13 +604,13 @@ tasks:
         Aria Packet Intelligence\n* Cisco Firepower \n* Cisco Secure Cloud Analytics\n*
         Cisco ASA\n* Akamai WAF\n* F5 SilverLine\n* ThreatX\n* Signal Sciences WAF\n*
         Sophos Firewall\n\n"
-      id: 7cf5d18d-0e5c-45a8-84c2-337e2987903e
+      id: f6288d7e-39f3-4da3-8a9e-5c5ffcd318b1
       iscommand: false
       name: Block IP - Generic v3
       playbookId: Block IP - Generic v3
       type: playbook
       version: -1
-    taskid: 7cf5d18d-0e5c-45a8-84c2-337e2987903e
+    taskid: f6288d7e-39f3-4da3-8a9e-5c5ffcd318b1
     timertriggers: []
     type: playbook
     view: |-
@@ -824,7 +883,7 @@ tasks:
       wait: 1
     nexttasks:
       '#none#':
-      - "43"
+      - "46"
     note: false
     quietmode: 0
     scriptarguments:
@@ -873,8 +932,6 @@ tasks:
       HostAutoContainment:
         complex:
           root: inputs.HostAutoContainment
-      IAMUserDomain:
-        simple: '@demisto.com'
       UserContainment:
         simple: Fasle
     separatecontext: true
@@ -904,7 +961,7 @@ tasks:
       {
         "position": {
           "x": 1000,
-          "y": 2030
+          "y": 2180
         }
       }
   "41":
@@ -936,7 +993,7 @@ tasks:
       {
         "position": {
           "x": 480,
-          "y": 3020
+          "y": 3010
         }
       }
   "42":
@@ -960,7 +1017,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "41"
+      - "60"
       "yes":
       - "45"
     note: false
@@ -982,84 +1039,7 @@ tasks:
       {
         "position": {
           "x": 480,
-          "y": 2675
-        }
-      }
-  "43":
-    conditions:
-    - condition:
-      - - ignorecase: true
-          left:
-            iscontext: true
-            value:
-              complex:
-                root: inputs.AutoCloseAlert
-          operator: isEqualString
-          right:
-            value:
-              simple: "true"
-      label: "yes"
-    continueonerrortype: ""
-    id: "43"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "44"
-      "yes":
-      - "46"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Whether to close the alert automatically.
-      id: 603b1088-07d0-4656-8b8d-ce58e06cf7e6
-      iscommand: false
-      name: Should close alert automatically?
-      type: condition
-      version: -1
-    taskid: 603b1088-07d0-4656-8b8d-ce58e06cf7e6
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 480,
-          "y": 2200
-        }
-      }
-  "44":
-    continueonerrortype: ""
-    id: "44"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "46"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Manual continuation of the investigation.
-      id: 0efdf166-59cc-4539-8732-ce0aa4c08d3e
-      iscommand: false
-      name: Continue with the alert investigation
-      type: regular
-      version: -1
-    taskid: 0efdf166-59cc-4539-8732-ce0aa4c08d3e
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 1000,
-          "y": 2370
+          "y": 2485
         }
       }
   "45":
@@ -1075,7 +1055,7 @@ tasks:
       wait: 1
     nexttasks:
       '#none#':
-      - "41"
+      - "60"
     note: false
     quietmode: 0
     scriptarguments:
@@ -1107,7 +1087,7 @@ tasks:
       {
         "position": {
           "x": 1000,
-          "y": 2850
+          "y": 2660
         }
       }
   "46":
@@ -1137,7 +1117,7 @@ tasks:
       {
         "position": {
           "x": 480,
-          "y": 2540
+          "y": 2350
         }
       }
   "47":
@@ -1306,8 +1286,6 @@ tasks:
       attackerRemoteIP:
         complex:
           root: inputs.scannerIP
-      timeRange:
-        simple: 2 hours ago
     separatecontext: false
     skipunavailable: false
     task:
@@ -1659,19 +1637,102 @@ tasks:
           "y": 350
         }
       }
+  "60":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.AutoCloseAlert
+          operator: isEqualString
+          right:
+            value:
+              simple: "true"
+      label: "yes"
+    continueonerrortype: ""
+    id: "60"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "5"
+      "yes":
+      - "41"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Whether to close the alert automatically.
+      id: c0b99b5f-80b6-4423-8e16-a2f9ce2e2a1e
+      iscommand: false
+      name: Should close alert automatically?
+      type: condition
+      version: -1
+    taskid: c0b99b5f-80b6-4423-8e16-a2f9ce2e2a1e
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 480,
+          "y": 2835
+        }
+      }
+  "61":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.SOCEmailAddress
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "61"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "40"
+      "yes":
+      - "19"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the SOC Email exist.
+      id: 0d9c70b9-65ea-4f19-8289-36ba6b10d480
+      iscommand: false
+      name: SOC Email exist?
+      type: condition
+      version: -1
+    taskid: 0d9c70b9-65ea-4f19-8289-36ba6b10d480
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1000,
+          "y": 1840
+        }
+      }
 version: -1
 view: |-
   {
     "linkLabelsPosition": {
-      "17_19_yes": 0.49,
-      "17_43_#default#": 0.16,
       "26_28_#default#": 0.47,
       "26_57_yes": 0.48,
       "28_47_#default#": 0.51,
       "28_57_yes": 0.36,
-      "42_41_#default#": 0.53,
       "42_45_yes": 0.49,
-      "43_44_#default#": 0.48,
       "47_48_Yes": 0.58,
       "47_5_#default#": 0.12,
       "4_11_#default#": 0.41,
@@ -1679,12 +1740,15 @@ view: |-
       "55_14_#default#": 0.28,
       "55_56_yes": 0.48,
       "56_14_#default#": 0.43,
-      "56_54_yes": 0.5
+      "56_54_yes": 0.5,
+      "60_41_yes": 0.63,
+      "60_5_#default#": 0.43,
+      "61_40_#default#": 0.5
     },
     "paper": {
       "dimensions": {
-        "height": 4395,
-        "width": 1620,
+        "height": 4385,
+        "width": 1870,
         "x": -240,
         "y": -1140
       }

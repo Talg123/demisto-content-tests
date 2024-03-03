@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.8.0
-    itemVersion: 1.6.33
+    itemVersion: 1.7.29
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -60,21 +60,40 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
+      asmsystemids:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: alert.asmsystemids.type
+              operator: containsString
+              right:
+                value:
+                  simple: ASSET-NAME
+          root: alert.asmsystemids
+          transformers:
+          - args:
+              field:
+                value:
+                  simple: id
+            operator: getField
       owners:
-        simple: ${alert.asmserviceownerunrankedraw}
+        complex:
+          root: alert.asmserviceownerunrankedraw
     separatecontext: false
     skipunavailable: true
     task:
       brand: ""
       description: Recommend most likely service owners from those surfaced by Cortex
         ASM Enrichment.
-      id: d19cd395-29e5-4b38-8e22-522bd9ca18ef
+      id: 91e4b9c9-2fe6-4cb4-8d55-f944a89e083b
       iscommand: false
       name: Normalize and rank likely service owners
       script: RankServiceOwners
       type: regular
       version: -1
-    taskid: d19cd395-29e5-4b38-8e22-522bd9ca18ef
+    taskid: 91e4b9c9-2fe6-4cb4-8d55-f944a89e083b
     timertriggers: []
     type: regular
     view: |-
@@ -277,7 +296,7 @@ tasks:
       '#default#':
       - "10"
       "yes":
-      - "18"
+      - "19"
     note: false
     quietmode: 0
     separatecontext: false
@@ -406,9 +425,9 @@ tasks:
           "y": 200
         }
       }
-  "18":
+  "19":
     continueonerrortype: ""
-    id: "18"
+    id: "19"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
@@ -419,29 +438,31 @@ tasks:
     quietmode: 0
     scriptarguments:
       external_service:
-        simple: ${ASM.ExternalService.externally_detected_providers}
+        complex:
+          root: ASM.ExternalService.externally_detected_providers
       owners:
-        simple: ${alert.asmserviceownerunrankedraw}
+        complex:
+          root: alert.asmserviceownerunrankedraw
     separatecontext: false
     skipunavailable: true
     task:
       brand: ""
       description: Parse a GCP service account email for the project name, then lookup
         project owners and add them to a list of potential service owners for ranking.
-      id: 119258b1-6bac-4910-88c2-6da00763ea77
+      id: 6b8a094c-a54f-4678-86c6-6baf66e29721
       iscommand: false
       name: Look up project owners for service account
       script: GetProjectOwners
       type: regular
       version: -1
-    taskid: 119258b1-6bac-4910-88c2-6da00763ea77
+    taskid: 6b8a094c-a54f-4678-86c6-6baf66e29721
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": -50,
-          "y": 1000
+          "y": 1005
         }
       }
 version: -1

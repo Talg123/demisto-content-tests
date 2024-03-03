@@ -19,7 +19,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.20
+    itemVersion: 1.14.3
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -31,6 +31,8 @@ dockerimage: demisto/python3:3.10.12.66339
 engineinfo: {}
 mainengineinfo: {}
 name: IPNetwork
+nativeimage:
+- "8.6"
 outputs:
 - contextPath: Network.CIDR
   description: Network CIDR.
@@ -61,7 +63,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('IPNetwork', 'start', __line__())
-  ### pack version: 1.12.20
+  ### pack version: 1.14.3
 
 
   # STD imports

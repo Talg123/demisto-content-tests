@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.4.2
+    itemVersion: 2.6.15
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -10,11 +10,12 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-description: "This playbook handles all the endpoint investigation actions available
-  with Cortex XSIAM, including the following tasks:\n* Pre-defined MITRE Tactics\n*
-  Host fields (Host ID)\n* Attacker fields (Attacker IP, External host)\n* MITRE techniques\n*
-  File hash (currently, the playbook supports only SHA256)  \n\nNote: The playbook
-  inputs enable manipulating the execution flow; read the input descriptions for details."
+description: "This playbook handles all the endpoint investigation actions by performing
+  the following tasks  on every alert associated with the alert:\n* Pre-defined MITRE
+  Tactics\n* Host fields (Host ID)\n* Attacker fields (Attacker IP, External host)\n*
+  MITRE techniques\n* File hash (currently, the playbook supports only SHA256)  \n\nNote:
+  The playbook inputs enable manipulating the execution flow; read the input descriptions
+  for details."
 id: Endpoint Investigation Plan
 inputs:
 - description: Set to True to hunt for identified alerts with MITRE Reconnaissance
@@ -140,19 +141,6 @@ inputs:
   playbookInputQuery: null
   required: false
   value: {}
-- description: |-
-    A time range to execute the hunting in.
-    The input should be in the following format:
-    * 1 day ago
-    * 2 minutes ago
-    * 4 hours ago
-    * 8 days ago
-    etc.
-  key: timeRange
-  playbookInputQuery: null
-  required: false
-  value:
-    simple: 2 hours ago
 name: Endpoint Investigation Plan
 outputs: []
 starttaskid: "0"
@@ -572,12 +560,6 @@ tasks:
             iscontext: true
             value:
               complex:
-                root: inputs.attackerExternalHost
-          operator: isNotEmpty
-        - left:
-            iscontext: true
-            value:
-              complex:
                 root: inputs.attackerRemoteIP
           operator: isNotEmpty
       label: "yes"
@@ -588,7 +570,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "11"
+      - "53"
       "yes":
       - "43"
     note: false
@@ -713,7 +695,7 @@ tasks:
       {
         "position": {
           "x": 1310,
-          "y": 180
+          "y": 670
         }
       }
   "12":
@@ -765,7 +747,7 @@ tasks:
       {
         "position": {
           "x": 1310,
-          "y": 650
+          "y": 1140
         }
       }
   "13":
@@ -792,7 +774,7 @@ tasks:
       {
         "position": {
           "x": 1310,
-          "y": 1135
+          "y": 1625
         }
       }
   "14":
@@ -837,16 +819,13 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
         simple: (mitreattcktechnique:*1037* or mitreattcktechnique:*T1542* or mitreattcktechnique:*T1053*
           or mitreattcktechnique:*T1543.002* or mitreattcktechnique:*T1543.003* or
           mitreattcktechnique:*T1569.002* or mitreattcktechnique:*T1547.001* or mitreattcktechnique:*T1547.005*
           or mitreattcktechnique:*T1546.002* or mitreattcktechnique:*T1546.011* or
           mitreattcktechnique:*T1546.012* or mitreattcktechnique:*T1136* or mitreattcktechnique:*T1150*)
-          and agentid:${inputs.agentID}
+          and agentid:${inputs.agentID} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1172,7 +1151,7 @@ tasks:
       {
         "position": {
           "x": 450,
-          "y": 3990
+          "y": 4000
         }
       }
   "25":
@@ -1232,7 +1211,7 @@ tasks:
       {
         "position": {
           "x": 40,
-          "y": 4160
+          "y": 4170
         }
       }
   "27":
@@ -1323,11 +1302,8 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
-        simple: mitreattcktechnique:*T1595* and agentid:${inputs.agentID}
+        simple: mitreattcktechnique:*T1595* and agentid:${inputs.agentID} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1366,12 +1342,9 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
         simple: (mitreattcktechnique:*T1078* or mitreattcktechnique:*T1078.002*) and
-          agentid:${inputs.agentID}
+          agentid:${inputs.agentID} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1410,13 +1383,10 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
         simple: (mitreattcktechnique:*T1204* or mitreattcktechnique:*T1569.002* or
           mitreattcktechnique:*T1059.001* or mitreattcktechnique:*T1059.002* or mitreattcktechnique:*T1059.004*
-          or mitreattcktechnique:*T1059.005* )and agentid:${inputs.agentID}
+          or mitreattcktechnique:*T1059.005*) and agentid:${inputs.agentID} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1455,12 +1425,9 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
         simple: (mitreattcktechnique:*T1055* or mitreattcktechnique:*T1546.001*) and
-          agentid:${inputs.agentID}
+          agentid:${inputs.agentID} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1499,14 +1466,11 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
         simple: (mitreattcktechnique:*T1218.005* or mitreattcktechnique:*T1218.008*
           or mitreattcktechnique:*T1218.011* or mitreattcktechnique:*T1036* or mitreattcktechnique:*T1140*
           or mitreattcktechnique:*T1564.001* or mitreattcktechnique:*T1222* or mitreattcktechnique:*T1197*)
-          and agentid:${inputs.agentID}
+          and agentid:${inputs.agentID} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1545,12 +1509,10 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
         simple: (mitreattcktechnique:*1087* or mitreattcktechnique:*1046* or mitreattcktechnique:*1018*
           or mitreattcktechnique:*1135* or mitreattcktechnique:*1016*) and agentid:${inputs.agentID}
+          and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1589,13 +1551,10 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
         simple: (mitreattcktechnique:*1021.001* or mitreattcktechnique:*1021.002*
           or mitreattcktechnique:*1021.003* or mitreattcktechnique:*1021.006* or mitreattcktechnique:*1021*
-          or mitreattcktechnique:*1550.002*) and agentid:${inputs.agentID}
+          or mitreattcktechnique:*1550.002*) and agentid:${inputs.agentID} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1634,12 +1593,9 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
         simple: (mitreattcktechnique:*1213*  or mitreattcktechnique:*1074* or mitreattcktechnique:*1074.001*)
-          and agentid:${inputs.agentID}
+          and agentid:${inputs.agentID} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1678,12 +1634,9 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
         simple: (mitreattcktechnique:*1132*  or mitreattcktechnique:*1102* or mitreattcktechnique:*1071*)
-          and agentid:${inputs.agentID}
+          and agentid:${inputs.agentID} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1707,7 +1660,7 @@ tasks:
       {
         "position": {
           "x": 40,
-          "y": 3820
+          "y": 3830
         }
       }
   "38":
@@ -1722,12 +1675,10 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
         simple: (mitreattcktechnique:*1561*  or mitreattcktechnique:*1485* or mitreattcktechnique:*1486*
           or mitreattcktechnique:*1490* or mitreattcktechnique:*1495*) and agentid:${inputs.agentID}
+          and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1751,7 +1702,7 @@ tasks:
       {
         "position": {
           "x": 40,
-          "y": 4300
+          "y": 4310
         }
       }
   "39":
@@ -1796,11 +1747,8 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
-        simple: agentsid:${inputs.agentID}
+        simple: agentsid:${inputs.agentID} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1865,16 +1813,12 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "11"
+      - "53"
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
-        simple: dnsqueryname:${inputs.attackerExternalHost} or destinationhostname:${inputs.attackerExternalHost}
-          or localip:${inputs.attackerRemoteIP}
+        simple: localip:${inputs.attackerRemoteIP} and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1928,7 +1872,7 @@ tasks:
       {
         "position": {
           "x": 1710,
-          "y": 350
+          "y": 840
         }
       }
   "47":
@@ -1943,11 +1887,8 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
-        simple: mitreattcktechnique:*${inputs.mitreTechniqueID}*
+        simple: mitreattcktechnique:*${inputs.mitreTechniqueID}* and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -1971,7 +1912,7 @@ tasks:
       {
         "position": {
           "x": 1710,
-          "y": 480
+          "y": 970
         }
       }
   "48":
@@ -2001,7 +1942,7 @@ tasks:
       {
         "position": {
           "x": 1710,
-          "y": 820
+          "y": 1310
         }
       }
   "49":
@@ -2016,13 +1957,10 @@ tasks:
     note: false
     quietmode: 0
     scriptarguments:
-      fromdate:
-        complex:
-          root: inputs.timeRange
       query:
-        simple: initiatorsha256:${inputs.FileSHA256} or cgosha256:${inputs.FileSHA256}
+        simple: (initiatorsha256:${inputs.FileSHA256} or cgosha256:${inputs.FileSHA256}
           or filesha256:${inputs.FileSHA256} or filemacrosha256:${inputs.FileSHA256}
-          or osparentsha256:${inputs.FileSHA256}
+          or osparentsha256:${inputs.FileSHA256}) and caseid:${parentIncidentFields.incident_id}
     separatecontext: false
     skipunavailable: false
     task:
@@ -2046,7 +1984,7 @@ tasks:
       {
         "position": {
           "x": 1710,
-          "y": 950
+          "y": 1440
         }
       }
   "50":
@@ -2134,6 +2072,128 @@ tasks:
         "position": {
           "x": 450,
           "y": 4480
+        }
+      }
+  "53":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.HuntAttacker
+          operator: isEqualString
+          right:
+            value:
+              simple: "True"
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: inputs.attackerExternalHost
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "53"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "11"
+      "yes":
+      - "54"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Whether to hunt by the attacker indicators.
+      id: ea421052-65ec-4e66-81e9-179f1b37c4c3
+      iscommand: false
+      name: Should investigate by attacker's external host?
+      type: condition
+      version: -1
+    taskid: ea421052-65ec-4e66-81e9-179f1b37c4c3
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1310,
+          "y": 180
+        }
+      }
+  "54":
+    continueonerrortype: ""
+    id: "54"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "55"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 94139bf4-5524-4a4a-8d8e-d3860d4d1054
+      iscommand: false
+      name: Attacker network activity
+      type: title
+      version: -1
+    taskid: 94139bf4-5524-4a4a-8d8e-d3860d4d1054
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1710,
+          "y": 350
+        }
+      }
+  "55":
+    continueonerrortype: ""
+    id: "55"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "11"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      query:
+        simple: dnsqueryname:${inputs.attackerExternalHost} and caseid:${parentIncidentFields.incident_id}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Searches Demisto alerts.
+
+        This automation runs using the default Limited User role, unless you explicitly change the permissions.
+        For more information, see the section about permissions here:
+        https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations
+      id: 82c5b670-b168-4827-818e-917e725f93b8
+      iscommand: false
+      name: Hunt by attacker source external host
+      script: SearchAlertsV2
+      type: regular
+      version: -1
+    taskid: 82c5b670-b168-4827-818e-917e725f93b8
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1710,
+          "y": 490
         }
       }
 version: -1

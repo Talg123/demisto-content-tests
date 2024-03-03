@@ -56,7 +56,7 @@
 	"id": "incident_domain",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.0.27",
+	"itemVersion": "1.0.32",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Domain",
@@ -70,7 +70,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Domain",
 	"propagationLabels": [
 		"all"
 	],

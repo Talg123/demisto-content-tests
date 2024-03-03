@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 2.0.12
+    itemVersion: 3.0.20
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -24,6 +24,45 @@ description: "IOCs provide the ability to alert on known malicious objects on en
   isolation\n\nAnd the following eradication actions:\n\n* Manual process termination\n*
   Manual file deletion"
 id: IOC Alert
+inputSections:
+- description: Alert management settings and data, including escalation processes,
+    and user engagements.
+  inputs:
+  - ShouldCloseAutomatically
+  - ShouldHandleFPautomatically
+  name: Alert Management
+- description: Remediation settings and data, including containment, eradication,
+    and recovery.
+  inputs:
+  - PreHostContainment
+  - AutoEradication
+  - AutoContainment
+  - BlockIndicatorsAutomatically
+  - FileRemediation
+  - AutoRestoreEndpoint
+  name: Remediation
+- description: Ticket management settings and data.
+  inputs:
+  - ShouldOpenTicket
+  - serviceNowShortDescription
+  - serviceNowImpact
+  - serviceNowUrgency
+  - serviceNowSeverity
+  - serviceNowTicketType
+  - serviceNowCategory
+  - serviceNowAssignmentGroup
+  - ZendeskPriority
+  - ZendeskRequester
+  - ZendeskStatus
+  - ZendeskSubject
+  - ZendeskTags
+  - ZendeskType
+  - ZendeskAssigne
+  - ZendeskCollaborators
+  - description
+  - addCommentPerEndpoint
+  - CommentToAdd
+  name: Ticket Management
 inputs:
 - description: Whether to block suspicious/malicious indicators automatically. Specify
     True/False.
@@ -193,6 +232,10 @@ inputs:
   value:
     simple: '${alert.name}. Alert ID: ${alert.id}'
 name: IOC Alert
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs: []
 outputs: []
 starttaskid: "0"
 system: true
@@ -761,8 +804,6 @@ tasks:
         complex:
           accessor: agentid
           root: alert
-      timeRange:
-        simple: 2 hours ago
     separatecontext: false
     skipunavailable: false
     task:

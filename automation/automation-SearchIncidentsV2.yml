@@ -19,35 +19,35 @@ args:
   isArray: true
   name: reason
 - description: Filter by from date (e.g. "3 days ago" or 2006-01-02T15:04:05+07:00
-    or 2006-01-02T15:04:05Z)
+    or 2006-01-02T15:04:05Z).
   name: fromdate
 - description: Filter by to date (e.g. "3 days ago" or 2006-01-02T15:04:05+07:00 or
-    2006-01-02T15:04:05Z)
+    2006-01-02T15:04:05Z).
   name: todate
-- description: Filter by from close date (e.g. 2006-01-02T15:04:05+07:00 or 2006-01-02T15:04:05Z)
+- description: Filter by from close date (e.g. 2006-01-02T15:04:05+07:00 or 2006-01-02T15:04:05Z).
   name: fromclosedate
-- description: Filter by to close date (e.g. 2006-01-02T15:04:05+07:00 or 2006-01-02T15:04:05Z)
+- description: Filter by to close date (e.g. 2006-01-02T15:04:05+07:00 or 2006-01-02T15:04:05Z).
   name: toclosedate
-- description: Filter by from due date (e.g. 2006-01-02T15:04:05+07:00 or 2006-01-02T15:04:05Z)
+- description: Filter by from due date (e.g. 2006-01-02T15:04:05+07:00 or 2006-01-02T15:04:05Z).
   name: fromduedate
-- description: Filter by to due date (e.g. 2006-01-02T15:04:05+07:00 or 2006-01-02T15:04:05Z)
+- description: Filter by to due date (e.g. 2006-01-02T15:04:05+07:00 or 2006-01-02T15:04:05Z).
   name: toduedate
-- description: Filter by Severity
+- description: Filter by Severity.
   isArray: true
   name: level
-- description: Filter by incident owners
+- description: Filter by incident owners.
   isArray: true
   name: owner
-- description: Filter by incident details
+- description: Filter by incident details.
   name: details
-- description: Filter by incident type
+- description: Filter by incident type.
   isArray: true
   name: type
 - description: Use free form query (use Lucene syntax) as filter. All other filters
     will be ignored when this filter is used.
   name: query
 - deprecated: true
-  description: Filter by the page number
+  description: Filter by the page number.
   name: page
 - description: |-
     The number of events to return from the alert JSON. The default is 0, which returns all events.
@@ -55,7 +55,7 @@ args:
   hidden: true
   name: trimevents
 - deprecated: true
-  description: Number of incidents per page (per fetch)
+  description: Number of incidents per page (per fetch).
   name: size
 - defaultValue: "100"
   description: The maximum number of incidents to be returned.
@@ -75,7 +75,7 @@ args:
   - "false"
   - "true"
 - description: A comma seperated list of fields to add to context when using summarized
-    version, (default- id,name,type,severity,status,owner,created,closed)
+    version, (default- id,name,type,severity,status,owner,created,closed).
   name: add_fields_to_summarize_context
 comment: |-
   Searches Demisto incidents. A summarized version of this scrips is avilable with the summarizedversion argument.
@@ -90,7 +90,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.20
+    itemVersion: 1.14.3
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -99,11 +99,13 @@ contentitemexportablefields:
     propagationLabels: []
     toServerVersion: ""
 deprecated: true
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.83255
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: SearchIncidentsV2
+nativeimage:
+- "8.6"
 outputs:
 - contextPath: foundIncidents.id
   description: A list of incident IDs returned from the query.

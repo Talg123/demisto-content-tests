@@ -2,6 +2,13 @@ args:
 - description: Incident ID to copy notes to.
   name: target_incident
   required: true
+- auto: PREDEFINED
+  defaultValue: "true"
+  description: Whether auto extract the indicators from the notes.
+  name: auto_extract
+  predefined:
+  - "true"
+  - "false"
 - description: Replicate only notes with these tags (array or comma separated).
   isArray: true
   name: tags
@@ -13,7 +20,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.20
+    itemVersion: 1.14.3
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -22,11 +29,13 @@ contentitemexportablefields:
     propagationLabels: []
     toServerVersion: ""
 deprecated: true
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.86272
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: CopyNotesToIncident
+nativeimage:
+- "8.6"
 pswd: ""
 runas: DBotWeakRole
 runonce: false

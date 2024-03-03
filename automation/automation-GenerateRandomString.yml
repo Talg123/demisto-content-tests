@@ -38,7 +38,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.2.0
-    itemVersion: 1.12.20
+    itemVersion: 1.14.3
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -46,11 +46,13 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.86272
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: GenerateRandomString
+nativeimage:
+- "8.6"
 outputs:
 - contextPath: RandomString
   description: The generated string.
@@ -60,7 +62,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('GenerateRandomString', 'start', __line__())
-  ### pack version: 1.12.20
+  ### pack version: 1.14.3
 
 
   import random

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 1.6.33
+    itemVersion: 1.7.29
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -39,7 +39,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "6"
+      - "9"
     note: false
     quietmode: 0
     separatecontext: false
@@ -57,63 +57,7 @@ tasks:
       {
         "position": {
           "x": 450,
-          "y": -130
-        }
-      }
-  "1":
-    continueonerror: true
-    continueonerrortype: ""
-    id: "1"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "2"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      key:
-        simple: temp
-      value:
-        complex:
-          accessor: RemediationGuidance
-          root: lists
-          transformers:
-          - operator: ParseJSON
-          - args:
-              equalTo:
-                iscontext: true
-                value:
-                  simple: inputs.IssueTypeID
-              field:
-                value:
-                  simple: issueTypeId
-              getField:
-                value:
-                  simple: remediationGuidance
-              stringify: {}
-            operator: WhereFieldEquals
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Sets temporary context based on list and ASM RuleID matching (continues
-        on errors in case the list isn't there or renamed).
-      id: f97d9b9b-f8a8-4a03-8c79-45905245b61f
-      iscommand: false
-      name: Set guidance in context
-      script: Set
-      type: regular
-      version: -1
-    taskid: f97d9b9b-f8a8-4a03-8c79-45905245b61f
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 450,
-          "y": 170
+          "y": -340
         }
       }
   "2":
@@ -123,7 +67,8 @@ tasks:
             iscontext: true
             value:
               complex:
-                root: temp
+                accessor: remediation_guidance
+                root: ASM.AttackSurfaceRule
           operator: isNotEmpty
           right:
             value: {}
@@ -145,19 +90,19 @@ tasks:
     task:
       brand: ""
       description: Checks if guidance information was pulled from the list.
-      id: 9985fb4c-84ef-442c-8ebe-c78f91dc1712
+      id: 2fc1d553-2042-4c61-8c64-98175cf4ef97
       iscommand: false
       name: Was remediation information obtained?
       type: condition
       version: -1
-    taskid: 9985fb4c-84ef-442c-8ebe-c78f91dc1712
+    taskid: 2fc1d553-2042-4c61-8c64-98175cf4ef97
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
           "x": 450,
-          "y": 330
+          "y": 240
         }
       }
   "3":
@@ -195,7 +140,7 @@ tasks:
       {
         "position": {
           "x": 870,
-          "y": 520
+          "y": 490
         }
       }
   "4":
@@ -206,7 +151,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "5"
+      - "8"
     note: false
     quietmode: 0
     scriptarguments:
@@ -214,7 +159,8 @@ tasks:
         simple: RemediationGuidance
       value:
         complex:
-          root: temp
+          accessor: remediation_guidance
+          root: ASM.AttackSurfaceRule
           transformers:
           - args:
               prefix:
@@ -233,20 +179,20 @@ tasks:
       brand: ""
       description: Append information to remediation guidance to be passed back to
         the parent playbook.
-      id: d4ad7c4d-c0e9-4dfd-8d2f-8d5f050dfcd2
+      id: 63b76036-a5f5-4c2f-80f1-3f2cf3b696e0
       iscommand: false
       name: Update guidance
       script: Set
       type: regular
       version: -1
-    taskid: d4ad7c4d-c0e9-4dfd-8d2f-8d5f050dfcd2
+    taskid: 63b76036-a5f5-4c2f-80f1-3f2cf3b696e0
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": 450,
-          "y": 520
+          "y": 490
         }
       }
   "5":
@@ -273,22 +219,124 @@ tasks:
       {
         "position": {
           "x": 450,
-          "y": 730
+          "y": 870
         }
       }
-  "6":
+  "7":
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      attack_surface_rule_id:
+        complex:
+          root: inputs.IssueTypeID
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Cortex Attack Surface Management
+      description: Get information of an attack surface rule id.
+      id: d1399467-2c9e-4c4a-87a7-309db103ef52
+      iscommand: true
+      name: Get Remediation Guidance
+      script: Cortex Attack Surface Management|||asm-get-attack-surface-rule
+      type: regular
+      version: -1
+    taskid: d1399467-2c9e-4c4a-87a7-309db103ef52
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 35
+        }
+      }
+  "8":
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "5"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      asmattacksurfacerulecategory:
+        simple: ${ASM.AttackSurfaceRule.category}
+      asmattacksurfaceruledescription:
+        simple: ${ASM.AttackSurfaceRule.description}
+      asmattacksurfacerulepriority:
+        simple: ${ASM.AttackSurfaceRule.priority}
+      asmattacksurfaceruleremediationguidance:
+        simple: ${ASM.AttackSurfaceRule.remediation_guidance}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: commands.local.cmd.set.incident
+      id: d689ef6d-071c-4105-8c81-49840217f8ae
+      iscommand: true
+      name: Set attack surface rule fields
+      script: Builtin|||setAlert
+      type: regular
+      version: -1
+    taskid: d689ef6d-071c-4105-8c81-49840217f8ae
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 700
+        }
+      }
+  "9":
     conditions:
     - condition:
       - - left:
             iscontext: true
             value:
-              simple: lists.RemediationGuidance
-          operator: isNotEmpty
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: modules.brand
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: Cortex Attack Surface Management
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: modules.state
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: active
+                root: modules
+          operator: isExists
           right:
             value: {}
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: asmserviceid
+                root: alert
+          operator: isExists
       label: "yes"
     continueonerrortype: ""
-    id: "6"
+    id: "9"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
@@ -296,39 +344,42 @@ tasks:
       '#default#':
       - "3"
       "yes":
-      - "1"
+      - "7"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      description: Checks if a remediation guidance list exists.
-      id: 97271bf4-765c-463a-89ba-285d01c62408
+      description: Determines if the "Cortex Attack Surface Management" integration
+        instance is configured.
+      id: fd4026e1-3931-4ef4-88fb-057c7078953d
       iscommand: false
-      name: Does remediation guidance list exist?
+      name: Is Cortex ASM enabled?
       type: condition
       version: -1
-    taskid: 97271bf4-765c-463a-89ba-285d01c62408
+    taskid: fd4026e1-3931-4ef4-88fb-057c7078953d
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
           "x": 450,
-          "y": 0
+          "y": -170
         }
       }
 version: -1
 view: |-
   {
-    "linkLabelsPosition": {},
+    "linkLabelsPosition": {
+      "9_7_yes": 0.47
+    },
     "paper": {
       "dimensions": {
-        "height": 925,
+        "height": 1275,
         "width": 800,
         "x": 450,
-        "y": -130
+        "y": -340
       }
     }
   }

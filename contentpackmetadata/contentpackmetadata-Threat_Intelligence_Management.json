@@ -13,15 +13,15 @@
 	"contentItems": {
 		"automation": [
 			{
-				"description": "Total number of alerts per OOTB feed.\n\nThis automation runs using the default Limited User role, unless you explicitly change the permissions.\nFor more information, see the section about permissions here:\nhttps://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations",
-				"name": "ThreatIntelManagementGetAlertsPerFeed",
+				"description": "Total number of incidents per OOTB feed.\n\nThis automation runs using the default Limited User role, unless you explicitly change the permissions.\nFor more information, see the section about permissions here:\nhttps://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations",
+				"name": "ThreatIntelManagementGetIncidentsPerFeed",
 				"tags": [
 					"Threat Intel Management"
 				]
 			},
 			{
-				"description": "Total number of incidents per OOTB feed.\n\nThis automation runs using the default Limited User role, unless you explicitly change the permissions.\nFor more information, see the section about permissions here:\nhttps://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations",
-				"name": "ThreatIntelManagementGetIncidentsPerFeed",
+				"description": "Total number of alerts per OOTB feed.\n\nThis automation runs using the default Limited User role, unless you explicitly change the permissions.\nFor more information, see the section about permissions here:\nhttps://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations",
+				"name": "ThreatIntelManagementGetAlertsPerFeed",
 				"tags": [
 					"Threat Intel Management"
 				]
@@ -44,20 +44,20 @@
 		"wizard": null
 	},
 	"created": "2020-06-30T20:20:52Z",
-	"currentVersion": "1.1.5",
+	"currentVersion": "1.1.9",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.32.24",
+			"minVersion": "1.33.22",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Threat Intelligence Management Pack",
-	"downloads": 6958,
+	"downloads": 10839,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.5.0",
 	"general": [
@@ -65,10 +65,11 @@
 		"generalFieldFree",
 		"generalFieldSupportIncluded"
 	],
+	"hybrid": false,
 	"id": "ThreatIntelligenceManagement",
 	"installMessage": "",
 	"integrations": [],
-	"itemVersion": "1.1.5",
+	"itemVersion": "1.1.9",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -96,9 +97,9 @@
 		"Threat Intelligence Management"
 	],
 	"toServerVersion": "",
-	"updated": "2023-08-06T09:32:22Z",
+	"updated": "2024-01-30T20:21:29Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "5969979",
+	"versionInfo": "794734",
 	"videos": []
 }

@@ -1,8 +1,8 @@
 args:
-- description: List of potential service owners
+- description: List of potential service owners.
   isArray: true
   name: owners
-- description: String indicating which cloud provider the service is
+- description: String indicating which cloud provider the service is.
   name: external_service
 comment: Parse a GCP service account email for the project name, then lookup project
   owners and add them to a list of potential service owners for ranking.
@@ -13,7 +13,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.8.0
-    itemVersion: 1.6.33
+    itemVersion: 1.7.29
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -21,17 +21,20 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.75921
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
 name: GetProjectOwners
+nativeimage:
+- "8.3"
+- "8.4"
 pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('GetProjectOwners', 'start', __line__())
-  ### pack version: 1.6.33
+  ### pack version: 1.7.29
 
 
   """Script for identifying and recommending the most likely owners of a discovered service
@@ -39,7 +42,7 @@ script: |
   """
 
 
-  from typing import Dict, List, Any
+  from typing import Any
   import traceback
   import re
 
@@ -64,7 +67,7 @@ script: |
           raise ValueError(f"Could not extract project name from service account {service_account}")
 
 
-  def get_iam_policy(project_name: str) -> List[Dict[str, Any]]:
+  def get_iam_policy(project_name: str) -> list[dict[str, Any]]:
       """
       Retrieve IAM policy for project
       """
@@ -74,13 +77,13 @@ script: |
           raise RuntimeError(f"Error retrieving IAM policy for GCP project {project_name}") from ex
 
 
-  def get_project_owners(results: List[Dict[str, Any]]) -> List[str]:
+  def get_project_owners(results: list[dict[str, Any]]) -> list[str]:
       """
       Return list of principals with the "owner" role from results of get_iam_policy
       """
       try:
           policy = results[0]["Contents"]["bindings"]
-          owners: List[str] = []
+          owners: list[str] = []
           for group in policy:
               if group["role"] == "roles/owner":
                   owners.extend(member.replace("user:", "") for member in group["members"])
@@ -110,7 +113,9 @@ script: |
                               current_owners.append({
                                   "name": "n/a",
                                   "email": email,
-                                  "source": "GCP project owner of service account",
+                                  # The "Chain: " prefix is used for internal model processing and will be removed
+                                  # from final service owner source; see RankServiceOwners.py::justify
+                                  "source": "Chain: GCP project owner of service account",
                                   "timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
                               })
                           demisto.executeCommand("setAlert", {"asmserviceownerunrankedraw": current_owners})

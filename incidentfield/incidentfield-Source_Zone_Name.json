@@ -36,7 +36,7 @@
 	"id": "incident_sourcezonename",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.0.27",
+	"itemVersion": "1.0.32",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Source Zone Name",
@@ -50,7 +50,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Source Zone Name",
 	"propagationLabels": [
 		"all"
 	],

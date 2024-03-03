@@ -9,7 +9,8 @@ configuration:
   name: url
   required: true
   type: 0
-- additionalinfo: For more information please see https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-api-overview/get-started-with-cortex-xdr-apis.
+- additionalinfo: For more information please see https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-api-overview/get-started-with-cortex-xdr-apis.  Only
+    standard API key type is supported.
   display: API Key ID
   displaypassword: API Key
   name: credentials
@@ -27,7 +28,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 1.6.33
+    itemVersion: 1.7.29
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -45,8 +46,8 @@ detaileddescription: "## Configure Cortex Attack Surface Management\n\n1. Naviga
   see [get-started-with-cortex-xdr-apis](https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-api-overview/get-started-with-cortex-xdr-apis).
   | True \n     API Key ID | See [get-started-with-cortex-xdr-apis](https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-api-overview/get-started-with-cortex-xdr-apis).
   | True \n     API Key | See [get-started-with-cortex-xdr-apis](https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-api-overview/get-started-with-cortex-xdr-apis).
-  | True \n    \n4. Click **Test** to validate the URLs, token, and connection.\n\n\n---\n[View
-  Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/cortex-attack-surface-management)"
+  \ **Only standard API key type is supported**. | True \n    \n4. Click **Test**
+  to validate the URLs, token, and connection.\n\n\n---\n[View Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/cortex-attack-surface-management)"
 display: Cortex Attack Surface Management
 image: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAyCAYAAACXpx/YAAAACXBIWXMAAAsSAAALEgHS3X78AAAD6klEQVR4nO2cS24bMQyGyaL75AbJCeo5QIH6BnVPkOkN3BPER8gN4tzA3XQbB+gBHHTbRbzq1kH3ZaGA4ygUNaPxxBOA4AcIqPWgHv9QosZOkYjAscs719Y2LrBxXGDjuMDGcYGN4wIbxwU2jgtsHBfYOC6wcVxg47jAxnGBjeMCG+f9W04PEacAENIDES2TCs7wNR77+2BEPAeABQBcRNl3RDRNKjuDGdWDEbEGgCsAOEkKnaPQW2BErHhbPY2ydwCwJqJN0uCluNdJQf/+Q79VUiAgonWS+WyjEuMvIRwjDwPs7OL14eMpJrGfm2+YGyLOAeAPAPwloh9Jb1HlogQAQaAwAGpJD5otfiC0dksuW/LnYH+u2SiwpaVg91SxsVbqdqXFQDtr0bYW5cFJKlEniLsR9eZc9hsA/gHAL22d9ja0TKWT4olkbMgHYxNPhs9kWZ4Ic4DAT7YUG28ucMm8owd/7xBR2UdOH7R1alLJFh06+STybnhyQbhz3kJmAHCmbDG1yH8MdbXtKGICACsWs4tvvDDNw1ixdzR9TsJ2KLbsJY8/5jL6951Snt3ymS3bzZHMl4gWHHQ2Aed+3ogoA9EbIqqjtj8z/SSdZBMvVvwEPQnaUn+m5MmnUPME+SQ3aarUlR5cUifpU2nTq77iwYmH9jj+5BrJneFg210ePBOf6zbPI6JVkpl64VVSI8+swHM0kgBGqfPanLPXSTrv+MEzOWCbcFa8Y94rOhTTK4pui0xbeLFtE9EuXzWhM1oODwwixjYrcQ175G3v2JyJbb7hrmPrbpjyUSOPs2nPNXtBL4FDyD6ksyMxaTE7eIFGRIthTnjHqw8dRte7aLkw86RGN9u4BgcVpWTv1RH37CVbkf+d44USG69BeBuHSuoMFDveEVxw+UF0CbxkL2i4DOcMX77jAZ6GQSCidtbJbb3PYEu21jkvYsViN3wecnaNBSLOhLhhvb+Idb8+WGQt8hIRnryQxxH1Wl7EC9vLC70WRa8y48lG0XxN2rX1lUuvEEUfcg+uxHj3LzuUMuIgNxlHW2otFCLJztSUaS9fdOyEMFLgdY8XHdPSRWtLYwusjDN5GBXnKJpLn2tS4+VLRFxxhzMlUt3yZHNRdmh3G30ObW8RsYkwm3M5bLFXHdeKHZ+58ed4rBt+zxtfxxYF23VsUztqNPqc77LuQuQtZbzA6w7iWAtHZF0aOI72dWFHIOFfFx6J0X7RwV75VQQPjhWB4Vnkit9lOyPwpn/h7z/ZOT7+XzgYx39VaRwX2DgusHFcYOO4wMZxgY3jAhvHBTaOC2wcF9g4LrBxXGDjuMDGcYEtAwD/AbjPSozwVJX9AAAAAElFTkSuQmCC
 name: Cortex Attack Surface Management
@@ -462,11 +463,41 @@ script:
       description: Result of the Remediation Confirmation Scan.
       type: string
     polling: true
-  dockerimage: demisto/python3:3.10.12.63474
+  - arguments:
+    - description: 'A comma-separated list of attack surface rule IDs. For example:
+        RdpServer,InsecureOpenSSH.'
+      name: attack_surface_rule_id
+    - description: 'Get the info about rule IDs with enabled status on or off. Has
+        to be comma separated. For example: on,off.'
+      name: enabled_status
+    - description: 'Get the info about rule IDs with a priority. Has to be comma separated.
+        For example: high,medium.'
+      name: priority
+    - description: Get the info about rule IDs of a category. Has to be comma separated.
+      name: category
+    description: Get information of an attack surface rule ID.
+    name: asm-get-attack-surface-rule
+    outputs:
+    - contextPath: ASM.AttackSurfaceRule.attack_surface_rule_id
+      description: Attack surface rule ID.
+    - contextPath: ASM.AttackSurfaceRule.attack_surface_rule_name
+      description: Attack surface rule name.
+    - contextPath: ASM.AttackSurfaceRule.category
+      description: Attack surface rule category.
+    - contextPath: ASM.AttackSurfaceRule.enabled_status
+      description: Attack surface rule status.
+    - contextPath: ASM.AttackSurfaceRule.priority
+      description: Attack surface rule priority.
+    - contextPath: ASM.AttackSurfaceRule.remediation_guidance
+      description: Remediation guidance of attack surface rule.
+  dockerimage: demisto/python3:3.10.13.85415
+  nativeimage:
+  - "8.3"
+  - "8.4"
   runonce: false
   script: |
     register_module_line('Cortex Attack Surface Management', 'start', __line__())
-    ### pack version: 1.6.33
+    ### pack version: 1.7.29
 
 
     import urllib3
@@ -598,6 +629,26 @@ script:
                 error_handler=get_api_error,
             )
 
+            return response
+
+        def get_attack_surface_rule_request(
+            self, search_params: List[dict]
+        ) -> Dict[str, Any]:
+            """Get Attack Surface Rule details for an attack surface rule id using the '/get_attack_surface_rules/' endpoint.
+
+            Args:
+                attack_surface_rule_id (str): Coma separated attack surface rule ids.
+
+            Returns:
+                dict: dict containing information about Attack surface rule.
+            """
+            data = {"request_data": {"filters": search_params}}
+            response = self._http_request(
+                "POST",
+                "/get_attack_surface_rules/",
+                json_data=data,
+                error_handler=get_api_error
+            )
             return response
 
         def list_asset_internet_exposure_request(
@@ -999,6 +1050,63 @@ script:
         return command_results
 
 
+    def get_attack_surface_rule_command(
+        args: Dict[str, Any], client: Client
+    ) -> CommandResults:
+        """
+        asm-get-attack-surface-rule command: Returns attack surface rule details.
+
+        Args:
+            client (Client): CortexAttackSurfaceManagment client to use.
+            args (dict): all command arguments, usually passed from ``demisto.args()``
+
+        Returns:
+            CommandResults: A ``CommandResults`` object that is then passed to ``return_results``,
+            that contains Remediation guidance information.
+        """
+        attack_surface_rule_id = args.get("attack_surface_rule_id")
+        enabled_status = args.get("enabled_status")
+        priority = args.get("priority")
+        category = args.get("category")
+
+        search_params = []
+        if attack_surface_rule_id:
+            search_params.append({
+                "field": "attack_surface_rule_id",
+                "operator": "in",
+                "value": attack_surface_rule_id.split(",")
+            })
+        if enabled_status:
+            search_params.append({
+                "field": "enabled_status",
+                "operator": "in",
+                "value": enabled_status.split(",")
+            })
+        if priority:
+            search_params.append({
+                "field": "priority",
+                "operator": "in",
+                "value": priority.split(",")
+            })
+        if category:
+            search_params.append({
+                "field": "category",
+                "operator": "in",
+                "value": category.split(",")
+            })
+
+        response = client.get_attack_surface_rule_request(search_params)
+        parsed = response.get("reply", {}).get("attack_surface_rules")
+        command_results = CommandResults(
+            outputs_prefix="ASM.AttackSurfaceRule",
+            outputs_key_field="attack_surface_rule",
+            outputs=parsed,
+            raw_response=response,
+        )
+
+        return command_results
+
+
     def list_asset_internet_exposure_command(
         args: Dict[str, Any], client: Client
     ) -> CommandResults:
@@ -1288,6 +1396,7 @@ script:
                 "asm-get-external-service": get_external_service_command,
                 "asm-list-external-ip-address-range": list_external_ip_address_range_command,
                 "asm-get-external-ip-address-range": get_external_ip_address_range_command,
+                "asm-get-attack-surface-rule": get_attack_surface_rule_command,
                 "asm-list-asset-internet-exposure": list_asset_internet_exposure_command,
                 "asm-get-asset-internet-exposure": get_asset_internet_exposure_command,
                 "asm-list-remediation-rule": list_remediation_rule_command,

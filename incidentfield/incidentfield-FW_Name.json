@@ -32,7 +32,7 @@
 	"id": "incident_fwname",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.0.27",
+	"itemVersion": "1.0.32",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "FW Name",
@@ -46,7 +46,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "FW Name",
 	"propagationLabels": [
 		"all"
 	],

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 3.0.20
+    itemVersion: 3.0.21
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -224,11 +224,11 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      description: 'Searches Cortex XSIAM indicators. '
+      description: Searches Cortex XSIAM indicators.
       id: 25f7c2e8-f0e2-4ac5-81e8-78eb6cacc629
       iscommand: false
       name: Robust search of IoCs
-      script: SearchIncidentsV2
+      script: SearchAlertsV2
       type: regular
       version: -1
     taskid: 25f7c2e8-f0e2-4ac5-81e8-78eb6cacc629

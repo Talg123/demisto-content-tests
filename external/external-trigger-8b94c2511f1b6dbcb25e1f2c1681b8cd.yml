@@ -5,7 +5,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.10.0
-    itemVersion: 3.0.20
+    itemVersion: 3.0.21
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -20,5 +20,5 @@ externalitemdata: '{"trigger_id":"8b94c2511f1b6dbcb25e1f2c1681b8cd","playbook_id
 filetype: json
 packid: Core
 packname: Core - Investigation and Response
-packversion: 3.0.20
+packversion: 3.0.21
 subtype: trigger

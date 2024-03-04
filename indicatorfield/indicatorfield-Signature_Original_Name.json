@@ -25,7 +25,7 @@
 	"id": "indicator_signatureoriginalname",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "3.4.2",
+	"itemVersion": "3.4.3",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Signature Original Name",
@@ -39,7 +39,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Signature Original Name",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

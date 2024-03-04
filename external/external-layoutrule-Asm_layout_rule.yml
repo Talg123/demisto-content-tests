@@ -5,7 +5,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.10.0
-    itemVersion: 1.7.29
+    itemVersion: 1.7.30
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -17,5 +17,5 @@ externalitemdata: '{"rule_id":"Asm_layout_rule","layout_id":"ASM Alert Layout","
 filetype: json
 packid: CortexAttackSurfaceManagement
 packname: Cortex Attack Surface Management
-packversion: 1.7.29
+packversion: 1.7.30
 subtype: layoutrule

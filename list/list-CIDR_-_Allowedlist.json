@@ -8,7 +8,7 @@
 	"detached": false,
 	"fromServerVersion": "6.5.0",
 	"id": "CIDR - Allowedlist",
-	"itemVersion": "3.0.20",
+	"itemVersion": "3.0.21",
 	"locked": false,
 	"name": "CIDR - Allowedlist",
 	"nameLocked": false,

@@ -25,16 +25,16 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
-						"description": "Provides data enrichment for domains.",
-						"name": "domain"
+						"description": "Provides data enrichment for domains using free resources. Availability of those services may be limited.",
+						"name": "whois"
 					},
 					{
 						"description": "Provides data enrichment for ips.",
 						"name": "ip"
 					},
 					{
-						"description": "Provides data enrichment for domains using free resources. Availability of those services may be limited.",
-						"name": "whois"
+						"description": "Provides data enrichment for domains.",
+						"name": "domain"
 					}
 				],
 				"description": "Provides data enrichment for domains.",
@@ -46,16 +46,16 @@
 		"list": null,
 		"playbook": [
 			{
-				"description": "This playbook compares the domain registrant against the Cortex XSIAM list of approved registrants provided in the inputs. A registrant is the company or entity that owns the domain.",
-				"name": "TIM - Process Domain Registrant With Whois"
+				"description": "This playbook compares the domain creation time against a provided time value such as one month ago. The period can be configured within the playbook inputs MinimumAgeOfDomainMonths or MinimumAgeOfDomainHours. The playbook calculates the timestamp for the relevant period and compares it to the domain creation time value provided by Whois. The domains are outputted accordingly if they were created before or after the compared time, respectively.",
+				"name": "TIM - Process Domain Age With Whois"
 			},
 			{
 				"description": "This playbook uses several sub playbooks to process and tag indicators based on the results of the Whois tool.",
 				"name": "TIM - Process Domains With Whois"
 			},
 			{
-				"description": "This playbook compares the domain creation time against a provided time value such as one month ago. The period can be configured within the playbook inputs MinimumAgeOfDomainMonths or MinimumAgeOfDomainHours. The playbook calculates the timestamp for the relevant period and compares it to the domain creation time value provided by Whois. The domains are outputted accordingly if they were created before or after the compared time, respectively.",
-				"name": "TIM - Process Domain Age With Whois"
+				"description": "This playbook compares the domain registrant against the Cortex XSIAM list of approved registrants provided in the inputs. A registrant is the company or entity that owns the domain.",
+				"name": "TIM - Process Domain Registrant With Whois"
 			}
 		],
 		"report": null,
@@ -64,21 +64,21 @@
 		"wizard": null
 	},
 	"created": "2020-07-26T20:02:55Z",
-	"currentVersion": "1.5.9",
+	"currentVersion": "1.5.10",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.33.28",
+			"minVersion": "1.33.37",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.13.38",
+			"minVersion": "1.14.5",
 			"name": "Common Scripts"
 		},
 		"DomainTools": {
@@ -87,6 +87,13 @@
 			"mandatory": false,
 			"minVersion": "1.1.5",
 			"name": "DomainTools Enterprise"
+		},
+		"DomainTools_Iris": {
+			"author": "DomainTools",
+			"certification": "certified",
+			"mandatory": false,
+			"minVersion": "2.0.1",
+			"name": "DomainTools Iris Investigate"
 		},
 		"JsonWhoIs": {
 			"author": "Cortex XSIAM",
@@ -98,7 +105,7 @@
 	},
 	"deprecated": false,
 	"description": "This Content Pack helps you run Whois commands as playbook tasks or real-time actions within Cortex XSIAM to obtain valuable domain metadata.",
-	"downloads": 32176,
+	"downloads": 32771,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.0.0",
 	"general": [
@@ -121,9 +128,13 @@
 		{
 			"imagePath": "content/packs/DomainTools/DomainTools_image.png",
 			"name": "DomainTools"
+		},
+		{
+			"imagePath": "content/packs/DomainTools_Iris/DomainToolsIris_image.png",
+			"name": "DomainTools Iris"
 		}
 	],
-	"itemVersion": "1.5.9",
+	"itemVersion": "1.5.10",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -150,15 +161,15 @@
 	},
 	"tags": [
 		"Free Enricher",
-		"Getting Started",
 		"Plug \u0026 Enrich",
+		"TIM",
 		"Data Source",
-		"TIM"
+		"Getting Started"
 	],
 	"toServerVersion": "",
-	"updated": "2024-02-14T10:22:22Z",
+	"updated": "2024-03-03T20:21:36Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "827009",
+	"versionInfo": "865088",
 	"videos": []
 }

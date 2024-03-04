@@ -71,7 +71,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.5.9
+    itemVersion: 1.5.10
     packID: Whois
     packName: Whois
     packPropagationLabels:
@@ -617,14 +617,13 @@ script:
     - contextPath: DBotScore.Reliability
       description: Reliability of the source providing the intelligence data.
       type: String
-  dockerimage: demisto/ippysocks-py3:1.0.0.87742
+  dockerimage: demisto/ippysocks-py3:1.0.0.88715
   nativeimage:
-  - "8.3"
-  - "8.4"
+  - "8.6"
   runonce: false
   script: |
     register_module_line('Whois', 'start', __line__())
-    ### pack version: 1.5.9
+    ### pack version: 1.5.10
 
 
 

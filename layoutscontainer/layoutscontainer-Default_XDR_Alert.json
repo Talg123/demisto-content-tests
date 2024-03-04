@@ -1694,7 +1694,7 @@
 	"id": "Default XDR Alert",
 	"indicatorsDetails": null,
 	"indicatorsQuickView": null,
-	"itemVersion": "3.0.20",
+	"itemVersion": "3.0.21",
 	"locked": false,
 	"mobile": null,
 	"name": "Default XDR Alert",

@@ -13,7 +13,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 1.7.29
+    itemVersion: 1.7.30
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -31,7 +31,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('RankServiceOwners', 'start', __line__())
-  ### pack version: 1.7.29
+  ### pack version: 1.7.30
 
 
   """Script for identifying and recommending the most likely owners of a discovered service

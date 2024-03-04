@@ -23,7 +23,7 @@
 	"id": "incident_hostriskreasons",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.0.32",
+	"itemVersion": "1.0.33",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Host Risk Reasons",
@@ -37,7 +37,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Host Risk Reasons",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

@@ -80,7 +80,7 @@
 	"id": "incident_localip",
 	"ipVersion": "IPV4",
 	"isReadOnly": false,
-	"itemVersion": "1.0.32",
+	"itemVersion": "1.0.33",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Local IP",

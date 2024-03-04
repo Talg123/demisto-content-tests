@@ -28,7 +28,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.2.0
-    itemVersion: 3.0.20
+    itemVersion: 3.0.21
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -3098,12 +3098,11 @@ script:
       type: String
   dockerimage: demisto/python3:3.10.13.85667
   nativeimage:
-  - "8.3"
-  - "8.4"
+  - "8.6"
   runonce: false
   script: |
     register_module_line('Cortex Core - IR', 'start', __line__())
-    ### pack version: 3.0.20
+    ### pack version: 3.0.21
 
 
 

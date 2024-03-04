@@ -62,7 +62,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 1.7.29
+    itemVersion: 1.7.30
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -76,14 +76,13 @@ engineinfo: {}
 mainengineinfo: {}
 name: GenerateASMReport
 nativeimage:
-- "8.3"
-- "8.4"
+- "8.6"
 pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('GenerateASMReport', 'start', __line__())
-  ### pack version: 1.7.29
+  ### pack version: 1.7.30
 
 
   import json

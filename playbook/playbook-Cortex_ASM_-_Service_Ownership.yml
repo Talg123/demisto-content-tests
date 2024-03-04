@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.8.0
-    itemVersion: 1.7.29
+    itemVersion: 1.7.30
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -188,34 +188,48 @@ tasks:
       - - left:
             iscontext: true
             value:
-              complex:
-                accessor: asmserviceowner
-                root: alert
+              simple: alert.asmserviceowner
           operator: isNotEmpty
           right:
             value: {}
       - - left:
             iscontext: true
             value:
-              complex:
-                accessor: email
-                root: alert.asmserviceowner
+              simple: alert.asmserviceowner.email
           operator: isNotEmpty
       - - left:
             iscontext: true
             value:
-              complex:
-                accessor: name
-                root: alert.asmserviceowner
+              simple: alert.asmserviceowner.name
           operator: isNotEmpty
       - - left:
             iscontext: true
             value:
-              complex:
-                accessor: source
-                root: alert.asmserviceowner
+              simple: alert.asmserviceowner.source
           operator: isNotEmpty
-      label: "yes"
+      label: service owner
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.asmserviceownerunrankedraw
+          operator: isNotEmpty
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.asmserviceownerunrankedraw.email
+          operator: isNotEmpty
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.asmserviceownerunrankedraw.name
+          operator: isNotEmpty
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.asmserviceownerunrankedraw.source
+          operator: isNotEmpty
+      label: unranked raw
     continueonerrortype: ""
     id: "9"
     ignoreworker: false
@@ -224,22 +238,24 @@ tasks:
     nexttasks:
       '#default#':
       - "10"
-      "yes":
+      service owner:
       - "7"
+      unranked raw:
+      - "17"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      description: Determines if the asmserviceowner field exists and if the common
-        fields within it also exists.
-      id: 82e4d1d4-d7bc-4a1a-894a-698786adcdc5
+      description: Determines if the asmserviceowner or asmserviceownerunrankedraw
+        fields have been populated to continue.
+      id: 5505de94-3fde-4947-86d2-7e95c050fa14
       iscommand: false
-      name: Is asmserviceowner populated?
+      name: Is asmserviceowner or asmserviceownerunrankedraw populated?
       type: condition
       version: -1
-    taskid: 82e4d1d4-d7bc-4a1a-894a-698786adcdc5
+    taskid: 5505de94-3fde-4947-86d2-7e95c050fa14
     timertriggers: []
     type: condition
     view: |-
@@ -441,21 +457,20 @@ tasks:
         complex:
           root: ASM.ExternalService.externally_detected_providers
       owners:
-        complex:
-          root: alert.asmserviceownerunrankedraw
+        simple: ${alert.asmserviceownerunrankedraw}
     separatecontext: false
     skipunavailable: true
     task:
       brand: ""
       description: Parse a GCP service account email for the project name, then lookup
         project owners and add them to a list of potential service owners for ranking.
-      id: 6b8a094c-a54f-4678-86c6-6baf66e29721
+      id: d1039ef2-c791-4853-8367-d50fe11c8517
       iscommand: false
       name: Look up project owners for service account
       script: GetProjectOwners
       type: regular
       version: -1
-    taskid: 6b8a094c-a54f-4678-86c6-6baf66e29721
+    taskid: d1039ef2-c791-4853-8367-d50fe11c8517
     timertriggers: []
     type: regular
     view: |-
@@ -472,7 +487,7 @@ view: |-
       "15_10_#default#": 0.2,
       "17_10_#default#": 0.2,
       "9_10_#default#": 0.33,
-      "9_7_yes": 0.55
+      "9_7_service owner": 0.55
     },
     "paper": {
       "dimensions": {

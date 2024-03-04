@@ -23,7 +23,7 @@
 	"id": "incident_asmattacksurfacerulecategory",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.7.29",
+	"itemVersion": "1.7.30",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "ASM - Attack Surface Rule Category",
@@ -37,7 +37,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "ASM - Attack Surface Rule Category",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

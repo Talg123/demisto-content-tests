@@ -80,7 +80,7 @@
 	"id": "incident_asmremediation",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.7.29",
+	"itemVersion": "1.7.30",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "ASM - Remediation",

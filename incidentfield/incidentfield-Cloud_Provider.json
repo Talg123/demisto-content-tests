@@ -23,7 +23,7 @@
 	"id": "incident_cloudprovider",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.0.32",
+	"itemVersion": "1.0.33",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Cloud Provider",

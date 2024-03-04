@@ -19,7 +19,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.14.3
+    itemVersion: 1.14.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -27,7 +27,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/py3-tools:1.0.0.74403
+dockerimage: demisto/py3-tools:1.0.0.88283
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -62,7 +62,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('StixCreator', 'start', __line__())
-  ### pack version: 1.14.3
+  ### pack version: 1.14.5
 
 
   import dateparser
@@ -74,7 +74,7 @@ script: |
   from stix2 import Bundle, ExternalReference, Indicator, Vulnerability
   from stix2 import AttackPattern, Campaign, Malware, Infrastructure, IntrusionSet, Report, ThreatActor
   from stix2 import Tool, CourseOfAction
-  from stix2.exceptions import InvalidValueError
+  from stix2.exceptions import InvalidValueError, MissingPropertiesError
   from typing import Any
   from collections.abc import Callable
 
@@ -150,9 +150,9 @@ script: |
   }
 
 
-  def search_related_indicators(value: str) -> list[dict]:
+  def search_related_indicators(value: str) -> list[dict]:    # pragma: no cover
       relationships = demisto.searchRelationships({"entities": [value]}).get("data", [])
-
+      demisto.debug(f"found {len(relationships)} relationships")
       query = ""
       for rel in relationships:
           entity_a = rel.get("entityA", "").lower()
@@ -168,7 +168,10 @@ script: |
       if not query:
           demisto.info(f"No relevant relationship found for indicator: {value}")
           return []
+      query = query[:-4]
+      demisto.debug(f"using query: {query}")
       demisto_indicators = demisto.searchIndicators(query=query).get("iocs", [])
+      demisto.debug(f"found {len(demisto_indicators)} related indicators")
       return demisto_indicators
 
 
@@ -435,13 +438,13 @@ script: |
                       demisto.info(f"Export failure exception: {traceback.format_exc()}")
                       continue
 
-                  except InvalidValueError:
+                  except (InvalidValueError, MissingPropertiesError):
                       demisto.info(
                           f"Indicator type: {demisto_indicator_type}, with the value: {value} is not STIX compatible. Skipping.")
                       demisto.info(f"Export failure exception: {traceback.format_exc()}")
                       continue
 
-              except InvalidValueError:
+              except (InvalidValueError, MissingPropertiesError):
                   demisto.info(
                       f"Indicator type: {demisto_indicator_type}, with the value: {value} is not STIX compatible. Skipping.")
                   demisto.info(f"Export failure exception: {traceback.format_exc()}")

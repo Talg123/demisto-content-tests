@@ -51,7 +51,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 1.14.5
+    itemVersion: 1.14.6
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -88,7 +88,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CreateNewIndicatorsOnly', 'start', __line__())
-  ### pack version: 1.14.5
+  ### pack version: 1.14.6
 
 
   from typing import Any

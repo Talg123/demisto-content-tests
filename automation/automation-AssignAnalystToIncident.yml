@@ -45,7 +45,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.14.3
+    itemVersion: 1.14.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -61,7 +61,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.14.3
+  // pack version: 1.14.5
   // returns true if the current platform is XSIAM.
   isXsiam = function () {
       res = getDemistoVersion();

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.8.0
-    itemVersion: 1.7.29
+    itemVersion: 1.7.30
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -88,7 +88,7 @@ tasks:
       id: 91810d09-5547-4519-8860-5d5821854b80
       iscommand: false
       name: Prisma Cloud - Find Public Cloud Resource by Public IP v2
-      playbookName: Prisma Cloud - Find Public Cloud Resource by Public IP v2
+      playbookId: Prisma Cloud - Find Public Cloud Resource by Public IP v2
       type: playbook
       version: -1
     taskid: 91810d09-5547-4519-8860-5d5821854b80

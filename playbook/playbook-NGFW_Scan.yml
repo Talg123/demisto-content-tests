@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.6.0
-    itemVersion: 3.0.20
+    itemVersion: 3.0.21
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -857,7 +857,7 @@ tasks:
       id: 12c20106-b5a4-4d4e-8f08-c81cf9ce2feb
       iscommand: false
       name: Search scan alerts from the attacker IP
-      script: SearchIncidentsV2
+      script: SearchAlertsV2
       type: regular
       version: -1
     taskid: 12c20106-b5a4-4d4e-8f08-c81cf9ce2feb

@@ -23,7 +23,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.14.3
+    itemVersion: 1.14.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -65,7 +65,7 @@ runas: DBotRole
 runonce: false
 script: |
   register_module_line('ExtractIndicatorsFromTextFile', 'start', __line__())
-  ### pack version: 1.14.3
+  ### pack version: 1.14.5
 
 
 

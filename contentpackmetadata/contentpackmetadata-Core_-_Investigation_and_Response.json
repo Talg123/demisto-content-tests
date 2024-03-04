@@ -12,8 +12,8 @@
 		"automation",
 		"playbook",
 		"layoutscontainer",
-		"trigger",
-		"layoutrule"
+		"layoutrule",
+		"trigger"
 	],
 	"contentItems": {
 		"automation": [
@@ -34,255 +34,15 @@
 		"indicatorfield": null,
 		"integration": [
 			{
-				"category": "Endpoint",
-				"commands": [
-					{
-						"description": "Returns information about each alert ID.",
-						"name": "core-get-cloud-original-alerts"
-					},
-					{
-						"description": "Get the prevalence of a registry_path, identified by key_name, value_name.",
-						"name": "core-get-registry-analytics-prevalence"
-					},
-					{
-						"description": "Initiates a new endpoint script execution to delete the specified file.",
-						"name": "core-run-script-delete-file"
-					},
-					{
-						"description": "Gets a list of device control violations filtered by selected fields. You can retrieve up to 100 violations.",
-						"name": "core-get-endpoint-device-control-violations"
-					},
-					{
-						"description": "Removes requested files from block list.",
-						"name": "core-remove-blocklist-files"
-					},
-					{
-						"description": "Retrieves the status of the requested actions according to the action ID.",
-						"name": "core-action-status-get"
-					},
-					{
-						"description": "Initiate a new endpoint script execution of shell commands.",
-						"name": "core-run-script-execute-commands"
-					},
-					{
-						"description": "Retrieves the quarantine status for a selected file.",
-						"name": "core-get-quarantine-status"
-					},
-					{
-						"description": "Gets a list of endpoints, according to the passed filters. If there are no filters, all endpoints are returned. Filtering by multiple fields will be concatenated using AND condition (OR is not supported). Maximum result set size is 100. Offset is the zero-based number of endpoint from the start of the result set (start by counting from 0).",
-						"name": "core-get-endpoints"
-					},
-					{
-						"description": "Initiates a new endpoint script execution kill process.",
-						"name": "core-run-script-kill-process"
-					},
-					{
-						"description": "Returns a list of incidents, which you can filter by a list of incident IDs (max. 100), the time the incident was last modified, and the time the incident was created.\nIf you pass multiple filtering arguments, they will be concatenated using the AND condition. The OR condition is not supported.",
-						"name": "core-get-incidents"
-					},
-					{
-						"description": "Gets the distribution URL for downloading the installation package.",
-						"name": "core-get-distribution-url"
-					},
-					{
-						"description": "Get the prevalence of a file, identified by sha256.",
-						"name": "core-get-hash-analytics-prevalence"
-					},
-					{
-						"description": "Initiates a new endpoint script execution to check if file exists.",
-						"name": "core-run-script-file-exists"
-					},
-					{
-						"description": "Adds alert exclusion rule based on filterObject.",
-						"name": "core-add-exclusion"
-					},
-					{
-						"description": "Reports to WildFire about incorrect hash verdict through Cortex.",
-						"name": "core-report-incorrect-wildfire"
-					},
-					{
-						"description": "Gets agent event reports. You can filter by multiple fields, which will be concatenated using the AND condition (OR is not supported). Maximum result set size is 100. Offset is the zero-based number of reports from the start of the result set (start by counting from 0).",
-						"name": "core-get-audit-agent-reports"
-					},
-					{
-						"description": "Gets management logs. You can filter by multiple fields, which will be concatenated using the AND condition (OR is not supported). Maximum result set size is 100. Offset is the zero-based number of management logs from the start of the result set (start by counting from 0).",
-						"name": "core-get-audit-management-logs"
-					},
-					{
-						"description": "Removes requested files from allow list.",
-						"name": "core-remove-allowlist-files"
-					},
-					{
-						"description": "Get the prevalence of a domain, identified by domain_name.",
-						"name": "core-get-domain-analytics-prevalence"
-					},
-					{
-						"description": "Returns information about an endpoint.",
-						"name": "endpoint"
-					},
-					{
-						"description": "Gets the full definition of a specific script in the scripts library.",
-						"name": "core-get-script-metadata"
-					},
-					{
-						"description": "Get the prevalence of an ip, identified by ip_address.",
-						"name": "core-get-IP-analytics-prevalence"
-					},
-					{
-						"description": "Deletes selected endpoints in the Cortex app. You can delete up to 1000 endpoints.",
-						"name": "core-delete-endpoints"
-					},
-					{
-						"description": "Gets a list of scripts available in the scripts library.",
-						"name": "core-get-scripts"
-					},
-					{
-						"description": "Reverses the isolation of an endpoint.",
-						"name": "core-unisolate-endpoint"
-					},
-					{
-						"description": "Add a tag to one or more endpoints.",
-						"name": "core-add-endpoint-tag"
-					},
-					{
-						"description": "Restores a quarantined file on requested endpoints.",
-						"name": "core-restore-file"
-					},
-					{
-						"description": "Gets the files retrieved from a specific endpoint during a script execution.",
-						"name": "core-get-script-execution-result-files"
-					},
-					{
-						"description": "Retrieve the results of a script execution action.",
-						"name": "core-get-script-execution-results"
-					},
-					{
-						"description": "Initiates a new endpoint script execution action using a script from the script library.",
-						"name": "core-run-script"
-					},
-					{
-						"description": "Runs a scan on a selected endpoint. To scan all endpoints, run this command with argument all=true. Note that scanning all the endpoints may cause performance issues and latency.",
-						"name": "core-endpoint-scan"
-					},
-					{
-						"description": "Gets a list of endpoints according to the passed filters, and changes their alias name. Filtering by multiple fields will be concatenated using the AND condition (OR is not supported).",
-						"name": "core-endpoint-alias-change"
-					},
-					{
-						"description": "Gets a list of all the agent versions to use for creating a distribution list.",
-						"name": "core-get-distribution-versions"
-					},
-					{
-						"description": "Initiates a new endpoint script execution action using the provided snippet code.",
-						"name": "core-run-snippet-code-script"
-					},
-					{
-						"description": "Gets the policy name for a specific endpoint.",
-						"name": "core-get-policy"
-					},
-					{
-						"description": "Gets the status of the installation package.",
-						"name": "core-get-create-distribution-status"
-					},
-					{
-						"description": "Isolates the specified endpoint.",
-						"name": "core-isolate-endpoint"
-					},
-					{
-						"description": "Retrieve a list of the current user emails associated with one or more user groups in your environment.",
-						"name": "core-list-user-groups"
-					},
-					{
-						"description": "Quarantines a file on selected endpoints. You can select up to 1000 endpoints.",
-						"name": "core-quarantine-files"
-					},
-					{
-						"description": "Retrieve the risk score of a specific user or list of users with the highest risk score in the environment along with the reason affecting each score.",
-						"name": "core-list-risky-users"
-					},
-					{
-						"description": "Block lists requested files which have not already been block listed or added to allow lists.",
-						"name": "core-blocklist-files"
-					},
-					{
-						"description": "Retrieves the status of a script execution action.",
-						"name": "core-get-script-execution-status"
-					},
-					{
-						"description": "Retrieve a list of the current users in your environment.",
-						"name": "core-list-users"
-					},
-					{
-						"description": "Returns dynamic analysis of each alert ID.",
-						"name": "core-get-dynamic-analysis"
-					},
-					{
-						"description": "Creates an installation package. This is an asynchronous call that returns the distribution ID. This does not mean that the creation succeeded. To confirm that the package has been created, check the status of the distribution by running the Get Distribution Status API.",
-						"name": "core-create-distribution"
-					},
-					{
-						"description": "View the file retrieved by the core-retrieve-files command according to the action ID. Before running this command, you can use the core-action-status-get command to check if this action completed successfully.",
-						"name": "core-retrieve-file-details"
-					},
-					{
-						"description": "Retrieves files from selected endpoints. You can retrieve up to 20 files, from no more than 10 endpoints. At least one endpoint ID and one file path are necessary in order to run the command. After running this command, you can use the core-action-status-get command with returned action_id, to check the action status.",
-						"name": "core-retrieve-files"
-					},
-					{
-						"description": "Cancel the selected endpoints scan. A scan can only be cancelled if the selected endpoints are Pending or In Progress. To scan all endpoints, run the command with the argument all=true. Note that scanning all of the endpoints may cause performance issues and latency.",
-						"name": "core-endpoint-scan-abort"
-					},
-					{
-						"description": "Get the prevalence of a process_command_line, identified by process_command_line.",
-						"name": "core-get-cmd-analytics-prevalence"
-					},
-					{
-						"description": "Get the prevalence of a process, identified by process_name.",
-						"name": "core-get-process-analytics-prevalence"
-					},
-					{
-						"description": "Get a list of the alerts exclusion.",
-						"name": "core-get-exclusion"
-					},
-					{
-						"description": "Remove a tag from one or more endpoints.",
-						"name": "core-remove-endpoint-tag"
-					},
-					{
-						"description": "Delete an alert exclusion rule based on rule ID.",
-						"name": "core-delete-exclusion"
-					},
-					{
-						"description": "Adds requested files to allow list if they are not already on block list or allow list.",
-						"name": "core-allowlist-files"
-					},
-					{
-						"description": "Gets the code of a specific script in the script library.",
-						"name": "core-get-script-code"
-					},
-					{
-						"description": "Retrieve the risk score of a specific host or list of hosts with the highest risk score in the environment along with the reason affecting each score.",
-						"name": "core-list-risky-hosts"
-					}
-				],
-				"description": "The Cortex Core IR integration uses the Cortex API for detection and response, by natively integrating network, endpoint, and cloud data to stop sophisticated attacks.",
-				"id": "Cortex Core - IR",
-				"name": "Investigation \u0026 Response"
-			},
-			{
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
-						"description": "Set sync time manually (Do not use this command unless you unredstandard the consequences).",
-						"name": "core-iocs-set-sync-time"
+						"description": "Enables IOCs in the Cortex server.",
+						"name": "core-iocs-enable"
 					},
 					{
 						"description": "Disables IOCs in the Cortex server.",
 						"name": "core-iocs-disable"
-					},
-					{
-						"description": "Creates the sync file for the manual process. Run this command when instructed by the Cortex support team.",
-						"name": "core-iocs-create-sync-file"
 					},
 					{
 						"description": "Sync your IOC with Cortex and delete the previous version.",
@@ -293,13 +53,253 @@
 						"name": "core-iocs-push"
 					},
 					{
-						"description": "Enables IOCs in the Cortex server.",
-						"name": "core-iocs-enable"
+						"description": "Creates the sync file for the manual process. Run this command when instructed by the Cortex support team.",
+						"name": "core-iocs-create-sync-file"
+					},
+					{
+						"description": "Set sync time manually (Do not use this command unless you unredstandard the consequences).",
+						"name": "core-iocs-set-sync-time"
 					}
 				],
 				"description": "The Cortex Core - IOCs integration uses the Cortex API for detection and response, by natively integrating network, endpoint, and cloud data to stop sophisticated attacks.",
 				"id": "Cortex Core - IOC",
 				"name": "Indicators detection"
+			},
+			{
+				"category": "Endpoint",
+				"commands": [
+					{
+						"description": "Delete an alert exclusion rule based on rule ID.",
+						"name": "core-delete-exclusion"
+					},
+					{
+						"description": "Deletes selected endpoints in the Cortex app. You can delete up to 1000 endpoints.",
+						"name": "core-delete-endpoints"
+					},
+					{
+						"description": "Gets management logs. You can filter by multiple fields, which will be concatenated using the AND condition (OR is not supported). Maximum result set size is 100. Offset is the zero-based number of management logs from the start of the result set (start by counting from 0).",
+						"name": "core-get-audit-management-logs"
+					},
+					{
+						"description": "Adds requested files to allow list if they are not already on block list or allow list.",
+						"name": "core-allowlist-files"
+					},
+					{
+						"description": "Cancel the selected endpoints scan. A scan can only be cancelled if the selected endpoints are Pending or In Progress. To scan all endpoints, run the command with the argument all=true. Note that scanning all of the endpoints may cause performance issues and latency.",
+						"name": "core-endpoint-scan-abort"
+					},
+					{
+						"description": "Remove a tag from one or more endpoints.",
+						"name": "core-remove-endpoint-tag"
+					},
+					{
+						"description": "Isolates the specified endpoint.",
+						"name": "core-isolate-endpoint"
+					},
+					{
+						"description": "Removes requested files from allow list.",
+						"name": "core-remove-allowlist-files"
+					},
+					{
+						"description": "Quarantines a file on selected endpoints. You can select up to 1000 endpoints.",
+						"name": "core-quarantine-files"
+					},
+					{
+						"description": "Creates an installation package. This is an asynchronous call that returns the distribution ID. This does not mean that the creation succeeded. To confirm that the package has been created, check the status of the distribution by running the Get Distribution Status API.",
+						"name": "core-create-distribution"
+					},
+					{
+						"description": "Gets a list of all the agent versions to use for creating a distribution list.",
+						"name": "core-get-distribution-versions"
+					},
+					{
+						"description": "Gets a list of endpoints according to the passed filters, and changes their alias name. Filtering by multiple fields will be concatenated using the AND condition (OR is not supported).",
+						"name": "core-endpoint-alias-change"
+					},
+					{
+						"description": "Returns dynamic analysis of each alert ID.",
+						"name": "core-get-dynamic-analysis"
+					},
+					{
+						"description": "Retrieves the status of a script execution action.",
+						"name": "core-get-script-execution-status"
+					},
+					{
+						"description": "Retrieve the results of a script execution action.",
+						"name": "core-get-script-execution-results"
+					},
+					{
+						"description": "Reports to WildFire about incorrect hash verdict through Cortex.",
+						"name": "core-report-incorrect-wildfire"
+					},
+					{
+						"description": "Get the prevalence of an ip, identified by ip_address.",
+						"name": "core-get-IP-analytics-prevalence"
+					},
+					{
+						"description": "Initiates a new endpoint script execution action using the provided snippet code.",
+						"name": "core-run-snippet-code-script"
+					},
+					{
+						"description": "Restores a quarantined file on requested endpoints.",
+						"name": "core-restore-file"
+					},
+					{
+						"description": "Gets agent event reports. You can filter by multiple fields, which will be concatenated using the AND condition (OR is not supported). Maximum result set size is 100. Offset is the zero-based number of reports from the start of the result set (start by counting from 0).",
+						"name": "core-get-audit-agent-reports"
+					},
+					{
+						"description": "Gets the policy name for a specific endpoint.",
+						"name": "core-get-policy"
+					},
+					{
+						"description": "Retrieve a list of the current users in your environment.",
+						"name": "core-list-users"
+					},
+					{
+						"description": "Retrieves the quarantine status for a selected file.",
+						"name": "core-get-quarantine-status"
+					},
+					{
+						"description": "Adds alert exclusion rule based on filterObject.",
+						"name": "core-add-exclusion"
+					},
+					{
+						"description": "Retrieves files from selected endpoints. You can retrieve up to 20 files, from no more than 10 endpoints. At least one endpoint ID and one file path are necessary in order to run the command. After running this command, you can use the core-action-status-get command with returned action_id, to check the action status.",
+						"name": "core-retrieve-files"
+					},
+					{
+						"description": "Get the prevalence of a file, identified by sha256.",
+						"name": "core-get-hash-analytics-prevalence"
+					},
+					{
+						"description": "Gets a list of scripts available in the scripts library.",
+						"name": "core-get-scripts"
+					},
+					{
+						"description": "Retrieve the risk score of a specific host or list of hosts with the highest risk score in the environment along with the reason affecting each score.",
+						"name": "core-list-risky-hosts"
+					},
+					{
+						"description": "Gets a list of endpoints, according to the passed filters. If there are no filters, all endpoints are returned. Filtering by multiple fields will be concatenated using AND condition (OR is not supported). Maximum result set size is 100. Offset is the zero-based number of endpoint from the start of the result set (start by counting from 0).",
+						"name": "core-get-endpoints"
+					},
+					{
+						"description": "View the file retrieved by the core-retrieve-files command according to the action ID. Before running this command, you can use the core-action-status-get command to check if this action completed successfully.",
+						"name": "core-retrieve-file-details"
+					},
+					{
+						"description": "Retrieve the risk score of a specific user or list of users with the highest risk score in the environment along with the reason affecting each score.",
+						"name": "core-list-risky-users"
+					},
+					{
+						"description": "Block lists requested files which have not already been block listed or added to allow lists.",
+						"name": "core-blocklist-files"
+					},
+					{
+						"description": "Returns information about each alert ID.",
+						"name": "core-get-cloud-original-alerts"
+					},
+					{
+						"description": "Gets the code of a specific script in the script library.",
+						"name": "core-get-script-code"
+					},
+					{
+						"description": "Retrieve a list of the current user emails associated with one or more user groups in your environment.",
+						"name": "core-list-user-groups"
+					},
+					{
+						"description": "Initiates a new endpoint script execution to delete the specified file.",
+						"name": "core-run-script-delete-file"
+					},
+					{
+						"description": "Removes requested files from block list.",
+						"name": "core-remove-blocklist-files"
+					},
+					{
+						"description": "Get the prevalence of a domain, identified by domain_name.",
+						"name": "core-get-domain-analytics-prevalence"
+					},
+					{
+						"description": "Gets the status of the installation package.",
+						"name": "core-get-create-distribution-status"
+					},
+					{
+						"description": "Returns information about an endpoint.",
+						"name": "endpoint"
+					},
+					{
+						"description": "Get the prevalence of a registry_path, identified by key_name, value_name.",
+						"name": "core-get-registry-analytics-prevalence"
+					},
+					{
+						"description": "Get the prevalence of a process, identified by process_name.",
+						"name": "core-get-process-analytics-prevalence"
+					},
+					{
+						"description": "Returns a list of incidents, which you can filter by a list of incident IDs (max. 100), the time the incident was last modified, and the time the incident was created.\nIf you pass multiple filtering arguments, they will be concatenated using the AND condition. The OR condition is not supported.",
+						"name": "core-get-incidents"
+					},
+					{
+						"description": "Reverses the isolation of an endpoint.",
+						"name": "core-unisolate-endpoint"
+					},
+					{
+						"description": "Get a list of the alerts exclusion.",
+						"name": "core-get-exclusion"
+					},
+					{
+						"description": "Gets the files retrieved from a specific endpoint during a script execution.",
+						"name": "core-get-script-execution-result-files"
+					},
+					{
+						"description": "Initiates a new endpoint script execution kill process.",
+						"name": "core-run-script-kill-process"
+					},
+					{
+						"description": "Runs a scan on a selected endpoint. To scan all endpoints, run this command with argument all=true. Note that scanning all the endpoints may cause performance issues and latency.",
+						"name": "core-endpoint-scan"
+					},
+					{
+						"description": "Gets the full definition of a specific script in the scripts library.",
+						"name": "core-get-script-metadata"
+					},
+					{
+						"description": "Gets a list of device control violations filtered by selected fields. You can retrieve up to 100 violations.",
+						"name": "core-get-endpoint-device-control-violations"
+					},
+					{
+						"description": "Initiate a new endpoint script execution of shell commands.",
+						"name": "core-run-script-execute-commands"
+					},
+					{
+						"description": "Add a tag to one or more endpoints.",
+						"name": "core-add-endpoint-tag"
+					},
+					{
+						"description": "Retrieves the status of the requested actions according to the action ID.",
+						"name": "core-action-status-get"
+					},
+					{
+						"description": "Initiates a new endpoint script execution action using a script from the script library.",
+						"name": "core-run-script"
+					},
+					{
+						"description": "Gets the distribution URL for downloading the installation package.",
+						"name": "core-get-distribution-url"
+					},
+					{
+						"description": "Get the prevalence of a process_command_line, identified by process_command_line.",
+						"name": "core-get-cmd-analytics-prevalence"
+					},
+					{
+						"description": "Initiates a new endpoint script execution to check if file exists.",
+						"name": "core-run-script-file-exists"
+					}
+				],
+				"description": "The Cortex Core IR integration uses the Cortex API for detection and response, by natively integrating network, endpoint, and cloud data to stop sophisticated attacks.",
+				"id": "Cortex Core - IR",
+				"name": "Investigation \u0026 Response"
 			}
 		],
 		"layoutrule": [
@@ -316,15 +316,15 @@
 		"layoutscontainer": [
 			{
 				"description": "",
-				"name": "Identity Analytics Alerts"
-			},
-			{
-				"description": "",
 				"name": "Default"
 			},
 			{
 				"description": "",
 				"name": "Default XDR Alert"
+			},
+			{
+				"description": "",
+				"name": "Identity Analytics Alerts"
 			}
 		],
 		"list": [
@@ -335,44 +335,52 @@
 		],
 		"playbook": [
 			{
-				"description": "This playbook handles masquerading alerts based on the MITRE T1036 technique.\nAn attacker might leverage Microsoft Windows well-known image names to run malicious processes without being caught.\n\n**Attacker's Goals:**\n\nAn attacker is attempting to masquerade as standard windows images by using a trusted name to execute malicious code.\n\n**Investigative Actions:**\n\nInvestigate the executed process image and verify if it is malicious using:\n\n* XDR trusted signers\n* VT trusted signers\n* VT detection rate\n* NSRL DB\n\n**Response Actions**\n\nThe playbook's first response action is a containment plan which is based on the initial data provided within the alert. In that phase, the playbook will execute:\n\n* Auto block indicators\n* Auto file quarantine\n* Manual endpoint isolation\n\nWhen the playbook executes, it checks for additional activity using the Endpoint Investigation Plan playbook, and another phase, which includes containment and eradication, is executed.\n\nThis phase will execute the following containment actions:\n\n* Manual block indicators\n* Manual file quarantine\n* Auto endpoint isolation\n\nAnd the following eradication actions:\n\n* Manual process termination\n* Manual file deletion\n* Manual reset of the user’s password\n\nExternal resources:\n\n[MITRE Technique T1036](https://attack.mitre.org/techniques/T1036/)\n\n[Possible Microsoft process masquerading](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR-Analytics-Alert-Reference/Possible-Microsoft-process-masquerading)",
-				"name": "T1036 - Masquerading"
-			},
-			{
-				"description": "This playbook investigates a scan where the source is an internal IP address.\n\nAn attacker might initiate an internal scan for discovery, lateral movement and more.\n\n**Attacker's Goals:**\n\nAn attacker can leverage a scan for open ports and vulnerable systems on remote endpoints in an attempt to identify the endpoint operating system, firewall configuration, and exploitable services.\n\n**Investigative Actions:**\n\n* Endpoint Investigation Plan playbook\n\n**Response Actions**\n\nThe playbook's response actions are based on the Endpoint Investigation Plan playbook results. In that phase, the playbook will execute:\n\n* Auto endpoint isolation\n* Manual block indicators\n* Manual file quarantine\n",
-				"name": "NGFW Internal Scan"
-			},
-			{
-				"description": "When an unknown executable, DLL, or macro attempts to run on a Windows or Mac endpoint, the Cortex XDR agent uses local analysis to determine if it is likely to be malware. Local analysis uses a static set of pattern-matching rules that inspect multiple file features and attributes, and a statistical model that was developed with machine learning on WildFire threat intelligence.\n\n**Investigative Actions:**\n\nInvestigate the executed process image and verify if it is malicious using:\n\n* XDR trusted signers\n* VT trusted signers\n* VT detection rate\n* NSRL DB\n\n**Response Actions**\n\nThe playbook's first response action is a containment plan that is based on the initial data provided within the alert. In that phase, the playbook will execute:\n\n* Auto block indicators\n* Auto file quarantine\n* Manual endpoint isolation\n\nWhen the playbook executes, it checks for additional activity using the Endpoint Investigation Plan playbook, and another phase, which includes containment and eradication, is executed.\n\nThis phase will execute the following containment actions:\n\n* Manual block indicators\n* Manual file quarantine\n* Auto endpoint isolation\n\nAnd the following eradication actions:\n\n* Manual process termination\n* Manual file deletion\n* Manual reset of the user’s password\n\nExternal resources:\n\n[Malware Protection Flow](https://docs-cortex.paloaltonetworks.com/r/Cortex-XSIAM/Cortex-XSIAM-Administrator-Guide/File-Analysis-and-Protection-Flow)",
-				"name": "Local Analysis alert Investigation"
-			},
-			{
 				"description": "Deprecated. Use `Cloud IAM User Access Investigation` instead. Investigate and respond to Cortex XSIAM alerts where an AWS IAM user`s access key is used suspiciously to access the cloud environment. \nThe following alerts are supported for AWS environments.\n- Penetration testing tool attempt\n- Penetration testing tool activity\n- Suspicious API call from a Tor exit node\n This is a beta playbook, which lets you implement and test pre-release software. Although AWS is supported, we are working towards multi-cloud support. As the playbook is beta, it might contain bugs. Updates to the playbook during the beta phase might include non-backward compatible features. We encourage feedback on the quality and usability of the content to help us identify and fix issues, so we can continually improve the content.\n",
 				"name": "AWS IAM User Access Investigation"
 			},
 			{
-				"description": "The \"Remote PsExec-like LOLBIN Command Execution\" playbook is designed to address and respond to alerts indicating suspicious activities related to remote PsExec-like LOLBIN command execution from an unsigned non-standard source. \nThe playbook aims to efficiently:\n\n- Check if the execution is blocked. If not will terminate the process (Manually by default).\n- Enrich any entities and indicators from the alert and find any related campaigns.\n- Perform command analysis to provide insights and verdict for the executed command.\n- Perform further endpoint investigation using XDR.\n- Checks for any malicious verdict found to raise the severity of the alert.\n- Perform Automatic/Manual remediation response by blocking any malicious indicators found.\n\nThe playbook is designed to run as a sub-playbook in ‘Cortex XDR Alert Handling - v3 \u0026 Cortex XDR Alerts Handling’.\nIt depends on the data from the parent playbooks and can not be used as a standalone version.",
-				"name": "Remote PsExec with LOLBIN command execution alert"
+				"description": "This playbook detects the ransomware type and searches for available decryptors.\n\nThe playbook uses the ID-Ransomware service, which allows you to detect the ransomware using multiple methods.",
+				"name": "Ransomware Advanced Analysis"
 			},
 			{
-				"description": "This playbook handles command and scripting interpreter alerts based on the MITRE T1059 technique.\nAn attacker might abuse command and script interpreters to execute commands, scripts, or binaries.\nMost systems come with some kind of built-in command line interface and scripting capabilities. For example, macOS and Linux distributions include some form of Unix Shell while Windows installations include the Windows Command Shell and PowerShell.\n\n\n**Attacker's Goals:**\n\nAn attacker can abuse these technologies in various ways as a means of executing arbitrary commands. Commands and scripts can be embedded in initial access payloads delivered to victims as lure documents or as secondary payloads downloaded from an existing C2. An attacker may also execute commands through interactive terminals/shells, as well as utilize various remote services to achieve remote execution.\n\n**Analysis**\n\nDue to the nature of this technique and the usage of built-in command line interfaces, the first step of the playbook is to analyze the command line. \nThe command line analysis does the following:\n- Checks and decodes base64\n- Extracts and enriches indicators from the command line\n- Checks specific arguments for malicious usage \n\n**Investigative Actions:**\nThe playbook checks for additional activity using the 'Endpoint Investigation Plan' playbook and utilizes the power of insight alerts.\n\n**Response Actions**\n\nAfter analyzing the data, the playbook's first response action is to contain the threat based on the initial data provided within the alert. In this phase, the playbook will:\n\n* Isolate the endpoint based on playbook inputs.\n\nWhen the playbook proceeds, it checks for additional activity using the 'Endpoint Investigation Plan' playbook. It then continues with the next stage, which includes, containment and eradication.\n\nThis phase executes the following containment actions:\n\n* Automatically isolates the endpoint\n\nIt then continues with the following eradication actions:\n\n* process termination",
-				"name": "T1059 - Command and Scripting Interpreter"
+				"description": "This playbook investigates a “Possible External RDP Brute Force” XDR Alert by gathering user, IP, and hostname information, and investigating if the following suspicious elements exists:\n\n- \"IP Reputation\" - DBot Score is 2-3 \n- \"Source geolocation\" - RDP Connection made from rare geo-location \n-  Related to campaign - IP address is related to campaign, based on TIM module\n-  Hunting results - the hunt for indicators related to the source IP and the related campaign returned results\n-  XDR Alert search - XDR Alerts that related to the same username and endpoint, and to the MITRE tactics that comes after \"Credential Access\", were found.\n- Risky User - The user that was identified in the attack was given a medium or high score by the Core integration's ITDR module.\n- Risky Host - The destination host that was identified in the attack was given a medium or high score by the Core integration's ITDR module.\n\nSet verdict method:\n* Critical Element - The \"Critical Element\" input allows you to select a specific element that, if identified as suspicious,  the investigation's final verdict will be deemed a \"True Positive\".\n\n* Final Verdict -  Each suspicious element is being added to an array called \"Suspicious Elements\", which is used to count potential security threats. The array size will be compared to a final threshold. If the size is greater than or equal to the threshold, the investigation's final verdict will be deemed a \"True Positive\".\n\n* User Engagement - The \"UserEngagementThreshold\" input allows you to set the number of suspicious elements that trigger user engagement. When this threshold is met, an email will be sent to the user and their manager asking for authorization of RDP activity. If the RDP activity is not authorized by the user, the investigation's final verdict will be deemed a \"True Positive\".\n",
+				"name": "Possible External RDP Brute-Force"
 			},
 			{
-				"description": "This playbook creating an array called \"Suspicious Elements\", which is used to count potential security threats. The following elements can be added to the array:\n\n- \"IP Reputation\" - DBot Score is 2-3 \n- \"Source geolocation\" - RDP Connection made from rare geo-location \n-  Related to campaign - IP address is related to campaign, based on TIM module\n-  Hunting results - the hunt for indicators related to the source IP and the related campaign returned results\n-  XDR Alert search - XDR Alerts that related to the same username and endpoint, and to the MITRE tactics that comes after \"Credential Access\", were found.\n- Risky User - one or more risky users are involved in the alert, as identified by the Cortex Core - IR integration's ITDR module.\n- Risky Host - one or more risky hosts are involved in the alert, as identified by the Cortex Core - IR integration's ITDR module.\n\nThe array will then be outputted and its size will be compared to a final threshold. If the size is greater than or equal to the threshold, the investigation's final verdict will be deemed a \"True Positive.\"",
-				"name": "Possible External RDP Brute-Force - Set Verdict"
+				"description": "This playbook handles WildFire Malware alerts.\nIt performs enrichment on the different alert entities and establishes a verdict.\nFor a possible true positive alert, the playbook performs further investigation for related IOCs and executes a containment plan.",
+				"name": "WildFire Malware"
 			},
 			{
 				"description": "This playbook handles ransomware alerts based on the Cortex XDR Traps module signature 'Suspicious File Modification'\n\n**Attacker’s Goals:**\n\nAn attacker is attempting to encrypt the victim files for either extortion or destruction purposes.\n\n**Investigative Actions:**\n\nInvestigate the executed process image and verify if it is malicious using:\n\nXDR trusted signers\n\nVT trusted signers\n\nVT detection rate\n\nNSRL DB\n\n**Response Actions:**\n\nThe playbook’s first response action is a remediation plan which includes two sub-playbooks, **Containment Plan** and **Eradication Plan**, which is based on the initial data provided within the alert. In that phase, the playbooks will execute:\n\nAuto endpoint isolation\n\nAuto block indicators\n\nAuto file quarantine\n\nAuto user disable\n\nAuto process termination\n\nNext, the playbook executes an enrichment and response phase which includes two sub-playbooks, **Ransomware Enrich and Contain** \u0026 **Account Enrichment - Generic v2.1**.\nThe Ransomware Enrich and Contain playbook does the following:\n\n1.Checks if the initiator is a remote attacker and allows isolating the remote host, if possible. \n\n2.Retrieves the WildFire sandbox report and extracts the indicators within it. * The playbook tries to retrieve the report, but if there is no report available, the playbook tries to fetch the ransomware file for detonation. \n\n3.Hunts for the ransomware alert indicators from the alert table, searches for endpoints that have been seen with them, and allows containing the identified endpoints.\n\nNext, an advanced analysis playbook, which is currently done mostly manually, will be executed. This sub-playbook, **Ransomware Advanced Analysis** allows the analyst to upload the ransomware note and for the ransomware identification. Using the **ID-Ransomware** service, the analyst will be able to get the ransomware type and the decryptor if available.\n\nWhen the playbook executes, it checks for additional activity using the Endpoint Investigation Plan playbook, and another phase, which includes the Containment Plan sub-playbook, is executed.\n\n**This phase will execute the following containment actions:**\n\nManual block indicators\n\nManual file quarantine\n\nAuto endpoint isolation\n\nFinally, the recovery phase is executed. If the analysts decides to continue with the investigation rather than recover and close the alert, a manual task with **CISA** official ransomware investigation checklist is provided for further investigation.\n\n**External resources:**\n\n[MITRE Technique T1486](https://attack.mitre.org/techniques/T1486/)\n\n[CISA Ransomware Guide](https://www.cisa.gov/stopransomware/ransomware-guide)",
 				"name": "Ransomware Response"
 			},
 			{
-				"description": "This playbook handles impossible traveler alerts.\n\nAn Impossible Traveler event occurs when multiple login attempts seen for a user from multiple remote countries in a short period of time, which shouldn't be possible. This may indicate the account is compromised.\n\n**Attacker's Goals:**\n\nGain user-account credentials.\n\n**Investigative Actions:**\n\nInvestigate the IP addresses and identities involved in the detected activity using:\n\n* Impossible Traveler - Enrichment playbook\n* CalculateGeoDistance automation\n\n**Response Actions**\n\nThe playbook's first response actions are based on the data available within the alert. In that phase, the playbook will execute:\n\n* Manual block indicators if the IP address found malicious\n* Manual disable user\n* Manual clear of the user’s sessions (Okta)\n\nWhen the playbook continues, after validating the activity with the user’s manager, another phase of response actions is being executed, which includes:\n\n* Auto block indicators \n\n\n**External Resources:**\n\n[Impossible traveler alert](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR-Analytics-Alert-Reference/Impossible-traveler-SSO)",
-				"name": "Impossible Traveler Response"
+				"description": "This playbook is responsible for ransomware alert data enrichment and response.\nThe playbook executes the following:\n\n1.Checks if the initiator is a remote attacker and allows isolating the remote host, if possible.\n\n2.Retrieves the WildFire sandbox report and extract the indicators within it.\n    * The playbook tries to retrieve the report, but if there is no report available, the playbook tries to fetch the ransomware file for detonation.\n\n3.Hunts for the ransomware alert indicators from the alert table, searches for endpoints that have been seen with them, and allows containing the identified endpoints.",
+				"name": "Ransomware Enrich and Contain"
 			},
 			{
-				"description": "This playbook get as an input all of the involved IP addresses and identities from the Impossible Traveler playbook alert, and enriches them based on the following:\n* Geo location\n* Active Directory\n* IP enrichment e.g. VirusTotal, AbuseIPDB, etc.",
-				"name": "Impossible Traveler - Enrichment"
+				"description": "This playbook handles command and scripting interpreter alerts based on the MITRE T1059 technique.\nAn attacker might abuse command and script interpreters to execute commands, scripts, or binaries.\nMost systems come with some kind of built-in command line interface and scripting capabilities. For example, macOS and Linux distributions include some form of Unix Shell while Windows installations include the Windows Command Shell and PowerShell.\n\n\n**Attacker's Goals:**\n\nAn attacker can abuse these technologies in various ways as a means of executing arbitrary commands. Commands and scripts can be embedded in initial access payloads delivered to victims as lure documents or as secondary payloads downloaded from an existing C2. An attacker may also execute commands through interactive terminals/shells, as well as utilize various remote services to achieve remote execution.\n\n**Analysis**\n\nDue to the nature of this technique and the usage of built-in command line interfaces, the first step of the playbook is to analyze the command line. \nThe command line analysis does the following:\n- Checks and decodes base64\n- Extracts and enriches indicators from the command line\n- Checks specific arguments for malicious usage \n\n**Investigative Actions:**\nThe playbook checks for additional activity using the 'Endpoint Investigation Plan' playbook and utilizes the power of insight alerts.\n\n**Response Actions**\n\nAfter analyzing the data, the playbook's first response action is to contain the threat based on the initial data provided within the alert. In this phase, the playbook will:\n\n* Isolate the endpoint based on playbook inputs.\n\nWhen the playbook proceeds, it checks for additional activity using the 'Endpoint Investigation Plan' playbook. It then continues with the next stage, which includes, containment and eradication.\n\nThis phase executes the following containment actions:\n\n* Automatically isolates the endpoint\n\nIt then continues with the following eradication actions:\n\n* process termination",
+				"name": "T1059 - Command and Scripting Interpreter"
+			},
+			{
+				"description": "This playbook searches XDR alerts related to specific entities, on a given timeframe, based on MITRE tactics.\nNote: The playbook's inputs enable manipulating the execution flow. Read the input descriptions for details.",
+				"name": "Get entity alerts by MITRE tactics"
+			},
+			{
+				"description": "This playbook creating an array called \"Suspicious Elements\", which is used to count potential security threats. The following elements can be added to the array:\n\n- \"IP Reputation\" - DBot Score is 2-3 \n- \"Source geolocation\" - RDP Connection made from rare geo-location \n-  Related to campaign - IP address is related to campaign, based on TIM module\n-  Hunting results - the hunt for indicators related to the source IP and the related campaign returned results\n-  XDR Alert search - XDR Alerts that related to the same username and endpoint, and to the MITRE tactics that comes after \"Credential Access\", were found.\n- Risky User - one or more risky users are involved in the alert, as identified by the Cortex Core - IR integration's ITDR module.\n- Risky Host - one or more risky hosts are involved in the alert, as identified by the Cortex Core - IR integration's ITDR module.\n\nThe array will then be outputted and its size will be compared to a final threshold. If the size is greater than or equal to the threshold, the investigation's final verdict will be deemed a \"True Positive.\"",
+				"name": "Possible External RDP Brute-Force - Set Verdict"
+			},
+			{
+				"description": "The \"Remote PsExec-like LOLBIN Command Execution\" playbook is designed to address and respond to alerts indicating suspicious activities related to remote PsExec-like LOLBIN command execution from an unsigned non-standard source. \nThe playbook aims to efficiently:\n\n- Check if the execution is blocked. If not will terminate the process (Manually by default).\n- Enrich any entities and indicators from the alert and find any related campaigns.\n- Perform command analysis to provide insights and verdict for the executed command.\n- Perform further endpoint investigation using XDR.\n- Checks for any malicious verdict found to raise the severity of the alert.\n- Perform Automatic/Manual remediation response by blocking any malicious indicators found.\n\nThe playbook is designed to run as a sub-playbook in ‘Cortex XDR Alert Handling - v3 \u0026 Cortex XDR Alerts Handling’.\nIt depends on the data from the parent playbooks and can not be used as a standalone version.",
+				"name": "Remote PsExec with LOLBIN command execution alert"
+			},
+			{
+				"description": "This playbook handles masquerading alerts based on the MITRE T1036 technique.\nAn attacker might leverage Microsoft Windows well-known image names to run malicious processes without being caught.\n\n**Attacker's Goals:**\n\nAn attacker is attempting to masquerade as standard windows images by using a trusted name to execute malicious code.\n\n**Investigative Actions:**\n\nInvestigate the executed process image and verify if it is malicious using:\n\n* XDR trusted signers\n* VT trusted signers\n* VT detection rate\n* NSRL DB\n\n**Response Actions**\n\nThe playbook's first response action is a containment plan which is based on the initial data provided within the alert. In that phase, the playbook will execute:\n\n* Auto block indicators\n* Auto file quarantine\n* Manual endpoint isolation\n\nWhen the playbook executes, it checks for additional activity using the Endpoint Investigation Plan playbook, and another phase, which includes containment and eradication, is executed.\n\nThis phase will execute the following containment actions:\n\n* Manual block indicators\n* Manual file quarantine\n* Auto endpoint isolation\n\nAnd the following eradication actions:\n\n* Manual process termination\n* Manual file deletion\n* Manual reset of the user’s password\n\nExternal resources:\n\n[MITRE Technique T1036](https://attack.mitre.org/techniques/T1036/)\n\n[Possible Microsoft process masquerading](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR-Analytics-Alert-Reference/Possible-Microsoft-process-masquerading)",
+				"name": "T1036 - Masquerading"
+			},
+			{
+				"description": "This playbook handles external and internal scanning alerts.\n\n**Attacker's Goals:**\n\nAdversaries may attempt to get a listing of services running on remote hosts, including those that may be vulnerable to remote software exploitation. Methods to acquire this information include port scans and vulnerability scans using tools that are brought onto a system.\n\n**Investigative Actions:**\n\nInvestigate the scanner IP address using:\n\n* IP enrichment:\n* NGFW Internal Scan playbook\n* Endpoint Investigation Plan playbook\n* Entity enrichment\n\n**Response Actions**\n\nThe playbook's response actions are based on the initial data provided within the alert. In that phase, the playbook will execute:\n\n* Automatically block IP address\n* Report IP address (If configured as true in the playbook inputs)\n\nWhen the playbook executes, it checks for additional activity using the Endpoint Investigation Plan playbook, and another phase, which includes the Containment Plan playbook, is executed.\nThis phase will execute the following containment actions:\n\n* Automatically isolate involved endpoint\n* Manual block indicators\n* Manual file quarantine\n* Manual disable user\n\n**External resources:**\n\n[Mitre technique T1046 - Network Service Scanning](https://attack.mitre.org/techniques/T1046/)\n\n[Port Scan](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR-Analytics-Alert-Reference/Port-Scan)",
+				"name": "NGFW Scan"
 			},
 			{
 				"description": "Deprecated. Use `Cloud IAM User Access Investigation` instead. Respond to Cortex XDR Cloud alerts where an AWS IAM user`s access key is used suspiciously to access the cloud environment. \nThe following alerts are supported for AWS environments.\n- Penetration testing tool attempt\n- Penetration testing tool activity\n- Suspicious API call from a Tor exit node\n This is a beta playbook, which lets you implement and test pre-release software. Although AWS is supported, we are working towards multi-cloud support. As the playbook is beta, it might contain bugs. Updates to the playbook during the beta phase might include non-backward compatible features. We encourage your feedback on the quality and usability of the content to help us identify and fix issues, so we can continually improve the content.\n",
@@ -383,32 +391,24 @@
 				"name": "Identity Analytics - Alert Handling"
 			},
 			{
-				"description": "This playbook handles WildFire Malware alerts.\nIt performs enrichment on the different alert entities and establishes a verdict.\nFor a possible true positive alert, the playbook performs further investigation for related IOCs and executes a containment plan.",
-				"name": "WildFire Malware"
+				"description": "This playbook investigates a scan where the source is an internal IP address.\n\nAn attacker might initiate an internal scan for discovery, lateral movement and more.\n\n**Attacker's Goals:**\n\nAn attacker can leverage a scan for open ports and vulnerable systems on remote endpoints in an attempt to identify the endpoint operating system, firewall configuration, and exploitable services.\n\n**Investigative Actions:**\n\n* Endpoint Investigation Plan playbook\n\n**Response Actions**\n\nThe playbook's response actions are based on the Endpoint Investigation Plan playbook results. In that phase, the playbook will execute:\n\n* Auto endpoint isolation\n* Manual block indicators\n* Manual file quarantine\n",
+				"name": "NGFW Internal Scan"
+			},
+			{
+				"description": "This playbook get as an input all of the involved IP addresses and identities from the Impossible Traveler playbook alert, and enriches them based on the following:\n* Geo location\n* Active Directory\n* IP enrichment e.g. VirusTotal, AbuseIPDB, etc.",
+				"name": "Impossible Traveler - Enrichment"
+			},
+			{
+				"description": "When an unknown executable, DLL, or macro attempts to run on a Windows or Mac endpoint, the Cortex XDR agent uses local analysis to determine if it is likely to be malware. Local analysis uses a static set of pattern-matching rules that inspect multiple file features and attributes, and a statistical model that was developed with machine learning on WildFire threat intelligence.\n\n**Investigative Actions:**\n\nInvestigate the executed process image and verify if it is malicious using:\n\n* XDR trusted signers\n* VT trusted signers\n* VT detection rate\n* NSRL DB\n\n**Response Actions**\n\nThe playbook's first response action is a containment plan that is based on the initial data provided within the alert. In that phase, the playbook will execute:\n\n* Auto block indicators\n* Auto file quarantine\n* Manual endpoint isolation\n\nWhen the playbook executes, it checks for additional activity using the Endpoint Investigation Plan playbook, and another phase, which includes containment and eradication, is executed.\n\nThis phase will execute the following containment actions:\n\n* Manual block indicators\n* Manual file quarantine\n* Auto endpoint isolation\n\nAnd the following eradication actions:\n\n* Manual process termination\n* Manual file deletion\n* Manual reset of the user’s password\n\nExternal resources:\n\n[Malware Protection Flow](https://docs-cortex.paloaltonetworks.com/r/Cortex-XSIAM/Cortex-XSIAM-Administrator-Guide/File-Analysis-and-Protection-Flow)",
+				"name": "Local Analysis alert Investigation"
+			},
+			{
+				"description": "This playbook handles impossible traveler alerts.\n\nAn Impossible Traveler event occurs when multiple login attempts seen for a user from multiple remote countries in a short period of time, which shouldn't be possible. This may indicate the account is compromised.\n\n**Attacker's Goals:**\n\nGain user-account credentials.\n\n**Investigative Actions:**\n\nInvestigate the IP addresses and identities involved in the detected activity using:\n\n* Impossible Traveler - Enrichment playbook\n* CalculateGeoDistance automation\n\n**Response Actions**\n\nThe playbook's first response actions are based on the data available within the alert. In that phase, the playbook will execute:\n\n* Manual block indicators if the IP address found malicious\n* Manual disable user\n* Manual clear of the user’s sessions (Okta)\n\nWhen the playbook continues, after validating the activity with the user’s manager, another phase of response actions is being executed, which includes:\n\n* Auto block indicators \n\n\n**External Resources:**\n\n[Impossible traveler alert](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR-Analytics-Alert-Reference/Impossible-traveler-SSO)",
+				"name": "Impossible Traveler Response"
 			},
 			{
 				"description": "IOCs provide the ability to alert on known malicious objects on endpoints across the organization. \n\n**Analysis Actions:**\nThe playbook will use several enrichment sources to determine the IOC verdict. Additionally, will use the Analytics module to run a prevalence check for the IOC.\n\n**Response Actions:**\nThe playbook's first response action is a containment plan that is based on the playbook input. In that phase, the playbook will execute endpoint isolation\n\n**Investigative Actions:**\nWhen the playbook executes, it checks for additional abnormal activity using the Endpoint Investigation Plan playbook that can indicate the endpoint might be compromised.\n\n**Remediation Actions:**\nIn case results are found within the investigation phase, the playbook will execute remediation actions that include containment and eradication.\n\nThis phase will execute the following containment actions:\n\n* File quarantine\n* Endpoint isolation\n\nAnd the following eradication actions:\n\n* Manual process termination\n* Manual file deletion",
 				"name": "IOC Alert"
-			},
-			{
-				"description": "This playbook searches XDR alerts related to specific entities, on a given timeframe, based on MITRE tactics.\nNote: The playbook's inputs enable manipulating the execution flow. Read the input descriptions for details.",
-				"name": "Get entity alerts by MITRE tactics"
-			},
-			{
-				"description": "This playbook is responsible for ransomware alert data enrichment and response.\nThe playbook executes the following:\n\n1.Checks if the initiator is a remote attacker and allows isolating the remote host, if possible.\n\n2.Retrieves the WildFire sandbox report and extract the indicators within it.\n    * The playbook tries to retrieve the report, but if there is no report available, the playbook tries to fetch the ransomware file for detonation.\n\n3.Hunts for the ransomware alert indicators from the alert table, searches for endpoints that have been seen with them, and allows containing the identified endpoints.",
-				"name": "Ransomware Enrich and Contain"
-			},
-			{
-				"description": "This playbook investigates a “Possible External RDP Brute Force” XDR Alert by gathering user, IP, and hostname information, and investigating if the following suspicious elements exists:\n\n- \"IP Reputation\" - DBot Score is 2-3 \n- \"Source geolocation\" - RDP Connection made from rare geo-location \n-  Related to campaign - IP address is related to campaign, based on TIM module\n-  Hunting results - the hunt for indicators related to the source IP and the related campaign returned results\n-  XDR Alert search - XDR Alerts that related to the same username and endpoint, and to the MITRE tactics that comes after \"Credential Access\", were found.\n- Risky User - The user that was identified in the attack was given a medium or high score by the Core integration's ITDR module.\n- Risky Host - The destination host that was identified in the attack was given a medium or high score by the Core integration's ITDR module.\n\nSet verdict method:\n* Critical Element - The \"Critical Element\" input allows you to select a specific element that, if identified as suspicious,  the investigation's final verdict will be deemed a \"True Positive\".\n\n* Final Verdict -  Each suspicious element is being added to an array called \"Suspicious Elements\", which is used to count potential security threats. The array size will be compared to a final threshold. If the size is greater than or equal to the threshold, the investigation's final verdict will be deemed a \"True Positive\".\n\n* User Engagement - The \"UserEngagementThreshold\" input allows you to set the number of suspicious elements that trigger user engagement. When this threshold is met, an email will be sent to the user and their manager asking for authorization of RDP activity. If the RDP activity is not authorized by the user, the investigation's final verdict will be deemed a \"True Positive\".\n",
-				"name": "Possible External RDP Brute-Force"
-			},
-			{
-				"description": "This playbook handles external and internal scanning alerts.\n\n**Attacker's Goals:**\n\nAdversaries may attempt to get a listing of services running on remote hosts, including those that may be vulnerable to remote software exploitation. Methods to acquire this information include port scans and vulnerability scans using tools that are brought onto a system.\n\n**Investigative Actions:**\n\nInvestigate the scanner IP address using:\n\n* IP enrichment:\n* NGFW Internal Scan playbook\n* Endpoint Investigation Plan playbook\n* Entity enrichment\n\n**Response Actions**\n\nThe playbook's response actions are based on the initial data provided within the alert. In that phase, the playbook will execute:\n\n* Automatically block IP address\n* Report IP address (If configured as true in the playbook inputs)\n\nWhen the playbook executes, it checks for additional activity using the Endpoint Investigation Plan playbook, and another phase, which includes the Containment Plan playbook, is executed.\nThis phase will execute the following containment actions:\n\n* Automatically isolate involved endpoint\n* Manual block indicators\n* Manual file quarantine\n* Manual disable user\n\n**External resources:**\n\n[Mitre technique T1046 - Network Service Scanning](https://attack.mitre.org/techniques/T1046/)\n\n[Port Scan](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR-Analytics-Alert-Reference/Port-Scan)",
-				"name": "NGFW Scan"
-			},
-			{
-				"description": "This playbook detects the ransomware type and searches for available decryptors.\n\nThe playbook uses the ID-Ransomware service, which allows you to detect the ransomware using multiple methods.",
-				"name": "Ransomware Advanced Analysis"
 			}
 		],
 		"report": null,
@@ -416,58 +416,10 @@
 		"trigger": [
 			{
 				"deprecated": false,
-				"description": "This trigger is responsible for handling WildFire Malware alerts",
-				"fromversion": "0.0.0",
-				"id": "478f3161aac3290efb445b0841eb1366",
-				"name": "WildFire and Wildfire Post detection",
-				"toversion": ""
-			},
-			{
-				"deprecated": false,
-				"description": "This trigger is responsible for handling ransomware alerts",
-				"fromversion": "0.0.0",
-				"id": "437fc412eafbec9c69d8af8322895b69",
-				"name": "Ransomware Response",
-				"toversion": ""
-			},
-			{
-				"deprecated": false,
-				"description": "This trigger is responsible for handling T1036 - Masquerading alerts",
-				"fromversion": "0.0.0",
-				"id": "36ff93e2ba62421cbaf704a395c7a7d1",
-				"name": "T1036 - Masquerading",
-				"toversion": ""
-			},
-			{
-				"deprecated": false,
 				"description": "This trigger is responsible for handling Identity Analytics alerts",
 				"fromversion": "6.10.0",
 				"id": "8b94c2511f1b6dbcb25e1f2c1681b8cd",
 				"name": "Identity Analytics Alerts",
-				"toversion": ""
-			},
-			{
-				"deprecated": false,
-				"description": "This trigger is responsible for handling alerts involving scanning activity identified by our NGFW",
-				"fromversion": "0.0.0",
-				"id": "73545719a1bdeba6ba91f6a16044c021",
-				"name": "NGFW Scanning Alerts",
-				"toversion": ""
-			},
-			{
-				"deprecated": false,
-				"description": "This trigger is responsible for handling Impossible Traveler alerts",
-				"fromversion": "0.0.0",
-				"id": "b0b1552aad770ec22f4bd6c4cc48db01",
-				"name": "Impossible Traveler",
-				"toversion": ""
-			},
-			{
-				"deprecated": false,
-				"description": "This trigger is responsible for handling Remote PsExec with LOLBIN command execution alerts",
-				"fromversion": "6.10.0",
-				"id": "155e823d9d56d1e3cec9061cd9c0523d",
-				"name": "Remote PsExec with LOLBIN command execution alert",
 				"toversion": ""
 			},
 			{
@@ -480,10 +432,10 @@
 			},
 			{
 				"deprecated": false,
-				"description": "This trigger is responsible for handling External RDP Brute-Force alerts",
+				"description": "This trigger is responsible for handling Impossible Traveler alerts",
 				"fromversion": "0.0.0",
-				"id": "723030e7f5b76701564877846cd69eec",
-				"name": "Possible External RDP Brute-Force",
+				"id": "b0b1552aad770ec22f4bd6c4cc48db01",
+				"name": "Impossible Traveler",
 				"toversion": ""
 			},
 			{
@@ -493,20 +445,68 @@
 				"id": "546b06f5f92ffe83caf0e884a36df98d",
 				"name": "T1059 - Command and Scripting Interpreter",
 				"toversion": ""
+			},
+			{
+				"deprecated": false,
+				"description": "This trigger is responsible for handling External RDP Brute-Force alerts",
+				"fromversion": "0.0.0",
+				"id": "723030e7f5b76701564877846cd69eec",
+				"name": "Possible External RDP Brute-Force",
+				"toversion": ""
+			},
+			{
+				"deprecated": false,
+				"description": "This trigger is responsible for handling T1036 - Masquerading alerts",
+				"fromversion": "0.0.0",
+				"id": "36ff93e2ba62421cbaf704a395c7a7d1",
+				"name": "T1036 - Masquerading",
+				"toversion": ""
+			},
+			{
+				"deprecated": false,
+				"description": "This trigger is responsible for handling Remote PsExec with LOLBIN command execution alerts",
+				"fromversion": "6.10.0",
+				"id": "155e823d9d56d1e3cec9061cd9c0523d",
+				"name": "Remote PsExec with LOLBIN command execution alert",
+				"toversion": ""
+			},
+			{
+				"deprecated": false,
+				"description": "This trigger is responsible for handling ransomware alerts",
+				"fromversion": "0.0.0",
+				"id": "437fc412eafbec9c69d8af8322895b69",
+				"name": "Ransomware Response",
+				"toversion": ""
+			},
+			{
+				"deprecated": false,
+				"description": "This trigger is responsible for handling WildFire Malware alerts",
+				"fromversion": "0.0.0",
+				"id": "478f3161aac3290efb445b0841eb1366",
+				"name": "WildFire and Wildfire Post detection",
+				"toversion": ""
+			},
+			{
+				"deprecated": false,
+				"description": "This trigger is responsible for handling alerts involving scanning activity identified by our NGFW",
+				"fromversion": "0.0.0",
+				"id": "73545719a1bdeba6ba91f6a16044c021",
+				"name": "NGFW Scanning Alerts",
+				"toversion": ""
 			}
 		],
 		"widget": null,
 		"wizard": null
 	},
 	"created": "2022-02-17T22:23:42Z",
-	"currentVersion": "3.0.20",
+	"currentVersion": "3.0.21",
 	"definitionId": "",
 	"dependencies": {
 		"AWS-IAM": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.1.57",
+			"minVersion": "1.1.58",
 			"name": "AWS - IAM"
 		},
 		"AbuseDB": {
@@ -520,63 +520,63 @@
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.6.28",
+			"minVersion": "1.6.30",
 			"name": "Active Directory Query"
 		},
 		"Azure-Enrichment-Remediation": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.1.12",
+			"minVersion": "1.1.14",
 			"name": "Azure Enrichment and Remediation"
 		},
 		"Base": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.33.30",
+			"minVersion": "1.33.37",
 			"name": "Base"
 		},
 		"CloudIncidentResponse": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.0.14",
+			"minVersion": "1.0.15",
 			"name": "Cloud Incident Response"
 		},
 		"CommonPlaybooks": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "2.6.13",
+			"minVersion": "2.6.15",
 			"name": "Common Playbooks"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.13.39",
+			"minVersion": "1.14.5",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.4.1",
+			"minVersion": "3.4.3",
 			"name": "Common Types"
 		},
 		"CoreAlertFields": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.0.32",
+			"minVersion": "1.0.33",
 			"name": "Core Alert Fields"
 		},
 		"FiltersAndTransformers": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.2.60",
+			"minVersion": "1.2.62",
 			"name": "Filters And Transformers"
 		},
 		"Malware": {
@@ -590,7 +590,7 @@
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.2.10",
+			"minVersion": "3.2.12",
 			"name": "Okta"
 		},
 		"Palo_Alto_Networks_WildFire": {
@@ -678,7 +678,7 @@
 			"name": "AbuseIPDB"
 		}
 	],
-	"itemVersion": "3.0.20",
+	"itemVersion": "3.0.21",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -705,9 +705,9 @@
 	},
 	"tags": [],
 	"toServerVersion": "",
-	"updated": "2024-02-17T20:21:06Z",
+	"updated": "2024-03-03T20:25:22Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "833530",
+	"versionInfo": "865088",
 	"videos": []
 }

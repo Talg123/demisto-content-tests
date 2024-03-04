@@ -24,7 +24,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.1.0
-    itemVersion: 1.14.3
+    itemVersion: 1.14.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -50,7 +50,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ListUsedDockerImages', 'start', __line__())
-  ### pack version: 1.14.3
+  ### pack version: 1.14.5
 
 
   """ListUsedDockerImages Script for Cortex XSIAM (aka Demisto)

@@ -23,7 +23,7 @@
 	"id": "incident_campaignname",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "3.4.2",
+	"itemVersion": "3.4.3",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Campaign Name",
@@ -37,7 +37,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Campaign Name",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

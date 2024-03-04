@@ -132,7 +132,7 @@
 	"id": "incident_alertsearchresults",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.0.32",
+	"itemVersion": "1.0.33",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Alert Search Results",
@@ -146,7 +146,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Alert Search Results",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

@@ -13,16 +13,11 @@
 		"incidentfield",
 		"playbook",
 		"layoutscontainer",
-		"trigger",
-		"layoutrule"
+		"layoutrule",
+		"trigger"
 	],
 	"contentItems": {
 		"automation": [
-			{
-				"description": "Recommend most likely service owners from those surfaced by Cortex ASM Enrichment.",
-				"name": "RankServiceOwners",
-				"tags": []
-			},
 			{
 				"description": "Generate an ASM Alert Summary report.",
 				"name": "GenerateASMReport",
@@ -34,8 +29,8 @@
 				"tags": []
 			},
 			{
-				"description": "Parse a GCP service account email for the project name, then lookup project owners and add them to a list of potential service owners for ranking.",
-				"name": "GetProjectOwners",
+				"description": "Identify whether the service is a \"development\" server. Development servers have no external users and run no production workflows. These servers might be named \"dev\", but they might also be named \"qa\", \"pre-production\", \"user acceptance testing\", or use other non-production terms. This automation uses both public data visible to anyone (`active_classifications` as derived by Xpanse ASM) as well as checking internal data for AI-learned indicators of development systems (`asm_tags` as derived from integrations with non-public systems).",
+				"name": "InferWhetherServiceIsDev",
 				"tags": []
 			},
 			{
@@ -44,8 +39,13 @@
 				"tags": []
 			},
 			{
-				"description": "Identify whether the service is a \"development\" server. Development servers have no external users and run no production workflows. These servers might be named \"dev\", but they might also be named \"qa\", \"pre-production\", \"user acceptance testing\", or use other non-production terms. This automation uses both public data visible to anyone (`active_classifications` as derived by Xpanse ASM) as well as checking internal data for AI-learned indicators of development systems (`asm_tags` as derived from integrations with non-public systems).",
-				"name": "InferWhetherServiceIsDev",
+				"description": "Recommend most likely service owners from those surfaced by Cortex ASM Enrichment.",
+				"name": "RankServiceOwners",
+				"tags": []
+			},
+			{
+				"description": "Parse a GCP service account email for the project name, then lookup project owners and add them to a list of potential service owners for ranking.",
+				"name": "GetProjectOwners",
 				"tags": []
 			}
 		],
@@ -55,13 +55,23 @@
 		"generictype": null,
 		"incidentfield": [
 			{
-				"description": "UUID for ASM Asset.",
-				"name": "ASM - Asset ID",
-				"type": "multiSelect"
+				"description": "Information on notification(s) sent via the ASM playbook",
+				"name": "ASM - Notification",
+				"type": "grid"
 			},
 			{
-				"description": "Field for private IP addresses found.",
-				"name": "ASM - Private IP",
+				"description": "Original set of potential service owners gathered through playbook. This field contains all the service owners collected by the playbook in asmserviceowner as well as additional users that may help identify likely owners (e.g. service accounts).",
+				"name": "ASM - Service Owner Unranked Raw",
+				"type": "grid"
+			},
+			{
+				"description": "Tags from objects that can be used to determine other information (if server is Dev for example)",
+				"name": "ASM - Tags",
+				"type": "grid"
+			},
+			{
+				"description": "Related or duplicate objects",
+				"name": "ASM - Related",
 				"type": "grid"
 			},
 			{
@@ -70,8 +80,53 @@
 				"type": "longText"
 			},
 			{
-				"description": "Related or duplicate objects",
-				"name": "ASM - Related",
+				"description": "Collect information on remediation action(s).",
+				"name": "ASM - Remediation",
+				"type": "grid"
+			},
+			{
+				"description": "Collect information on data collection tasks.",
+				"name": "ASM - Data Collection",
+				"type": "grid"
+			},
+			{
+				"description": "Field for private IP addresses found.",
+				"name": "ASM - Private IP",
+				"type": "grid"
+			},
+			{
+				"description": "Summary report of alert.",
+				"name": "ASM - Alert Summary",
+				"type": "grid"
+			},
+			{
+				"description": "Store the description of an Attack Surface Rule",
+				"name": "ASM - Attack Surface Rule Description",
+				"type": "longText"
+			},
+			{
+				"description": "Shows information on matching remediation path rule",
+				"name": "ASM - Remediation Path Rule",
+				"type": "grid"
+			},
+			{
+				"description": "Related system identifiers.",
+				"name": "ASM - System IDs",
+				"type": "grid"
+			},
+			{
+				"description": "Whether the asset is most likely used for solely development/non-production purposes, including uses like testing, staging, QA, sandbox, and user acceptance testing",
+				"name": "ASM - Dev Check",
+				"type": "boolean"
+			},
+			{
+				"description": "A field to determine whether the asset is most likely used for solely development/non-production purposes, including uses like testing, staging, QA, sandbox, and user acceptance testing. Why reasons and confidence.",
+				"name": "ASM - Dev Check Details",
+				"type": "grid"
+			},
+			{
+				"description": "Remediation objectives uses to display the remediation actions to the end user.",
+				"name": "ASM - Remediation Objectives",
 				"type": "grid"
 			},
 			{
@@ -80,18 +135,33 @@
 				"type": "multiSelect"
 			},
 			{
+				"description": "Service provider(s) for ASM asset.",
+				"name": "ASM - Provider",
+				"type": "multiSelect"
+			},
+			{
 				"description": "Used to store the priority assigned to a particular Attack Surface Rule",
 				"name": "ASM - Attack Surface Rule Priority",
 				"type": "shortText"
 			},
 			{
-				"description": "Collect information on remediation action(s).",
-				"name": "ASM - Remediation",
+				"description": "The category associated with an Attack Surface Rule",
+				"name": "ASM - Attack Surface Rule Category",
+				"type": "shortText"
+			},
+			{
+				"description": "Potential service owners gathered through playbook",
+				"name": "ASM - Service Owner",
 				"type": "grid"
 			},
 			{
-				"description": "Service provider(s) for ASM asset.",
-				"name": "ASM - Provider",
+				"description": "UUID for ASM Asset.",
+				"name": "ASM - Asset ID",
+				"type": "multiSelect"
+			},
+			{
+				"description": "UUID for ASM Service",
+				"name": "ASM - Service ID",
 				"type": "multiSelect"
 			},
 			{
@@ -105,34 +175,9 @@
 				"type": "grid"
 			},
 			{
-				"description": "Potential service owners gathered through playbook",
-				"name": "ASM - Service Owner",
-				"type": "grid"
-			},
-			{
-				"description": "Store the description of an Attack Surface Rule",
-				"name": "ASM - Attack Surface Rule Description",
-				"type": "longText"
-			},
-			{
-				"description": "Information on cloud assets",
-				"name": "ASM - Cloud",
-				"type": "grid"
-			},
-			{
-				"description": "A field to determine whether the asset is most likely used for solely development/non-production purposes, including uses like testing, staging, QA, sandbox, and user acceptance testing. Why reasons and confidence.",
-				"name": "ASM - Dev Check Details",
-				"type": "grid"
-			},
-			{
 				"description": "Network protocol for ASM asset.",
 				"name": "ASM - Protocol",
 				"type": "multiSelect"
-			},
-			{
-				"description": "information on playbook progression (stages complete and what time)",
-				"name": "ASM - Playbook Stage",
-				"type": "grid"
 			},
 			{
 				"description": "A field to gather information on whether or not an integration perform enrichment for ASM.",
@@ -140,59 +185,14 @@
 				"type": "grid"
 			},
 			{
-				"description": "Collect information on data collection tasks.",
-				"name": "ASM - Data Collection",
+				"description": "information on playbook progression (stages complete and what time)",
+				"name": "ASM - Playbook Stage",
 				"type": "grid"
 			},
 			{
-				"description": "Information on notification(s) sent via the ASM playbook",
-				"name": "ASM - Notification",
+				"description": "Information on cloud assets",
+				"name": "ASM - Cloud",
 				"type": "grid"
-			},
-			{
-				"description": "Remediation objectives uses to display the remediation actions to the end user.",
-				"name": "ASM - Remediation Objectives",
-				"type": "grid"
-			},
-			{
-				"description": "Whether the asset is most likely used for solely development/non-production purposes, including uses like testing, staging, QA, sandbox, and user acceptance testing",
-				"name": "ASM - Dev Check",
-				"type": "boolean"
-			},
-			{
-				"description": "Original set of potential service owners gathered through playbook. This field contains all the service owners collected by the playbook in asmserviceowner as well as additional users that may help identify likely owners (e.g. service accounts).",
-				"name": "ASM - Service Owner Unranked Raw",
-				"type": "grid"
-			},
-			{
-				"description": "Tags from objects that can be used to determine other information (if server is Dev for example)",
-				"name": "ASM - Tags",
-				"type": "grid"
-			},
-			{
-				"description": "UUID for ASM Service",
-				"name": "ASM - Service ID",
-				"type": "multiSelect"
-			},
-			{
-				"description": "Summary report of alert.",
-				"name": "ASM - Alert Summary",
-				"type": "grid"
-			},
-			{
-				"description": "Related system identifiers.",
-				"name": "ASM - System IDs",
-				"type": "grid"
-			},
-			{
-				"description": "Shows information on matching remediation path rule",
-				"name": "ASM - Remediation Path Rule",
-				"type": "grid"
-			},
-			{
-				"description": "The category associated with an Attack Surface Rule",
-				"name": "ASM - Attack Surface Rule Category",
-				"type": "shortText"
 			}
 		],
 		"incidenttype": null,
@@ -202,8 +202,12 @@
 				"category": "Vulnerability Management",
 				"commands": [
 					{
-						"description": "Get a list of all your internet exposure filtered by business units and organization handles. Maximum result limit is 100 ranges.",
-						"name": "asm-list-external-ip-address-range"
+						"description": "Returns list of remediation path rules.",
+						"name": "asm-list-remediation-rule"
+					},
+					{
+						"description": "Get service details according to the service ID.",
+						"name": "asm-get-external-service"
 					},
 					{
 						"description": "Get internet exposure asset details according to the asset ID.",
@@ -214,32 +218,28 @@
 						"name": "asm-list-external-service"
 					},
 					{
+						"description": "Starts a new Remediation Confirmation Scan or gets an existing scan ID.",
+						"name": "asm-start-remediation-confirmation-scan"
+					},
+					{
 						"description": "Get a list of all your internet exposure filtered by IP address, domain, type, and/or if there is an active external service. Maximum result limit is 100 assets.",
 						"name": "asm-list-asset-internet-exposure"
+					},
+					{
+						"description": "Get a list of all your internet exposure filtered by business units and organization handles. Maximum result limit is 100 ranges.",
+						"name": "asm-list-external-ip-address-range"
 					},
 					{
 						"description": "Get information of an attack surface rule ID.",
 						"name": "asm-get-attack-surface-rule"
 					},
 					{
-						"description": "Starts a new Remediation Confirmation Scan or gets an existing scan ID.",
-						"name": "asm-start-remediation-confirmation-scan"
-					},
-					{
-						"description": "Get the status of an existing Remediation Confirmation Scan.",
-						"name": "asm-get-remediation-confirmation-scan-status"
-					},
-					{
 						"description": "Get the external IP address range details according to the range IDs.",
 						"name": "asm-get-external-ip-address-range"
 					},
 					{
-						"description": "Get service details according to the service ID.",
-						"name": "asm-get-external-service"
-					},
-					{
-						"description": "Returns list of remediation path rules.",
-						"name": "asm-list-remediation-rule"
+						"description": "Get the status of an existing Remediation Confirmation Scan.",
+						"name": "asm-get-remediation-confirmation-scan-status"
 					}
 				],
 				"description": "Integration to pull assets and other ASM related information.",
@@ -272,32 +272,100 @@
 		],
 		"playbook": [
 			{
-				"description": "This playbook is used to create Jira tickets directed toward service owners to notify them of their internet exposures.",
-				"name": "Cortex ASM - Jira Notification"
-			},
-			{
-				"description": "Given the IP address this playbook enriches AWS information relevant to ASM alerts.",
-				"name": "Cortex ASM - AWS Enrichment"
-			},
-			{
 				"description": "Playbook for Remediation Confirmation Scan\n(RCS) creation and polling.",
 				"name": "Cortex ASM - Remediation Confirmation Scan"
+			},
+			{
+				"description": "Given the IP address this playbook enriches information from Prisma Cloud.",
+				"name": "Cortex ASM - Prisma Cloud Enrichment"
 			},
 			{
 				"description": "Given the IP address this playbook enriches GCP and Firewall information.",
 				"name": "Cortex ASM - GCP Enrichment"
 			},
 			{
-				"description": "Given the IP address this playbook enriches information from Splunk results relevant to ASM alerts. ",
-				"name": "Cortex ASM - Splunk Enrichment"
+				"description": "This playbook handles ASM alerts by enriching asset information and providing a means of remediating the issue directly or through contacting service owners.",
+				"name": "Cortex ASM - ASM Alert"
+			},
+			{
+				"description": "This playbook is used to pull information from Cortex Endpoint (XSIAM/XDR) systems for enrichment purposes.",
+				"name": "Cortex ASM - Cortex Endpoint Enrichment"
+			},
+			{
+				"description": "Given an IP address, port, and protocol of a service, this playbook enriches on-prem integrations to find the related firewall rule and other related information.\n\nConditions:\n- Multiple integration instances configured at the same time are not supported (Panorama or standalone NGFW).\n- !pan-os-security-policy-match fails if any firewall is disconnected (Panorama).\n- Matching on different rules for different firewalls not supported (Panorama).",
+				"name": "Cortex ASM - On Prem Enrichment"
+			},
+			{
+				"description": "Given the IP address this playbook enriches Rapid7 InsightVM (Nexpose) information relevant to ASM alerts.",
+				"name": "Cortex ASM - Rapid7 Enrichment"
+			},
+			{
+				"description": "Deprecated. No available replacement. Identifies IPv4 Address associated with Alert and creates a new Indicator.",
+				"name": "Cortex ASM - Extract IP Indicator"
+			},
+			{
+				"description": "This playbook is used to create Jira tickets directed toward service owners to notify them of their internet exposures.",
+				"name": "Cortex ASM - Jira Notification"
+			},
+			{
+				"description": "Given search terms, this playbook will query ServiceNow ticket descriptions and short descriptions over the last 30 days and set users that were found in the assigned_to field in those ServiceNow tickets. Note, the max amount of tickets returned from querying is 100.",
+				"name": "Cortex ASM - ServiceNow ITSM Enrichment"
+			},
+			{
+				"description": "Deprecated. No available replacement. This playbook returns \"RemediationAction\" options based on meeting \"Automated Remediation Requirements\" (https://github.com/demisto/content/tree/master/Packs/CortexAttackSurfaceManagement#automated-remediation-requirements) as well as whether ServiceNowV2 integration is set up.  Possible return values are:\n- Prompt base - data collection task with only email/manual options.\n- Prompt all options - data collection task with all options (meets Automated Remediation requirements and ServiceNow is enabled).\n- Prompt no snow - all options except ServiceNow (Automated Remediation requirements are met).\n- Prompt no ar - all options except Automated Remediation (ServiceNow is enabled).",
+				"name": "Cortex ASM - Decision"
+			},
+			{
+				"description": "Playbook to enriches Service ownership info in Azure and On-Prem Active Directory.",
+				"name": "Cortex ASM - Active Directory Enrichment"
+			},
+			{
+				"description": "This playbook pulls remediation guidance off of a list based on ASM RuleID to be used in service owner notifications (email or ticketing system).",
+				"name": "Cortex ASM - Remediation Guidance"
+			},
+			{
+				"description": "This playbook is used to send email notifications to service owners to notify them of their internet exposures.",
+				"name": "Cortex ASM - Email Notification"
+			},
+			{
+				"description": "This playbook is used to create ServiceNow tickets directed toward service owners to notify them of their internet exposures.",
+				"name": "Cortex ASM - ServiceNow Notification"
 			},
 			{
 				"description": "Given the IP address this playbook enriches Tenable.io information relevant to ASM alerts.",
 				"name": "Cortex ASM - Tenable.io Enrichment"
 			},
 			{
-				"description": "Used as a container folder for all enrichments of ASM alerts.",
-				"name": "Cortex ASM - Enrichment"
+				"description": "This playbook returns \"RemediationAction\" options based on the return from the Remediation Path Rules API, or defaults to data collection task.",
+				"name": "Cortex ASM - Remediation Path Rules"
+			},
+			{
+				"description": "Given the IP address this playbook enriches information from Splunk results relevant to ASM alerts. ",
+				"name": "Cortex ASM - Splunk Enrichment"
+			},
+			{
+				"description": "Playbook that looks to see if a service ID exists and chooses to start a Remediation Confirmation Scan.",
+				"name": "Cortex ASM - Detect Service"
+			},
+			{
+				"description": "Deprecated. No available replacement. This playbook will look up a CI in ServiceNow CMDB by IP.",
+				"name": "Cortex ASM - CMDB Enrichment"
+			},
+			{
+				"description": "Given the IP address this playbook enriches ServiceNow CMDB information relevant to ASM alerts.",
+				"name": "Cortex ASM - ServiceNow CMDB Enrichment"
+			},
+			{
+				"description": "Deprecated. No available replacement. This playbook will look up an IP address in Tenable.io or Rapid7 InsightVM.",
+				"name": "Cortex ASM - Vulnerability Management Enrichment"
+			},
+			{
+				"description": "Deprecated. No available replacement.",
+				"name": "Cortex ASM - SNMP Check"
+			},
+			{
+				"description": "Given the IP address this playbook enriches AWS information relevant to ASM alerts.",
+				"name": "Cortex ASM - AWS Enrichment"
 			},
 			{
 				"description": "Given the IP address, this playbook enriches Azure information relevant to ASM alerts.",
@@ -308,92 +376,24 @@
 				"name": "Cortex ASM - On Prem Remediation"
 			},
 			{
-				"description": "Deprecated. No available replacement. This playbook will look up a CI in ServiceNow CMDB by IP.",
-				"name": "Cortex ASM - CMDB Enrichment"
-			},
-			{
-				"description": "Deprecated. No available replacement.",
-				"name": "Cortex ASM - SNMP Check"
-			},
-			{
-				"description": "Given the IP address this playbook enriches Rapid7 InsightVM (Nexpose) information relevant to ASM alerts.",
-				"name": "Cortex ASM - Rapid7 Enrichment"
-			},
-			{
-				"description": "Playbook to enriches Service ownership info in Azure and On-Prem Active Directory.",
-				"name": "Cortex ASM - Active Directory Enrichment"
-			},
-			{
-				"description": "This playbook is used to create ServiceNow tickets directed toward service owners to notify them of their internet exposures.",
-				"name": "Cortex ASM - ServiceNow Notification"
-			},
-			{
-				"description": "This playbook is used to pull information from Cortex Endpoint (XSIAM/XDR) systems for enrichment purposes.",
-				"name": "Cortex ASM - Cortex Endpoint Enrichment"
-			},
-			{
-				"description": "Deprecated. No available replacement. This playbook will look up an IP address in Tenable.io or Rapid7 InsightVM.",
-				"name": "Cortex ASM - Vulnerability Management Enrichment"
-			},
-			{
-				"description": "Deprecated. No available replacement. Identifies IPv4 Address associated with Alert and creates a new Indicator.",
-				"name": "Cortex ASM - Extract IP Indicator"
-			},
-			{
-				"description": "Given an IP address, port, and protocol of a service, this playbook enriches on-prem integrations to find the related firewall rule and other related information.\n\nConditions:\n- Multiple integration instances configured at the same time are not supported (Panorama or standalone NGFW).\n- !pan-os-security-policy-match fails if any firewall is disconnected (Panorama).\n- Matching on different rules for different firewalls not supported (Panorama).",
-				"name": "Cortex ASM - On Prem Enrichment"
-			},
-			{
-				"description": "This playbook handles ASM alerts by enriching asset information and providing a means of remediating the issue directly or through contacting service owners.",
-				"name": "Cortex ASM - ASM Alert"
-			},
-			{
-				"description": "This playbook pulls remediation guidance off of a list based on ASM RuleID to be used in service owner notifications (email or ticketing system).",
-				"name": "Cortex ASM - Remediation Guidance"
-			},
-			{
-				"description": "This playbook contains all the cloud provider sub playbooks for remediation.",
-				"name": "Cortex ASM - Remediation"
-			},
-			{
-				"description": "Given the IP address this playbook enriches information from Qualys assets.",
-				"name": "Cortex ASM - Qualys Enrichment"
-			},
-			{
-				"description": "Given search terms, this playbook will query ServiceNow ticket descriptions and short descriptions over the last 30 days and set users that were found in the assigned_to field in those ServiceNow tickets. Note, the max amount of tickets returned from querying is 100.",
-				"name": "Cortex ASM - ServiceNow ITSM Enrichment"
-			},
-			{
-				"description": "Given the IP address this playbook enriches ServiceNow CMDB information relevant to ASM alerts.",
-				"name": "Cortex ASM - ServiceNow CMDB Enrichment"
-			},
-			{
-				"description": "Identifies and recommends the most likely owners of the service, additionally citing an explanation and ranking score for each.",
-				"name": "Cortex ASM - Service Ownership"
-			},
-			{
-				"description": "This playbook is used to send email notifications to service owners to notify them of their internet exposures.",
-				"name": "Cortex ASM - Email Notification"
-			},
-			{
-				"description": "Given the IP address this playbook enriches information from Prisma Cloud.",
-				"name": "Cortex ASM - Prisma Cloud Enrichment"
-			},
-			{
-				"description": "Deprecated. No available replacement. This playbook returns \"RemediationAction\" options based on meeting \"Automated Remediation Requirements\" (https://github.com/demisto/content/tree/master/Packs/CortexAttackSurfaceManagement#automated-remediation-requirements) as well as whether ServiceNowV2 integration is set up.  Possible return values are:\n- Prompt base - data collection task with only email/manual options.\n- Prompt all options - data collection task with all options (meets Automated Remediation requirements and ServiceNow is enabled).\n- Prompt no snow - all options except ServiceNow (Automated Remediation requirements are met).\n- Prompt no ar - all options except Automated Remediation (ServiceNow is enabled).",
-				"name": "Cortex ASM - Decision"
+				"description": "Used as a container folder for all enrichments of ASM alerts.",
+				"name": "Cortex ASM - Enrichment"
 			},
 			{
 				"description": "Playbook that populates the remediation objectives field that is used to display the remediation actions to the end user.",
 				"name": "Cortex ASM - Remediation Objectives"
 			},
 			{
-				"description": "Playbook that looks to see if a service ID exists and chooses to start a Remediation Confirmation Scan.",
-				"name": "Cortex ASM - Detect Service"
+				"description": "This playbook contains all the cloud provider sub playbooks for remediation.",
+				"name": "Cortex ASM - Remediation"
 			},
 			{
-				"description": "This playbook returns \"RemediationAction\" options based on the return from the Remediation Path Rules API, or defaults to data collection task.",
-				"name": "Cortex ASM - Remediation Path Rules"
+				"description": "Identifies and recommends the most likely owners of the service, additionally citing an explanation and ranking score for each.",
+				"name": "Cortex ASM - Service Ownership"
+			},
+			{
+				"description": "Given the IP address this playbook enriches information from Qualys assets.",
+				"name": "Cortex ASM - Qualys Enrichment"
 			}
 		],
 		"report": null,
@@ -412,56 +412,56 @@
 		"wizard": null
 	},
 	"created": "2022-03-03T11:30:41Z",
-	"currentVersion": "1.7.29",
+	"currentVersion": "1.7.30",
 	"definitionId": "",
 	"dependencies": {
 		"AWS-Enrichment-Remediation": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.1.15",
+			"minVersion": "1.1.16",
 			"name": "AWS Enrichment and Remediation"
 		},
 		"Active_Directory_Query": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.6.28",
+			"minVersion": "1.6.30",
 			"name": "Active Directory Query"
 		},
 		"Azure-Enrichment-Remediation": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.1.12",
+			"minVersion": "1.1.14",
 			"name": "Azure Enrichment and Remediation"
 		},
 		"Base": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.33.30",
+			"minVersion": "1.33.37",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.13.39",
+			"minVersion": "1.14.5",
 			"name": "Common Scripts"
 		},
 		"Core": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.0.19",
+			"minVersion": "3.0.21",
 			"name": "Core - Investigation and Response"
 		},
 		"FiltersAndTransformers": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.2.60",
+			"minVersion": "1.2.62",
 			"name": "Filters And Transformers"
 		},
 		"GCP-Enrichment-Remediation": {
@@ -489,14 +489,14 @@
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.5.29",
+			"minVersion": "1.5.30",
 			"name": "Microsoft Graph User"
 		},
 		"PAN-OS": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "2.1.20",
+			"minVersion": "2.1.22",
 			"name": "PAN-OS by Palo Alto Networks"
 		},
 		"PrismaCloud": {
@@ -517,14 +517,14 @@
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "2.5.52",
+			"minVersion": "2.5.55",
 			"name": "ServiceNow"
 		},
 		"SplunkPy": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.1.19",
+			"minVersion": "3.1.21",
 			"name": "Splunk"
 		},
 		"Tenable_io": {
@@ -538,7 +538,7 @@
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "2.0.10",
+			"minVersion": "2.0.11",
 			"name": "Qualys"
 		}
 	},
@@ -653,7 +653,7 @@
 			"name": "Investigation \u0026 Response"
 		}
 	],
-	"itemVersion": "1.7.29",
+	"itemVersion": "1.7.30",
 	"keywords": [
 		"Attack Surface Management",
 		"Cortex",
@@ -685,13 +685,13 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
-		"Palo Alto Networks Products",
-		"Data Source"
+		"Data Source",
+		"Palo Alto Networks Products"
 	],
 	"toServerVersion": "",
-	"updated": "2024-02-15T20:20:13Z",
+	"updated": "2024-03-03T20:22:18Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "831507",
+	"versionInfo": "865088",
 	"videos": []
 }

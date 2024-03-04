@@ -14,7 +14,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 1.7.29
+    itemVersion: 1.7.30
     packID: CortexAttackSurfaceManagement
     packName: Cortex Attack Surface Management
     packPropagationLabels:
@@ -29,8 +29,7 @@ engineinfo: {}
 mainengineinfo: {}
 name: SnmpDetection
 nativeimage:
-- "8.3"
-- "8.4"
+- "8.6"
 outputs:
 - contextPath: SnmpDetection
   description: Checks if SNMP version is enabled and gets the versions running
@@ -39,7 +38,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('SnmpDetection', 'start', __line__())
-  ### pack version: 1.7.29
+  ### pack version: 1.7.30
 
 
   import ipaddress

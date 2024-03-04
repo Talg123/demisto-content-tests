@@ -42,20 +42,20 @@
 		"wizard": null
 	},
 	"created": "2021-05-27T22:54:48Z",
-	"currentVersion": "1.0.47",
+	"currentVersion": "1.0.48",
 	"definitionId": "",
 	"dependencies": {
 		"Base": {
 			"author": "Cortex XSIAM",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.33.27",
+			"minVersion": "1.33.37",
 			"name": "Base"
 		}
 	},
 	"deprecated": false,
 	"description": "Unit 42 feed of published IOCs which contains malicious indicators.",
-	"downloads": 25887,
+	"downloads": 26451,
 	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
 	"fromServerVersion": "5.5.0",
 	"general": [
@@ -72,7 +72,7 @@
 			"name": "Unit 42 ATOMs Feed"
 		}
 	],
-	"itemVersion": "1.0.47",
+	"itemVersion": "1.0.48",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -98,13 +98,13 @@
 		"url": "https://www.paloaltonetworks.com/cortex"
 	},
 	"tags": [
-		"TIM",
-		"Data Source"
+		"Data Source",
+		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2024-02-12T10:26:39Z",
+	"updated": "2024-03-03T20:26:37Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "821588",
+	"versionInfo": "865088",
 	"videos": []
 }

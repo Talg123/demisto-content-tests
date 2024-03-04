@@ -23,7 +23,7 @@
 	"id": "incident_asmprovider",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "1.7.29",
+	"itemVersion": "1.7.30",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "ASM - Provider",
@@ -37,7 +37,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "ASM - Provider",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

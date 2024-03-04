@@ -93,7 +93,7 @@
 	"id": "incident_suspiciousexecutions",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "3.4.2",
+	"itemVersion": "3.4.3",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Suspicious Executions",
@@ -107,7 +107,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Suspicious Executions",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

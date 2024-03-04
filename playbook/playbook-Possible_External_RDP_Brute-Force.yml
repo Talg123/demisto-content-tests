@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.8.0
-    itemVersion: 3.0.20
+    itemVersion: 3.0.21
     packID: Core
     packName: Core - Investigation and Response
     packPropagationLabels:
@@ -1754,6 +1754,7 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
+      description: Checks whether the block IP playbook was executed.
       id: 674bfbfe-f4dd-45d6-81ea-9d6eb134d8e3
       iscommand: false
       name: IP block executed?
@@ -1800,6 +1801,7 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
+      description: Checks whether the block account playbook was executed.
       id: 5d209338-a5a6-4760-86d4-5d002d559dfa
       iscommand: false
       name: User containment executed?
@@ -1920,6 +1922,7 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
+      description: Checks whether the block IP playbook was executed.
       id: 0dadf16c-f182-4348-8d29-84f62e8c1433
       iscommand: false
       name: IP block executed?
@@ -1966,6 +1969,7 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
+      description: Checks whether the block account playbook was executed.
       id: 96d4ae23-3cec-4de9-8b2a-da2f1ee4bf56
       iscommand: false
       name: User containment executed?
@@ -2003,7 +2007,7 @@ tasks:
       id: 11c74593-f4bd-4161-824e-c2714d98de11
       iscommand: true
       name: Set IP Block Executed
-      script: Builtin|||setIncident
+      script: Builtin|||setAlert
       type: regular
       version: -1
     taskid: 11c74593-f4bd-4161-824e-c2714d98de11
@@ -2038,7 +2042,7 @@ tasks:
       id: 9a620ff9-1a8c-4b5d-81bf-78f2dedd8aa3
       iscommand: true
       name: Set User Containment Executed
-      script: Builtin|||setIncident
+      script: Builtin|||setAlert
       type: regular
       version: -1
     taskid: 9a620ff9-1a8c-4b5d-81bf-78f2dedd8aa3
@@ -2081,6 +2085,7 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
+      description: Checks whether early containment is enabled in the playbook inputs.
       id: eda6f3d3-203c-4d44-8ebf-0d430b9c946b
       iscommand: false
       name: Early containment enabled?

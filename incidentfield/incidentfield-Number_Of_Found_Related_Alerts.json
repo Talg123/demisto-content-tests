@@ -23,7 +23,7 @@
 	"id": "incident_numberoffoundrelatedalerts",
 	"ipVersion": "",
 	"isReadOnly": false,
-	"itemVersion": "3.4.2",
+	"itemVersion": "3.4.3",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Number Of Found Related Alerts",
@@ -37,7 +37,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Number Of Found Related Alerts",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,

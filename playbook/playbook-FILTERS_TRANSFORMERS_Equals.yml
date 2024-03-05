@@ -104,6 +104,9 @@ tasks:
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
     note: false
     quietmode: 0
     separatecontext: false
@@ -125,13 +128,40 @@ tasks:
           "y": 600
         }
       }
+  "3":
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: b12992ca-0142-4a86-8b0b-092f3a4fe64c
+      iscommand: false
+      name: restore
+      type: regular
+      version: -1
+    taskid: b12992ca-0142-4a86-8b0b-092f3a4fe64c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 840
+        }
+      }
 version: -1
 view: |-
   {
     "linkLabelsPosition": {},
     "paper": {
       "dimensions": {
-        "height": 615,
+        "height": 885,
         "width": 380,
         "x": 450,
         "y": 50

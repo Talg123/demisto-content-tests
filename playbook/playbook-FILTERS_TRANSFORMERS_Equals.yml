@@ -1,0 +1,140 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: ""
+    propagationLabels:
+    - all
+    toServerVersion: ""
+dirtyInputs: true
+id: 0f0b6b29-9000-47eb-8ff3-6ab8f84c1b10
+inputs: []
+name: FILTERS_TRANSFORMERS_Equals
+outputs: []
+sourceplaybookid: 3b37f0a1-764e-4f72-8ba7-55041b0f59df
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: fe361d8b-1c7a-48e1-8bd6-396f18d44fe8
+      iscommand: false
+      name: ""
+      version: -1
+    taskid: fe361d8b-1c7a-48e1-8bd6-396f18d44fe8
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      accountid:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: incident.name
+              operator: isEqualString
+              right:
+                value:
+                  simple: keren_incidnet
+          root: incident.name
+          transformers:
+          - args:
+              prefix: {}
+              suffix:
+                value:
+                  simple: -changed
+            operator: concat
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: commands.local.cmd.set.incident
+      id: 1778f60c-930d-4402-884e-8b0080400b1b
+      iscommand: true
+      name: set
+      script: Builtin|||setIncident
+      type: regular
+      version: -1
+    taskid: 1778f60c-930d-4402-884e-8b0080400b1b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 390
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 7a019d8b-57d6-42b2-8f2a-99d73e77abbf
+      iscommand: false
+      name: End
+      type: title
+      version: -1
+    taskid: 7a019d8b-57d6-42b2-8f2a-99d73e77abbf
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 600
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 615,
+        "width": 380,
+        "x": 450,
+        "y": 50
+      }
+    }
+  }

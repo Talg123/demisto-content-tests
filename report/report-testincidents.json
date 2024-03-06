@@ -94,6 +94,7 @@
 					"query": "-category:job and -status:archived and -status:closed type:Authentication",
 					"sequenceNumber": 188132,
 					"shouldCommit": false,
+					"sizeInBytes": 0,
 					"sortValues": [
 						"2871"
 					],
@@ -124,6 +125,7 @@
 		},
 		"prevName": "",
 		"shouldCommit": false,
+		"sizeInBytes": 0,
 		"system": false,
 		"toDate": "0001-01-01T00:00:00Z",
 		"toServerVersion": "",

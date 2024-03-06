@@ -318,11 +318,17 @@
 			},
 			"query": {
 				"filter": {
+					"fromDate": "0001-01-01T00:00:00Z",
 					"period": {
+						"by": "",
 						"byFrom": "days",
-						"fromValue": 7
+						"byTo": "",
+						"field": "",
+						"fromValue": 7,
+						"toValue": null
 					},
-					"query": "-category:job and -status:archived and -status:closed"
+					"query": "-category:job and -status:archived and -status:closed",
+					"toDate": "0001-01-01T00:00:00Z"
 				},
 				"groupBy": [
 					"severity"

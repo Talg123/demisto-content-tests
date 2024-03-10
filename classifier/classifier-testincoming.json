@@ -13,8 +13,17 @@
 	"itemVersion": "",
 	"keyTypeMap": {},
 	"locked": false,
-	"logicalVersion": 0,
-	"mapping": null,
+	"logicalVersion": 1,
+	"mapping": {
+		"dbot_classification_incident_type_all": {
+			"dontMapEventToLabels": false,
+			"internalMapping": {
+				"Account Member Of": {
+					"simple": "dasda"
+				}
+			}
+		}
+	},
 	"name": "testincoming",
 	"nameRaw": "testincoming",
 	"packID": "",

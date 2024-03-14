@@ -15,7 +15,7 @@
 	"content": true,
 	"defaultRows": null,
 	"definitionId": "",
-	"description": "Timestamp of when the ExtraHop Reveal(x) detection ended",
+	"description": "",
 	"editForm": true,
 	"fieldCalcScript": "",
 	"fromServerVersion": "5.0.0",

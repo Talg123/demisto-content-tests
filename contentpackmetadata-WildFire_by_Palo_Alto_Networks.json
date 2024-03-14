@@ -107,6 +107,7 @@
 		"widget": null,
 		"wizard": null
 	},
+	"created": "2020-06-30T23:31:37+03:00",
 	"currentVersion": "2.1.32",
 	"definitionId": "",
 	"dependencies": {
@@ -184,7 +185,7 @@
 		"Palo Alto Networks Products"
 	],
 	"toServerVersion": "",
-	"updated": "2024-02-06T10:27:24Z",
+	"updated": "2024-02-06T12:27:24+02:00",
 	"useCases": [],
 	"version": -1,
 	"versionInfo": "5976562",

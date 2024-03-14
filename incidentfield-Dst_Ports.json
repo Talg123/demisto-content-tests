@@ -4,7 +4,8 @@
 	"associatedToAll": false,
 	"associatedTypes": [
 		"Qradar Generic",
-		"FW change management"
+		"FW change management",
+		"Vectra Detection"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

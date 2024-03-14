@@ -15,7 +15,7 @@
 	"fromServerVersion": "5.0.0",
 	"id": "Onion Address",
 	"itemVersion": "3.3.83",
-	"layout": "",
+	"layout": "domainRepUnified",
 	"legacyNames": null,
 	"locked": false,
 	"manualMapping": null,

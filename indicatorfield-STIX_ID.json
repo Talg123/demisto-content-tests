@@ -1,7 +1,7 @@
 {
 	"aliasTo": "",
 	"aliases": null,
-	"associatedToAll": false,
+	"associatedToAll": true,
 	"associatedTypes": [
 		"STIX Malware",
 		"STIX Attack Pattern",

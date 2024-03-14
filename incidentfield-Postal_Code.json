@@ -23,7 +23,7 @@
 	"hidden": false,
 	"id": "incident_postalcode",
 	"isReadOnly": false,
-	"itemVersion": "1.12.15",
+	"itemVersion": "1.14.15",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Postal Code",

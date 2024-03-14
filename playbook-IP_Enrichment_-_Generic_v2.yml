@@ -50,6 +50,13 @@ inputs:
   value:
     complex:
       root: inputs.ResolveIP
+      transformers:
+      - args:
+          applyIfEmpty: {}
+          defaultValue:
+            value:
+              simple: "False"
+        operator: SetIfEmpty
 - description: |-
     Define if you would like to use the !IP command.
     Note: This input should be used whenever there is no auto-extract enabled in the investigation flow.

@@ -133,7 +133,6 @@
 							},
 							"operator": "IsInCidrRanges",
 							"right": {
-								"isContext": false,
 								"value": {
 									"simple": "192.168.0.0/16,172.16.0.0/12,10.0.0.0/8,127.0.0.0/8,169.254.0.0/16"
 								}
@@ -149,7 +148,6 @@
 					{
 						"args": {
 							"dt": {
-								"isContext": false,
 								"value": {
 									"simple": ".=Boolean(val)"
 								}

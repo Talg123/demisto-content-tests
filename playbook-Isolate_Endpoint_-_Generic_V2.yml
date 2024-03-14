@@ -8,8 +8,7 @@ contentitemexportablefields:
     packPropagationLabels:
     - all
     prevname: ""
-    propagationLabels:
-    - all
+    propagationLabels: []
     toServerVersion: ""
 description: |-
   This playbook isolates a given endpoint using various endpoint product integrations.

@@ -73,6 +73,7 @@
 		"widget": null,
 		"wizard": null
 	},
+	"created": "2021-05-27T13:56:30+03:00",
 	"currentVersion": "1.1.21",
 	"definitionId": "",
 	"dependencies": {
@@ -144,7 +145,7 @@
 		"Threat Intelligence Management"
 	],
 	"toServerVersion": "",
-	"updated": "2024-01-25T20:23:57Z",
+	"updated": "2024-03-05T22:21:23+02:00",
 	"useCases": [],
 	"version": -1,
 	"versionInfo": "5998185",

@@ -1,41 +1,43 @@
 args:
-- description: List of IDs to poll
+- description: List of IDs to poll.
   isArray: true
   name: ids
   required: true
-- description: IDs with pending status
+- description: IDs with pending status.
   name: pendingIds
-- description: Name of the polling command to run
+- description: Name of the polling command to run.
   name: pollingCommand
   required: true
 - defaultValue: ids
-  description: Name of the argument of the polling command
+  description: Name of the argument of the polling command.
   name: pollingCommandArgName
   required: true
-- description: Polling frequency - how often the polling command should run (minutes)
+- description: Polling frequency - how often the polling command should run (minutes).
   name: interval
   required: true
 - description: How much time to poll before declaring a timeout and resuming the playbook
-    (minutes)
+    (minutes).
   name: timeout
   required: true
 - description: The ID of the playbook that contains the manual task which will be
     completed once the polling is done.
   name: playbookId
 - defaultValue: polling
-  description: The tag of the blocking manual task ("Wait For Polling Task To Finish")
+  description: The tag of the blocking manual task ("Wait For Polling Task To Finish").
   name: tag
   required: true
 - description: Names of additional arguments for the polling command (e.g. arg1,arg2,...)
   isArray: true
   name: additionalPollingCommandArgNames
-- description: Commas separated arguments values of the polling command
+- description: Commas separated arguments values of the polling command.
   isArray: true
   name: additionalPollingCommandArgValues
 - description: The GUID of the scheduled entry that runs the polling command.
   name: scheduledEntryGuid
 - description: The time to end the polling.
   name: endTime
+- description: Extraction mode for subsequent runs of the command.
+  name: extractMode
 comment: Runs the polling command repeatedly, completes a blocking manual task when
   polling is done.
 commonfields:
@@ -45,7 +47,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.12.15
+    itemVersion: 1.14.15
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -61,7 +63,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |-
-  // pack version: 1.12.15
+  // pack version: 1.14.15
   /**
    * GenericPollingScheduledTask
    *   This task is ment to be scheduled by the ScheduleGenericPolling automation
@@ -114,7 +116,7 @@ script: |-
       if (err === undefined) {
           params.input = 'YES';
       } else {
-          params.input = 'NO'
+          params.input = 'NO';
       }
       if (playbookId) {
           params.parentPlaybookID = playbookId;
@@ -129,7 +131,7 @@ script: |-
   }
 
 
-  function setNextRun(ids, playbookId, pollingCommand, pollingCommandArgName, pendingIds, interval, timeout, tag, additionalArgNames, additionalArgValues) {
+  function setNextRun(ids, playbookId, pollingCommand, pollingCommandArgName, pendingIds, interval, timeout, tag, additionalArgNames, additionalArgValues, extractMode) {
       var idsStr = ids.replace(/"/g, '\\"');
       var playbookIdStr = '';
       if (playbookId !== undefined) {
@@ -138,6 +140,9 @@ script: |-
       var cmd = '!GenericPollingScheduledTask pollingCommand="' + pollingCommand + '" pollingCommandArgName="' + pollingCommandArgName + '"' + playbookIdStr;
       cmd += ' ids="' + idsStr + '" pendingIds="' + pendingIds.replace(/"/g,'\\"') + '" interval="' + interval + '" timeout="' + (parseInt(timeout) - parseInt(interval)) + '" tag="' + tag + '"';
       cmd += ' additionalPollingCommandArgNames="' + additionalArgNames + '" additionalPollingCommandArgValues="' + additionalArgValues + '"';
+      if (extractMode !== undefined) {
+          cmd += ' extractMode="' + extractMode + '" auto-extract="' + extractMode + '"';
+      }
       return executeCommand("ScheduleCommand", {
           'command': cmd,
           'cron': '*/' + interval + ' * * * *',
@@ -190,7 +195,7 @@ script: |-
               ids[i] = ids[i].replace(/[\\]*"/g, '');
           }
 
-  0
+
           // Set the context of the scheduled task to the local playbook context
           var idsToPoll = ids;
           var pendingPath = args.pendingIds;
@@ -237,7 +242,7 @@ script: |-
 
           if (!shouldRunWithGuid) {
               // Schedule the next iteration, old version.
-              var scheduleTaskRes = setNextRun(args.ids, args.playbookId, args.pollingCommand, args.pollingCommandArgName, args.pendingIds, args.interval, args.timeout, args.tag, args.additionalPollingCommandArgNames, args.additionalPollingCommandArgValues);
+              var scheduleTaskRes = setNextRun(args.ids, args.playbookId, args.pollingCommand, args.pollingCommandArgName, args.pendingIds, args.interval, args.timeout, args.tag, args.additionalPollingCommandArgNames, args.additionalPollingCommandArgValues, args.extractMode);
               if (isError(scheduleTaskRes[0])) {
                   res.push(scheduleTaskRes);
               }

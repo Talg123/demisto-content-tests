@@ -3,8 +3,7 @@
 	"aliases": null,
 	"associatedToAll": false,
 	"associatedTypes": [
-		"Phishing",
-		"Password Reset via Chatbot"
+		"Phishing"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",
@@ -24,7 +23,7 @@
 	"hidden": false,
 	"id": "incident_reporteremailaddress",
 	"isReadOnly": false,
-	"itemVersion": "3.3.83",
+	"itemVersion": "3.1.6",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Reporter Email Address",
@@ -32,8 +31,8 @@
 	"openEnded": false,
 	"orgType": "shortText",
 	"ownerOnly": false,
-	"packID": "CommonTypes",
-	"packName": "Common Types",
+	"packID": "Phishing",
+	"packName": "Phishing",
 	"packPropagationLabels": [
 		"all"
 	],
@@ -45,10 +44,7 @@
 	"selectValues": null,
 	"sla": 0,
 	"system": false,
-	"systemAssociatedTypes": [
-		"Phishing",
-		"Password Reset via Chatbot"
-	],
+	"systemAssociatedTypes": null,
 	"template": "",
 	"threshold": 72,
 	"toServerVersion": "",

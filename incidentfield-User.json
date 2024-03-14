@@ -5,7 +5,8 @@
 	"associatedTypes": [
 		"Authentication",
 		"Exploit",
-		"Malware"
+		"Malware",
+		"DoS"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",
@@ -25,7 +26,7 @@
 	"hidden": false,
 	"id": "incident_user",
 	"isReadOnly": false,
-	"itemVersion": "1.4.1",
+	"itemVersion": "1.4.11",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "User",

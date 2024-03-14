@@ -4,7 +4,8 @@
 	"associatedToAll": false,
 	"associatedTypes": [
 		"Authentication",
-		"C2Communication"
+		"Exploit",
+		"Malware"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

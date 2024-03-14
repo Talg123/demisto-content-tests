@@ -6,7 +6,8 @@
 		"Access",
 		"Traps",
 		"Malware",
-		"Brute Force"
+		"Brute Force",
+		"CrowdStrike Falcon IDP Detection"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 2.3.90
+    itemVersion: 2.6.21
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -14,6 +14,7 @@ description: |-
   Enrich accounts using one or more integrations.
   Supported integrations:
   - Active Directory
+  - Microsoft Graph User
   - SailPoint IdentityNow
   - SailPoint IdentityIQ
   - PingOne
@@ -24,7 +25,10 @@ description: |-
   Also, the playbook supports the generic command 'iam-get-user' (implemented in IAM integrations. For more information, visit https://xsoar.pan.dev/docs/integrations/iam-integrations.
 id: Account Enrichment - Generic v2.1
 inputs:
-- description: The username to enrich.
+- description: |-
+    The usernames to enrich. This input supports multiple usernames.
+    Usernames can be with or without a domain prefix, in the format of "username" or "domain\username".
+    Domain usernames will only be enriched in integrations that support  them.
   key: Username
   playbookInputQuery: null
   required: false
@@ -428,6 +432,73 @@ outputs:
 - contextPath: PaloAltoNetworksXDR.RiskyUser.reasons.points
   description: The score.
   type: string
+- contextPath: ActiveDirectory.Users.userAccountControlFields.DONT_EXPIRE_PASSWORD
+  description: Whether to never expire the password on the account.
+  type: string
+- contextPath: ActiveDirectory.Users.userAccountControlFields.PASSWORD_EXPIRED
+  description: Whether the user password expired.
+  type: string
+- contextPath: Account.ManagerEmail
+  description: The manager email.
+  type: string
+- contextPath: AWS.IAM.Users
+  description: AWS IAM output.
+  type: string
+- contextPath: AWS.IAM.Users.UserName
+  description: The friendly name identifying the user.
+  type: string
+- contextPath: AWS.IAM.Users.UserId
+  description: The stable and unique string identifying the user.
+  type: string
+- contextPath: AWS.IAM.Users.Arn
+  description: The Amazon Resource Name (ARN) that identifies the user.
+  type: string
+- contextPath: AWS.IAM.Users.CreateDate
+  description: The date and time when the user was created.
+  type: string
+- contextPath: AWS.IAM.Users.Path
+  description: The path to the user.
+  type: string
+- contextPath: AWS.IAM.Users.PasswordLastUsed
+  description: The date and time,  when the user's password was last used to sign
+    in to an AWS website.
+  type: string
+- contextPath: MSGraphUser.MobilePhone
+  description: User's mobile phone number.
+  type: string
+- contextPath: MSGraphUser.OfficeLocation
+  description: User's office location.
+  type: string
+- contextPath: Account.JobTitle
+  description: User’s job title.
+  type: string
+- contextPath: Account.TelephoneNumber
+  description: User’s mobile phone number.
+  type: string
+- contextPath: Account.Office
+  description: User’s office location.
+  type: string
+- contextPath: Account.Type
+  description: The account entity type.
+  type: string
+- contextPath: Account.Email.Address
+  description: User’s mail address.
+  type: string
+- contextPath: MSGraphUserManager.Manager.BusinessPhones
+  description: User's business phone numbers.
+  type: string
+- contextPath: MSGraphUser.BusinessPhones
+  description: User's business phone numbers.
+  type: string
+- contextPath: MSGraphUserManager.Manager.JobTitle
+  description: User's job title.
+  type: string
+- contextPath: MSGraphUserManager.Manager.MobilePhone
+  description: User's mobile phone number.
+  type: string
+- contextPath: MSGraphUserManager.Manager.OfficeLocation
+  description: User's office location.
+  type: string
 starttaskid: "0"
 system: true
 tasks:
@@ -440,6 +511,7 @@ tasks:
     nexttasks:
       '#none#':
       - "1"
+      - "68"
     note: false
     quietmode: 0
     separatecontext: false
@@ -466,8 +538,20 @@ tasks:
       - - left:
             iscontext: true
             value:
-              simple: inputs.Username
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: inputs.Username
+                    operator: notContainsGeneral
+                    right:
+                      value:
+                        simple: \
+                root: inputs.Username
           operator: isExists
+          right:
+            value: {}
       label: "yes"
     continueonerrortype: ""
     id: "1"
@@ -478,15 +562,7 @@ tasks:
       '#default#':
       - "3"
       "yes":
-      - "48"
-      - "9"
-      - "50"
-      - "16"
-      - "11"
-      - "32"
-      - "42"
-      - "55"
-      - "64"
+      - "67"
     note: false
     quietmode: 0
     separatecontext: false
@@ -494,19 +570,19 @@ tasks:
     task:
       brand: ""
       description: Checks if there is at least one username to enrich.
-      id: e65d46a0-7fec-4864-8764-502a22d3032a
+      id: 7d3036d6-80da-4b4f-8534-c634c6264f50
       iscommand: false
-      name: Is there an account to enrich?
+      name: Is there an account to enrich (without domain prefix)?
       type: condition
       version: -1
-    taskid: e65d46a0-7fec-4864-8764-502a22d3032a
+    taskid: 7d3036d6-80da-4b4f-8534-c634c6264f50
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
           "x": -1080,
-          "y": -67
+          "y": -7
         }
       }
   "3":
@@ -533,7 +609,7 @@ tasks:
       {
         "position": {
           "x": -1080,
-          "y": 1230
+          "y": 1560
         }
       }
   "4":
@@ -592,8 +668,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 30,
-          "y": 235
+          "x": 230,
+          "y": 565
         }
       }
   "5":
@@ -611,7 +687,7 @@ tasks:
     scriptarguments:
       username:
         complex:
-          root: inputs.Username
+          root: Usernames
           transformers:
           - operator: uniq
     separatecontext: false
@@ -620,20 +696,20 @@ tasks:
       brand: ""
       description: Queries Active Directory and returns information for the specified
         username.
-      id: 279df40d-49df-4bd1-8e4c-72f678bba913
+      id: ae51230d-7996-44fd-821c-44f995a48545
       iscommand: true
       name: Get account info from Active Directory
       script: '|||ad-get-user'
       type: regular
       version: -1
-    taskid: 279df40d-49df-4bd1-8e4c-72f678bba913
+    taskid: ae51230d-7996-44fd-821c-44f995a48545
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 30,
-          "y": 430
+          "x": 230,
+          "y": 760
         }
       }
   "9":
@@ -662,8 +738,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -840,
-          "y": 105
+          "x": -640,
+          "y": 435
         }
       }
   "11":
@@ -692,8 +768,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 450,
-          "y": 105
+          "x": 650,
+          "y": 435
         }
       }
   "16":
@@ -722,8 +798,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 30,
-          "y": 105
+          "x": 230,
+          "y": 435
         }
       }
   "18":
@@ -739,6 +815,8 @@ tasks:
       - "29"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: SailPointIdentityIQ
@@ -760,8 +838,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -840,
-          "y": 235
+          "x": -640,
+          "y": 565
         }
       }
   "20":
@@ -777,6 +855,8 @@ tasks:
       - "31"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: PingOne
@@ -798,8 +878,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 450,
-          "y": 235
+          "x": 650,
+          "y": 565
         }
       }
   "29":
@@ -816,7 +896,7 @@ tasks:
     scriptarguments:
       id:
         complex:
-          root: inputs.Username
+          root: Usernames
           transformers:
           - operator: uniq
     separatecontext: false
@@ -825,20 +905,20 @@ tasks:
       brand: ""
       description: Search identities by search/filter parameters (ID, email, risk
         & active) using IdentityIQ SCIM APIs.
-      id: c710fdc9-d697-47b3-8413-8f8f2934c701
+      id: 296fe8d2-4c2e-496b-86d2-8b9d2ca169ac
       iscommand: true
       name: Get account info from IdentityIQ
       script: '|||identityiq-search-identities'
       type: regular
       version: -1
-    taskid: c710fdc9-d697-47b3-8413-8f8f2934c701
+    taskid: 296fe8d2-4c2e-496b-86d2-8b9d2ca169ac
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": -840,
-          "y": 430
+          "x": -640,
+          "y": 760
         }
       }
   "31":
@@ -855,7 +935,7 @@ tasks:
     scriptarguments:
       username:
         complex:
-          root: inputs.Username
+          root: Usernames
           transformers:
           - operator: uniq
     separatecontext: false
@@ -864,20 +944,20 @@ tasks:
       brand: ""
       description: Returns a PingOne user. One of the following has to be given -
         username or userId.
-      id: d424680a-a74d-4de6-8478-a1d328d09b5e
+      id: 4e0dd7fd-7f65-42b4-8f6b-c0eeb9dbd070
       iscommand: true
       name: Get account info from PingOne
       script: '|||pingone-get-user'
       type: regular
       version: -1
-    taskid: d424680a-a74d-4de6-8478-a1d328d09b5e
+    taskid: 4e0dd7fd-7f65-42b4-8f6b-c0eeb9dbd070
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 450,
-          "y": 430
+          "x": 650,
+          "y": 760
         }
       }
   "32":
@@ -906,8 +986,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 870,
-          "y": 105
+          "x": 1070,
+          "y": 435
         }
       }
   "33":
@@ -923,6 +1003,8 @@ tasks:
       - "34"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Okta v2
@@ -944,8 +1026,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 870,
-          "y": 235
+          "x": 1070,
+          "y": 565
         }
       }
   "34":
@@ -962,7 +1044,7 @@ tasks:
     scriptarguments:
       username:
         complex:
-          root: inputs.Username
+          root: Usernames
           transformers:
           - operator: uniq
     separatecontext: false
@@ -971,20 +1053,20 @@ tasks:
       brand: ""
       description: Fetches information for a single user. You must enter one or more
         parameters for the command to run.
-      id: 517ce622-efbe-409c-883b-ea4d1521a3e4
+      id: 81e880c5-cf32-42f0-8871-2077a475a674
       iscommand: true
       name: Get account info from OKTA v2
       script: '|||okta-get-user'
       type: regular
       version: -1
-    taskid: 517ce622-efbe-409c-883b-ea4d1521a3e4
+    taskid: 81e880c5-cf32-42f0-8871-2077a475a674
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 870,
-          "y": 430
+          "x": 1070,
+          "y": 760
         }
       }
   "42":
@@ -1013,8 +1095,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1290,
-          "y": 105
+          "x": 1490,
+          "y": 435
         }
       }
   "43":
@@ -1030,6 +1112,8 @@ tasks:
       - "44"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: AWS - IAM
@@ -1051,8 +1135,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1290,
-          "y": 235
+          "x": 1490,
+          "y": 565
         }
       }
   "44":
@@ -1069,7 +1153,7 @@ tasks:
     scriptarguments:
       userName:
         complex:
-          root: inputs.Username
+          root: Usernames
           transformers:
           - operator: uniq
     separatecontext: false
@@ -1078,20 +1162,20 @@ tasks:
       brand: ""
       description: Retrieves information about the specified IAM user, including the
         user's creation date, path, unique ID, and ARN.
-      id: 263e355a-c219-4c49-833f-5b67b66bdc17
+      id: 8f66273e-887a-4da9-86aa-d793012b15d1
       iscommand: true
       name: Get account info from AWS
       script: '|||aws-iam-get-user'
       type: regular
       version: -1
-    taskid: 263e355a-c219-4c49-833f-5b67b66bdc17
+    taskid: 8f66273e-887a-4da9-86aa-d793012b15d1
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 1290,
-          "y": 430
+          "x": 1490,
+          "y": 760
         }
       }
   "48":
@@ -1120,8 +1204,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -1510,
-          "y": 105
+          "x": -1500,
+          "y": 425
         }
       }
   "50":
@@ -1150,8 +1234,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -400,
-          "y": 105
+          "x": -200,
+          "y": 435
         }
       }
   "51":
@@ -1167,6 +1251,8 @@ tasks:
       - "52"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: SailPointIdentityNow
@@ -1188,8 +1274,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -400,
-          "y": 235
+          "x": -200,
+          "y": 565
         }
       }
   "52":
@@ -1206,7 +1292,7 @@ tasks:
     scriptarguments:
       name:
         complex:
-          root: inputs.Username
+          root: Usernames
           transformers:
           - operator: uniq
     separatecontext: false
@@ -1214,20 +1300,20 @@ tasks:
     task:
       brand: ""
       description: Get accounts by search/filter parameters (ID, name, native_identity).
-      id: 918ad3f9-eb0a-42c0-8c0f-f13cb77b8fe6
+      id: c3570a06-c795-4b8b-81e7-b66d4ac5bd43
       iscommand: true
       name: Get account info from IdentityNow
       script: '|||identitynow-get-accounts'
       type: regular
       version: -1
-    taskid: 918ad3f9-eb0a-42c0-8c0f-f13cb77b8fe6
+    taskid: c3570a06-c795-4b8b-81e7-b66d4ac5bd43
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": -400,
-          "y": 430
+          "x": -200,
+          "y": 760
         }
       }
   "53":
@@ -1269,8 +1355,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 30,
-          "y": 600
+          "x": 230,
+          "y": 930
         }
       }
   "54":
@@ -1305,25 +1391,25 @@ tasks:
           - operator: uniq
           - operator: FirstArrayElement
     separatecontext: true
-    skipunavailable: false
+    skipunavailable: true
     task:
       brand: ""
       description: Takes an email address or a username of a user account in Active
         Directory, and returns the email address of the user's manager.
-      id: 04fff51c-4e58-4c1e-8625-1247f537d5b4
+      id: 82a4d18b-fcb9-416a-87e9-0c1b07255560
       iscommand: false
       name: Active Directory - Get User Manager Details
       playbookId: Active Directory - Get User Manager Details
       type: playbook
       version: -1
-    taskid: 04fff51c-4e58-4c1e-8625-1247f537d5b4
+    taskid: 82a4d18b-fcb9-416a-87e9-0c1b07255560
     timertriggers: []
     type: playbook
     view: |-
       {
         "position": {
-          "x": -230,
-          "y": 770
+          "x": -30,
+          "y": 1100
         }
       }
   "55":
@@ -1352,8 +1438,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1710,
-          "y": 105
+          "x": 1910,
+          "y": 435
         }
       }
   "56":
@@ -1369,6 +1455,8 @@ tasks:
       - "57"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Microsoft Graph User
@@ -1390,8 +1478,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1710,
-          "y": 235
+          "x": 1910,
+          "y": 565
         }
       }
   "57":
@@ -1408,7 +1496,7 @@ tasks:
     scriptarguments:
       user:
         complex:
-          root: inputs.Username
+          root: Usernames
     separatecontext: false
     skipunavailable: true
     task:
@@ -1416,20 +1504,20 @@ tasks:
       description: |-
         Retrieves the properties and relationships of a user object. For more information, visit: https://docs.microsoft.com/en-us/graph/api/user-update?view=graph-rest-1.0).
         Permissions: - User.Read (Delegated) - User.Read.All (Application)
-      id: 28d31f65-2e71-4de8-82b3-82da75841c4b
+      id: da04f484-d65e-40a4-82da-e5e1f4afd88b
       iscommand: true
       name: Get account info from Azure Active Directory
       script: '|||msgraph-user-get'
       type: regular
       version: -1
-    taskid: 28d31f65-2e71-4de8-82b3-82da75841c4b
+    taskid: da04f484-d65e-40a4-82da-e5e1f4afd88b
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 1710,
-          "y": 430
+          "x": 1910,
+          "y": 760
         }
       }
   "58":
@@ -1465,19 +1553,19 @@ tasks:
     task:
       brand: ""
       description: Is there a manager?
-      id: 0cc7d1db-2b59-42c7-846a-9859a3d851c9
+      id: 56bea608-c34d-4914-8b16-594603971e22
       iscommand: false
       name: Is there a manager?
       type: condition
       version: -1
-    taskid: 0cc7d1db-2b59-42c7-846a-9859a3d851c9
+    taskid: 56bea608-c34d-4914-8b16-594603971e22
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
-          "x": 1710,
-          "y": 600
+          "x": 1910,
+          "y": 930
         }
       }
   "59":
@@ -1513,8 +1601,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1710,
-          "y": 890
+          "x": 1910,
+          "y": 1220
         }
       }
   "60":
@@ -1552,8 +1640,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 1710,
-          "y": 1060
+          "x": 1910,
+          "y": 1390
         }
       }
   "61":
@@ -1570,7 +1658,7 @@ tasks:
     scriptarguments:
       user-profile:
         complex:
-          root: inputs.Username
+          root: Usernames
           transformers:
           - args:
               action_dt: {}
@@ -1599,20 +1687,20 @@ tasks:
     task:
       brand: ""
       description: Retrieves a single user resource.
-      id: 484e6c54-1d8c-4c94-8fbb-228e86896b60
+      id: 87b28b4e-4452-4597-8b4e-ab63aff6ae0c
       iscommand: true
       name: IAM Get User - Without specifying a domain
       script: '|||iam-get-user'
       type: regular
       version: -1
-    taskid: 484e6c54-1d8c-4c94-8fbb-228e86896b60
+    taskid: 87b28b4e-4452-4597-8b4e-ab63aff6ae0c
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": -1710,
-          "y": 430
+          "x": -1700,
+          "y": 750
         }
       }
   "62":
@@ -1629,7 +1717,7 @@ tasks:
     scriptarguments:
       user-profile:
         complex:
-          root: inputs.Username
+          root: Usernames
           transformers:
           - args:
               action_dt: {}
@@ -1666,20 +1754,20 @@ tasks:
     task:
       brand: ""
       description: Retrieves a single user resource.
-      id: abf098f6-14b8-48f7-89ce-a5ff06d33d28
+      id: 3792ff2c-ca86-4767-8af5-0e50db675f53
       iscommand: true
       name: IAM Get User - with a domain
       script: '|||iam-get-user'
       type: regular
       version: -1
-    taskid: abf098f6-14b8-48f7-89ce-a5ff06d33d28
+    taskid: 3792ff2c-ca86-4767-8af5-0e50db675f53
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": -1300,
-          "y": 430
+          "x": -1290,
+          "y": 750
         }
       }
   "63":
@@ -1721,8 +1809,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": -1510,
-          "y": 250
+          "x": -1500,
+          "y": 570
         }
       }
   "64":
@@ -1751,8 +1839,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2130,
-          "y": 105
+          "x": 2330,
+          "y": 435
         }
       }
   "65":
@@ -1768,6 +1856,8 @@ tasks:
       - "66"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Cortex XDR - IR
@@ -1789,8 +1879,8 @@ tasks:
     view: |-
       {
         "position": {
-          "x": 2130,
-          "y": 235
+          "x": 2330,
+          "y": 565
         }
       }
   "66":
@@ -1807,8 +1897,15 @@ tasks:
     scriptarguments:
       user_id:
         complex:
-          root: inputs.Username
+          root: UsernamesWithDomains
           transformers:
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: Usernames
+              raw: {}
+            operator: AppendIfNotEmpty
           - operator: uniq
     separatecontext: false
     skipunavailable: true
@@ -1817,20 +1914,185 @@ tasks:
       description: Retrieve the risk score of a specific user or list of users with
         the highest risk score in the environment along with the reason affecting
         each score.
-      id: 502e6412-583d-4385-85cd-239376609eb8
+      id: b2c55827-8a8d-4e30-8662-383fbfdb55d0
       iscommand: true
       name: Get account risk score
       script: '|||xdr-list-risky-users'
       type: regular
       version: -1
-    taskid: 502e6412-583d-4385-85cd-239376609eb8
+    taskid: b2c55827-8a8d-4e30-8662-383fbfdb55d0
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 2130,
-          "y": 430
+          "x": 2330,
+          "y": 760
+        }
+      }
+  "67":
+    continueonerrortype: ""
+    id: "67"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "48"
+      - "9"
+      - "50"
+      - "16"
+      - "11"
+      - "32"
+      - "42"
+      - "55"
+      - "64"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Usernames
+      value:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: inputs.Username
+              operator: notContainsGeneral
+              right:
+                value:
+                  simple: \
+          root: inputs.Username
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Saves the usernames without domain prefixes under a new context key.
+
+        This automation runs using the default Limited User role, unless you explicitly change the permissions.
+        For more information, see the section about permissions here:
+        https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations
+      id: 7212ec41-fb6c-4d2b-86c1-140108b79c04
+      iscommand: false
+      name: Save account usernames
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 7212ec41-fb6c-4d2b-86c1-140108b79c04
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1390,
+          "y": 180
+        }
+      }
+  "68":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: inputs.Username
+                    operator: containsGeneral
+                    right:
+                      value:
+                        simple: \
+                root: inputs.Username
+          operator: isExists
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "68"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "3"
+      "yes":
+      - "69"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if there is at least one username to enrich.
+      id: 2524ddf8-40ab-4b7e-8019-8fdf102afc08
+      iscommand: false
+      name: Is there an account to enrich (with domain prefix)?
+      type: condition
+      version: -1
+    taskid: 2524ddf8-40ab-4b7e-8019-8fdf102afc08
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -640,
+          "y": -7
+        }
+      }
+  "69":
+    continueonerrortype: ""
+    id: "69"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "64"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: UsernamesWithDomains
+      value:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: inputs.Username
+              operator: containsGeneral
+              right:
+                value:
+                  simple: \
+          root: inputs.Username
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Saves the usernames with domain prefixes under a new context key.
+
+        This automation runs using the default Limited User role, unless you explicitly change the permissions.
+        For more information, see the section about permissions here:
+        https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.10/Cortex-XSOAR-Administrator-Guide/Automations
+      id: 59883712-8f94-4316-870e-21a76ae75517
+      iscommand: false
+      name: Save account usernames with domains
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 59883712-8f94-4316-870e-21a76ae75517
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2330,
+          "y": 190
         }
       }
 version: -1
@@ -1838,7 +2100,7 @@ view: |-
   {
     "linkLabelsPosition": {
       "18_3_#default#": 0.1,
-      "1_3_#default#": 0.14,
+      "1_3_#default#": 0.1,
       "20_3_#default#": 0.1,
       "33_3_#default#": 0.1,
       "43_3_#default#": 0.1,
@@ -1846,13 +2108,15 @@ view: |-
       "51_3_#default#": 0.1,
       "56_3_#default#": 0.1,
       "58_3_#default#": 0.1,
-      "65_66_yes": 0.59
+      "65_66_yes": 0.59,
+      "68_3_#default#": 0.11,
+      "68_69_yes": 0.11
     },
     "paper": {
       "dimensions": {
-        "height": 1495,
-        "width": 4220,
-        "x": -1710,
+        "height": 1825,
+        "width": 4410,
+        "x": -1700,
         "y": -200
       }
     }

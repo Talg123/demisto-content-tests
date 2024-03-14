@@ -5,7 +5,6 @@
 	"data": "10.0.0.0/8, IANA_Private_Address\n172.16.0.0/12, IANA_Private_Address\n192.168.0.0/16, IANA_Private_Address",
 	"definitionId": "",
 	"description": "",
-	"detached": false,
 	"fromServerVersion": "6.5.0",
 	"id": "PrivateIPs",
 	"itemVersion": "1.12.15",

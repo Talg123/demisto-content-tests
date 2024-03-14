@@ -22,8 +22,8 @@ commonfields:
 contentitemexportablefields:
   contentitemfields:
     definitionid: ""
-    fromServerVersion: 6.2.0
-    itemVersion: 1.12.15
+    fromServerVersion: 6.0.0
+    itemVersion: 1.14.15
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -31,7 +31,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.13.89009
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -41,7 +41,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('FileCreateAndUploadV2', 'start', __line__())
-  ### pack version: 1.12.15
+  ### pack version: 1.14.15
 
 
   import base64

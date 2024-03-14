@@ -3463,6 +3463,7 @@
 		"widget": null,
 		"wizard": null
 	},
+	"created": "2020-07-26T23:01:30+03:00",
 	"currentVersion": "3.3.83",
 	"definitionId": "",
 	"dependencies": {
@@ -4118,7 +4119,7 @@
 		"Partner Spotlight"
 	],
 	"toServerVersion": "",
-	"updated": "2024-01-22T21:44:04Z",
+	"updated": "2024-03-11T12:39:40+02:00",
 	"useCases": [],
 	"version": -1,
 	"versionInfo": "5972692",

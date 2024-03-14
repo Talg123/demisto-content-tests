@@ -14,7 +14,8 @@
 		"IAM - Sync User",
 		"IAM - Rehire User",
 		"IAM - AD User Activation",
-		"IAM - AD User Deactivation"
+		"IAM - AD User Deactivation",
+		"Vectra Account"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

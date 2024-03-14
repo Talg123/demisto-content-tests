@@ -34,7 +34,6 @@
 					{
 						"args": {
 							"delimiter": {
-								"isContext": false,
 								"value": {
 									"simple": ","
 								}

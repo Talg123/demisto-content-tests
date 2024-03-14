@@ -11,15 +11,15 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.1.0
-    itemVersion: 1.2.27
+    itemVersion: 1.2.64
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
     - all
     prevname: ""
     propagationLabels: []
-    toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+    toServerVersion: 6.10.9
+dockerimage: demisto/python3:3.10.13.83255
 engineinfo: {}
 mainengineinfo: {}
 name: ExtractEmailTransformer
@@ -28,12 +28,12 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ExtractEmailTransformer', 'start', __line__())
-  ### pack version: 1.2.27
+  ### pack version: 1.2.64
 
 
 
 
-  def main():
+  def main():  # pragma: no cover
       try:
           return_results(extract(argToList(demisto.args().get('value'))))
       except Exception as error:

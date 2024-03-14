@@ -2115,6 +2115,7 @@
 		"widget": null,
 		"wizard": null
 	},
+	"created": "2020-07-27T12:01:37+03:00",
 	"currentVersion": "1.12.15",
 	"definitionId": "",
 	"dependencies": {
@@ -2327,7 +2328,7 @@
 		"Core"
 	],
 	"toServerVersion": "",
-	"updated": "2024-02-05T20:19:12Z",
+	"updated": "2024-03-13T22:30:57+02:00",
 	"useCases": [],
 	"version": -1,
 	"versionInfo": "6058978",

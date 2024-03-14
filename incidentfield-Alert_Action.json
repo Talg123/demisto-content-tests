@@ -6,7 +6,9 @@
 		"FireEye NX IPS Event",
 		"FireEye NX Alert",
 		"FireEye HX Alert",
-		"FireEye EX Alert"
+		"FireEye EX Alert",
+		"Skyhigh Security Alert",
+		"Skyhigh Security Threat"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

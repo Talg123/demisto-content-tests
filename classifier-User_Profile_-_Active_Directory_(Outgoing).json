@@ -29,7 +29,6 @@
 							{
 								"args": {
 									"delimiter": {
-										"isContext": false,
 										"value": {
 											"simple": "@"
 										}
@@ -40,7 +39,6 @@
 							{
 								"args": {
 									"index": {
-										"isContext": false,
 										"value": {
 											"simple": "0"
 										}
@@ -86,7 +84,6 @@
 							{
 								"args": {
 									"delimiter": {
-										"isContext": false,
 										"value": {
 											"simple": "@"
 										}
@@ -97,7 +94,6 @@
 							{
 								"args": {
 									"index": {
-										"isContext": false,
 										"value": {
 											"simple": "0"
 										}
@@ -138,11 +134,8 @@
 						"transformers": [
 							{
 								"args": {
-									"prefix": {
-										"isContext": false
-									},
+									"prefix": {},
 									"suffix": {
-										"isContext": false,
 										"value": {
 											"simple": "${surname}"
 										}
@@ -191,7 +184,6 @@
 							{
 								"args": {
 									"delimiter": {
-										"isContext": false,
 										"value": {
 											"simple": "@"
 										}
@@ -202,7 +194,6 @@
 							{
 								"args": {
 									"index": {
-										"isContext": false,
 										"value": {
 											"simple": "0"
 										}

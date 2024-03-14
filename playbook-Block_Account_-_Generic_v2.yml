@@ -2,7 +2,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 2.3.90
+    itemVersion: 2.6.21
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -30,7 +30,7 @@ description: |-
   * Prisma Cloud IAM
   * Zoom IAM
   * Atlassian IAM
-  * GitHub IAM
+  * GitHub IAM.
 id: Block Account - Generic v2
 inputs:
 - description: Array of malicious usernames to block.
@@ -259,7 +259,7 @@ tasks:
             iscontext: true
             value:
               simple: inputs.Tag
-          operator: isExists
+          operator: isNotEmpty
       label: "yes"
     continueonerrortype: ""
     id: "16"
@@ -577,9 +577,11 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
-        simple: '*Okta*'
+        simple: Okta IAM
     separatecontext: false
     skipunavailable: false
     task:
@@ -612,9 +614,11 @@ tasks:
       '#default#':
       - "2"
       "yes":
-      - "35"
+      - "75"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: SailPointIdentityIQ
@@ -653,6 +657,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: AWS - IAM
@@ -691,6 +697,8 @@ tasks:
       - "34"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: PingOne
@@ -729,6 +737,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: ClarizenIAM
@@ -767,6 +777,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Envoy IAM
@@ -805,6 +817,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: ExceedLMS IAM
@@ -878,7 +892,9 @@ tasks:
     quietmode: 0
     scriptarguments:
       username:
-        simple: ${Blocklist.Final}
+        complex:
+          accessor: Final
+          root: Blocklist
     separatecontext: false
     skipunavailable: true
     task:
@@ -913,7 +929,9 @@ tasks:
     quietmode: 0
     scriptarguments:
       id:
-        simple: ${Blocklist.Final}
+        complex:
+          accessor: id
+          root: IdentityIQ.Account
     separatecontext: false
     skipunavailable: true
     task:
@@ -932,7 +950,7 @@ tasks:
       {
         "position": {
           "x": 640,
-          "y": 920
+          "y": 1090
         }
       }
   "36":
@@ -948,6 +966,8 @@ tasks:
       - "16"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Panorama
@@ -986,6 +1006,8 @@ tasks:
       - "48"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Active Directory Query v2
@@ -1525,7 +1547,8 @@ tasks:
       key:
         simple: Blocklist.Final
       value:
-        simple: ${inputs.Username}
+        complex:
+          root: inputs.Username
     separatecontext: false
     skipunavailable: false
     task:
@@ -1565,7 +1588,9 @@ tasks:
     quietmode: 0
     scriptarguments:
       username:
-        simple: ${Blocklist.Final}
+        complex:
+          accessor: Final
+          root: Blocklist
     separatecontext: false
     skipunavailable: false
     task:
@@ -1650,6 +1675,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Slack IAM
@@ -1718,6 +1745,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: ServiceNow IAM
@@ -1786,6 +1815,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Salesforce IAM
@@ -1854,6 +1885,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: PrismaCloud IAM
@@ -1922,6 +1955,8 @@ tasks:
       - "69"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Microsoft Graph User
@@ -1990,6 +2025,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Zoom_IAM
@@ -2058,6 +2095,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: Atlassian IAM
@@ -2126,7 +2165,9 @@ tasks:
     quietmode: 0
     scriptarguments:
       user:
-        simple: ${Blocklist.Final}
+        complex:
+          accessor: Final
+          root: Blocklist
     separatecontext: false
     skipunavailable: true
     task:
@@ -2164,6 +2205,8 @@ tasks:
       - "33"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: GitHub IAM
@@ -2226,10 +2269,14 @@ tasks:
     isautoswitchedtoquietmode: false
     isoversize: false
     nexttasks:
+      '#default#':
+      - "2"
       "yes":
       - "74"
     note: false
     quietmode: 0
+    results:
+    - brandInstances
     scriptarguments:
       brandname:
         simple: GSuiteAdmin
@@ -2300,7 +2347,9 @@ tasks:
       suspended:
         simple: "true"
       user_key:
-        simple: ${Blocklist.Final}
+        complex:
+          accessor: Final
+          root: Blocklist
     separatecontext: false
     skipunavailable: true
     task:
@@ -2322,6 +2371,45 @@ tasks:
           "y": 920
         }
       }
+  "75":
+    continueonerrortype: ""
+    id: "75"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "35"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      display_name:
+        complex:
+          accessor: Final
+          root: Blocklist
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Fetch accounts by search/filter parameters (id, display_name, last_refresh,
+        native_identity, last_target_agg, identity_name & application_name) using
+        IdentityIQ SCIM APIs.
+      id: 4ebe9bf0-210f-4752-83d0-bb2e2a03262a
+      iscommand: true
+      name: Get Account IDs From SailPoint
+      script: '|||identityiq-get-accounts'
+      type: regular
+      version: -1
+    taskid: 4ebe9bf0-210f-4752-83d0-bb2e2a03262a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 640,
+          "y": 920
+        }
+      }
 version: -1
 view: |-
   {
@@ -2331,7 +2419,6 @@ view: |-
       "26_2_#default#": 0.11,
       "26_33_yes": 0.14,
       "27_2_#default#": 0.1,
-      "27_35_yes": 0.31,
       "28_2_#default#": 0.15,
       "28_33_yes": 0.1,
       "29_2_#default#": 0.11,
@@ -2363,6 +2450,7 @@ view: |-
       "67_33_yes": 0.1,
       "70_2_#default#": 0.1,
       "70_33_yes": 0.1,
+      "72_2_#default#": 0.1,
       "72_74_yes": 0.44,
       "8_38_yes": 0.65,
       "8_39_#default#": 0.13

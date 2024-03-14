@@ -402,6 +402,7 @@
 		"widget": null,
 		"wizard": null
 	},
+	"created": "2020-07-26T22:55:56+03:00",
 	"currentVersion": "3.1.6",
 	"definitionId": "",
 	"dependencies": {
@@ -581,7 +582,7 @@
 		"Spam"
 	],
 	"toServerVersion": "",
-	"updated": "2024-01-29T10:31:18Z",
+	"updated": "2024-03-11T12:39:20+02:00",
 	"useCases": [
 		"Phishing"
 	],

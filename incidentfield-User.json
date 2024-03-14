@@ -4,9 +4,7 @@
 	"associatedToAll": false,
 	"associatedTypes": [
 		"Authentication",
-		"Exploit",
-		"Malware",
-		"DoS"
+		"Malware"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

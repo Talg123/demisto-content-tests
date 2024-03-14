@@ -160,7 +160,7 @@
 	"fromServerVersion": "5.5.0",
 	"id": "IPv6CIDR",
 	"itemVersion": "3.3.83",
-	"layout": "",
+	"layout": "ipRep",
 	"legacyNames": null,
 	"locked": false,
 	"manualMapping": null,

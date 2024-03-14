@@ -1,5 +1,5 @@
 args:
-- description: The indicator values
+- description: The indicator values.
   isArray: true
   name: indicator_values
 - auto: PREDEFINED
@@ -42,8 +42,9 @@ args:
   - "true"
   - "false"
 comment: Create indicators to the Threat Intel database only if they are not registered.
-  When using the script with many indicators, or when the Threat Intel Management
-  database is highly populated, this script may have low performance issue.
+  All submitted indicators will be associated with the parent incident. When using
+  the script with many indicators, or when the Threat Intel Management database is
+  highly populated, this script may have low performance issue.
 commonfields:
   id: CreateNewIndicatorsOnly
   version: -1
@@ -51,7 +52,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.5.0
-    itemVersion: 1.12.15
+    itemVersion: 1.14.15
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -59,7 +60,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.68300
+dockerimage: demisto/python3:3.10.13.89009
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -86,7 +87,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CreateNewIndicatorsOnly', 'start', __line__())
-  ### pack version: 1.12.15
+  ### pack version: 1.14.15
 
 
   from typing import Any
@@ -97,6 +98,24 @@ script: |
   STATUS_UNAVAILABLE = 'unavailable'
 
   KEY_CREATION_STATUS = 'CreationStatus'
+
+
+  def associate_indicator_to_incident(indicator_value: Any) -> None:
+      """
+      Associate an indicator to this incident. Raise an exception if an error occurs.
+      """
+
+      incident_id = demisto.incidents()[0].get('id')
+
+      cmd_args = {
+          'incidentId': incident_id,
+          'value': f"{indicator_value}"  # Force an error
+      }
+
+      res = execute_command('associateIndicatorToIncident', cmd_args)
+
+      if (res != 'done'):
+          raise Exception(f"Failed to associate {indicator_value} with incident {incident_id}")
 
 
   def normalize_indicator_value(indicator_value: Any) -> str:
@@ -136,6 +155,7 @@ script: |
               }
           else:
               raise DemistoException(f'Unknown response from createNewIndicator: str{indicator_value}')
+      associate_indicator_to_incident(indicator_value)
 
       return indicator
 

@@ -3,7 +3,8 @@
 	"aliases": null,
 	"associatedToAll": false,
 	"associatedTypes": [
-		"ExtraHop Detection"
+		"ExtraHop Detection",
+		"Vectra Detection"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",
@@ -15,7 +16,7 @@
 	"content": true,
 	"defaultRows": null,
 	"definitionId": "",
-	"description": "ID of the ExtraHop Reveal(x) detection",
+	"description": "",
 	"editForm": true,
 	"fieldCalcScript": "",
 	"fromServerVersion": "5.0.0",

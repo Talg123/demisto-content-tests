@@ -12,7 +12,8 @@
 		"IAM - Terminate User",
 		"IAM - Update User",
 		"User Profile",
-		"IAM - Sync User"
+		"IAM - Sync User",
+		"Vectra Account"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

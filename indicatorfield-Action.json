@@ -1,10 +1,8 @@
 {
 	"aliasTo": "",
 	"aliases": null,
-	"associatedToAll": false,
-	"associatedTypes": [
-		"Course of Action"
-	],
+	"associatedToAll": true,
+	"associatedTypes": null,
 	"autoCompleteTags": null,
 	"breachScript": "",
 	"cacheVersn": 0,

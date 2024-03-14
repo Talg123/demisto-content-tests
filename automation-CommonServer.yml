@@ -1,4 +1,4 @@
-comment: Common code that will be merged into each server script when it runs
+comment: Common code that will be merged into each server script when it runs.
 commonfields:
   id: CommonServer
   version: -1
@@ -6,14 +6,14 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 5.0.0
-    itemVersion: 1.32.27
+    itemVersion: 1.33.40
     packID: Base
     packName: Base
     packPropagationLabels:
     - all
     prevname: ""
     propagationLabels: []
-    toServerVersion: ""
+    toServerVersion: 6.10.9
 engineinfo: {}
 mainengineinfo: {}
 name: CommonServer
@@ -21,7 +21,7 @@ pswd: ""
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.32.27
+  // pack version: 1.33.40
   // Common functions script
   // =======================
   // This script will be appended to each server script before being executed.

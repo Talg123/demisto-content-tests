@@ -303,7 +303,6 @@
 									},
 									"operator": "isEqualString",
 									"right": {
-										"isContext": false,
 										"value": {
 											"simple": "Add"
 										}

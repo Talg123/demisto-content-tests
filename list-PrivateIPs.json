@@ -7,7 +7,7 @@
 	"description": "",
 	"fromServerVersion": "6.5.0",
 	"id": "PrivateIPs",
-	"itemVersion": "1.12.15",
+	"itemVersion": "1.14.15",
 	"locked": false,
 	"name": "PrivateIPs",
 	"nameLocked": false,

@@ -9,7 +9,9 @@
 		"SysAid Request",
 		"Qradar Generic",
 		"Guardicore Incident",
-		"Saas Security Incident"
+		"Saas Security Incident",
+		"Exabeam Incident",
+		"Graph Security Alert"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

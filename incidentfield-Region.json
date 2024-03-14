@@ -8,6 +8,12 @@
 		"AWS CloudTrail Misconfiguration",
 		"AWS IAM Policy Misconfiguration",
 		"AWS EC2 Instance Misconfiguration",
+		"AWS Guard Duty EC2 Finding",
+		"AWS Guard Duty IAM Finding",
+		"AWS Guard Duty Kubernetes Finding",
+		"AWS Guard Duty Malware Protection Finding",
+		"AWS Guard Duty S3 Finding",
+		"AWS Security Hub Finding",
 		"Prisma Cloud - VM Alert Prioritization"
 	],
 	"autoCompleteTags": null,

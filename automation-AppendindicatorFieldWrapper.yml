@@ -19,15 +19,15 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.2.0
-    itemVersion: 1.4.1
-    packID: Malware
-    packName: Malware Core
+    itemVersion: 1.14.15
+    packID: CommonScripts
+    packName: Common Scripts
     packPropagationLabels:
     - all
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.4.28442
+dockerimage: demisto/python3:3.10.13.83255
 engineinfo: {}
 mainengineinfo: {}
 name: AppendindicatorFieldWrapper
@@ -36,12 +36,13 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('AppendindicatorFieldWrapper', 'start', __line__())
+  ### pack version: 1.14.15
+
+
   """
   A wrapper script to the 'AppendindicatorField' script, that enables adding tags to certain indicators.
   Note: You can use this script as a layout button that allows adding tags to indicators.
   """
-
-
 
 
 
@@ -104,5 +105,6 @@ script: |
 scripttarget: 0
 subtype: python3
 system: true
-tags: []
+tags:
+- incident-action-button
 type: python

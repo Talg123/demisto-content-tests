@@ -5,7 +5,6 @@
 	"data": "",
 	"definitionId": "",
 	"description": "",
-	"detached": false,
 	"fromServerVersion": "6.5.0",
 	"id": "InternalDomains",
 	"itemVersion": "1.12.15",

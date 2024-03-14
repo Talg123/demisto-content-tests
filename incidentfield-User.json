@@ -3,10 +3,8 @@
 	"aliases": null,
 	"associatedToAll": false,
 	"associatedTypes": [
-		"Malware",
 		"Authentication",
-		"C2Communication",
-		"DoS"
+		"C2Communication"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

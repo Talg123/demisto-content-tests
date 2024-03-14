@@ -58,7 +58,7 @@
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
-	"script": "",
+	"script": "emailFieldTriggered",
 	"selectValues": [],
 	"sla": 0,
 	"system": false,

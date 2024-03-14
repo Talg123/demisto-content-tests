@@ -3,7 +3,9 @@
 	"aliases": null,
 	"associatedToAll": false,
 	"associatedTypes": [
-		"Guardicore Incident"
+		"Guardicore Incident",
+		"Graph Security Alert",
+		"CrowdStrike Falcon IDP Detection"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

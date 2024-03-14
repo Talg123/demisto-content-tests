@@ -755,7 +755,7 @@ tasks:
       id: 137f0525-e598-48d5-8d78-73973f950dbd
       iscommand: false
       name: Detonate URL - VirusTotal (API v3)
-      playbookName: Detonate URL - VirusTotal (API v3)
+      playbookId: Detonate URL - VirusTotal (API v3)
       type: playbook
       version: -1
     taskid: 137f0525-e598-48d5-8d78-73973f950dbd

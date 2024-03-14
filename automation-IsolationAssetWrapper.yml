@@ -19,15 +19,15 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 1.12.15
-    packID: CommonScripts
-    packName: Common Scripts
+    itemVersion: 1.4.1
+    packID: Malware
+    packName: Malware Core
     packPropagationLabels:
     - all
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.12.63474
+dockerimage: demisto/python3:3.10.4.30607
 engineinfo: {}
 mainengineinfo: {}
 name: IsolationAssetWrapper
@@ -80,7 +80,6 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('IsolationAssetWrapper', 'start', __line__())
-  ### pack version: 1.12.15
   from typing import Tuple
 
 
@@ -178,5 +177,4 @@ subtype: python3
 system: true
 tags:
 - basescript
-- incident-action-button
 type: python

@@ -3,7 +3,8 @@
 	"aliases": null,
 	"associatedToAll": false,
 	"associatedTypes": [
-		"Qradar Generic"
+		"Qradar Generic",
+		"Vectra Account"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

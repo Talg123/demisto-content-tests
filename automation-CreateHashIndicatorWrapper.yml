@@ -18,7 +18,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 1.4.1
+    itemVersion: 1.4.11
     packID: Malware
     packName: Malware Core
     packPropagationLabels:
@@ -26,7 +26,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.4.30607
+dockerimage: demisto/python3:3.10.13.83255
 engineinfo: {}
 mainengineinfo: {}
 name: CreateHashIndicatorWrapper
@@ -68,7 +68,7 @@ outputs:
   description: 'DateTime string indicating when the indicator expires. To avoid stale
     indicators persisting in the system, all indicators must have an expiration date.
     The timestamp type represents date and time information in ISO 8601 format and
-    is always in UTC time. For example, midnight UTC on Jan 1, 2014 looks like: ''2014-01-01T00:00:00Z'''
+    is always in UTC time. For example, midnight UTC on Jan 1, 2014 looks like: ''2014-01-01T00:00:00Z''.'
   type: Date
 - contextPath: MicrosoftATP.Indicators.externalId
   description: An identification number that ties the indicator back to the indicator
@@ -77,12 +77,12 @@ outputs:
 - contextPath: MicrosoftATP.Indicators.fileCompileDateTime
   description: 'DateTime the file was compiled. The timestamp type represents date
     and time information in ISO 8601 format and is always in UTC time. For example,
-    midnight UTC on Jan 1, 2014 looks like: ''2014-01-01T00:00:00Z'''
+    midnight UTC on Jan 1, 2014 looks like: ''2014-01-01T00:00:00Z''.'
   type: Date
 - contextPath: MicrosoftATP.Indicators.fileCreatedDateTime
   description: 'DateTime the file was created.The Timestamp type represents date and
     time information in ISO 8601 format and is always in UTC time. For example, midnight
-    UTC on Jan 1, 2014 looks like: ''2014-01-01T00:00:00Z'''
+    UTC on Jan 1, 2014 looks like: ''2014-01-01T00:00:00Z''.'
   type: Date
 - contextPath: MicrosoftATP.Indicators.fileHashType
   description: 'The type of hash stored in fileHashValue. Possible values: "unknown",
@@ -115,7 +115,7 @@ outputs:
 - contextPath: MicrosoftATP.Indicators.ingestedDateTime
   description: 'The timestamp the indicator was ingested into the system. The Timestamp
     type represents date and time information in ISO 8601 format and is always in
-    UTC time. For example, midnight UTC on Jan 1, 2014 looks like: ''2014-01-01T00:00:00Z'''
+    UTC time. For example, midnight UTC on Jan 1, 2014 looks like: ''2014-01-01T00:00:00Z''.'
   type: Date
 - contextPath: MicrosoftATP.Indicators.isActive
   description: Used to deactivate indicators within the system. By default, any indicator
@@ -129,7 +129,7 @@ outputs:
 - contextPath: MicrosoftATP.Indicators.lastReportedDateTime
   description: 'The last time the indicator was seen. The timestamp type represents
     date and time information in ISO 8601 format and is always in UTC time. For example,
-    midnight UTC on Jan 1, 2014 looks like: ''2014-01-01T00:00:00Z'''
+    midnight UTC on Jan 1, 2014 looks like: ''2014-01-01T00:00:00Z''.'
   type: Date
 - contextPath: MicrosoftATP.Indicators.networkCidrBlock
   description: The CIDR Block notation representation of the network referenced in
@@ -282,6 +282,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CreateHashIndicatorWrapper', 'start', __line__())
+  ### pack version: 1.4.11
   from typing import Tuple
 
 

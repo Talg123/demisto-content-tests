@@ -7,7 +7,8 @@
 		"SysAid Incident",
 		"SysAid Problem",
 		"SysAid Request",
-		"Qradar Generic"
+		"Qradar Generic",
+		"Microsoft Sentinel Incident"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

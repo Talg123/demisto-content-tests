@@ -18,7 +18,10 @@
 		"AWS Guard Duty S3 Finding",
 		"AWS Security Hub Finding",
 		"Prisma Cloud - VM Alert Prioritization",
-		"CrowdStrike Falcon IDP Detection"
+		"CrowdStrike Falcon IDP Detection",
+		"Access",
+		"C2Communication",
+		"Authentication"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",
@@ -56,7 +59,7 @@
 	"required": false,
 	"runScriptAfterUpdate": false,
 	"script": "",
-	"selectValues": null,
+	"selectValues": [],
 	"sla": 0,
 	"system": false,
 	"systemAssociatedTypes": [

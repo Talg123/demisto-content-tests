@@ -1,7 +1,7 @@
 {
 	"aliasTo": "",
 	"aliases": null,
-	"associatedToAll": false,
+	"associatedToAll": true,
 	"associatedTypes": [
 		"AWS Security Hub",
 		"Campaign",

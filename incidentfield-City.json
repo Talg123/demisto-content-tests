@@ -9,7 +9,9 @@
 		"IAM - Update User",
 		"User Profile",
 		"IAM - Sync User",
-		"IAM - Rehire User"
+		"IAM - Rehire User",
+		"Skyhigh Security Alert",
+		"Skyhigh Security Threat"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",

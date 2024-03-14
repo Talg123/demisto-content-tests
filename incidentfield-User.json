@@ -3,7 +3,10 @@
 	"aliases": null,
 	"associatedToAll": false,
 	"associatedTypes": [
-		"Malware"
+		"Malware",
+		"Authentication",
+		"C2Communication",
+		"DoS"
 	],
 	"autoCompleteTags": null,
 	"breachScript": "",
@@ -41,7 +44,7 @@
 	"required": false,
 	"runScriptAfterUpdate": false,
 	"script": "",
-	"selectValues": null,
+	"selectValues": [],
 	"sla": 0,
 	"system": false,
 	"systemAssociatedTypes": [

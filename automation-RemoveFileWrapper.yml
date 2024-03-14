@@ -25,7 +25,7 @@ contentitemexportablefields:
   contentitemfields:
     definitionid: ""
     fromServerVersion: 6.0.0
-    itemVersion: 1.4.1
+    itemVersion: 1.4.11
     packID: Malware
     packName: Malware Core
     packPropagationLabels:
@@ -33,7 +33,7 @@ contentitemexportablefields:
     prevname: ""
     propagationLabels: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.10.4.30607
+dockerimage: demisto/python3:3.10.13.83255
 engineinfo: {}
 mainengineinfo: {}
 name: RemoveFileWrapper
@@ -91,6 +91,7 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('RemoveFileWrapper', 'start', __line__())
+  ### pack version: 1.4.11
 
 
   ''' STANDALONE FUNCTION '''

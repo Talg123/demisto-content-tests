@@ -110,15 +110,9 @@
 					},
 					{
 						"args": {
-							"dayfirst": {
-								"isContext": false
-							},
-							"fuzzy": {
-								"isContext": false
-							},
-							"yearfirst": {
-								"isContext": false
-							}
+							"dayfirst": {},
+							"fuzzy": {},
+							"yearfirst": {}
 						},
 						"operator": "DateStringToISOFormat"
 					}
@@ -424,15 +418,9 @@
 					},
 					{
 						"args": {
-							"dayfirst": {
-								"isContext": false
-							},
-							"fuzzy": {
-								"isContext": false
-							},
-							"yearfirst": {
-								"isContext": false
-							}
+							"dayfirst": {},
+							"fuzzy": {},
+							"yearfirst": {}
 						},
 						"operator": "DateStringToISOFormat"
 					}

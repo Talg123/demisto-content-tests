@@ -15,7 +15,7 @@
 	"fromServerVersion": "5.5.0",
 	"id": "DomainGlob",
 	"itemVersion": "3.3.83",
-	"layout": "",
+	"layout": "domainRepUnified",
 	"legacyNames": null,
 	"locked": false,
 	"manualMapping": null,
